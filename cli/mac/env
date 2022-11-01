@@ -1,13 +1,16 @@
 which -s brew
 if [[ $? != 0 ]] ; then
     # Install Homebrew
-    /bin/bash -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://gitee.com/ineo6/homebrew-install/raw/master/install.sh)"
     echo 
     location=$(which brew)
     echo "✅ brew installed successfully in $location"
     echo "✅ brew 安装完成"
     echo 
     export HOMEBREW_NO_AUTO_UPDATE=1;
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/admin/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    echo "✅ 环境变量设置成功，Homebrew 已添加到 PATH 中"
     # 安装 git
     brew install git;
     echo 
@@ -48,11 +51,21 @@ if [[ $? != 0 ]] ; then
     echo "✅ SDL2 installed successfully in $location"
     echo "✅ SDL2 安装完成"
     echo 
-    brew install node;npm install -g serve;npm install -g kill-port;
+    brew install node;
     echo 
     location=$(which node)
     echo "✅ node installed successfully in $location"
-    echo "✅ node 安装完成"'
+    echo "✅ node 安装完成"
+    npm install -g serve;
+    echo 
+    location=$(which serve)
+    echo "✅ serve installed successfully in $location"
+    echo "✅ serve 安装完成"
+    npm install -g kill-port;
+    echo 
+    location=$(which kill-port)
+    echo "✅ kill-port installed successfully in $location"
+    echo "✅ kill-port 安装完成"
 else
     which -s git
     if [[ $? != 0 ]] ; then
@@ -185,7 +198,7 @@ else
         # 对于 bash 用户：
         echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
         # source ~/.bash_profile
-        brew install node
+        brew install node;
         echo 
         location=$(which node)
         echo "✅ node installed successfully in $location"
@@ -193,7 +206,31 @@ else
         echo 
         location=$(which node)
         echo "💻 node is already existed in $location"
-    fi'
+    fi
+
+    which -s serve
+    if [[ $? != 0 ]] ; then
+        npm install -g serve;
+        echo 
+        location=$(which serve)
+        echo "✅ serve installed successfully in $location"
+    else
+        echo 
+        location=$(which serve)
+        echo "💻 serve is already existed in $location"
+    fi
+
+    which -s kill-port
+    if [[ $? != 0 ]] ; then
+        npm install -g kill-port;
+        echo 
+        location=$(which kill-port)
+        echo "💻 kill-port installed successfully in $location"
+    else
+        echo 
+        location=$(which kill-port)
+        echo "💻 kill-port is already existed in $location"
+    fi
 fi
 
 echo 
