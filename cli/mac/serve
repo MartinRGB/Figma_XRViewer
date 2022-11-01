@@ -1,4 +1,1 @@
-#!/bin/bash
-BASEDIR=$(dirname $0)
-cd ${BASEDIR}/my_project;ls;npx kill-port 3000;adb reverse tcp:3000 tcp:3000;serve
-echo "Script location: ${BASEDIR}"
+cd $( dirname $0 )/my_project;pwd;ls;npx kill-port 3000;adb reverse tcp:3000 tcp:3000;serve;
