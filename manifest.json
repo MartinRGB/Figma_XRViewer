@@ -1,0 +1,11 @@
+{
+  "name": "XRViewer",
+  "id": "00000000",
+  "api": "1.0.0",
+  "main": "figma/code.js",
+  "ui": "figma/ui.html",
+  "editorType": [
+    "figma",
+    "figjam"
+  ]
+}

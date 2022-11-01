@@ -1,0 +1,1 @@
+npx kill-port 3000 && adb reverse tcp:3000 tcp:3000 && serve .\my_project
