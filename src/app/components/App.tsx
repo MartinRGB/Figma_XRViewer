@@ -228,7 +228,7 @@ const XRContainer = (props) =>{
         // #TODO need thinking about rotation
         player.position.x = pX;
         // todo still some mistake
-        player.position.y = pY - 1.6000;//yScalePer/2 ;
+        player.position.y = pY;//yScalePer/2 ; //- 1.6000;//yScalePer/2 ;
         player.position.z = pZ * Math.tan( (fov/(2*zoom))* Math.PI/180.0)*fovSqrtInPlayer;
         player.rotation.x = rX
         player.rotation.y = rY
@@ -397,7 +397,7 @@ const Content = forwardRef((props,ref) =>{
 
   return(
       <SheetProvider sheet={assetSheet}>
-        <color attach="background" args={[bgColor]} /> 
+        {/* <color attach="background" args={[bgColor]} />  */}
         <ambientLight />
         <Camera 
           mount={props.mount} 
