@@ -6,12 +6,11 @@
     },
     "github": {
       "release": true,
-      "assets": ["figma/*.zip"]
+      "assets": ["./figma/figma.zip"]
     },
     "npm": {
       "publish": false,
       "skipChecks": true
-    },
-    "requireCleanWorkingDir": false
+    }
     
 }
