@@ -5,8 +5,7 @@
       "requireCleanWorkingDir":false
     },
     "github": {
-      "release": true,
-      "assets": ["./figma/figma.zip"]
+      "release": true
     },
     "npm": {
       "publish": false,
