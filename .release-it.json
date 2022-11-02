@@ -1,6 +1,12 @@
 {
+    "hooks": {},
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "requireCleanWorkingDir":false
+    },
     "github": {
-      "release": true
+      "release": true,
+      "assets": ["figma/*.zip"]
     },
     "npm": {
       "publish": false,
