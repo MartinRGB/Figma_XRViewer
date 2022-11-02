@@ -9,7 +9,7 @@
 		"build:watch": "webpack --config ./webpack/webpack.config.js --mode=development --watch",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"watch": "npm-run-all -l -p build:watch dev",
-		"release": "release-it --no-npm --no-git.requireCleanWorkingDir --github.release --github.update --github.assets=*.zip --no-github.draft"
+		"release": "release-it"
 	},
 	"dependencies": {
 		"@theatre/core": "^0.5.0",
