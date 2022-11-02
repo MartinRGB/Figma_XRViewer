@@ -1,13 +1,14 @@
 {
     "hooks": {},
     "git": {
-      "requireCleanWorkingDir":false,
+      "commitMessage": "martinrgb: release v${version}",
       "tag": false,
-      "push": false
+      "push": false,
+      "requireCleanWorkingDir":false
     },
     "github": {
-      "releaseName": "v${version}",
       "release": true,
+      "releaseName": "v${version}",
       "draft": false,
       "assets": ["release/figma.zip"]
       
