@@ -27,7 +27,7 @@ const assetSheet = getProject('WebXR Previewer').sheet('Node Tree','Asset')
 const sceneHelper = helperSheet.object('helper', {
   cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),
-  dotHelper:types.boolean(true),
+  dotHelper:types.boolean(false),
   quality: types.stringLiteral(defaultSaveImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
 })
 
@@ -35,8 +35,8 @@ const sceneHelper = helperSheet.object('helper', {
 const helperSetting = (scene,helperRef,yScalePerc) =>{
 
   const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
-
-  const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 128, 0xffffff, 0xffffff);
+  //radius angles radius
+  const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
   polarGridHelper.position.y = -yScalePerc/2*baseUnit;
   polarGridHelper.position.z = baseUnit;
   polarGridHelper.visible = helperRef.current.value.polarHelper;
@@ -207,11 +207,13 @@ const Orbit = (props) =>{
 }
 
 const XRContainer = (props) =>{
+  const {invalidate,scene,gl,camera} = useThree()
   const UseXR = () => {
     const {player,isPresenting,session} = useXR()
     useEffect(()=>{
       const mArr = props.camera.current.getParentRef().current.parent.children;
       if(isPresenting){
+
         player.visible = false;
         const mHelper =  searchElementByType(mArr,'type','CameraHelper')
         mHelper.visible = false;
@@ -228,14 +230,16 @@ const XRContainer = (props) =>{
         // #TODO need thinking about rotation
         player.position.x = pX;
         // todo still some mistake
-        player.position.y = pY;//yScalePer/2 ; //- 1.6000;//yScalePer/2 ;
+        player.position.y = pY - 1.60000;//yScalePer/2 ; //- 1.6000;//yScalePer/2 ;
         player.position.z = pZ * Math.tan( (fov/(2*zoom))* Math.PI/180.0)*fovSqrtInPlayer;
         player.rotation.x = rX
         player.rotation.y = rY
         player.rotation.z = rZ
+        player.children[0].position.y = 0;
         // player.matrixWorldNeedsUpdate = true;
         // invalidate();
-        setTimeout(()=>{player.visible = true},1);
+        console.log(player)
+        setTimeout(()=>{player.visible = true;invalidate();},1);
       }
       else{
       }
