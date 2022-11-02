@@ -6,7 +6,9 @@
     },
     "github": {
       "release": true,
+      "update": true,
       "assets": ["figma/figma.zip"]
+      
     },
     "npm": {
       "publish": false,
