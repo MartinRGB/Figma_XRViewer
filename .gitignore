@@ -3,9 +3,7 @@ dist
 settings.json
 figma/*.html
 figma/*.js
-figma/*.zip
 figma/*.txt
-*.zip
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
