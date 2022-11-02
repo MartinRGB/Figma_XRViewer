@@ -1,0 +1,22 @@
+{
+    "hooks": {},
+    "git": {
+      "requireCleanWorkingDir":false,
+      "tag": false,
+      "push": false
+    },
+    "github": {
+      "releaseName": "v${version}",
+      "release": true,
+      "draft": false,
+      "assets": ["release/figma.zip"]
+      
+    },
+    "npm": {
+      "publish": false
+    },
+    "gitlab": {
+      "release": false
+    }
+    
+}
