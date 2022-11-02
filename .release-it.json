@@ -1,0 +1,11 @@
+{
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false,
+      "skipChecks": true
+    },
+    "requireCleanWorkingDir": false
+    
+}

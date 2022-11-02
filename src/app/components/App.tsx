@@ -22,8 +22,8 @@ const defaultSaveImageQuality = 2;
 
 // # Theatre Studio
 const EditableCamera = e(PerspectiveCamera, 'perspectiveCamera')
-const helperSheet = getProject('WebXR Previewer').sheet('Node Tree','Helper')
-const assetSheet = getProject('WebXR Previewer').sheet('Node Tree','Asset')
+const helperSheet = getProject('XRViewer').sheet('Node Tree','Helper')
+const assetSheet = getProject('XRViewer').sheet('Node Tree','Asset')
 const sceneHelper = helperSheet.object('helper', {
   cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),
@@ -331,9 +331,9 @@ const Screen = (props) =>{
       <meshBasicMaterial 
           ref={screeMaterial}
           side={THREE.DoubleSide} 
-          // depthWrite={false}
-          transparent={false}
-          alphaTest ={0.5} 
+          depthWrite={false}
+          transparent={true}
+          alphaTest ={0.01} //0.5 
           map={currMap}
           toneMapped={false}
           color={hovered ? (props.index === 0?'':'hotpink') : 'white'}
