@@ -1,6 +1,6 @@
 {
 	"name": "XRViewer",
-	"version": "0.1.41",
+	"version": "0.1.42",
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
@@ -9,7 +9,7 @@
 		"build:watch": "webpack --config ./webpack/webpack.config.js --mode=development --watch",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"watch": "npm-run-all -l -p build:watch dev",
-		"release": "npm run build & echo build finished && bestzip release/figma.zip figma/* & echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* & echo mac script zipped && bestzip release/win_script.zip cli/win_script/* & echo win script zipped && dotenv release-it --ci --github.autoGenerate"
+		"release": "rm -rf release && mkdir release && npm run build && echo build finished && bestzip release/figma.zip figma/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
 	},
 	"dependencies": {
 		"@theatre/core": "^0.5.0",
@@ -48,6 +48,7 @@
 		"react-is": "^18.2.0",
 		"react-switch": "^7.0.0",
 		"react-tabs": "^5.1.0",
+		"release-it": "^15.5.0",
 		"style-loader": "^3.3.1",
 		"three": "^0.145.0",
 		"ts-loader": "^9.4.1",
