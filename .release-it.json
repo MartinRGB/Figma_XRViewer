@@ -10,7 +10,7 @@
       "release": true,
       "releaseName": "v${version}",
       "draft": false,
-      "assets": ["release/figma.zip"]
+      "assets": ["release/*.zip"]
       
     },
     "npm": {
