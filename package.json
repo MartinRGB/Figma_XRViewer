@@ -9,7 +9,7 @@
 		"build:watch": "webpack --config ./webpack/webpack.config.js --mode=development --watch",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"watch": "npm-run-all -l -p build:watch dev",
-		"release": "rm figma/code.js && rm figma/ui.html && rm figma/ui.js.LICENSE.txt && rm -rf release && mkdir release && npm run build && echo build finished && bestzip release/figma.zip figma/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
+		"release": "rm figma/code.js && rm figma/ui.html && rm figma/ui.js.LICENSE.txt && rm -rf release && mkdir release && echo all files cleaned && npm run build && echo build finished && bestzip release/figma.zip figma/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
 	},
 	"dependencies": {
 		"@theatre/core": "^0.5.0",
