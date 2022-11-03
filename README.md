@@ -24,10 +24,10 @@ There are three types of scripts: env/serve/run
 - env: installing the initial environment above, you need to install it once for the first time.
 - serve: placed in the upper level of the exported resources folder, after clicking it, the local machine will build a LAN server
 - run: The XR device needs to be in developer mode. Clicking on it will open the preview page on both the computer and the XR device.
-#### Note for Mac users
-	1. If the zip is not an executable file after unpacking, open a terminal and type:
-`chomd +x <drag and drop the file into Terminal here> ` to convert the file to an executable.
-	2. If a security prompt appears, right click to open the file
+- **Note for Mac users:**
+  1. If the zip is not an executable file after unpacking, open a terminal and type:
+  `chomd +x <drag and drop the file into Terminal here>` to convert the file to an executable.
+  2. If a security prompt appears, right click to open the file
 
 ## Plugin usage
 
