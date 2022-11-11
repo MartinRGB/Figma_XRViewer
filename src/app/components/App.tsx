@@ -266,7 +266,7 @@ const Screen = (props) =>{
   const screenGeom = useRef(null)
   const screenRef = useRef(null)
   const screenObjRef = useRef(null)
-  const defaultCurve = 0.00*baseUnit;
+  const defaultCurve = 0.001*baseUnit;
   const [yScalePerc,setYScalePerc] = useState(1);
   const [currMap,setCurrMap] = useState(null);
   const [currVis,setCurrVis] = useState(false);
@@ -319,8 +319,8 @@ const Screen = (props) =>{
       objRef={screenObjRef}
       additionalProps={{ 
         curve: types.number(defaultCurve, {
-          nudgeMultiplier: 0.01,
-          range:[0.0,baseUnit]
+          nudgeMultiplier: 0.001,
+          range:[0.001,baseUnit]
         }),
       }} 
       visible={currVis}
