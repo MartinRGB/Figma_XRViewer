@@ -56,7 +56,7 @@ function postImagePromise(){
           format: "PNG",
           constraint: {
               type: "SCALE",
-              value: 3,
+              value: 2,
           }
         }).then(
           resolved => {
@@ -80,7 +80,7 @@ function postImagePromise(){
                   format: "PNG",
                   constraint: {
                       type: "SCALE",
-                      value: 3,
+                      value: 2,
                   }
                 }).then( 
                   resolved => {
