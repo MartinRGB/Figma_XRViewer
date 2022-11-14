@@ -156,7 +156,7 @@ const Camera = forwardRef((props,ref) =>{
     });
   },[])
 
-  useFrame(() => {})
+  //useFrame(() => {})
   
   return (
     <>
@@ -270,7 +270,6 @@ const Screen = (props) =>{
   const [yScalePerc,setYScalePerc] = useState(1);
   const [currMap,setCurrMap] = useState(null);
   const [currVis,setCurrVis] = useState(false);
-
   useEffect(()=>{
     if(props.hasData){
       new THREE.TextureLoader().load(props.src, (tex) => {
@@ -301,12 +300,13 @@ const Screen = (props) =>{
         };
       })
     }
-  },[props.src,props.hasData])
+  },[props.src,props.hasData]) //props.src,props.hasData
 
   useEffect(()=>{ 
     screenObjRef.current.onValuesChange(newValues => {
       planeCurve(screenGeom.current,newValues.curve)
     });
+    
   },[screenRef])
 
   return(
@@ -342,6 +342,34 @@ const Screen = (props) =>{
   )
 }
 
+const getProperScreen = (props) =>{
+  return(
+    <>
+    {(props.figData.length != 0)?
+      <>
+        {props.figData.map(({ type,index,name,x,y,width,height,src}) => (
+          
+              <Screen  
+                key={type + '-three-' + index} 
+                src={src}
+                name={name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${index}`}
+                x={(index===0)?0:x}
+                y={(index===0)?0:y}
+                index={index}
+                width={width}
+                height={height}
+                fw={props.figData[0].width}
+                fh={props.figData[0].height}
+                hasData={true}
+                />
+        ))}
+        </>
+      :
+      <Screen name={'Screen'} hasData={false}/>
+    }
+    </>
+  )
+}
 
 const Content = forwardRef((props,ref) =>{
 
@@ -350,7 +378,7 @@ const Content = forwardRef((props,ref) =>{
   const helperRef = useRef(sceneHelper)
   const [isXR,setIsXR] = useState(false);
   const {invalidate,scene,gl,camera} = useThree()
-
+  
   useImperativeHandle(ref, () => ({
     saveImage: () => {
       scene.background = null;
@@ -365,47 +393,20 @@ const Content = forwardRef((props,ref) =>{
   const getCamera = useRef({getParentRef: () => {return cameraRef }});
   const getCameraObj = useRef({getParentRef: () => {return camraObjRef }});
 
-  const getProperScreen = (props) =>{
-    return(
-      <>
-      {(props.figData.length != 0)?
-        <>
-          {props.figData.map(({ type,index,name,x,y,width,height,src}) => (
-                <Screen  
-                  key={type + '-three-' + index} 
-                  src={src}
-                  name={name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${index}`}
-                  x={(index===0)?0:x}
-                  y={(index===0)?0:y}
-                  index={index}
-                  width={width}
-                  height={height}
-                  fw={props.figData[0].width}
-                  fh={props.figData[0].height}
-                  hasData={true}
-                  />
-          ))}
-          </>
-        :
-        <Screen name={'Screen'} hasData={false}/>
-      }
-      </>
-    )
-  }
 
-  useEffect(()=>{
-    const yScalePerc = (props.figData.length != 0)?props.figData[0].height/props.figData[0].width:(1080/1920);
-    helperSetting(scene,helperRef,yScalePerc);
-    theatreStudioCameraHelperFixed(scene,invalidate)
-  },[])
+  // useEffect(()=>{
+  //   const yScalePerc = (props.figData.length != 0)?props.figData[0].height/props.figData[0].width:(1080/1920);
+  //   helperSetting(scene,helperRef,yScalePerc);
+  //   theatreStudioCameraHelperFixed(scene,invalidate)
+  // },[])
 
   return(
       <SheetProvider sheet={assetSheet}>
         {/* <color attach="background" args={[bgColor]} />  */}
         <ambientLight />
         <Camera 
-          mount={props.mount} 
-          ref={cameraRef} 
+          mount={props.mount}
+          ref={cameraRef}
           objRef={camraObjRef}
           isXR={isXR}
           />
@@ -421,7 +422,8 @@ const Content = forwardRef((props,ref) =>{
             <SheetProvider sheet={assetSheet}>
               {getProperScreen(props)}
             </SheetProvider>
-          </XRContainer>):
+          </XRContainer>)
+          :
           <>
             <SheetProvider sheet={assetSheet}>
               {getProperScreen(props)}
@@ -438,7 +440,7 @@ const App = () => {
   const getMount = useRef({getParentRef: () => {return mountRef }});
 
   const [figData,setFigData] = useState([]);
-  const [isFigma, setIsFigma] = useState(false);
+  const [isFigma, setIsFigma] = useState(true);
 
   const onCreateImage = useCallback((event) => __awaiter(void 0, void 0, void 0, function* () {
       event.preventDefault();
@@ -527,18 +529,32 @@ const App = () => {
 
   React.useEffect(() => {
     //init with data
+    const parsedUrl = new URL(window.location.href);
+    const fileKey = parsedUrl.searchParams.get('query_key');
+    const nodeId = parsedUrl.searchParams.get('query_node');
+    const token = parsedUrl.searchParams.get('query_token');
+    console.log('fileKey is: ' + fileKey);
+    console.log('nodeId is: ' + nodeId);
+    console.log('token is: ' + token);
+
+    //try to get figma's data structrue & layer's imageRefreenfce
+
+
+    //on saved static data(Download(Static))
     if(savedFigData != ''){
       console.log('init with saved data')
       console.log(savedFigData)
       setFigData(savedFigData)
+      console.log('false figma')
       setIsFigma(false)
     }
     else{
       console.log('init with figma data')
     }
-    //on figma message
+
+    //on figma message(From figma plugin)
     window.onmessage = (event) => {
-      console.log(event.data.pluginMessage)
+      //console.log(event.data.pluginMessage)
       if(event.data.pluginMessage != undefined){
         const { type, value } = event.data.pluginMessage;
         if(type === 'selection'){
@@ -564,7 +580,6 @@ const App = () => {
       }
     };
   }, []);
-
 
   return (
     <>
