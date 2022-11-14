@@ -34,6 +34,7 @@ module.exports = {
     https: true,
     // host: '0.0.0.0',
     // port: 8081
+    port:8887,
   },
   entry:  path.resolve(__dirname, '..', './src/app/index.tsx'),
   output: {
