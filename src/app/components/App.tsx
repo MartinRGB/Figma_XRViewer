@@ -449,11 +449,26 @@ const Content = forwardRef((props,ref) =>{
 
 
   useEffect(()=>{
-    const yScalePerc = (props.figData.length != 0)?props.figData[props.figData.length - 1].height/props.figData[props.figData.length - 1].width:(1080/1920);
-    console.log('the screen aspect ratio is : ' + yScalePerc)
-    helperSetting(scene,helperRef,yScalePerc);
-    theatreStudioCameraHelperFixed(scene,invalidate)
-  },[])
+    // const yScalePerc = (props.figData.length != 0)?props.figData[props.figData.length - 1].height/props.figData[props.figData.length - 1].width:(1080/1920);
+    if(props.isQuery === true){
+      console.log(props.queryLoadingProgress.split('/'))
+      if(props.queryLoadingProgress.split('/').length === 2 && props.queryLoadingProgress.split('/')[0] === props.queryLoadingProgress.split('/')[1]){
+        const yScalePerc = props.figData[0].height/props.figData[0].width;
+        console.log('the screen aspect ratio is : ' + yScalePerc)
+        helperSetting(scene,helperRef,yScalePerc);
+        theatreStudioCameraHelperFixed(scene,invalidate)
+      }
+    }
+    else{
+      const yScalePerc = (props.figData.length != 0)?props.figData[0].height/props.figData[0].width:(1080/1920);
+      console.log('the screen aspect ratio is : ' + yScalePerc)
+      helperSetting(scene,helperRef,yScalePerc);
+      theatreStudioCameraHelperFixed(scene,invalidate)
+    }
+  
+
+
+  },[props.isQuery,props.queryLoadingProgress])
 
   return(
       <SheetProvider sheet={assetSheet}>
@@ -726,7 +741,6 @@ const App = () => {
       const childrenLength = parentNode.children.length;
 
       var jsonArr = new Array(childrenLength+1);
-
       const getSyncData = async (callback)=>{
         fetch(
           `https://api.figma.com/v1/` + 
@@ -748,7 +762,7 @@ const App = () => {
         .then((src) =>{
           const mIndex = 0;
           syncGetBase64FromUrl(src,(base64Src)=>{
-            jsonArr.splice(mIndex,0,{
+            jsonArr.splice(mIndex,1,{
               name:parentNode.name,
               width:parentNode.absoluteRenderBounds.width,
               height:parentNode.absoluteRenderBounds.height,
@@ -776,7 +790,7 @@ const App = () => {
           let index = i
           const node = parentNode.children[index];
 
-          const imgData = fetch(
+          fetch(
             `https://api.figma.com/v1/` + 
             `images/${fileKey}?`+ 
             `ids=${node.id}&`+
@@ -796,7 +810,7 @@ const App = () => {
           .then((src)=>{
             const mIndex = index + 1;
             syncGetBase64FromUrl(src,(base64Src)=>{
-              jsonArr.splice(mIndex,0,{
+              jsonArr.splice(mIndex,1,{
                 name:node.name,
                 width:node.absoluteRenderBounds.width,
                 height:node.absoluteRenderBounds.height,
@@ -923,6 +937,7 @@ const App = () => {
                   mount={getMount} 
                   isFigma={isFigma}
                   isQuery={isQuery}
+                  queryLoadingProgress={queryLoadingProgress}
                   figData={figData.reverse()}
                 />
           </Canvas>
