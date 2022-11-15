@@ -62,42 +62,36 @@ button {
 }
 
 .img-layout{
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translate(-50%, 0px);
-    /* width: calc(100% - 24px); */
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-bottom: 12px;
+    width: 100%;
+    gap: 1rem;
+    overflow-x: scroll;
+    scroll-snap-type: x;
     z-index: 100;
-    /* flex-direction: row-reverse; */
+    bottom: 0px;
+    max-height: 140px;
+    height: 140px;
+    overflow-x: scroll;
+    display: flex;
+    flex: 1;
+    position: absolute;
 }
 
 
 .img-imported{
-    flex-grow: 1;
-    z-index: 100;
-    border: 1px solid white;
-    border-radius: 4px;
-    overflow: hidden;
-    max-height: 60px;
-    max-width: 100px;
-    background: black;
-    margin: 6px;
-}
-
-.img-imported:hover{
-    flex-grow: 4.3;
+    scroll-snap-align: start;
+    flex: 0 0 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    object-fit: contain;
+    background: #ffffff40;
+    padding: 12px;
 }
 
 /* #VRButton{
     left: 20px !important;
 } */
+
 
 .webxr-previewer{
     display: flex;
@@ -731,4 +725,109 @@ button {
 .react-colorful__hue {
     height: 18px !important;
     border-radius: 0 !important;
+}
+
+
+
+
+main {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.ip {
+	width: 16em;
+	height: 8em;
+}
+.ip__track {
+	stroke: hsl(var(--hue), 90%, 90%);
+	transition: stroke var(--trans-dur);
+}
+.ip__worm1,
+.ip__worm2 {
+	animation: worm1 2s linear infinite;
+}
+.ip__worm2 {
+	animation-name: worm2;
+}
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+		--bg: hsl(var(--hue), 90%, 5%);
+		--fg: hsl(var(--hue), 90%, 95%);
+	}
+
+	.ip__track {
+		stroke: hsl(var(--hue), 90%, 15%);
+	}
+}
+
+/* Animation */
+@keyframes worm1 {
+	from {
+		stroke-dashoffset: 0;
+	}
+	50% {
+		animation-timing-function: steps(1);
+		stroke-dashoffset: -358;
+	}
+	50.01% {
+		animation-timing-function: linear;
+		stroke-dashoffset: 358;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+@keyframes worm2 {
+	from {
+		stroke-dashoffset: 358;
+	}
+	50% {
+		stroke-dashoffset: 0;
+	}
+	to {
+		stroke-dashoffset: -358;
+	}
+}
+
+:root {
+	--hue: 223;
+	--bg: hsl(var(--hue), 90%, 95%);
+	--fg: hsl(var(--hue), 90%, 5%);
+	--trans-dur: 0.3s;
+	font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
+}
+
+.spinner_bg {
+    background-color: var(--bg);
+	color: var(--fg);
+	font: 1em/1.5 sans-serif;
+	height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+	display: grid;
+	place-items: center;
+	transition: background-color var(--trans-dur);
+	overflow: hidden;
+}
+
+strong{
+	font-size: 16px;
+	margin-right:12px;
+	word-break: break-all;
+}
+
+
+.loading_text{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, calc(-50% + 40px));
+	z-index: 1000;
+    font-size:14px;
 }

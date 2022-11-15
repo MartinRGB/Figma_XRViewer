@@ -9,6 +9,7 @@ figma/*.txt
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 # compiled output
 /dist
+/build
 /tmp
 /out-tsc
 

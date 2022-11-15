@@ -5,11 +5,12 @@
 	"license": "ISC",
 	"scripts": {
 		"dev": "webpack serve --config ./webpack/webpack.dev.js",
-		"build": "webpack --config ./webpack/webpack.config.js --mode=production",
-		"build:watch": "webpack --config ./webpack/webpack.config.js --mode=development --watch",
+		"build:page": "webpack --config ./webpack/webpack.prod.js",
+		"build:figma": "webpack --config ./webpack/webpack.figma.js --mode=production",
+		"build:watch": "webpack --config ./webpack/webpack.figma.js --mode=development --watch",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"watch": "npm-run-all -l -p build:watch dev",
-		"release": "rm figma/code.js && rm figma/ui.html && rm figma/ui.js.LICENSE.txt && rm -rf release && mkdir release && echo all files cleaned && npm run build && echo build finished && bestzip release/figma.zip figma/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
+		"release": "rm figma/code.js && rm figma/ui.html && rm figma/ui.js.LICENSE.txt && rm -rf release && mkdir release && echo all files cleaned && npm run build:figma && echo build finished && bestzip release/figma.zip figma/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
 	},
 	"dependencies": {
 		"@theatre/core": "^0.5.0",
@@ -34,6 +35,7 @@
 		"babel-loader": "^8.2.5",
 		"bestzip": "^2.2.1",
 		"camera-controls": "^1.37.3",
+		"compression-webpack-plugin": "^10.0.0",
 		"css-loader": "^6.7.1",
 		"dotenv-cli": "^6.0.0",
 		"file-saver": "^2.0.5",
@@ -50,6 +52,7 @@
 		"react-tabs": "^5.1.0",
 		"release-it": "^15.5.0",
 		"style-loader": "^3.3.1",
+		"terser-webpack-plugin": "^5.3.6",
 		"three": "^0.145.0",
 		"ts-loader": "^9.4.1",
 		"tsconfig-paths-webpack-plugin": "^4.0.0",

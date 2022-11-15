@@ -1,6 +1,10 @@
+const exportScale = 1;
+
 function sendMsg(tp,val) {
     figma.ui.postMessage({type: tp, value:val});
 }
+
+
 // Method I
 function getImg() {
     let nodes = figma.currentPage.selection;
@@ -11,7 +15,7 @@ function getImg() {
         format: "PNG",
         constraint: {
             type: "SCALE",
-            value: 1,
+            value: exportScale,
         }
       })
       return img
@@ -56,7 +60,7 @@ function postImagePromise(){
           format: "PNG",
           constraint: {
               type: "SCALE",
-              value: 2,
+              value: exportScale,
           }
         }).then(
           resolved => {
@@ -80,7 +84,7 @@ function postImagePromise(){
                   format: "PNG",
                   constraint: {
                       type: "SCALE",
-                      value: 2,
+                      value: exportScale,
                   }
                 }).then( 
                   resolved => {

@@ -9,6 +9,7 @@ import { editable as e,SheetProvider } from '@theatre/r3f'
 import { XR, Controllers, Hands, XRButton, useXR } from '@react-three/xr'
 import '../styles/ui.css';
 import { CameraHelper } from 'three'
+import Spinner from './Spinner'
 // todo
 // 2.computer data pass to XR Device 
 // 3.player coord/move
@@ -16,7 +17,7 @@ import { CameraHelper } from 'three'
 // 5.control -> <- camera
 
 // # base Attribute
-const baseUnit = 1;
+const baseUnit = 100;
 const bgColor = '#272730'
 const defaultSaveImageQuality = 2;
 
@@ -270,43 +271,65 @@ const Screen = (props) =>{
   const [yScalePerc,setYScalePerc] = useState(1);
   const [currMap,setCurrMap] = useState(null);
   const [currVis,setCurrVis] = useState(false);
+
   useEffect(()=>{
-    if(props.hasData){
-      new THREE.TextureLoader().load(props.src, (tex) => {
-        tex.needsUpdate = true;
-        setYScalePerc(tex.image.height / tex.image.width)
-        tex.encoding = THREE.sRGBEncoding;
-        setCurrMap(tex);
-        setCurrVis(true);
-        invalidate();
-      });
-    }
-    else{
-      new Promise(function(resolve, reject) {
-        resolve(createCanvasGridMaterial('white',1920,1080,9,9,4).image.toDataURL("image/png"))
-      }).then(function(result) { // (**)
-        var tex = new THREE.Texture();
-        var loadedImage = new Image();
-        loadedImage.src = result;
-        var thisImg = loadedImage;
-        tex.image = thisImg;
-        thisImg.onload = function () {
-            tex.needsUpdate = true;
-            setYScalePerc(tex.image.height / tex.image.width)
-            tex.encoding = THREE.sRGBEncoding;
-            setCurrMap(tex);
-            setCurrVis(true);
-            invalidate();
-        };
-      })
+    if(props.isQuery === true){
+      if(props.hasData && props.index != 0){
+        //console.log(props.src)
+        //console.log(document.getElementById('img-layout').children[props.index].src)
+        // toDataUrl(props.src, function(myBase64) {
+        //   console.log(myBase64); // myBase64 is the base64 string
+        // });
+        new THREE.TextureLoader().load(props.src, (tex) => {
+          tex.needsUpdate = true;
+          setYScalePerc(tex.image.height / tex.image.width)
+          tex.encoding = THREE.sRGBEncoding;
+          setCurrMap(tex);
+          setCurrVis(true);
+          tex.dispose()
+          invalidate();
+        });
+      }
+    }else{
+      if(props.hasData){
+        new THREE.TextureLoader().load(props.src, (tex) => {
+          tex.needsUpdate = true;
+          setYScalePerc(tex.image.height / tex.image.width)
+          tex.encoding = THREE.sRGBEncoding;
+          setCurrMap(tex);
+          setCurrVis(true);
+          tex.dispose()
+          invalidate();
+        });
+      }
+      else{
+        new Promise(function(resolve, reject) {
+          resolve(createCanvasGridMaterial('white',1920,1080,9,9,4).image.toDataURL("image/png"))
+        }).then(function(result) { // (**)
+          var tex = new THREE.Texture();
+          var loadedImage = new Image();
+          loadedImage.src = result;
+          var thisImg = loadedImage;
+          tex.image = thisImg;
+          thisImg.onload = function () {
+              tex.needsUpdate = true;
+              setYScalePerc(tex.image.height / tex.image.width)
+              tex.encoding = THREE.sRGBEncoding;
+              setCurrMap(tex);
+              setCurrVis(true);
+              invalidate();
+          };
+        })
+      }
     }
   },[props.src,props.hasData]) //props.src,props.hasData
 
   useEffect(()=>{ 
+
+    console.log('tweak screenObjRef at index ' + (props.index));
     screenObjRef.current.onValuesChange(newValues => {
       planeCurve(screenGeom.current,newValues.curve)
     });
-    
   },[screenRef])
 
   return(
@@ -325,15 +348,21 @@ const Screen = (props) =>{
       }} 
       visible={currVis}
       scale={props.hasData?[1*(props.width/props.fw),yScalePerc*(props.width/props.fw),1]:[1,yScalePerc,1]}
-      position={props.hasData?[((props.x + props.width/2) - props.fw/2)/(props.fw)*baseUnit,((props.fh/2 -(props.y + props.height/2))/(props.fh))*(props.fh/props.fw)*baseUnit,props.index*0.001 * baseUnit]:[0,0,0]}
+      position={props.hasData?
+        [((props.x + props.width/2) - props.fw/2)/(props.fw)*baseUnit,
+         ((props.fh/2 -(props.y + props.height/2))/(props.fh))*(props.fh/props.fw)*baseUnit,
+         props.index*0.001 * baseUnit]
+        :
+        [0,0,0]}
      >
       <planeGeometry ref={screenGeom} args={[baseUnit, baseUnit, 40, 40]} />
       <meshBasicMaterial 
           ref={screeMaterial}
-          side={THREE.DoubleSide} 
-          depthWrite={false}
+          // depthTest={true}
+          // depthWrite={false}
+          side={THREE.DoubleSide}
+          alphaTest ={0.0001}
           transparent={true}
-          alphaTest ={0.01} //0.5 
           map={currMap}
           toneMapped={false}
           color={hovered ? (props.index === 0?'':'hotpink') : 'white'}
@@ -347,7 +376,7 @@ const getProperScreen = (props) =>{
     <>
     {(props.figData.length != 0)?
       <>
-        {props.figData.map(({ type,index,name,x,y,width,height,src}) => (
+        { props.figData.map(({ type,index,name,x,y,width,height,src}) => (
           
               <Screen  
                 key={type + '-three-' + index} 
@@ -361,12 +390,39 @@ const getProperScreen = (props) =>{
                 fw={props.figData[0].width}
                 fh={props.figData[0].height}
                 hasData={true}
+                isQuery={props.isQuery}
                 />
         ))}
         </>
       :
-      <Screen name={'Screen'} hasData={false}/>
+
+      <>
+      {
+        (props.isQuery === true)?
+        <></> 
+        :
+        <Screen name={'Screen'} hasData={false}/>
+      }
+      </>
     }
+
+    {/* {props.figData.map(({ type,index,name,x,y,width,height,src}) => (
+          
+          <Screen  
+            key={type + '-three-' + index} 
+            src={src}
+            name={name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${index}`}
+            x={(index===0)?0:x}
+            y={(index===0)?0:y}
+            index={index}
+            width={width}
+            height={height}
+            fw={props.figData[0].width}
+            fh={props.figData[0].height}
+            hasData={true}
+            />
+    ))} */}
+    
     </>
   )
 }
@@ -394,11 +450,12 @@ const Content = forwardRef((props,ref) =>{
   const getCameraObj = useRef({getParentRef: () => {return camraObjRef }});
 
 
-  // useEffect(()=>{
-  //   const yScalePerc = (props.figData.length != 0)?props.figData[0].height/props.figData[0].width:(1080/1920);
-  //   helperSetting(scene,helperRef,yScalePerc);
-  //   theatreStudioCameraHelperFixed(scene,invalidate)
-  // },[])
+  useEffect(()=>{
+    const yScalePerc = (props.figData.length != 0)?props.figData[props.figData.length - 1].height/props.figData[props.figData.length - 1].width:(1080/1920);
+    console.log(yScalePerc)
+    helperSetting(scene,helperRef,yScalePerc);
+    theatreStudioCameraHelperFixed(scene,invalidate)
+  },[])
 
   return(
       <SheetProvider sheet={assetSheet}>
@@ -440,7 +497,10 @@ const App = () => {
   const getMount = useRef({getParentRef: () => {return mountRef }});
 
   const [figData,setFigData] = useState([]);
-  const [isFigma, setIsFigma] = useState(true);
+  const [isFigma, setIsFigma] = useState(false);
+  const [isQuery,setIsQuery] = useState(false);
+  const [isQueryLoading,setIsQueryLoading] = useState(false);
+  const [queryLoadingProgress,setQueryLoadingProgress] = useState(`0`);
 
   const onCreateImage = useCallback((event) => __awaiter(void 0, void 0, void 0, function* () {
       event.preventDefault();
@@ -464,9 +524,6 @@ const App = () => {
     var frameHTML = document.documentElement.innerHTML;
     var outputData = savedFigData;
     new Promise((resolve, reject) => {
-          // todo not work in production
-        // const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(savedFigData)}`);
-        // resolve(newHtml)
         if(isServe === true){
           for(var i=0;i<outputData.length;i++){
             let index = i;
@@ -505,9 +562,12 @@ const App = () => {
             var htmlUrl = window.URL.createObjectURL(bb);
             mUrl.push({url:htmlUrl,name:'index',ext:'html'})
             for(var a=0;a<outputData.length;a++){
-              // var bbI = new Blob([savedFigData[a].imageData], { type: 'image/png' });
-              // var imageUrl = window.URL.createObjectURL(bbI);
-              mUrl.push({url:document.getElementById('img-layout').children[a].src,name:outputData[a].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${a}`,ext:'png'})
+              mUrl.push({
+                //reserve the reserve
+                url:document.getElementById('img-layout').children[outputData.length - 1 - a].src,
+                name:outputData[a].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${a}`,
+                ext:'png'
+              })
             }
             console.log(outputData)
             saveZip('my_project',mUrl)
@@ -527,6 +587,7 @@ const App = () => {
     })
   },[]);
 
+
   React.useEffect(() => {
     //init with data
     const parsedUrl = new URL(window.location.href);
@@ -537,22 +598,129 @@ const App = () => {
     console.log('nodeId is: ' + nodeId);
     console.log('token is: ' + token);
 
-    //try to get figma's data structrue & layer's imageRefreenfce
+    const getBase64FromUrl = async (url) => {
+      const data = await fetch(url);
+      const blob = await data.blob();
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob); 
+        reader.onloadend = () => {
+          const base64data = reader.result;   
+          resolve(base64data);
+        }
+      });
+    }
 
+    const fetchQueryJSON = async () => {
+      const _apiUrlBase = `https://api.figma.com/v1/files/`
+      const _apiUrl = _apiUrlBase + `${fileKey}/nodes?ids=${nodeId}`
+      var jsonArr = [];
 
-    //on saved static data(Download(Static))
+      const data = await fetch(_apiUrl,{
+        headers: {'Authorization': `Bearer ${token}`},
+        method: 'GET',
+      })
+      const json = await data.json();
+
+      const parentNode = Object.values(json.nodes)[0].document;
+
+      const childrenLength = parentNode.children.length;
+
+      const frameImgData = await fetch(
+        `https://api.figma.com/v1/` + 
+        `images/${fileKey}?`+ 
+        `ids=${nodeId}&`+
+        `svg_include_id=true&format=png&`+
+        `scale=${1}`
+        ,{
+        headers: {'Authorization': `Bearer ${token}`},
+        method: 'GET',
+      });
+      const frameImgJSON = await frameImgData.json();
+      const frameImgSrc = await Object.values(frameImgJSON.images)[0];
+      const framebase64Src = await getBase64FromUrl(frameImgSrc);
+
+      jsonArr.push({
+        name:parentNode.name,
+        width:parentNode.absoluteRenderBounds.width,
+        height:parentNode.absoluteRenderBounds.height,
+        x:parentNode.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
+        y:parentNode.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+        src:framebase64Src,
+        type:`image-framenode`,
+        index:0,
+        id:parentNode.id,
+        fw:parentNode.absoluteRenderBounds.width,
+        fh:parentNode.absoluteRenderBounds.height
+      })
+      console.log('fetched index ' + '0');
+      setQueryLoadingProgress(`1/${childrenLength+1}`)
+
+      for(var i=0;i<childrenLength;i++){
+        let index = i
+        const node = parentNode.children[index];
+
+        const imgData = await fetch(
+          `https://api.figma.com/v1/` + 
+          `images/${fileKey}?`+ 
+          `ids=${node.id}&`+
+          `svg_include_id=true&format=png&`+
+          `scale=${1}`
+          ,{
+          headers: {'Authorization': `Bearer ${token}`},
+          method: 'GET',
+        });
+        const imgJSON = await imgData.json();
+        const imgSrc = await Object.values(imgJSON.images)[0];
+        const base64Src = await getBase64FromUrl(imgSrc);
+        // promises.push(()=>{promiseStructureCreator(firstNode,node,index+1,fullLength+1)});
+        jsonArr.push({
+          name:node.name,
+          width:node.absoluteRenderBounds.width,
+          height:node.absoluteRenderBounds.height,
+          x:node.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
+          y:node.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+          src:base64Src,
+          type:`image-childnode`,
+          index:index+1,
+          id:node.id,
+          fw:parentNode.absoluteRenderBounds.width,
+          fh:parentNode.absoluteRenderBounds.height
+        })
+        console.log('fetched index ' + (index + 1));
+        setQueryLoadingProgress(`${index+2}/${childrenLength+1}`);
+      }
+
+      savedFigData = jsonArr;
+      setFigData(savedFigData);
+      console.log(savedFigData)
+      setIsQueryLoading(false);
+      //setFigData(savedFigData);
+    }
+
+    // ## on saved static data(Download(Static))
     if(savedFigData != ''){
       console.log('init with saved data')
-      console.log(savedFigData)
       setFigData(savedFigData)
-      console.log('false figma')
       setIsFigma(false)
     }
     else{
-      console.log('init with figma data')
+      // ## load data with query string
+      
+      if(token != null){
+        console.log('init with query data')
+
+        setIsQuery(true);
+        setIsQueryLoading(true);
+        fetchQueryJSON();
+      }
+      else{
+        console.log('init with empty data')
+      }
+      // ## empty grid screen
     }
 
-    //on figma message(From figma plugin)
+    // ## on figma message(From figma plugin)
     window.onmessage = (event) => {
       //console.log(event.data.pluginMessage)
       if(event.data.pluginMessage != undefined){
@@ -566,6 +734,7 @@ const App = () => {
             let index = i;
             savedFigData[index].src = URL.createObjectURL(new Blob([savedFigData[index].imageData], { type: 'image/png' }));
             if(i === savedFigData.length - 1){
+              console.log('init with figma data')
               setFigData(savedFigData)
               setIsFigma(value.isFigma)
             }
@@ -585,7 +754,7 @@ const App = () => {
     <>
     <div className="webxr-previewer" id="webxr-previewer">
         <div className="img-layout" id="img-layout">
-            {figData.map(({ src,type,index,name }) => (
+            {figData.reverse().map(({ src,type,index,name }) => (
                   <img  key={type + '-' + index} 
                         src={src}
                         className={'img-imported'}
@@ -607,14 +776,24 @@ const App = () => {
         }
         </div>
         <div className="vis" ref={mountRef}>
-          <Canvas frameloop="demand" gl={{preserveDrawingBuffer:true,outputEncoding:THREE.sRGBEncoding,antialias: true, alpha: true}} >
+          <Canvas frameloop="demand" gl={{
+            preserveDrawingBuffer:true,
+            outputEncoding:THREE.sRGBEncoding,
+            antialias: true, 
+            alpha: true,
+            logarithmicDepthBuffer:true,
+            }} >
                 <Content 
                   ref={contentRef} 
                   mount={getMount} 
                   isFigma={isFigma}
-                  figData={figData}
+                  isQuery={isQuery}
+                  figData={figData.reverse()}
                 />
           </Canvas>
+          {(isQueryLoading)?
+          <Spinner loadingProgress={`${queryLoadingProgress}`}></Spinner>:<></>
+          }
         </div>
     </div>
     </>
