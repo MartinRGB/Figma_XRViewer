@@ -349,7 +349,7 @@ const Screen = (props) =>{
       position={props.hasData?
         [((props.x + props.width/2) - props.fw/2)/(props.fw)*baseUnit,
          ((props.fh/2 -(props.y + props.height/2))/(props.fh))*(props.fh/props.fw)*baseUnit,
-         props.index*0.001 * baseUnit]
+         props.index*0.0005 * baseUnit]
         :
         [0,0,0]}
      >
