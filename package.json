@@ -5,7 +5,7 @@
 	"license": "ISC",
 	"scripts": {
 		"dev": "webpack serve --config ./webpack/webpack.dev.js",
-		"build:page": "webpack --config ./webpack/webpack.prod.js",
+		"build:page": "rm -rf build && webpack --config ./webpack/webpack.prod.js",
 		"build:figma": "webpack --config ./webpack/webpack.figma.js --mode=production",
 		"build:watch": "webpack --config ./webpack/webpack.figma.js --mode=development --watch",
 		"build:figma_query": "webpack --config ./webpack/webpack.figma_query.js --mode=production",
