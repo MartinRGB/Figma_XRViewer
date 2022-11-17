@@ -12,7 +12,7 @@ module.exports = (env, argv) => ({
 
   entry: {
     ui: './src/app/pages/index.tsx', // The entry point for your UI code
-    code: './src/plugin/controller.ts', // The entry point for your plugin code
+    code: './src/plugin/xrviewer.ts', // The entry point for your plugin code
   },
   devServer: {
     //webpack5

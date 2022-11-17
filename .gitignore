@@ -5,6 +5,12 @@ figma/*.html
 figma/*.js
 figma/*.zip
 figma/*.txt
+
+figma_query/*.html
+figma_query/*.js
+figma_query/*.zip
+figma_query/*.txt
+
 *.zip
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 # compiled output
