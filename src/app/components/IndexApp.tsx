@@ -629,9 +629,10 @@ const IndexApp = () => {
 
         const isLocal = false;
         const rootURL = isLocal?`https://127.0.0.1:8887/`:`https://www.martinrgb.com/FigmaImporter/v4/`;
-        const clientID = isLocal?'2beFW69qeg7DvjBp6bKpm5':'GyTJq7HCHjW49zAmMvy6WW';
-        const secrectID = isLocal?'013RerD24yjKxvSIrUr4f6dESMYST8':'nu0XbFimZJV3pFYafonCpJ9nAofvbc';
+        const clientID = '2beFW69qeg7DvjBp6bKpm5';
+        const secrectID = '013RerD24yjKxvSIrUr4f6dESMYST8';
     
+        
         const figmaApi = new FigmaApi({
           clientId: clientID,
           clientSecrete: secrectID,

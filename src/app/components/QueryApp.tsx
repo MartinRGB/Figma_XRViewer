@@ -31,6 +31,7 @@ const QueryApp = () => {
       }
       
     };
+    parent.postMessage({ pluginMessage: { type: 'copy_open' } }, '*')
   },[]);  
 
   const onCancel = () =>{
