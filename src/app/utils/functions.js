@@ -103,3 +103,244 @@ export function calculateAndUpdateProgress(evt) {
       //
   }
 }
+
+export async function asyncGetBase64FromUrl(url){
+  const data = await fetch(url);
+  const blob = await data.blob();
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob); 
+    reader.onloadend = () => {
+      const base64data = reader.result;   
+      resolve(base64data);
+    }
+  });
+}
+
+export async function syncGetBase64FromUrl (url,callback){
+  fetch(url)
+  .then((data) =>{
+    return data.blob()
+  })
+  .then((blob)=>{
+    const reader = new FileReader();
+    reader.readAsDataURL(blob); 
+    reader.onloadend = () => {
+      callback(reader.result)  
+      //return base64data
+    } 
+  })
+}
+
+export async function asyncFetchQueryFigmaJSON (token,fileKey,nodeId,callBackProgress,callbackFinished) {
+  const _apiUrlBase = `https://api.figma.com/v1/files/`
+  const _apiUrl = _apiUrlBase + `${fileKey}/nodes?ids=${nodeId}`
+  var jsonArr = [];
+
+  const data = await fetch(_apiUrl,{
+    headers: {'Authorization': `Bearer ${token}`},
+    method: 'GET',
+  })
+  const json = await data.json();
+
+  const parentNode = Object.values(json.nodes)[0].document;
+
+  const childrenLength = parentNode.children.length;
+
+  const frameImgData = await fetch(
+    `https://api.figma.com/v1/` + 
+    `images/${fileKey}?`+ 
+    `ids=${nodeId}&`+
+    `svg_include_id=true&format=png&`+
+    `scale=${1}`
+    ,{
+    headers: {'Authorization': `Bearer ${token}`},
+    method: 'GET',
+  });
+  const frameImgJSON = await frameImgData.json();
+  const frameImgSrc = await Object.values(frameImgJSON.images)[0];
+  const framebase64Src = await asyncGetBase64FromUrl(frameImgSrc);
+
+  jsonArr.push({
+    name:parentNode.name,
+    width:parentNode.absoluteRenderBounds.width,
+    height:parentNode.absoluteRenderBounds.height,
+    x:parentNode.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
+    y:parentNode.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+    src:framebase64Src,
+    type:`image-framenode`,
+    index:0,
+    id:parentNode.id,
+    fw:parentNode.absoluteRenderBounds.width,
+    fh:parentNode.absoluteRenderBounds.height
+  })
+  //console.log('fetched index ' + '0');
+  //setQueryLoadingProgress(`1/${childrenLength+1}`)
+  callBackProgress(`1/${childrenLength+1}`);
+
+  for(var i=0;i<childrenLength;i++){
+    let index = i
+    const node = parentNode.children[index];
+
+    const imgData = await fetch(
+      `https://api.figma.com/v1/` + 
+      `images/${fileKey}?`+ 
+      `ids=${node.id}&`+
+      `svg_include_id=true&format=png&`+
+      `scale=${1}`
+      ,{
+      headers: {'Authorization': `Bearer ${token}`},
+      method: 'GET',
+    });
+    const imgJSON = await imgData.json();
+    const imgSrc = await Object.values(imgJSON.images)[0];
+    const base64Src = await asyncGetBase64FromUrl(imgSrc);
+    jsonArr.push({
+      name:node.name,
+      width:node.absoluteRenderBounds.width,
+      height:node.absoluteRenderBounds.height,
+      x:node.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
+      y:node.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+      src:base64Src,
+      type:`image-childnode`,
+      index:index+1,
+      id:node.id,
+      fw:parentNode.absoluteRenderBounds.width,
+      fh:parentNode.absoluteRenderBounds.height
+    })
+    //console.log('fetched index ' + (index + 1));
+    //setQueryLoadingProgress(`${index+2}/${childrenLength+1}`);
+    callBackProgress(`${index+2}/${childrenLength+1}`);
+  }
+
+  // savedFigData = jsonArr;
+  // setFigData(savedFigData);
+  // console.log(savedFigData)
+  // setIsQueryLoading(false);
+  callbackFinished();
+}
+
+export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCallback,finishedCallback) {
+  var num = 0;
+  const _apiUrlBase = `https://api.figma.com/v1/files/`
+  const _apiUrl = _apiUrlBase + `${fileKey}/nodes?ids=${nodeId}`
+
+  const data = await fetch(_apiUrl,{
+    headers: {'Authorization': `Bearer ${token}`},
+    method: 'GET',
+  })
+  const json = await data.json();
+
+  const parentNode = Object.values(json.nodes)[0].document;
+
+  const childrenLength = parentNode.children.length;
+
+  var jsonArr = new Array(childrenLength+1);
+  const getSyncData = async (callback)=>{
+    fetch(
+      `https://api.figma.com/v1/` + 
+      `images/${fileKey}?`+ 
+      `ids=${nodeId}&`+
+      `svg_include_id=true&format=png&`+
+      `scale=${1}`
+      ,{
+      headers: {'Authorization': `Bearer ${token}`},
+      method: 'GET',
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((responseObject) => {
+      const apiSrc = Object.values(responseObject.images)[0];
+      return apiSrc;
+    })
+    .then((src) =>{
+      const mIndex = 0;
+      syncGetBase64FromUrl(src,(base64Src)=>{
+        jsonArr.splice(mIndex,1,{
+          name:parentNode.name,
+          width:parentNode.absoluteRenderBounds.width,
+          height:parentNode.absoluteRenderBounds.height,
+          x:parentNode.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
+          y:parentNode.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+          src:base64Src,
+          type:`image-framenode`,
+          index:mIndex,
+          id:parentNode.id,
+          fw:parentNode.absoluteRenderBounds.width,
+          fh:parentNode.absoluteRenderBounds.height
+        })
+
+        console.log('fetched num ' + num);
+        console.log('fetched index ' + 0);
+        num++
+        progressCallback(`${num}/${childrenLength+1}`)
+        //setQueryLoadingProgress(`${num}/${childrenLength+1}`)
+        callback(num);
+      })
+    });
+
+
+
+    for(var i=0;i<childrenLength;i++){
+      let index = i
+      const node = parentNode.children[index];
+
+      fetch(
+        `https://api.figma.com/v1/` + 
+        `images/${fileKey}?`+ 
+        `ids=${node.id}&`+
+        `svg_include_id=true&format=png&`+
+        `scale=${1}`
+        ,{
+        headers: {'Authorization': `Bearer ${token}`},
+        method: 'GET',
+      })
+      .then((response) =>{
+        return response.json()
+      })
+      .then((responseObject) =>{
+        const apiSrc = Object.values(responseObject.images)[0];
+        return apiSrc;
+      })
+      .then((src)=>{
+        const mIndex = index + 1;
+        syncGetBase64FromUrl(src,(base64Src)=>{
+          jsonArr.splice(mIndex,1,{
+            name:node.name,
+            width:node.absoluteRenderBounds.width,
+            height:node.absoluteRenderBounds.height,
+            x:node.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
+            y:node.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+            src:base64Src,
+            type:`image-childnode`,
+            index:index+1,
+            id:node.id,
+            fw:parentNode.absoluteRenderBounds.width,
+            fh:parentNode.absoluteRenderBounds.height
+          })
+
+          console.log('fetched num ' + num);
+          console.log('fetched index ' + (index+1));
+          num++
+          progressCallback(`${num}/${childrenLength+1}`)
+          //setQueryLoadingProgress(`${num}/${childrenLength+1}`);
+          callback(num);
+        })
+      })
+    
+    }
+  }
+
+  await getSyncData((number)=>{
+    if(num === childrenLength+1){
+      finishedCallback(jsonArr)
+      // savedFigData = jsonArr;
+      // setFigData(savedFigData);
+      // console.log(savedFigData)
+      // setIsQueryLoading(false);
+    }
+  })
+
+
+}

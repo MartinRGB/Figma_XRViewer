@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './components/App';
+import IndexApp from '../components/IndexApp';
 import {createRoot} from 'react-dom/client';
 
 import studio from '@theatre/studio'
@@ -14,5 +14,5 @@ studio.initialize({usePersistentStorage:false})
 studio.extend(extension)
 
 root.render(
-      <App />
+      <IndexApp />
 );

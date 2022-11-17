@@ -3,6 +3,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+const pages = ['index','callback']
+
 module.exports = {
   module: {
     rules: [
@@ -36,18 +38,48 @@ module.exports = {
     // port: 8081
     port:8887,
   },
-  entry:  path.resolve(__dirname, '..', './src/app/index.tsx'),
+  // entry:  path.resolve(__dirname, '..', './src/app/index.tsx'),
+  // output: {
+  //   path: path.resolve(__dirname, '..', '../build'),
+  //   filename: 'bundle.js',
+  // },
+  // plugins: [
+  //   new HtmlWebpackPlugin({
+  //     template: path.resolve(__dirname, '..', './src/app/index.html'),
+  //   }),
+  //   new webpack.DefinePlugin({
+  //     'process.env.name': JSON.stringify('Vishwas'),
+  //   }),
+  // ],
+  entry: pages.reduce((config, page) => {
+    config[page] = `./src/app/pages/${page}.tsx`;
+    return config;
+  }, {}),
+
   output: {
+    filename: "[name].js",
     path: path.resolve(__dirname, '..', '../build'),
-    filename: 'bundle.js',
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '..', './src/app/index.html'),
-    }),
     new webpack.DefinePlugin({
       'process.env.name': JSON.stringify('Vishwas'),
-    }),
-  ],
+    })
+  ].concat(
+    pages.map(
+      (page) =>
+        new HtmlWebpackPlugin({
+          inject: true,
+          template: `./src/app/pages/${page}.html`,
+          filename: `${page}.html`,
+          chunks: [page],
+        })
+    )
+  ),
 
 }
