@@ -24,7 +24,7 @@ const QueryApp = () => {
   
         const isLocal = false;
         const localImporterPageUrl = `https://127.0.0.1:8887`;
-        const webImporterPageUrl = `https://www.martinrgb.com/FigmaImporter/v3`;
+        const webImporterPageUrl = `https://www.martinrgb.com/FigmaImporter/v4`;
         
         window.open(`${isLocal?localImporterPageUrl:webImporterPageUrl}/index.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}`, '_blank')
         parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
