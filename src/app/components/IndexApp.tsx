@@ -627,7 +627,7 @@ const IndexApp = () => {
       if(fileKey != null && nodeId != null){
         console.log('init with query data')
 
-        const isLocal = true;
+        const isLocal = false;
         const rootURL = isLocal?`https://127.0.0.1:8887/`:`https://www.martinrgb.com/FigmaImporter/v3/`;
         const clientID = isLocal?'2beFW69qeg7DvjBp6bKpm5':'GyTJq7HCHjW49zAmMvy6WW';
         const secrectID = isLocal?'013RerD24yjKxvSIrUr4f6dESMYST8':'nu0XbFimZJV3pFYafonCpJ9nAofvbc';
