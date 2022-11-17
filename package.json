@@ -1,6 +1,6 @@
 {
 	"name": "XRViewer",
-	"version": "0.1.49",
+	"version": "0.1.50",
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
@@ -12,7 +12,7 @@
 		"build:watch_query": "webpack --config ./webpack/webpack.figma_query.js --mode=development --watch",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"watch": "npm-run-all -l -p build:watch dev build:watch_query",
-		"release": "rm figma/code.js && rm figma/ui.html && rm figma/ui.js.LICENSE.txt && rm figma_query/code.js && rm figma_query/ui.html && rm figma_query/ui.js.LICENSE.txt && rm -rf release && mkdir release && echo all files cleaned && npm run build:figma && npm run build:figma_query && echo build finished && bestzip release/figma.zip figma/* && bestzip release/figma_query.zip figma_query/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
+		"release": "rm figma/code.js && rm figma/ui.html && rm figma_query/code.js && rm figma_query/ui.html && rm -rf release && mkdir release && echo all files cleaned && npm run build:figma && npm run build:figma_query && rm figma/ui.js.LICENSE.txt && rm figma_query/ui.js.LICENSE.txt && echo build finished && bestzip release/figma.zip figma/* && bestzip release/figma_query.zip figma_query/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
 	},
 	"dependencies": {
 		"@theatre/core": "^0.5.0",
