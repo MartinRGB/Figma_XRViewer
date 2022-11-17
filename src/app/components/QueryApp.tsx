@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-
+import { isLocal } from '../config';
 
 const QueryApp = () => {
  
@@ -22,7 +22,7 @@ const QueryApp = () => {
         //window.open(`${isLocal?localImporterPageUrl:webImporterPageUrl}/importer.html?query_key=${fileKey}&query_node=${nodeId}`, '_blank')
         //parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
   
-        const isLocal = false;
+        //const isLocal = false;
         const localImporterPageUrl = `https://127.0.0.1:8887`;
         const webImporterPageUrl = `https://www.martinrgb.com/FigmaImporter/v4`;
         

@@ -11,6 +11,7 @@ import '../styles/ui.css';
 import { CameraHelper } from 'three'
 import Spinner from './Spinner'
 import {FigmaApi} from '../utils/figmaAPI';
+import { isLocal } from '../config';
 // todo
 // 2.computer data pass to XR Device 
 // 3.player coord/move
@@ -627,10 +628,10 @@ const IndexApp = () => {
       if(fileKey != null && nodeId != null){
         console.log('init with query data')
 
-        const isLocal = false;
+        //const isLocal = false;
         const rootURL = isLocal?`https://127.0.0.1:8887/`:`https://www.martinrgb.com/FigmaImporter/v4/`;
-        const clientID = '2beFW69qeg7DvjBp6bKpm5';
-        const secrectID = '013RerD24yjKxvSIrUr4f6dESMYST8';
+        const clientID = isLocal?'6clxS2O4bl9ADNcy1wh5rk':'2beFW69qeg7DvjBp6bKpm5';
+        const secrectID = isLocal?'3RtOK3Qx3lMUm3svNfZuycyNAeouxq':'013RerD24yjKxvSIrUr4f6dESMYST8';
     
         
         const figmaApi = new FigmaApi({
