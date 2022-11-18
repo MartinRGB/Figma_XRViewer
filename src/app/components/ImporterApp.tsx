@@ -50,7 +50,7 @@ const ImporterApp = () => {
 
       figmaApi.getOAuth2Token().then(token => {
         setCurrentToken(token)
-        //setIsLoading(false);
+        setIsLoading(false);
         console.log(token)
         const queryKey = parsedUrl.searchParams.get('query_key');
         const queryNode = parsedUrl.searchParams.get('query_node');
@@ -76,7 +76,7 @@ const ImporterApp = () => {
     else{
       figmaApi.getOAuth2Token().then(token => {
         setCurrentToken(token)
-        //setIsLoading(false);
+        setIsLoading(false);
         console.log(token)
       });
     }
