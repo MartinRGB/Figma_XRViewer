@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
-const pages = ['index','callback']
+const pages = ['index','callback','importer']
 
 module.exports = (env, argv) => ({
   mode: 'production',

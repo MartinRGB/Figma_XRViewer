@@ -1,0 +1,11 @@
+{
+  "name": "XRViewer_WebXR",
+  "id": "1172830282368306410",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html",
+  "enablePrivatePluginApi":true
+}

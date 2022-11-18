@@ -1,9 +1,8 @@
 import React from 'react'
-import '../styles/ui.css';
+import '../styles/spinner.css';
 
 const Spinner = (props) => {
   
-
   return (
     <>
     <div className='spinner_bg'>
@@ -36,7 +35,7 @@ const Spinner = (props) => {
       </svg>
     </main>
     <div className="loading_text">
-		<p><strong>{props.loadingProgress}</strong>of total nodes is loaded</p>
+		<p><strong>{props.loadingProgress}</strong></p>
 	</div>
   </div>
     </>
