@@ -1,20 +1,20 @@
 node_modules
 dist
 settings.json
-# XRViewer_Figma/*.html
-# XRViewer_Figma/*.js
-# XRViewer_Figma/*.zip
-# XRViewer_Figma/*.txt
+XRViewer_Figma/*.html
+XRViewer_Figma/*.js
+XRViewer_Figma/*.zip
+XRViewer_Figma/*.txt
 
-# XRViewer_WebXR/*.html
-# XRViewer_WebXR/*.js
-# XRViewer_WebXR/*.zip
-# XRViewer_WebXR/*.txt
+XRViewer_WebXR/*.html
+XRViewer_WebXR/*.js
+XRViewer_WebXR/*.zip
+XRViewer_WebXR/*.txt
 
-# XRViewer_Unity/*.html
-# XRViewer_Unity/*.js
-# XRViewer_Unity/*.zip
-# XRViewer_Unity/*.txt
+XRViewer_Unity/*.html
+XRViewer_Unity/*.js
+XRViewer_Unity/*.zip
+XRViewer_Unity/*.txt
 
 /release
 

@@ -515,7 +515,7 @@ const IndexApp = () => {
   const [isFigma, setIsFigma] = useState(false);
   const [isQuery,setIsQuery] = useState(false);
   const [isQueryLoading,setIsQueryLoading] = useState(false);
-  const [queryLoadingProgress,setQueryLoadingProgress] = useState(`0`);
+  const [queryLoadingProgress,setQueryLoadingProgress] = useState(`0 of total nodes is loaded`);
 
   const onCreateImage = useCallback((event) => __awaiter(void 0, void 0, void 0, function* () {
       event.preventDefault();

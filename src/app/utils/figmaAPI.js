@@ -13,10 +13,10 @@ class FigmaApi {
 
   async getOAuth2Token() {
     /* if a token exists and hasn't expired, re-use it */
-    const existingTokenData = JSON.parse(window.localStorage.getItem(storageKeyForAccessTokenData));
-    if (existingTokenData && existingTokenData.expireOnEpoch > Date.now()) {
-      return existingTokenData.token;
-    }
+    // const existingTokenData = JSON.parse(window.localStorage.getItem(storageKeyForAccessTokenData));
+    // if (existingTokenData && existingTokenData.expireOnEpoch > Date.now()) {
+    //   return existingTokenData.token;
+    // }
   
     /* if no token exists, request access code first */
     const state = Math.random().toString(); // TODO randomize
