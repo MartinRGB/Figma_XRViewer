@@ -515,7 +515,7 @@ const IndexApp = () => {
   const [isFigma, setIsFigma] = useState(false);
   const [isQuery,setIsQuery] = useState(false);
   const [isQueryLoading,setIsQueryLoading] = useState(false);
-  const [queryLoadingProgress,setQueryLoadingProgress] = useState(`0 of total nodes is loaded`);
+  const [queryLoadingProgress,setQueryLoadingProgress] = useState(`0`);
 
   const onCreateImage = useCallback((event) => __awaiter(void 0, void 0, void 0, function* () {
       event.preventDefault();
@@ -646,7 +646,7 @@ const IndexApp = () => {
           figmaApi.getOAuth2Token().then(token => {
             syncFetchQueryFigmaJSON(token,fileKey,nodeId,
               (str)=>{
-                setQueryLoadingProgress(str + " of total nodes is loaded");
+                setQueryLoadingProgress(str);
               },
               (arr)=>{
                 savedFigData = arr;
@@ -660,7 +660,7 @@ const IndexApp = () => {
         else{
           syncFetchQueryFigmaJSON(token,fileKey,nodeId,
             (str)=>{
-              setQueryLoadingProgress(str + " of total nodes is loaded");
+              setQueryLoadingProgress(str);
             },
             (arr)=>{
               savedFigData = arr;
@@ -736,7 +736,7 @@ const IndexApp = () => {
         </div>
         <div className="vis" ref={mountRef}>
           {(isQueryLoading)?
-            <Spinner loadingProgress={`${queryLoadingProgress}`}></Spinner>
+            <Spinner loadingProgress={`${queryLoadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
             :
             <Canvas frameloop="demand" gl={{
               preserveDrawingBuffer:true,

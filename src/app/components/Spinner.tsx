@@ -35,7 +35,7 @@ const Spinner = (props) => {
       </svg>
     </main>
     <div className="loading_text">
-		<p><strong>{props.loadingProgress}</strong></p>
+		<p>{props.loadingProgress?<strong>{props.loadingProgress}</strong>:<></>}{props.hintText?props.hintText:''}</p>
 	</div>
   </div>
     </>

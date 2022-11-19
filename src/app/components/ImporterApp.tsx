@@ -247,7 +247,7 @@ const getImage = (json) => {
     <div className="horizontal-flex-container">
       <div className='flex-left'>
         {(isLoading)?
-          <Spinner loadingProgress={`loading`}></Spinner>
+          <Spinner hintText={`loading`}></Spinner>
           :
           <div className="data_snippet">
             {
