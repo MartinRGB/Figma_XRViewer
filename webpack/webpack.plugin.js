@@ -1,8 +1,8 @@
-//const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin'); 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => ({
   mode: argv.mode === 'production' ? 'production' : 'development',
@@ -10,23 +10,10 @@ module.exports = (env, argv) => ({
   // This is necessary because Figma's 'eval' works differently than normal eval
   devtool: argv.mode === 'production' ? false : 'inline-source-map', //inline-source-map
 
-  entry: {
-    ui: './src/app/pages/index.tsx', // The entry point for your UI code
-    code: './src/plugin/xrviewer.ts', // The entry point for your plugin code
-  },
   devServer: {
-    //webpack5
-    // static: {
-    //   directory: path.resolve(__dirname, '.', '../figma'),
-    //   staticOptions: {
-    //     index: 'ui.html',
-    //   },
-    // },
     hot: true,
     open: true,
     https: true,
-    // host: '0.0.0.0',
-    // port: 8081
   },
 
   module: {
@@ -45,15 +32,21 @@ module.exports = (env, argv) => ({
   // Webpack tries these extensions for you if you omit the extension like "import './file'"
   resolve: { extensions: ['.tsx', '.ts', '.jsx', '.js'] },
 
+  entry: {
+    ui: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.tsx`, // The entry point for your UI code
+    // ui: `./src/app/pages/platform.tsx`, // The entry point for your UI code
+    code: `./src/plugin/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.ts`, // The entry point for your plugin code
+  },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, '.' ,'../XRViewer_Figma'), // Compile into a folder called "dist"
+    path: path.resolve(__dirname, '.' ,`../${env.PLUGIN === 'xrviewer'?'XRViewer':(env.PLUGIN === 'webxr')?'XRViewer_WebXR':'XRViewer_Unity'}`), // Compile into a folder called "dist"
   },
 
   // Tells Webpack to generate "ui.html" and to inline "ui.ts" into it
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/app/pages/index.html',
+      template: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':`plugin`}.html`,
+      // template: `./src/app/pages/platform.html`,
       filename: 'ui.html',
       inlineSource: '.(js)$',
       inject: 'body',
@@ -63,12 +56,14 @@ module.exports = (env, argv) => ({
     //new HtmlWebpackInlineSourcePlugin(),
     new HtmlInlineScriptPlugin(),
     new webpack.DefinePlugin({
-      PRODUCTION: JSON.stringify(true),
+      // PRODUCTION: JSON.stringify(true),
       VERSION: JSON.stringify("5fa3b9"),
       BROWSER_SUPPORTS_HTML5: true,
       TWO: "1+1",
-      "typeof window": JSON.stringify("object")
-    })
+      "typeof window": JSON.stringify("object"),
+      "process.env.PLUGIN": JSON.stringify(`${env.PLUGIN}`),
+    }),
+    ...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:9000})]),
   ],
 
 })

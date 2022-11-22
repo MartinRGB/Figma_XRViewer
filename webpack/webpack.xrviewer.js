@@ -1,20 +1,21 @@
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-const webpack = require('webpack')
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+//const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+//const CompressionPlugin = require("compression-webpack-plugin");
 
-const pages = ['index','callback','importer']
+const pages = ['xrviewer','callback','importer']
 
 module.exports = (env, argv) => ({
-  mode: 'production',
-
-  // devtool: `eval`, //inline-source-map
+  mode: argv.mode === 'production' ? 'production' : 'development',
+  devtool: argv.mode === 'production' ? false : 'cheap-module-source-map', //inline-source-map
   target: "web",
   devServer: {
     hot: true,
     open: true,
     https: true,
+    port:8887,
   },
 
   module: {
@@ -35,44 +36,6 @@ module.exports = (env, argv) => ({
   // Webpack tries these extensions for you if you omit the extension like "import './file'"
   resolve: { extensions: ['.tsx', '.ts', '.jsx', '.js'] },
 
-  // entry: {
-  //   index: './src/app/index.tsx', // The entry point for your UI code
-  // },
-
-  // output: {
-  //   filename: "[name].js",
-  //   path: path.resolve(__dirname, '../build'),
-  // },
-  
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: "all",
-  //   },
-  //   // minimize: true,
-  //   // minimizer: [new TerserPlugin()],
-  // },
-
-  // plugins: [
-  //   // new CompressionWebpackPlugin(),
-  //   new webpack.DefinePlugin({
-  //     PRODUCTION: JSON.stringify(true),
-  //     VERSION: JSON.stringify("5fa3b9"),
-  //     BROWSER_SUPPORTS_HTML5: true,
-  //     TWO: "1+1",
-  //     "typeof window": JSON.stringify("object")
-  //   })
-  // ].concat(
-  //   new HtmlWebpackPlugin({
-  //     template: `./src/app/index.html`,
-  //     filename: `index.html`,
-  //     minify: true,
-  //     // inlineSource: '.(js)$',
-  //     // inject: false,
-  //     // chunks: `index`,
-  //     // cache: false
-  //   })
-  // ),
-
   entry: pages.reduce((config, page) => {
     config[page] = `./src/app/pages/${page}.tsx`;
     return config;
@@ -84,12 +47,12 @@ module.exports = (env, argv) => ({
   },
   
   optimization: {
+    minimize:true,
     splitChunks: {
       chunks: "all",
     },
   },
   
-
   plugins: [
     //new HtmlInlineScriptPlugin(),
     new webpack.DefinePlugin({
@@ -97,14 +60,19 @@ module.exports = (env, argv) => ({
       VERSION: JSON.stringify("5fa3b9"),
       BROWSER_SUPPORTS_HTML5: true,
       TWO: "1+1",
-      "typeof window": JSON.stringify("object")
-    })
+      "typeof window": JSON.stringify("object"),
+      'process.env.name': JSON.stringify('Vishwas'),
+      "process.env.PLATFORM": JSON.stringify(`${env.PLATFORM}`),
+    }),
+    //new BundleAnalyzerPlugin({analyzerPort:9000}),
+    //new CompressionPlugin(),
+    ...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:9000})]),
   ].concat(
     pages.map(
       (page) =>
         new HtmlWebpackPlugin({
           template: `./src/app/pages/${page}.html`,
-          filename: `${page}.html`,
+          filename: `${page === 'xrviewer'?'index':`${page}`}.html`,
           inlineSource: '.(js)$',
           inject: 'body',
           chunks: [page],

@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,createContext} from 'react'
+import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle} from 'react'
 import { Canvas, invalidate, useFrame,useThree } from '@react-three/fiber'
 import { OrbitControls,PerspectiveCamera,useHelper } from '@react-three/drei'
 import { getImage, getImageBlob,createCanvasDotMaterial,createCanvasGridMaterial,planeCurve,saveImageFromRenderer} from '../utils/image.js'; 
@@ -11,7 +11,7 @@ import '../styles/ui.css';
 import { CameraHelper } from 'three'
 import Spinner from './Spinner'
 import {FigmaApi} from '../utils/figmaAPI';
-import { isLocal,rootURL,clientID,secrectID } from '../config';
+import { rootURL,clientID,secrectID } from '../config';
 // todo
 // 2.computer data pass to XR Device 
 // 3.player coord/move
@@ -506,7 +506,7 @@ const Content = forwardRef((props,ref) =>{
   )
 })
 
-const IndexApp = () => {
+const XRViewerApp = () => {
   const mountRef = useRef(null);
   const contentRef = useRef(null);
   const getMount = useRef({getParentRef: () => {return mountRef }});
@@ -627,11 +627,6 @@ const IndexApp = () => {
       
       if(fileKey != null && nodeId != null){
         console.log('init with query data')
-
-        //const isLocal = false;
-        // const clientID = isLocal?'6clxS2O4bl9ADNcy1wh5rk':'2beFW69qeg7DvjBp6bKpm5';
-        // const secrectID = isLocal?'3RtOK3Qx3lMUm3svNfZuycyNAeouxq':'013RerD24yjKxvSIrUr4f6dESMYST8';
-    
         
         const figmaApi = new FigmaApi({
           clientId: clientID,
@@ -760,4 +755,4 @@ const IndexApp = () => {
     </>
   )
 }
-export default IndexApp;
+export default XRViewerApp;

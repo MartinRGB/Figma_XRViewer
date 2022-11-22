@@ -1,10 +1,9 @@
 import * as React from 'react';
-import UnityApp from '../components/UnityApp';
+import PluginApp from '../components/PluginApp';
 import {createRoot} from 'react-dom/client';
 
 const rootElement = document.getElementById('react-page');
 const root = createRoot(rootElement);
-
 root.render(
-      <UnityApp />
+      <PluginApp platform={process.env.PLUGIN}/>
 );

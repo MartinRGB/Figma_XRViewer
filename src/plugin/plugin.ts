@@ -17,14 +17,13 @@ function sendMsg(tp,val) {
 }
 
 figma.ui.onmessage = msg => {
-  if (msg.type === 'copy_open') {
+  if (msg.type === 'get_data') {
     let nodes = figma.currentPage.selection;
     if (nodes.length === 1) {
       const fileKey = figma.fileKey;
       const fileName = figma.root.name.replaceAll(' ','-');
       const nodeId = figma.currentPage.selection[0].id.replaceAll(':','%3A');
-      const platform = 'unity';
-      sendMsg("finished_msg", [fileKey,fileName,nodeId,platform]);
+      sendMsg("finished_msg", [fileKey,fileName,nodeId]);
     }
   }
   if (msg.type === 'cancel') {

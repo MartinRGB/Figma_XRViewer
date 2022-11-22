@@ -6,6 +6,11 @@ XRViewer_Figma/*.js
 XRViewer_Figma/*.zip
 XRViewer_Figma/*.txt
 
+XRViewer/*.html
+XRViewer/*.js
+XRViewer/*.zip
+XRViewer/*.txt
+
 XRViewer_WebXR/*.html
 XRViewer_WebXR/*.js
 XRViewer_WebXR/*.zip
