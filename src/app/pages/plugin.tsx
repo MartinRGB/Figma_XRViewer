@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PluginApp from '../components/PluginApp';
+import PluginApp from '@Apps/PluginApp';
 import {createRoot} from 'react-dom/client';
 
 const rootElement = document.getElementById('react-page');

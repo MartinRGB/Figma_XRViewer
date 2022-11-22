@@ -1,57 +1,77 @@
-import * as THREE from 'three'
 import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle} from 'react'
+
+import * as THREE from 'three'
 import { Canvas, invalidate, useFrame,useThree } from '@react-three/fiber'
 import { OrbitControls,PerspectiveCamera,useHelper } from '@react-three/drei'
-import { getImage, getImageBlob,createCanvasDotMaterial,createCanvasGridMaterial,planeCurve,saveImageFromRenderer} from '../utils/image.js'; 
-import { searchElementByType,__awaiter,saveZip,syncFetchQueryFigmaJSON } from '../utils/functions.js'; 
+import { XR, Controllers, Hands, XRButton, useXR } from '@react-three/xr'
+
+import '../styles/ui.css';
+
+import Spinner from '@Components/Spinner'
+import { 
+  searchElementByType,
+  __awaiter,
+  saveZip,
+  syncFetchQueryFigmaJSON,
+  getImage, getImageBlob,
+  createCanvasDotMaterial,createCanvasGridMaterial,createPlaneCurve,
+  saveImageFromRenderer 
+} from '@Utils/functions.js'; 
+import {FigmaApi} from '@Utils/figmaAPI';
+import { rootURL,clientID,secrectID } from '@Config';
+
 import { getProject,ISheetObject,types } from '@theatre/core'
 import { editable as e,SheetProvider } from '@theatre/r3f'
-import { XR, Controllers, Hands, XRButton, useXR } from '@react-three/xr'
-import '../styles/ui.css';
-import { CameraHelper } from 'three'
-import Spinner from './Spinner'
-import {FigmaApi} from '../utils/figmaAPI';
-import { rootURL,clientID,secrectID } from '../config';
+import studio from '@theatre/studio';
+import extension from '@theatre/r3f/dist/extension';
+
 // todo
 // 2.computer data pass to XR Device 
 // 3.player coord/move
 // 4.screen position (fov -> rotation's position & simple position)
 // 5.control -> <- camera
 
-// # base Attribute
-const baseUnit = 100;
-const bgColor = '#272730'
-const defaultSaveImageQuality = 2;
+// ### Global Variable ###
+// # init saved local data
+var savedFigData = '';
+// # init R3F Config 
+const ViewerConfig ={
+  baseUnit:100,
+  bgColor:'#272730',
+  savedImageQuality:2,
+}
 
-// # Theatre Studio
+// # init Theatre Studio
+studio.initialize({usePersistentStorage:false}) 
+studio.extend(extension)
 const EditableCamera = e(PerspectiveCamera, 'perspectiveCamera')
+
 const helperSheet = getProject('XRViewer').sheet('Node Tree','Helper')
 const assetSheet = getProject('XRViewer').sheet('Node Tree','Asset')
 const sceneHelper = helperSheet.object('helper', {
   cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),
   dotHelper:types.boolean(false),
-  quality: types.stringLiteral(defaultSaveImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
+  quality: types.stringLiteral(ViewerConfig.savedImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
 })
-
 
 const helperSetting = (scene,helperRef,yScalePerc) =>{
 
   const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
   //radius angles radius
-  const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
-  polarGridHelper.position.y = -yScalePerc/2*baseUnit;
-  polarGridHelper.position.z = baseUnit;
+  const polarGridHelper = new THREE.PolarGridHelper(ViewerConfig.baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
+  polarGridHelper.position.y = -yScalePerc/2*ViewerConfig.baseUnit;
+  polarGridHelper.position.z = ViewerConfig.baseUnit;
   polarGridHelper.visible = helperRef.current.value.polarHelper;
   scene.add(polarGridHelper);
 
-  const ground = new THREE.PlaneGeometry(baseUnit*8, baseUnit*8, Math.min(250,Math.max(40,baseUnit*8.*5)), Math.min(250,Math.max(40,baseUnit*8.*5)));
+  const ground = new THREE.PlaneGeometry(ViewerConfig.baseUnit*8, ViewerConfig.baseUnit*8, Math.min(250,Math.max(40,ViewerConfig.baseUnit*8.*5)), Math.min(250,Math.max(40,ViewerConfig.baseUnit*8.*5)));
   ground.rotateX(Math.PI / 2);
   const dotGrid = new THREE.PointsMaterial({ transparent: false, fog: false });
-  (dotGrid.map = createCanvasDotMaterial('#ffffff', baseUnit*8)), (dotGrid.size = 1*0.00825);
+  (dotGrid.map = createCanvasDotMaterial(THREE,'#ffffff', ViewerConfig.baseUnit*8)), (dotGrid.size = 1*0.00825);
   const dotGridHelper = new THREE.Points(ground, dotGrid);
-  dotGridHelper.position.y =  -yScalePerc/2*baseUnit;
-  dotGridHelper.position.z = baseUnit;
+  dotGridHelper.position.y =  -yScalePerc/2*ViewerConfig.baseUnit;
+  dotGridHelper.position.z = ViewerConfig.baseUnit;
   dotGridHelper.visible = helperRef.current.value.dotHelper;
   scene.add(dotGridHelper);
 
@@ -65,6 +85,7 @@ const helperSetting = (scene,helperRef,yScalePerc) =>{
 }
 
 const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
+  
   //todo
   if(document.getElementById('theatrejs-studio-root').shadowRoot === null){
     console.log('removed duplicated theatreJS studio')
@@ -120,7 +141,7 @@ const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
 const Camera = forwardRef((props,ref) =>{
   const [mAspect,setAspect] = useState(1);
   const realCamera = useRef(null);
-  useHelper(ref,CameraHelper)
+  useHelper(ref,THREE.CameraHelper)
   const {invalidate,scene} = useThree()
 
   useEffect(()=>{
@@ -171,7 +192,7 @@ const Camera = forwardRef((props,ref) =>{
       near={0.01}
       zoom={1} 
       far={10000} 
-      position={[0,0,baseUnit]}/>
+      position={[0,0,ViewerConfig.baseUnit]}/>
     <EditableCamera
       theatreKey="camera" 
       // makeDefault
@@ -185,7 +206,7 @@ const Camera = forwardRef((props,ref) =>{
       near={0.01}
       zoom={1} 
       far={10000} 
-      position={[0,0,baseUnit]}/>
+      position={[0,0,ViewerConfig.baseUnit]}/>
     </>
   )
 
@@ -269,7 +290,7 @@ const Screen = (props) =>{
   const screenGeom = useRef(null)
   const screenRef = useRef(null)
   const screenObjRef = useRef(null)
-  const defaultCurve = 0.001*baseUnit;
+  const defaultCurve = 0.001*ViewerConfig.baseUnit;
   const [yScalePerc,setYScalePerc] = useState(1);
   const [currMap,setCurrMap] = useState(null);
   const [currVis,setCurrVis] = useState(false);
@@ -277,11 +298,6 @@ const Screen = (props) =>{
   useEffect(()=>{
     if(props.isQuery === true){
       if(props.hasData && props.index != 0){
-        //console.log(props.src)
-        //console.log(document.getElementById('img-layout').children[props.index].src)
-        // toDataUrl(props.src, function(myBase64) {
-        //   console.log(myBase64); // myBase64 is the base64 string
-        // });
         new THREE.TextureLoader().load(props.src, (tex) => {
           tex.needsUpdate = true;
           setYScalePerc(tex.image.height / tex.image.width)
@@ -306,7 +322,7 @@ const Screen = (props) =>{
       }
       else{
         new Promise(function(resolve, reject) {
-          resolve(createCanvasGridMaterial('white',1920,1080,9,9,4).image.toDataURL("image/png"))
+          resolve(createCanvasGridMaterial(THREE,'white',1920,1080,9,9,4).image.toDataURL("image/png"))
         }).then(function(result) { // (**)
           var tex = new THREE.Texture();
           var loadedImage = new Image();
@@ -328,7 +344,7 @@ const Screen = (props) =>{
 
   useEffect(()=>{ 
     screenObjRef.current.onValuesChange(newValues => {
-      planeCurve(screenGeom.current,newValues.curve)
+      createPlaneCurve(THREE,screenGeom.current,newValues.curve)
     });
   },[screenRef])
 
@@ -343,19 +359,19 @@ const Screen = (props) =>{
       additionalProps={{ 
         curve: types.number(defaultCurve, {
           nudgeMultiplier: 0.001,
-          range:[0.001,baseUnit]
+          range:[0.001,ViewerConfig.baseUnit]
         }),
       }} 
       visible={currVis}
       scale={props.hasData?[1*(props.width/props.fw),yScalePerc*(props.width/props.fw),1]:[1,yScalePerc,1]}
       position={props.hasData?
-        [((props.x + props.width/2) - props.fw/2)/(props.fw)*baseUnit,
-         ((props.fh/2 -(props.y + props.height/2))/(props.fh))*(props.fh/props.fw)*baseUnit,
-         props.index*0.0005 * baseUnit]
+        [((props.x + props.width/2) - props.fw/2)/(props.fw)*ViewerConfig.baseUnit,
+         ((props.fh/2 -(props.y + props.height/2))/(props.fh))*(props.fh/props.fw)*ViewerConfig.baseUnit,
+         props.index*0.0005 * ViewerConfig.baseUnit]
         :
         [0,0,0]}
      >
-      <planeGeometry ref={screenGeom} args={[baseUnit, baseUnit, 40, 40]} />
+      <planeGeometry ref={screenGeom} args={[ViewerConfig.baseUnit, ViewerConfig.baseUnit, 40, 40]} />
       <meshBasicMaterial 
           ref={screeMaterial}
           // depthTest={true}
@@ -405,23 +421,6 @@ const getProperScreen = (props) =>{
       }
       </>
     }
-
-    {/* {props.figData.map(({ type,index,name,x,y,width,height,src}) => (
-          
-          <Screen  
-            key={type + '-three-' + index} 
-            src={src}
-            name={name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${index}`}
-            x={(index===0)?0:x}
-            y={(index===0)?0:y}
-            index={index}
-            width={width}
-            height={height}
-            fw={props.figData[0].width}
-            fh={props.figData[0].height}
-            hasData={true}
-            />
-    ))} */}
     
     </>
   )
@@ -441,7 +440,7 @@ const Content = forwardRef((props,ref) =>{
       const w = props.mount.current.getParentRef().current.clientWidth;
       const h = props.mount.current.getParentRef().current.clientHeight;
       const savedImage = saveImageFromRenderer(w,h,Number(sceneHelper.value.quality),scene,gl,camera);
-      scene.background = new THREE.Color(bgColor);
+      scene.background = new THREE.Color(ViewerConfig.bgColor);
       return savedImage;
     },
   }));
@@ -474,7 +473,7 @@ const Content = forwardRef((props,ref) =>{
 
   return(
       <SheetProvider sheet={assetSheet}>
-        {/* <color attach="background" args={[bgColor]} />  */}
+        {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
         <ambientLight />
         <Camera 
           mount={props.mount}

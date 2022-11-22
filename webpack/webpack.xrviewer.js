@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-//const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 //const CompressionPlugin = require("compression-webpack-plugin");
 
@@ -26,7 +26,7 @@ module.exports = (env, argv) => ({
       { test: /\.tsx?$/, use: 'babel-loader', exclude: /node_modules/ },
 
       // Enables including CSS by doing "import './file.css'" in your TypeScript code
-      { test: /\.css$/, use: ['style-loader', { loader: 'css-loader' }] },
+      { test: /\.css$/, use: ['style-loader', { loader: 'css-loader'}] },
 
       // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a data URI
       { test: /\.(png|jpg|gif|webp|svg)$/, loader: 'url-loader' },
@@ -34,7 +34,14 @@ module.exports = (env, argv) => ({
   },
 
   // Webpack tries these extensions for you if you omit the extension like "import './file'"
-  resolve: { extensions: ['.tsx', '.ts', '.jsx', '.js'] },
+  resolve: { 
+    extensions: ['.ts','.tsx', '.js','.jsx', ],
+    plugins: [
+      new TsconfigPathsPlugin({
+        extensions: ['.tsx', '.ts', '.js', '.json', '.png', '.jpg'],
+      }),
+    ],
+  },
 
   entry: pages.reduce((config, page) => {
     config[page] = `./src/app/pages/${page}.tsx`;

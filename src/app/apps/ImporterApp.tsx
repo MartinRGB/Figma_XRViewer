@@ -1,7 +1,7 @@
 import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,createContext} from 'react'
-import {FigmaApi} from '../utils/figmaAPI';
-import Spinner from './Spinner';
-import { isLocal,rootURL,rendererURL,clientID,secrectID } from '../config';
+import {FigmaApi} from '@Utils/figmaAPI';
+import Spinner from '@Components/Spinner';
+import { rootURL,rendererURL,clientID,secrectID } from '@Config';
 import '../styles/importer.css';
 
 // fileName nodeId token

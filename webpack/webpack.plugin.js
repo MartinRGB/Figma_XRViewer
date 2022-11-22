@@ -2,6 +2,7 @@ const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => ({
@@ -22,7 +23,7 @@ module.exports = (env, argv) => ({
       { test: /\.tsx?$/, use: 'babel-loader', exclude: /node_modules/ },
 
       // Enables including CSS by doing "import './file.css'" in your TypeScript code
-      { test: /\.css$/, use: ['style-loader', { loader: 'css-loader' }] },
+      { test: /\.css$/, use: ['style-loader', { loader: 'css-loader'}] },
 
       // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a data URI
       { test: /\.(png|jpg|gif|webp|svg)$/, loader: 'url-loader' },
@@ -30,7 +31,14 @@ module.exports = (env, argv) => ({
   },
 
   // Webpack tries these extensions for you if you omit the extension like "import './file'"
-  resolve: { extensions: ['.tsx', '.ts', '.jsx', '.js'] },
+  resolve: { 
+    extensions: ['.ts','.tsx', '.js','.jsx', ],
+    plugins: [
+      new TsconfigPathsPlugin({
+        extensions: ['.tsx', '.ts', '.js', '.json', '.png', '.jpg'],
+      }),
+    ],
+  },
 
   entry: {
     ui: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.tsx`, // The entry point for your UI code
@@ -63,7 +71,7 @@ module.exports = (env, argv) => ({
       "typeof window": JSON.stringify("object"),
       "process.env.PLUGIN": JSON.stringify(`${env.PLUGIN}`),
     }),
-    ...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:9000})]),
+    ...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:`${env.PLUGIN === 'xrviewer'?9001:env.PLUGIN === 'unity'?9002:9003}`})]),
   ],
 
 })

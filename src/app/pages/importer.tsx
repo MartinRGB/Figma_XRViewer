@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ImporterApp from '../components/ImporterApp';
+import ImporterApp from '@Apps/ImporterApp';
 import {createRoot} from 'react-dom/client';
 
 const rootElement = document.getElementById('react-page');

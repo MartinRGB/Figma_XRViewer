@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { isLocal,rootURL } from '../config';
+import { rootURL } from '@Config';
 
 
 export interface IPluginApp {
@@ -8,7 +8,6 @@ export interface IPluginApp {
 
 const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
  
-
   useEffect(()=>{
     
     parent.postMessage({ pluginMessage: { type: 'get_data' } }, '*')
