@@ -74,6 +74,124 @@ export function getImageBlob(uri) {
   return array;
 }
 
+
+export const onCreateImage = (event,getImageFunction,msgType,name) => __awaiter(void 0, void 0, void 0, function* () {
+  event.preventDefault();
+  // const image = yield contentRef.current.saveImage();
+  const image = yield getImageFunction();
+  if (!image)
+      return;
+  const { width, height } = yield getImage(image);
+  const blob = getImageBlob(image);
+  return parent.postMessage({
+      pluginMessage: {
+          type: msgType, //'save-canvas-image',
+          name: name, //figmaData[0].name
+          width,
+          height,
+          blob,
+      },
+  }, '*');
+});
+
+export const onDownloadImage = (event,isServe,figmaData,layout) => {
+  var frameHTML = document.documentElement.innerHTML;
+  //var outputData = figmaData;
+  var outputData = new Array(figmaData.length)
+  console.log(figmaData)
+  //var loopNum = 0;
+  new Promise((resolve, reject) => {
+      if(isServe === true){
+        for(var i=0;i<outputData.length;i++){
+          let index = i;
+          
+          outputData.splice(index,1,{
+            name:figmaData[index].name,
+            width:figmaData[index].width,
+            height:figmaData[index].height,
+            x:figmaData[index].x,
+            y:figmaData[index].y,
+            src:`./pngs/`+figmaData[index].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_%23${index}`+`.png`,
+            type:figmaData[index].type,
+            index:figmaData[index].index,
+            id:figmaData[index].id,
+            imageData:null
+          })
+          //outputData[index].imageData = null;
+          //outputData[index].src = `./pngs/`+outputData[index].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_%23${index}`+`.png`;
+          //loopNum++;
+          if(index === outputData.length - 1){
+              console.log(outputData)
+              const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
+              resolve({data:newHtml,isServe:true})
+          }
+        }
+      }
+      else{
+
+        for(var i=0;i<outputData.length;i++){
+          let index = i;
+          const reader = new FileReader();
+          reader.readAsDataURL(new Blob([figmaData[index].imageData], { type: 'image/png' }));   
+          reader.onloadend = () => {
+            //outputData[index].imageData = null;
+            //outputData[index].src = reader.result;
+            outputData.splice(index,1,{
+              name:figmaData[index].name,
+              width:figmaData[index].width,
+              height:figmaData[index].height,
+              x:figmaData[index].x,
+              y:figmaData[index].y,
+              src: reader.result,
+              type:figmaData[index].type,
+              index:figmaData[index].index,
+              id:figmaData[index].id,
+              imageData:null
+            })
+            
+            if(index === outputData.length - 1){
+              // console.log('here')
+              console.log(outputData)
+              const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
+              resolve({data:newHtml,isServe:false})
+            }
+            
+          }
+        }
+
+      }
+
+    }).then(res => {
+        if(res.isServe === true){
+          var mUrl = []
+          var bb = new Blob([res.data], { type: 'text/html' });
+          var htmlUrl = window.URL.createObjectURL(bb);
+          mUrl.push({url:htmlUrl,name:'index',ext:'html'})
+          for(var a=0;a<outputData.length;a++){
+            mUrl.push({
+              //reserve the reserve
+              // url:document.getElementById('img-layout').children[outputData.length - 1 - a].src,
+              url:layout.children[outputData.length - 1 - a].src,
+              name:outputData[a].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${a}`,
+              ext:'png'
+            })
+          }
+          saveZip('my_project',mUrl)
+        }
+        else{
+          var bb = new Blob([res.data], { type: 'text/html' });
+          var htmlUrl = window.URL.createObjectURL(bb);
+          var a = document.createElement("a");
+          a.href = htmlUrl;
+          a.download = 'index_static.html';
+          a.style = "display: none";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+
+  })
+};
 // ################################## web-request ##################################
 export async function syncGetBase64FromUrl (url,callback){
   fetch(url)

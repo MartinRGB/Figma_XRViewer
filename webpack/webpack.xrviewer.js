@@ -73,7 +73,7 @@ module.exports = (env, argv) => ({
     }),
     //new BundleAnalyzerPlugin({analyzerPort:9000}),
     //new CompressionPlugin(),
-    ...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:9000})]),
+    //...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:9000})]),
   ].concat(
     pages.map(
       (page) =>

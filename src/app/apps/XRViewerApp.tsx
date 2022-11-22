@@ -10,10 +10,11 @@ import '../styles/ui.css';
 import Spinner from '@Components/Spinner'
 import { 
   searchElementByType,
-  __awaiter,
-  saveZip,
+  // __awaiter,
+  // saveZip,
   syncFetchQueryFigmaJSON,
-  getImage, getImageBlob,
+  // getImage, getImageBlob,
+  onCreateImage,onDownloadImage,
   createCanvasDotMaterial,createCanvasGridMaterial,createPlaneCurve,
   saveImageFromRenderer 
 } from '@Utils/functions.js'; 
@@ -33,7 +34,6 @@ import extension from '@theatre/r3f/dist/extension';
 
 // ### Global Variable ###
 // # init saved local data
-var savedFigData = '';
 // # init R3F Config 
 const ViewerConfig ={
   baseUnit:100,
@@ -508,6 +508,7 @@ const Content = forwardRef((props,ref) =>{
 const XRViewerApp = () => {
   const mountRef = useRef(null);
   const contentRef = useRef(null);
+  const imgLayoutRef = useRef(null);
   const getMount = useRef({getParentRef: () => {return mountRef }});
 
   const [figData,setFigData] = useState([]);
@@ -516,91 +517,26 @@ const XRViewerApp = () => {
   const [isQueryLoading,setIsQueryLoading] = useState(false);
   const [queryLoadingProgress,setQueryLoadingProgress] = useState(`0`);
 
-  const onCreateImage = useCallback((event) => __awaiter(void 0, void 0, void 0, function* () {
-      event.preventDefault();
-      const image = yield contentRef.current.saveImage();
-      if (!image)
-          return;
-      const { width, height } = yield getImage(image);
-      const blob = getImageBlob(image);
-      return parent.postMessage({
-          pluginMessage: {
-              type: 'save-canvas-image',
-              name: figData[0].name, 
-              width,
-              height,
-              blob,
-          },
-      }, '*');
-  }),[figData]);
+  interface CreateImageProps {
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>;
+    image: number;
+    message: any;
+    name: string;
+  }
+  
+  const CreateImage = useCallback(({event,image,message,name}:CreateImageProps) => {
+    onCreateImage(event,image,message,name)
+  },[figData]);
 
-  const onDownloadImage = useCallback((event,isServe) => {
-    var frameHTML = document.documentElement.innerHTML;
-    var outputData = savedFigData;
-    new Promise((resolve, reject) => {
-        if(isServe === true){
-          for(var i=0;i<outputData.length;i++){
-            let index = i;
-            outputData[index].imageData = null;
-            outputData[index].src = `./pngs/`+outputData[index].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_%23${index}`+`.png`;
-            if(index === outputData.length - 1){
-                const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
-                resolve({data:newHtml,isServe:true})
-            }
-          }
-        }
-        else{
-          console.log(outputData)
-
-          for(var i=0;i<outputData.length;i++){
-            let index = i;
-            const reader = new FileReader();
-            reader.readAsDataURL(new Blob([savedFigData[index].imageData], { type: 'image/png' }));   
-            reader.onloadend = () => {
-              outputData[index].imageData = null;
-              outputData[index].src = reader.result;
-              if(index === outputData.length - 1){
-                console.log(outputData)
-                const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
-                resolve({data:newHtml,isServe:false})
-              }
-            }
-          }
-
-        }
-
-      }).then(res => {
-          if(res.isServe === true){
-            var mUrl = []
-            var bb = new Blob([res.data], { type: 'text/html' });
-            var htmlUrl = window.URL.createObjectURL(bb);
-            mUrl.push({url:htmlUrl,name:'index',ext:'html'})
-            for(var a=0;a<outputData.length;a++){
-              mUrl.push({
-                //reserve the reserve
-                url:document.getElementById('img-layout').children[outputData.length - 1 - a].src,
-                name:outputData[a].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${a}`,
-                ext:'png'
-              })
-            }
-            console.log(outputData)
-            saveZip('my_project',mUrl)
-          }
-          else{
-            var bb = new Blob([res.data], { type: 'text/html' });
-            var htmlUrl = window.URL.createObjectURL(bb);
-            var a = document.createElement("a");
-            a.href = htmlUrl;
-            a.download = 'index_static.html';
-            a.style = "display: none";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          }
-
-    })
+  interface DownloadImageProps {
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>;
+    isServe: boolean;
+    data: any;
+    imageLayout: React.MutableRefObject<any>;
+  }
+  const DownloadImage = useCallback(({event,isServe,data,imageLayout}:DownloadImageProps) => {
+    onDownloadImage(event,isServe,data,imageLayout);
   },[]);
-
 
   React.useEffect(() => {
     //init with data
@@ -706,7 +642,7 @@ const XRViewerApp = () => {
   return (
     <>
     <div className="webxr-previewer" id="webxr-previewer">
-        <div className="img-layout" id="img-layout">
+        <div className="img-layout" id="img-layout" ref={imgLayoutRef} >
             {figData.reverse().map(({ src,type,index,name }) => (
                   <img  key={type + '-' + index} 
                         src={src}
@@ -718,9 +654,26 @@ const XRViewerApp = () => {
         <div className="xr-container">
         {isFigma?
           <>
-            <button className="xr-button" onClick={onCreateImage}>SaveToFigma</button>
-            <button className="xr-button" onClick={()=>{onDownloadImage(e,true)}}>Download(Serve)</button>
-            <button className="xr-button" onClick={()=>{onDownloadImage(e,false)}}>Download(Static)</button>
+            <button className="xr-button" onClick={(e)=>{
+              CreateImage({
+                event:e,
+                image:contentRef.current.saveImage(),
+                message:'save-canvas-image',
+                name:figData[0].name
+              })}
+            }>SaveToFigma</button>
+            <button className="xr-button" onClick={(e)=>{DownloadImage({
+              event:e,
+              isServe:true,
+              data:figData, //savedFigData
+              imageLayout:imgLayoutRef.current
+            })}}>Download(Serve)</button>
+            <button className="xr-button" onClick={(e)=>{DownloadImage({
+              event:e,
+              isServe:false,
+              data:figData, //savedFigData
+              imageLayout:imgLayoutRef.current
+            })}}>Download(Static)</button>
           </>:
           <>
             <XRButton className="xr-button" mode={'AR'} />
