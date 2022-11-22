@@ -224,12 +224,12 @@ const getImage = (json) => {
     const firstNodeValue = Object.values(json.nodes)[0]
     console.log(firstNodeValue)
     //# preview
-    //const firstNodeKey = Object.keys(json.nodes)[0]
-    //idNodes.push(firstNodeKey); 
+    const firstNodeKey = Object.keys(json.nodes)[0]
+    idNodes.push(firstNodeKey); 
 
     for(var i =0;i< firstNodeValue.document.children.length;i++){
 
-    console.log(i)
+        console.log(i)
         idNodes.push(firstNodeValue.document.children[i].id)
         if(i === firstNodeValue.document.children.length-1){
             console.log(idNodes);

@@ -579,9 +579,7 @@ const XRViewerApp = () => {
                 setQueryLoadingProgress(str);
               },
               (arr)=>{
-                savedFigData = arr;
-                setFigData(savedFigData);
-                console.log(savedFigData)
+                setFigData(arr);
                 setIsQueryLoading(false);
               }
             );
@@ -593,9 +591,7 @@ const XRViewerApp = () => {
               setQueryLoadingProgress(str);
             },
             (arr)=>{
-              savedFigData = arr;
-              setFigData(savedFigData);
-              console.log(savedFigData)
+              setFigData(arr);
               setIsQueryLoading(false);
             }
           );
@@ -618,13 +614,12 @@ const XRViewerApp = () => {
           if (!value){
             return ()=>{}
           }
-          savedFigData = value.data;
-          for(var i=0;i<savedFigData.length;i++){
+          for(var i=0;i<value.data.length;i++){
             let index = i;
-            savedFigData[index].src = URL.createObjectURL(new Blob([savedFigData[index].imageData], { type: 'image/png' }));
-            if(i === savedFigData.length - 1){
+            value.data[index].src = URL.createObjectURL(new Blob([value.data[index].imageData], { type: 'image/png' }));
+            if(i === value.data.length - 1){
               console.log('init with figma data')
-              setFigData(savedFigData)
+              setFigData(value.data)
               setIsFigma(value.isFigma)
             }
           }
@@ -665,13 +660,13 @@ const XRViewerApp = () => {
             <button className="xr-button" onClick={(e)=>{DownloadImage({
               event:e,
               isServe:true,
-              data:figData, //savedFigData
+              data:figData,
               imageLayout:imgLayoutRef.current
             })}}>Download(Serve)</button>
             <button className="xr-button" onClick={(e)=>{DownloadImage({
               event:e,
               isServe:false,
-              data:figData, //savedFigData
+              data:figData, 
               imageLayout:imgLayoutRef.current
             })}}>Download(Static)</button>
           </>:
