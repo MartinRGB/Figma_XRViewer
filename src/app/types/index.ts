@@ -20,3 +20,7 @@ export interface DownloadImageProps {
     data: any;
     imageLayout: React.MutableRefObject<any>;
 }
+
+export interface IPluginApp {
+    platform:string;
+}

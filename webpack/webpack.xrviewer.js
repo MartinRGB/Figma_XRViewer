@@ -9,7 +9,7 @@ const pages = ['xrviewer','callback','importer']
 
 module.exports = (env, argv) => ({
   mode: argv.mode === 'production' ? 'production' : 'development',
-  devtool: argv.mode === 'production' ? false : 'cheap-module-source-map', //inline-source-map
+  devtool: argv.mode === 'production' ? false : 'inline-source-map', //inline-source-map
   target: "web",
   devServer: {
     hot: true,

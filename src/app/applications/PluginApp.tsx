@@ -1,10 +1,6 @@
 import React, {useEffect} from 'react'
 import { rootURL } from '@Config';
-
-
-export interface IPluginApp {
-  platform:string;
-}
+import { IPluginApp } from '@CustomTypes';
 
 const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
  

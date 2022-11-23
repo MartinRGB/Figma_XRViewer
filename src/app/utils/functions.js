@@ -22,7 +22,8 @@ export const copyToClipboard = (str) => {
   var el = document.createElement('textarea');
   el.value = str;
   el.setAttribute('readonly', '');
-  el.className = 'hidden_copy_helper';
+  el.style.position = 'absolute';
+  el.style.left = '-99999px';
   document.body.appendChild(el);
   el.select();
   document.execCommand('copy');
@@ -87,10 +88,11 @@ export function getImageBlob(uri) {
 }
 
 
-export const onCreateImage = (event,getImageFunction,msgType,name) => __awaiter(void 0, void 0, void 0, function* () {
+export const onCreateImage = (event,img,msgType,name) => __awaiter(void 0, void 0, void 0, function* () {
   event.preventDefault();
   // const image = yield contentRef.current.saveImage();
-  const image = yield getImageFunction();
+  // const image = yield getImageFunction();
+  const image = yield img;
   if (!image)
       return;
   const { width, height } = yield getImage(image);
@@ -181,8 +183,6 @@ export const onDownloadImage = (event,isServe,figmaData,layout) => {
           mUrl.push({url:htmlUrl,name:'index',ext:'html'})
           for(var a=0;a<outputData.length;a++){
             mUrl.push({
-              //reserve the reserve
-              // url:document.getElementById('img-layout').children[outputData.length - 1 - a].src,
               url:layout.children[outputData.length - 1 - a].src,
               name:outputData[a].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${a}`,
               ext:'png'
@@ -408,6 +408,30 @@ export function createCanvasGridMaterial(THREE,color,width,height,paddingW,paddi
   texture.needsUpdate = true;
   return texture;
 };
+
+export const helperSetting = (THREE,scene,sheetObj,yScalePerc,baseUnit,callback) =>{
+
+  const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
+  //radius angles radius
+  const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
+  polarGridHelper.position.y = -yScalePerc/2*baseUnit;
+  polarGridHelper.position.z = baseUnit;
+  polarGridHelper.visible = sheetObj.current.value.polarHelper;
+  scene.add(polarGridHelper);
+
+  const ground = new THREE.PlaneGeometry(baseUnit*8, baseUnit*8, Math.min(250,Math.max(40,baseUnit*8.*5)), Math.min(250,Math.max(40,baseUnit*8.*5)));
+  ground.rotateX(Math.PI / 2);
+  const dotGrid = new THREE.PointsMaterial({ transparent: false, fog: false });
+  (dotGrid.map = createCanvasDotMaterial(THREE,'#ffffff', baseUnit*8)), (dotGrid.size = 1*0.00825);
+  const dotGridHelper = new THREE.Points(ground, dotGrid);
+  dotGridHelper.position.y =  -yScalePerc/2*baseUnit;
+  dotGridHelper.position.z = baseUnit;
+  dotGridHelper.visible = sheetObj.current.value.dotHelper;
+  scene.add(dotGridHelper);
+  
+  callback(cameraGuideHelper,polarGridHelper,dotGridHelper)
+}
+
 
 export function createPlaneCurve(THREE,g, z){
   if (z == 0) {

@@ -6,9 +6,136 @@ import ImporterStyle from '@Styles/Importer';
 import { copyToClipboard } from '@Utils/functions.js'; 
 import styled from 'styled-components';
 
-// fileName nodeId token
-// local
-// const isLocal = true;
+const VerticalFlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+`
+
+const HorizontalFlexContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100vw;
+  flex:1;
+`
+
+const FlexLeftContainer = styled.div`
+  flex:1;
+  padding:24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+const FlexRightContainer = styled.div`
+  flex:1;
+  padding:24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
+const DataInfo = styled.div`
+  width: fit-content;
+  margin: 0 auto;
+`
+const MarginTopSix = styled.div`
+  margin-top: 6px;
+  margin-bottom: 6px;
+  * {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+`
+
+const Para = styled.p`
+  font-size: 14px;
+  opacity: 60%;
+`
+
+const StrongText = styled.strong`
+  font-size: 16px;
+  word-break: break-all;
+`
+
+const CodeBtn = styled.code`
+  //cursor: pointer;
+  background: #7f7f7f4f;
+  padding: 2px 6px 2px 6px;
+  border-radius: 4px;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+`
+
+const GreenBtn = styled.button`
+  font-size: 14px;
+  line-height: 16px;
+  padding: 4px 8px 4px 8px;
+  border-radius: 6px;
+  background: #10bd4e;
+  color: white;
+  border: 1px solid #ffffff87;
+  cursor: pointer;
+  margin-right:6px;
+  outline: none;
+`
+
+const NormalTextArea = styled.textarea`
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  outline: none;
+  font-size: 12px;
+  color:var(--fg);
+  background: #7f7f7f4f;
+  font-family: sans-serif;
+  font-weight: 400;
+`
+const JSONTextArea = styled.textarea`
+  height: 100%;
+  width: 100%;
+  line-height: 24px;
+  padding: 24px;
+  outline: none;
+  font-size: 12px;
+  color:var(--fg);
+  background: transparent;
+  font-family: sans-serif;
+  font-weight: 400;
+`
+
+const ImageListContainer = styled.div`
+  width: 100%;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x;
+  background: #5e5e5e;
+  z-index: 100;
+  padding: 0px;
+  bottom: 0px;
+  padding: 20px;
+  max-height: 190px;
+  height:190px;
+  overflow-x: auto;
+  display: flex;
+  flex:1;
+`
+const ImageInList = styled.img`
+  scroll-snap-align: start;
+  flex: 0 0 150px;
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  object-fit: contain;
+  background: #ffffff40;
+  padding: 12px;
+`
 
 const ImporterApp = () => {
   const [token,setCurrentToken] = useState('-');
@@ -107,34 +234,11 @@ const ImporterApp = () => {
 
     setCurrentKey(_fileKey)
     setCurrentNode(_nodeId)
-
     setApiUrl(apiUrl)
     setWebUrl(rendererUrl)
   }
 
-  const handleJSONTextAreaChange = (event) => {
-    setJSONTextAreaVal(event.target.value);
-  };
-
-  const onGetJSON = (apiUrl,token) =>{
-    // # request get json
-    setIsLoading(true)
-    var httpRequest = new XMLHttpRequest(); 
-    httpRequest.open('GET', apiUrl, true); 
-    httpRequest.setRequestHeader("Authorization",`Bearer ${token}`);
-    httpRequest.send();
-    httpRequest.onreadystatechange = function () {
-      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-        // # get json data
-        var json = JSON.parse(httpRequest.responseText);
-        setJSONData(json)
-        setJSONTextAreaVal(JSON.stringify(json,null,'\t'))
-        setIsLoading(false)
-      }
-    };
-  }
-
-  const ImageRequestUrl = (fileKey,nodeId,imageScale) =>{
+  const FigmaImageRequestUrl = (fileKey,nodeId,imageScale) =>{
       return(
       `https://api.figma.com/v1/` + 
       `images/${fileKey}?`+ 
@@ -146,7 +250,7 @@ const ImporterApp = () => {
 
   const ImageRequest = (fileKey,nodeId,imageScale,index,length,imgArr) =>{
     var httpImgRequest = new XMLHttpRequest();
-    httpImgRequest.open('GET', ImageRequestUrl(fileKey,nodeId,imageScale), true); 
+    httpImgRequest.open('GET', FigmaImageRequestUrl(fileKey,nodeId,imageScale), true); 
     httpImgRequest.setRequestHeader("Authorization",`Bearer ${token}`);
     httpImgRequest.send();
     let a = index;
@@ -168,8 +272,30 @@ const ImporterApp = () => {
     };
   }
 
+  const onHandleJSONTextAreaChange = (event) => {
+    setJSONTextAreaVal(event.target.value);
+  };
+
   const onCopyToClipboard = (str) =>{
     copyToClipboard(str);
+  }
+
+  const onGetJSON = (apiUrl,token) =>{
+    // # request get json
+    setIsLoading(true)
+    var httpRequest = new XMLHttpRequest(); 
+    httpRequest.open('GET', apiUrl, true); 
+    httpRequest.setRequestHeader("Authorization",`Bearer ${token}`);
+    httpRequest.send();
+    httpRequest.onreadystatechange = function () {
+      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+        // # get json data
+        var json = JSON.parse(httpRequest.responseText);
+        setJSONData(json)
+        setJSONTextAreaVal(JSON.stringify(json,null,'\t'))
+        setIsLoading(false)
+      }
+    };
   }
 
   const onSendToUnity = (_token,_key,_node) =>{
@@ -180,13 +306,13 @@ const ImporterApp = () => {
     document.body.removeChild(hrefLink);
   }
 
-  const onOpenWebXR = () =>{
+  const onOpenWebXR = (url) =>{
     //window.location.href=`${webUrl}`
-    window.open(`${webUrl}`,'_blank')
+    window.open(`${url}`,'_blank')
   }
 
-  const onGoOrigSite = ()=>{
-    window.location.href=`${rootURL}importer.html`;
+  const onGoOrigSite = (url)=>{
+    window.location.href=`${url}importer.html`;
   }
 
   const onGetImageList = (json) => {
@@ -213,142 +339,84 @@ const ImporterApp = () => {
     }
   }
 
-  const CodeBtn = styled.code`
-    cursor: pointer;
-    background: #7f7f7f4f;
-    padding: 2px 6px 2px 6px;
-    border-radius: 4px;
-  `
-  const StrongText = styled.strong`
-    font-size: 16px;
-    word-break: break-all;
-  `
-
-  const GreenBtn = styled.button`
-    font-size: 14px;
-    line-height: 16px;
-    padding: 4px 8px 4px 8px;
-    border-radius: 6px;
-    background: #10bd4e;
-    color: white;
-    border: 1px solid #ffffff87;
-    cursor: pointer;
-    margin-right:6px;
-  `
-
-  const MarginTopSix = styled.div`
-    * {
-      margin-top: 6px;
-      margin-bottom: 6px;
-    }
-  `
-
-  const NormalTextArea = styled.textarea`
-    width: 100%;
-    height: 24px;
-    line-height: 24px;
-    padding-left: 8px;
-    padding-right: 8px;
-    outline: none;
-    font-size: 12px;
-    color:var(--fg);
-    background: #7f7f7f4f;
-  `
-
   return (
     <>
-    <ImporterStyle></ImporterStyle>
-    <div className="vertical-flex-container">
-    <div className="horizontal-flex-container">
-      <div className='flex-left'>
-        {(isLoading)?
-          <Spinner hintText={`loading`}></Spinner>
-          :
-          <div className="data_snippet">
-            {
-              (webUrl === '-')?
-              <>
-                {/* <div>
-                  <p>Your Figma <CodeBtn>Token</CodeBtn> is:</p>
-                  <div style={{marginTop: "6px"}}><StrongText>{token}</StrongText></div>
-                  <div style={{marginTop: "6px"}}>
-                    <button className="green-button" onClick={()=>{onCopyToClipboard(token)}}>Copy</button>
-                    <button style={{marginLeft:"6px"}} className="green-button" onClick={()=>{onRegenerateToken()}}>Regenerate</button>
-                  </div>
-                </div>
-
-                <div style={{marginTop: "24px"}}>
-                  <textarea className="file_textarea" rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></textarea>
-                  <button style={{marginTop: "10px"}} className="green-button" onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</button>
-                </div> */}
-                <MarginTopSix>
-                  <p>Your Figma <CodeBtn>Token</CodeBtn> is:</p>
-                  <StrongText>{token}</StrongText>
-                  <MarginTopSix>
-                  <GreenBtn onClick={()=>{onCopyToClipboard(token)}}>Copy</GreenBtn>
-                  <GreenBtn onClick={()=>{onRegenerateToken()}}>Regenerate</GreenBtn>
-                  </MarginTopSix>
-                </MarginTopSix>
-
-                <MarginTopSix>
-                  <NormalTextArea rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></NormalTextArea>
-                  <GreenBtn onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</GreenBtn>
-                </MarginTopSix>
-              </>
+      <ImporterStyle></ImporterStyle>
+      <VerticalFlexContainer>
+        <HorizontalFlexContainer>
+          <FlexLeftContainer>
+            {(isLoading)?
+              <Spinner hintText={`loading`}></Spinner>
               :
-              <>
-              <div style={{display:'none',marginTop: "24px"}}>
-                <p>Your Figma <CodeBtn>API Url</CodeBtn> is:</p>
-                <div style={{marginTop: "6px"}}><StrongText>{apiUrl}</StrongText></div>
-                <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onCopyToClipboard(apiUrl)}}>Copy</button>
-              </div>
+              <DataInfo>
+                {
+                  (webUrl === '-')?
+                  <>
+                    <MarginTopSix>
+                      <Para>Your Figma <CodeBtn>Token</CodeBtn> is:</Para>
+                      <StrongText>{token}</StrongText>
+                      <MarginTopSix>
+                        <GreenBtn onClick={()=>{onCopyToClipboard(token)}}>Copy</GreenBtn>
+                        <GreenBtn onClick={()=>{onRegenerateToken()}}>Regenerate</GreenBtn>
+                      </MarginTopSix>
+                    </MarginTopSix>
 
-              <div style={{marginTop: "24px"}}>
-                <p>Your <CodeBtn>Figma Token</CodeBtn> is:</p>
-                <div style={{marginTop: "6px"}}><StrongText>{token}</StrongText></div>
-                <p>Your <CodeBtn>Frame Url</CodeBtn> is:</p>
-                <div style={{marginTop: "6px"}}><StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText></div>
-                <p>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</p>
-                <div style={{marginTop: "6px"}}><StrongText>{webUrl}</StrongText></div>
-                <div style={{marginTop: "6px"}}>
-                  <button  className="green-button" onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</button><br></br>
-                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onOpenWebXR()}}>Go WebXR Site</button> <br></br>
-                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onGoOrigSite()}}>Go Origin Site</button> <br></br>
-                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</button><br></br>
-                  {(jsonData)?
-                   <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onGetImageList(jsonData)}}>Get Image</button>
-                   :
-                   <></>
-                  }
-                </div>
-              </div>
-              </>
+                    <MarginTopSix>
+                      <NormalTextArea rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></NormalTextArea>
+                      <GreenBtn onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</GreenBtn>
+                    </MarginTopSix>
+                  </>
+                  :
+                  <>
+                  <MarginTopSix>
+                      <Para>Your Figma <CodeBtn>API Url</CodeBtn> is:</Para>
+                      <StrongText>{apiUrl}</StrongText>
+                      <Para>Your <CodeBtn>Figma Token</CodeBtn> is:</Para>
+                      <StrongText>{token}</StrongText>
+                      <Para>Your <CodeBtn>Frame Url</CodeBtn> is:</Para>
+                      <StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText>
+                      <Para>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</Para>
+                      <StrongText>{webUrl}</StrongText>
+                  </MarginTopSix>
+
+                  <MarginTopSix>
+                    <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
+                    <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
+                    <GreenBtn onClick={()=>{onGoOrigSite(rootURL)}}>Go Origin Site</GreenBtn> <br></br>
+                    <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
+                    {(jsonData)?
+                      <GreenBtn onClick={()=>{onGetImageList(jsonData)}}>Get Image</GreenBtn>
+                      :
+                      <></>
+                    }
+                  </MarginTopSix>
+                  </>
+                }
+              </DataInfo>
             }
-          </div>
-        }
-      </div>
-      {(jsonData && !isLoading)?
-        <div className='flex-right'>
-          <textarea className='json-textarea' value={jsonTextAreaVal} onChange={handleJSONTextAreaChange}></textarea>
-        </div>
+          </FlexLeftContainer>
+          {(jsonData && !isLoading)?
+          <FlexRightContainer>
+            <JSONTextArea value={jsonTextAreaVal} onChange={onHandleJSONTextAreaChange}></JSONTextArea>
+          </FlexRightContainer>
+          :
+          <></>
+          }
+        </HorizontalFlexContainer>
+
+        {(imgArray.length != 0)?
+        <ImageListContainer>
+          {
+            imgArray.map((number) =>
+              <ImageInList src = {number}></ImageInList>
+            )
+          }
+        </ImageListContainer>
         :
         <></>
-      }
-    </div>
+        }
 
-    {(imgArray.length != 0)?
-      <div className="images-list">
-      {
-        imgArray.map((number) =>
-          <img src = {number}></img>
-        )
-      }
-      </div>
-      :
-      <></>
-    }
-
-    </div>
+      </VerticalFlexContainer>
     </>
   )
 }

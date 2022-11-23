@@ -7,7 +7,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    // "inlineSourceMap": true,
+    "inlineSourceMap": true,
     "removeComments": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
