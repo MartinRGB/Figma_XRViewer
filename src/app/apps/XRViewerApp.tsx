@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { Canvas, invalidate, useFrame,useThree } from '@react-three/fiber'
 import { OrbitControls,PerspectiveCamera,useHelper } from '@react-three/drei'
 import { XR, Controllers, Hands, XRButton, useXR } from '@react-three/xr'
-
+import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
 import '../styles/ui.css';
 
 import Spinner from '@Components/Spinner'
@@ -516,24 +516,11 @@ const XRViewerApp = () => {
   const [isQuery,setIsQuery] = useState(false);
   const [isQueryLoading,setIsQueryLoading] = useState(false);
   const [queryLoadingProgress,setQueryLoadingProgress] = useState(`0`);
-
-  interface CreateImageProps {
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>;
-    image: number;
-    message: any;
-    name: string;
-  }
   
   const CreateImage = useCallback(({event,image,message,name}:CreateImageProps) => {
     onCreateImage(event,image,message,name)
   },[figData]);
 
-  interface DownloadImageProps {
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>;
-    isServe: boolean;
-    data: any;
-    imageLayout: React.MutableRefObject<any>;
-  }
   const DownloadImage = useCallback(({event,isServe,data,imageLayout}:DownloadImageProps) => {
     onDownloadImage(event,isServe,data,imageLayout);
   },[]);
@@ -544,8 +531,6 @@ const XRViewerApp = () => {
     const fileKey = parsedUrl.searchParams.get('query_key');
     const nodeId = parsedUrl.searchParams.get('query_node');
     const token = parsedUrl.searchParams.get('query_token');
-
-
 
     console.log('fileKey is: ' + fileKey);
     console.log('nodeId is: ' + nodeId);

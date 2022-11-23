@@ -71,8 +71,6 @@ module.exports = (env, argv) => ({
       'process.env.name': JSON.stringify('Vishwas'),
       "process.env.PLATFORM": JSON.stringify(`${env.PLATFORM}`),
     }),
-    //new BundleAnalyzerPlugin({analyzerPort:9000}),
-    //new CompressionPlugin(),
     //...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:9000})]),
   ].concat(
     pages.map(
