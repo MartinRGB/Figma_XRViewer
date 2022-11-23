@@ -2,7 +2,7 @@ import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeH
 import {FigmaApi} from '@Utils/figmaAPI';
 import Spinner from '@Components/Spinner';
 import { rootURL,rendererURL,clientID,secrectID } from '@Config';
-import '../styles/importer.css';
+import ImporterStyle from '@Styles/Importer';
 
 // fileName nodeId token
 // local
@@ -243,6 +243,7 @@ const getImage = (json) => {
 
   return (
     <>
+    <ImporterStyle></ImporterStyle>
     <div className="vertical-flex-container">
     <div className="horizontal-flex-container">
       <div className='flex-left'>

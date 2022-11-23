@@ -5,15 +5,12 @@ import { Canvas, invalidate, useFrame,useThree } from '@react-three/fiber'
 import { OrbitControls,PerspectiveCamera,useHelper } from '@react-three/drei'
 import { XR, Controllers, Hands, XRButton, useXR } from '@react-three/xr'
 import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
-import '../styles/ui.css';
+import XRViewerStyle from '@Styles/XRViewer'
 
 import Spinner from '@Components/Spinner'
 import { 
   searchElementByType,
-  // __awaiter,
-  // saveZip,
   syncFetchQueryFigmaJSON,
-  // getImage, getImageBlob,
   onCreateImage,onDownloadImage,
   createCanvasDotMaterial,createCanvasGridMaterial,createPlaneCurve,
   saveImageFromRenderer 
@@ -621,6 +618,7 @@ const XRViewerApp = () => {
 
   return (
     <>
+    <XRViewerStyle></XRViewerStyle>
     <div className="webxr-previewer" id="webxr-previewer">
         <div className="img-layout" id="img-layout" ref={imgLayoutRef} >
             {figData.reverse().map(({ src,type,index,name }) => (

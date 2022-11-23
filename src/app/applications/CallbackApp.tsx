@@ -16,9 +16,9 @@ const CallbackApp = () => {
 
   return (
     <>
-    <div >
+    <h1 >
       Callback
-    </div>
+    </h1>
     </>
   )
 }

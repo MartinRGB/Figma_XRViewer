@@ -1,10 +1,117 @@
 import React from 'react'
-import '../styles/spinner.css';
+//import '../styles/spinner.css';
+import {createGlobalStyle} from 'styled-components'
 
 const Spinner = (props) => {
+
+  const SpinnerStyle = createGlobalStyle`
+    .spinner_bg {
+      background-color: var(--bg);
+      color: var(--fg);
+      font: 1em/1.5 sans-serif;
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      display: grid;
+      place-items: center;
+      transition: background-color var(--trans-dur);
+      overflow: hidden;
+    }
+
+    main {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .ip {
+      width: 16em;
+      height: 8em;
+    }
+    .ip__worm1,
+    .ip__worm2 {
+      animation: worm1 2s linear infinite;
+    }
+    .ip__worm2 {
+      animation-name: worm2;
+    }
+
+    .ip__track {
+      stroke: hsl(var(--hue), 90%, 90%);
+      transition: stroke var(--trans-dur);
+    }
+
+    :root {
+      --hue: 223;
+      --bg: hsl(var(--hue), 90%, 95%);
+      --fg: hsl(var(--hue), 90%, 5%);
+      --trans-dur: 0.3s;
+      font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
+    }
+
+    /* Dark theme */
+    @media (prefers-color-scheme: dark) {
+        :root {
+        --bg: hsl(var(--hue), 90%, 5%);
+        --fg: hsl(var(--hue), 90%, 95%);
+      }
+
+      .ip__track {
+        stroke: hsl(var(--hue), 90%, 15%);
+      }
+    }
+
+    /* Animation */
+    @keyframes worm1 {
+      from {
+        stroke-dashoffset: 0;
+      }
+      50% {
+        animation-timing-function: steps(1);
+        stroke-dashoffset: -358;
+      }
+      50.01% {
+        animation-timing-function: linear;
+        stroke-dashoffset: 358;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    @keyframes worm2 {
+      from {
+        stroke-dashoffset: 358;
+      }
+      50% {
+        stroke-dashoffset: 0;
+      }
+      to {
+        stroke-dashoffset: -358;
+      }
+    }
+
+    strong{
+      font-size: 16px;
+      word-break: break-all;
+    }
+
+    .loading_text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, calc(-50% + 40px));
+      z-index: 1000;
+        font-size:14px;
+    }
+  `
   
   return (
     <>
+    <SpinnerStyle></SpinnerStyle>
     <div className='spinner_bg'>
     <main id="loading">
       <svg style={{width:"78px"}} className="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
@@ -35,8 +142,8 @@ const Spinner = (props) => {
       </svg>
     </main>
     <div className="loading_text">
-		<p>{props.loadingProgress?<strong>{props.loadingProgress}</strong>:<></>}{props.hintText?props.hintText:''}</p>
-	</div>
+		  <p>{props.loadingProgress?<strong>{props.loadingProgress}</strong>:<></>}{props.hintText?props.hintText:''}</p>
+	  </div>
   </div>
     </>
   )

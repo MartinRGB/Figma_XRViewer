@@ -15,13 +15,13 @@
     "baseUrl": "./",
     "paths":{
       "*.ts":["*"],
-      "@Apps/*": ["src/app/apps/*"],
+      "@Applications/*": ["src/app/applications/*"],
       "@Components/*": ["src/app/components/*"],
       "@Assets/*": ["src/app/assets/*"],
       "@Styles/*": ["src/app/styles/*"],
       "@Utils/*": ["src/app/utils/*"],
       "@CustomTypes": ["src/app/types"],
-      "@Config": ["src/app/config"],
+      "@Config": ["src/app/configs"],
     },
     "typeRoots": [
       "./node_modules/@types",
