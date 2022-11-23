@@ -12,12 +12,11 @@ import Camera from '@Components/Camera'
 import XRContainer from '@Components/XRContainer'
 import ProperScreen from '@Components/ProperScreen'
 import { 
-  searchElementByType,
   syncFetchQueryFigmaJSON,
   onCreateImage,onDownloadImage,
-  createCanvasDotMaterial,
   saveImageFromRenderer,
-  helperSetting
+  helperSetting,
+  theatreStudioCameraHelperFixed
 } from '@Utils/functions.js'; 
 import {FigmaApi} from '@Utils/figmaAPI';
 import { rootURL,clientID,secrectID } from '@Config';
@@ -35,7 +34,6 @@ import extension from '@theatre/r3f/dist/extension';
 // 5.control -> <- camera
 
 // ### Global Variable ###
-// # init saved local data
 // # init R3F Config 
 const ViewerConfig ={
   baseUnit:100,
@@ -56,59 +54,7 @@ const sceneHelper = helperSheet.object('helper', {
   quality: types.stringLiteral(ViewerConfig.savedImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
 })
 
-const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
-  
-  //todo
-  if(document.getElementById('theatrejs-studio-root').shadowRoot === null){
-    console.log('removed duplicated theatreJS studio')
-    document.body.removeChild(document.getElementById('theatrejs-studio-root'))
-  }
-  const snapBtn = document.getElementById('theatrejs-studio-root').shadowRoot.children[1].children[0].children[1].children[0].children[1];
-  const mArr = scene.children;
-  const mHelper =  searchElementByType(mArr,'type','CameraHelper');
 
-  // todo 
-  // disable cameraHelper when open SnapShot
-  snapBtn.addEventListener("click", 
-  (event)=>{
-    if(mArr.includes(mHelper)){
-      event.stopPropagation()
-      new Promise(function(resolve, reject) {
-        console.log('remove step 1 - remove helper first')
-        mHelper.removeFromParent();
-        invalidate() 
-        setTimeout(() => resolve(1), 1); // (*)
-      }).then(function(result) { // (**)
-        console.log('remove step 2 - click btn second')
-        snapBtn.children[1].click();
-      })
-    }
-    else{
-      console.log('remove step 3 - snapshot opened')
-      setTimeout(()=>{
-        // enable cameraHelper when open SnapShot
-        const closeBtn = document.getElementById('theatrejs-studio-root').shadowRoot.children[1].children[0].children[2].children[8].children[0].children[0];
-        const closeListener = () =>{
-          if(!mArr.includes(mHelper)){
-            //no need to event.stopPropagation()
-            new Promise(function(resolve, reject) {
-              console.log('add step 1 - close window first')
-              setTimeout(() => resolve(1), 1); // (*)
-            }).then(function(result) { // (**)
-              console.log('add step 2 - add camHelper')
-              scene.add(mHelper);
-              invalidate();
-            })
-          }
-          closeBtn.removeEventListener('click',closeListener)
-          return true;
-        }
-        closeBtn.addEventListener("click",closeListener)
-      },1)
-    }
-    return true;
-  });  
-}
 
 const Content = forwardRef((props,ref) =>{
 

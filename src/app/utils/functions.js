@@ -137,7 +137,8 @@ export const onDownloadImage = (event,isServe,figmaData,layout) => {
           if(index === outputData.length - 1){
               console.log(outputData)
               const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
-              resolve({data:newHtml,isServe:true})
+              const withOutTheatreHTML = newHtml.replaceAll(`<div id="theatrejs-studio-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 100;"></div>`,'');
+              resolve({data:withOutTheatreHTML,isServe:true})
           }
         }
       }
@@ -167,7 +168,8 @@ export const onDownloadImage = (event,isServe,figmaData,layout) => {
               // console.log('here')
               console.log(outputData)
               const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
-              resolve({data:newHtml,isServe:false})
+              const withOutTheatreHTML = newHtml.replaceAll(`<div id="theatrejs-studio-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 100;"></div>`,'');
+              resolve({data:withOutTheatreHTML,isServe:false})
             }
             
           }
@@ -430,6 +432,53 @@ export const helperSetting = (THREE,scene,sheetObj,yScalePerc,baseUnit,callback)
   scene.add(dotGridHelper);
   
   callback(cameraGuideHelper,polarGridHelper,dotGridHelper)
+}
+
+export const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
+  
+  const snapBtn = document.getElementById('theatrejs-studio-root').shadowRoot.children[1].children[0].children[1].children[0].children[1];
+  const mArr = scene.children;
+  const mHelper =  searchElementByType(mArr,'type','CameraHelper');
+
+  snapBtn.addEventListener("click", 
+  (event)=>{
+    if(mArr.includes(mHelper)){
+      event.stopPropagation()
+      new Promise(function(resolve, reject) {
+        console.log('remove step 1 - remove helper first')
+        mHelper.removeFromParent();
+        invalidate() 
+        setTimeout(() => resolve(1), 1); // (*)
+      }).then(function(result) { // (**)
+        console.log('remove step 2 - click btn second')
+        snapBtn.children[1].click();
+      })
+    }
+    else{
+      console.log('remove step 3 - snapshot opened')
+      setTimeout(()=>{
+        // enable cameraHelper when open SnapShot
+        const closeBtn = document.getElementById('theatrejs-studio-root').shadowRoot.children[1].children[0].children[2].children[8].children[0].children[0];
+        const closeListener = () =>{
+          if(!mArr.includes(mHelper)){
+            //no need to event.stopPropagation()
+            new Promise(function(resolve, reject) {
+              console.log('add step 1 - close window first')
+              setTimeout(() => resolve(1), 1); // (*)
+            }).then(function(result) { // (**)
+              console.log('add step 2 - add camHelper')
+              scene.add(mHelper);
+              invalidate();
+            })
+          }
+          closeBtn.removeEventListener('click',closeListener)
+          return true;
+        }
+        closeBtn.addEventListener("click",closeListener)
+      },1)
+    }
+    return true;
+  });  
 }
 
 
