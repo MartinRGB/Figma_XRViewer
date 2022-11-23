@@ -18,6 +18,18 @@ export function __awaiter (thisArg, _arguments, P, generator) {
   });
 };
 
+export const copyToClipboard = (str) => {
+  var el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.className = 'hidden_copy_helper';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  alert("Copied the string: " + str);
+}
+
 // ################################## zip ##################################
 export function saveZip(filename, datas){
   if(!datas) return;

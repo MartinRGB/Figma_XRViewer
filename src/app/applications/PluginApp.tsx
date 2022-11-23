@@ -35,9 +35,21 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
 
   return (
     <>
-    <h1>{platform}</h1>
-    <div >
-      <button onClick={onCancel}>Cancel</button>
+    <div style={{position:'absolute',left:'50%',top:'50%',transform:'translate(-50%,-50%)'}}>
+      <h1 style={{marginTop:'0px'}}>{platform}</h1>
+      <div style={{textAlign:'center'}}>
+        <button style={{
+          fontSize:'14px',
+          lineHeight:'16px',
+          padding: '4px 8px 4px 8px',
+          borderRadius: '6px',
+          background: '#10bd4e',
+          color: 'white',
+          border: '1px solid #ffffff87',
+          cursor: 'pointer',
+        }   
+        }onClick={onCancel}>Cancel</button>
+      </div>
     </div>
     </>
   )

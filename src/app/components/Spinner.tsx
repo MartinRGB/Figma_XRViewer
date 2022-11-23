@@ -1,6 +1,7 @@
 import React from 'react'
 //import '../styles/spinner.css';
 import {createGlobalStyle} from 'styled-components'
+import styled from 'styled-components'
 
 const Spinner = (props) => {
 
@@ -8,6 +9,8 @@ const Spinner = (props) => {
     .spinner_bg {
       background-color: var(--bg);
       color: var(--fg);
+      // background-color:hsl(var(--hue), 90%, 95%);
+      // color: hsl(var(--hue), 90%, 5%);
       font: 1em/1.5 sans-serif;
       height: 100vh;
       width: 100vw;
@@ -19,13 +22,6 @@ const Spinner = (props) => {
       place-items: center;
       transition: background-color var(--trans-dur);
       overflow: hidden;
-    }
-
-    main {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
     }
 
     .ip {
@@ -55,7 +51,7 @@ const Spinner = (props) => {
 
     /* Dark theme */
     @media (prefers-color-scheme: dark) {
-        :root {
+      :root {
         --bg: hsl(var(--hue), 90%, 5%);
         --fg: hsl(var(--hue), 90%, 95%);
       }
@@ -93,27 +89,33 @@ const Spinner = (props) => {
         stroke-dashoffset: -358;
       }
     }
+  `
+  const LoadingDiv = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  `
 
-    strong{
-      font-size: 16px;
-      word-break: break-all;
-    }
+  const LoadingTextDiv = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 40px));
+    z-index: 1000;
+    font-size:14px;
+  `
 
-    .loading_text{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, calc(-50% + 40px));
-      z-index: 1000;
-        font-size:14px;
-    }
+  const StrongText = styled.strong`
+    font-size: 16px;
+    word-break: break-all;
   `
   
   return (
     <>
     <SpinnerStyle></SpinnerStyle>
     <div className='spinner_bg'>
-    <main id="loading">
+    <LoadingDiv id="loading">
       <svg style={{width:"78px"}} className="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
@@ -140,10 +142,10 @@ const Spinner = (props) => {
           </g>
         </g>
       </svg>
-    </main>
-    <div className="loading_text">
-		  <p>{props.loadingProgress?<strong>{props.loadingProgress}</strong>:<></>}{props.hintText?props.hintText:''}</p>
-	  </div>
+    </LoadingDiv>
+    <LoadingTextDiv>
+		  <p>{props.loadingProgress?<StrongText>{props.loadingProgress}</StrongText>:<></>}{props.hintText?props.hintText:''}</p>
+	  </LoadingTextDiv>
   </div>
     </>
   )

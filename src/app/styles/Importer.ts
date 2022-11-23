@@ -6,6 +6,21 @@ const ImporterStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
     }
+    :root {
+        --hue: 223;
+        --bg: hsl(var(--hue), 90%, 95%);
+        --fg: hsl(var(--hue), 90%, 5%);
+        --trans-dur: 0.3s;
+        font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
+    }
+
+    /* Dark theme */
+    @media (prefers-color-scheme: dark) {
+    :root {
+        --bg: hsl(var(--hue), 90%, 5%);
+        --fg: hsl(var(--hue), 90%, 95%);
+    }
+    }
     body {
         background-color: var(--bg);
         color: var(--fg);

@@ -1,8 +1,10 @@
-import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,createContext} from 'react'
+import React, {useState,useEffect} from 'react'
 import {FigmaApi} from '@Utils/figmaAPI';
 import Spinner from '@Components/Spinner';
 import { rootURL,rendererURL,clientID,secrectID } from '@Config';
 import ImporterStyle from '@Styles/Importer';
+import { copyToClipboard } from '@Utils/functions.js'; 
+import styled from 'styled-components';
 
 // fileName nodeId token
 // local
@@ -24,20 +26,7 @@ const ImporterApp = () => {
 
   const [isLoading,setIsLoading] = useState(true);
 
-  // const figmaApi = new FigmaApi({
-  //   clientId: clientID,
-  //   clientSecrete: secrectID,
-  //   redirectUri: `${rootURL}callback.html`,
-  // });
   const figmaApi = new FigmaApi({
-    // local
-    // clientId: 'l1KN3Rbdm5ilEpXw5etfrp',
-    // clientSecrete: 'axsYPEuvQqK9ya2AZtgW0CbLogy02p',
-    // online
-    // local v3 | GitHub v3
-    // clientId: isLocal?'l1KN3Rbdm5ilEpXw5etfrp':'GyTJq7HCHjW49zAmMvy6WW', 
-    // clientSecrete: isLocal?'axsYPEuvQqK9ya2AZtgW0CbLogy02p':'nu0XbFimZJV3pFYafonCpJ9nAofvbc',
-    // local v4 | GitHub v4
     clientId:clientID,
     clientSecrete:secrectID,
     redirectUri: `${rootURL}callback.html`,
@@ -47,7 +36,6 @@ const ImporterApp = () => {
     const parsedUrl = new URL(window.location.href);
     if(parsedUrl.searchParams.get('query_key') != null){
       //TODO smart way of getting token
-
       figmaApi.getOAuth2Token().then(token => {
         setCurrentToken(token)
         setIsLoading(false);
@@ -82,24 +70,6 @@ const ImporterApp = () => {
     }
   },[window.location.href]);  
 
-  const copyToClipboard = (str) => {
-    // Create new element
-    var el = document.createElement('textarea');
-    // Set value (string to be copied)
-    el.value = str;
-    // Set non-editable to avoid focus and move outside of view
-    el.setAttribute('readonly', '');
-    el.className = 'hidden_copy_helper';
-    document.body.appendChild(el);
-    // Select text inside element
-    el.select();
-    // Copy text to clipboard
-    document.execCommand('copy');
-    // Remove temporary element
-    document.body.removeChild(el);
-    alert("Copied the string: " + str);
-  }
-
   const getToken = () =>{
     figmaApi.getOAuth2Token().then(token => {
       setCurrentToken(token)
@@ -107,18 +77,18 @@ const ImporterApp = () => {
     });
   }
 
-  const regenerateToken = () =>{
+  const onRegenerateToken = () =>{
     localStorage.clear();
     setCurrentToken('-');
     getToken();
   }
 
-  const fileUrlOnChange = (e) =>{
+  const onChangeFileUrl = (e) =>{
     const myValue = e.target.value;
     setfileUrl(myValue);
   }
  
-  const getUrl = (url) =>{
+  const onGetUrl = (url) =>{
     var substrings = url.split('/');
     var length = substrings.length;
     var isNodeUrl = substrings[length - 1].includes("node-id");
@@ -146,7 +116,7 @@ const ImporterApp = () => {
     setJSONTextAreaVal(event.target.value);
   };
 
-  const getJSON = (apiUrl,token) =>{
+  const onGetJSON = (apiUrl,token) =>{
     // # request get json
     setIsLoading(true)
     var httpRequest = new XMLHttpRequest(); 
@@ -154,69 +124,72 @@ const ImporterApp = () => {
     httpRequest.setRequestHeader("Authorization",`Bearer ${token}`);
     httpRequest.send();
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            // # get json data
-            var json = JSON.parse(httpRequest.responseText);
-            setJSONData(json)
-            setJSONTextAreaVal(JSON.stringify(json,null,'\t'))
-            setIsLoading(false)
-
-        }
+      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+        // # get json data
+        var json = JSON.parse(httpRequest.responseText);
+        setJSONData(json)
+        setJSONTextAreaVal(JSON.stringify(json,null,'\t'))
+        setIsLoading(false)
+      }
     };
   }
 
-const ImageRequestUrl = (fileKey,nodeId,imageScale) =>{
-    return(
-    `https://api.figma.com/v1/` + 
-    `images/${fileKey}?`+ 
-    `ids=${nodeId}&`+
-    `svg_include_id=true&format=png&`+
-    `scale=${imageScale}`
-    )
-}
+  const ImageRequestUrl = (fileKey,nodeId,imageScale) =>{
+      return(
+      `https://api.figma.com/v1/` + 
+      `images/${fileKey}?`+ 
+      `ids=${nodeId}&`+
+      `svg_include_id=true&format=png&`+
+      `scale=${imageScale}`
+      )
+  }
 
-const ImageRequest = (fileKey,nodeId,imageScale,index,length,imgArr) =>{
-  var httpImgRequest = new XMLHttpRequest();
-  httpImgRequest.open('GET', ImageRequestUrl(fileKey,nodeId,imageScale), true); 
-  httpImgRequest.setRequestHeader("Authorization",`Bearer ${token}`);
-  httpImgRequest.send();
-  let a = index;
-  console.log(a);
-  httpImgRequest.onreadystatechange = function () {
+  const ImageRequest = (fileKey,nodeId,imageScale,index,length,imgArr) =>{
+    var httpImgRequest = new XMLHttpRequest();
+    httpImgRequest.open('GET', ImageRequestUrl(fileKey,nodeId,imageScale), true); 
+    httpImgRequest.setRequestHeader("Authorization",`Bearer ${token}`);
+    httpImgRequest.send();
+    let a = index;
+    console.log(a);
+    httpImgRequest.onreadystatechange = function () {
       if (httpImgRequest.readyState == 4 && httpImgRequest.status == 200) {
-          // get json data
-          var json = JSON.parse(httpImgRequest.responseText);
-          imgArr.push(Object.values(json.images)[0]);
-          console.log(imgArr);
-          setImageArray(imageArray => [...imageArray,Object.values(json.images)[0]])
-          if(a === length - 1){
-             
-              //setImageArray(imgArr);
-              setIsLoading(false)
-              console.log(imgArr)
-          }
+        // get json data
+        var json = JSON.parse(httpImgRequest.responseText);
+        imgArr.push(Object.values(json.images)[0]);
+        console.log(imgArr);
+        setImageArray(imageArray => [...imageArray,Object.values(json.images)[0]])
+        if(a === length - 1){
+          //setImageArray(imgArr);
+          setIsLoading(false)
+          console.log(imgArr)
+        }
 
       }
-  };
-}
+    };
+  }
 
-const onSendToUnity = (_token,_key,_node) =>{
-  var hrefLink = document.createElement('a');
-  hrefLink.href = `com.unity3d.kharma:custom/query_token=${_token}&file_key=${_key}&frame_name=${"figma"}&node_id=${_node}`;
-  hrefLink.addEventListener("click",()=>{
+  const onCopyToClipboard = (str) =>{
+    copyToClipboard(str);
+  }
 
-  })
-  document.body.appendChild(hrefLink);
-  hrefLink.click();
-  document.body.removeChild(hrefLink);
-}
+  const onSendToUnity = (_token,_key,_node) =>{
+    var hrefLink = document.createElement('a');
+    hrefLink.href = `com.unity3d.kharma:custom/query_token=${_token}&file_key=${_key}&frame_name=${"figma"}&node_id=${_node}`;
+    document.body.appendChild(hrefLink);
+    hrefLink.click();
+    document.body.removeChild(hrefLink);
+  }
 
-const goWebXR = () =>{
-  //window.location.href=`${webUrl}`
-  window.open(`${webUrl}`,'_blank')
-}
+  const onOpenWebXR = () =>{
+    //window.location.href=`${webUrl}`
+    window.open(`${webUrl}`,'_blank')
+  }
 
-const getImage = (json) => {
+  const onGoOrigSite = ()=>{
+    window.location.href=`${rootURL}importer.html`;
+  }
+
+  const onGetImageList = (json) => {
     setIsLoading(true)
     var idNodes = [];
     var imgArr = [];
@@ -228,7 +201,6 @@ const getImage = (json) => {
     idNodes.push(firstNodeKey); 
 
     for(var i =0;i< firstNodeValue.document.children.length;i++){
-
         console.log(i)
         idNodes.push(firstNodeValue.document.children[i].id)
         if(i === firstNodeValue.document.children.length-1){
@@ -239,7 +211,49 @@ const getImage = (json) => {
             }
         }
     }
-}
+  }
+
+  const CodeBtn = styled.code`
+    cursor: pointer;
+    background: #7f7f7f4f;
+    padding: 2px 6px 2px 6px;
+    border-radius: 4px;
+  `
+  const StrongText = styled.strong`
+    font-size: 16px;
+    word-break: break-all;
+  `
+
+  const GreenBtn = styled.button`
+    font-size: 14px;
+    line-height: 16px;
+    padding: 4px 8px 4px 8px;
+    border-radius: 6px;
+    background: #10bd4e;
+    color: white;
+    border: 1px solid #ffffff87;
+    cursor: pointer;
+    margin-right:6px;
+  `
+
+  const MarginTopSix = styled.div`
+    * {
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+  `
+
+  const NormalTextArea = styled.textarea`
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 8px;
+    padding-right: 8px;
+    outline: none;
+    font-size: 12px;
+    color:var(--fg);
+    background: #7f7f7f4f;
+  `
 
   return (
     <>
@@ -254,42 +268,55 @@ const getImage = (json) => {
             {
               (webUrl === '-')?
               <>
-                <div>
-                  <p>Your Figma <code className="code_button" >Token</code> is:</p>
-                  <div style={{marginTop: "6px"}}><strong>{token}</strong></div>
+                {/* <div>
+                  <p>Your Figma <CodeBtn>Token</CodeBtn> is:</p>
+                  <div style={{marginTop: "6px"}}><StrongText>{token}</StrongText></div>
                   <div style={{marginTop: "6px"}}>
-                    <button className="green-button" onClick={()=>{copyToClipboard(token)}}>Copy</button>
-                    <button style={{marginLeft:"6px"}} className="green-button" onClick={()=>{regenerateToken()}}>Regenerate</button>
+                    <button className="green-button" onClick={()=>{onCopyToClipboard(token)}}>Copy</button>
+                    <button style={{marginLeft:"6px"}} className="green-button" onClick={()=>{onRegenerateToken()}}>Regenerate</button>
                   </div>
                 </div>
 
                 <div style={{marginTop: "24px"}}>
-                  <textarea className="file_textarea" rows={1} cols={33} onChange={(e)=>fileUrlOnChange(e)} value={fileUrl}></textarea>
-                  <button style={{marginTop: "10px"}} className="green-button" onClick={()=>{getUrl(fileUrl)}}>Get API & Renderer Url</button>
-                </div>
+                  <textarea className="file_textarea" rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></textarea>
+                  <button style={{marginTop: "10px"}} className="green-button" onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</button>
+                </div> */}
+                <MarginTopSix>
+                  <p>Your Figma <CodeBtn>Token</CodeBtn> is:</p>
+                  <StrongText>{token}</StrongText>
+                  <MarginTopSix>
+                  <GreenBtn onClick={()=>{onCopyToClipboard(token)}}>Copy</GreenBtn>
+                  <GreenBtn onClick={()=>{onRegenerateToken()}}>Regenerate</GreenBtn>
+                  </MarginTopSix>
+                </MarginTopSix>
+
+                <MarginTopSix>
+                  <NormalTextArea rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></NormalTextArea>
+                  <GreenBtn onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</GreenBtn>
+                </MarginTopSix>
               </>
               :
               <>
               <div style={{display:'none',marginTop: "24px"}}>
-                <p>Your Figma <code className="code_button">API Url</code> is:</p>
-                <div style={{marginTop: "6px"}}><strong>{apiUrl}</strong></div>
-                <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{copyToClipboard(apiUrl)}}>Copy</button>
+                <p>Your Figma <CodeBtn>API Url</CodeBtn> is:</p>
+                <div style={{marginTop: "6px"}}><StrongText>{apiUrl}</StrongText></div>
+                <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onCopyToClipboard(apiUrl)}}>Copy</button>
               </div>
 
               <div style={{marginTop: "24px"}}>
-                <p>Your <code className="code_button">Figma Token</code> is:</p>
-                <div style={{marginTop: "6px"}}><strong>{token}</strong></div>
-                <p>Your <code className="code_button">Frame Url</code> is:</p>
-                <div style={{marginTop: "6px"}}><strong>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</strong></div>
-                <p>Your <code className="code_button">WebXR Website Url</code> is:</p>
-                <div style={{marginTop: "6px"}}><strong>{webUrl}</strong></div>
+                <p>Your <CodeBtn>Figma Token</CodeBtn> is:</p>
+                <div style={{marginTop: "6px"}}><StrongText>{token}</StrongText></div>
+                <p>Your <CodeBtn>Frame Url</CodeBtn> is:</p>
+                <div style={{marginTop: "6px"}}><StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText></div>
+                <p>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</p>
+                <div style={{marginTop: "6px"}}><StrongText>{webUrl}</StrongText></div>
                 <div style={{marginTop: "6px"}}>
                   <button  className="green-button" onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</button><br></br>
-                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{goWebXR()}}>Go WebXR Site</button> <br></br>
-                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{window.location.href=`${rootURL}importer.html`}}>Go Origin Site</button> <br></br>
-                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{getJSON(apiUrl,token)}}>Get JSON Data</button><br></br>
+                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onOpenWebXR()}}>Go WebXR Site</button> <br></br>
+                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onGoOrigSite()}}>Go Origin Site</button> <br></br>
+                  <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</button><br></br>
                   {(jsonData)?
-                   <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{getImage(jsonData)}}>Get Image</button>
+                   <button style={{marginTop: "6px"}} className="green-button" onClick={()=>{onGetImageList(jsonData)}}>Get Image</button>
                    :
                    <></>
                   }
