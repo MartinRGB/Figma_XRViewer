@@ -238,7 +238,9 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
   const childrenLength = parentNode.children.length;
 
   var jsonArr = new Array(childrenLength+1);
+
   const getSyncData = async (callback)=>{
+
     fetch(
       `https://api.figma.com/v1/` + 
       `images/${fileKey}?`+ 
@@ -330,7 +332,7 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
   }
 
   await getSyncData((number)=>{
-    if(num === childrenLength+1){
+    if(number === childrenLength+1){
       finishedCallback(jsonArr)
     }
   })

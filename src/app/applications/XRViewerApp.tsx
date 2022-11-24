@@ -4,8 +4,7 @@ import * as THREE from 'three'
 import { Canvas, invalidate,useThree } from '@react-three/fiber'
 import { XRButton  } from '@react-three/xr'
 import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
-import XRViewerStyle from '@Styles/XRViewer'
-import {WebXRContainer,ImageInList,ImageListContainer,XRDivContainer,TopFixedBtn,CanvasContainer} from '@Styles/XRViewer'
+import {WebXRContainer,ImageInList,ImageListContainer,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
 import Spinner from '@Components/Spinner'
 import Orbit from '@Components/Orbit'
 import Camera from '@Components/Camera'
@@ -23,8 +22,6 @@ import { rootURL,clientID,secrectID } from '@Config';
 
 import { getProject,ISheetObject,types } from '@theatre/core'
 import { editable as e,SheetProvider } from '@theatre/r3f'
-import studio from '@theatre/studio';
-import extension from '@theatre/r3f/dist/extension';
 //const EditableCamera = e(PerspectiveCamera, 'perspectiveCamera')
 
 // todo
@@ -35,15 +32,12 @@ import extension from '@theatre/r3f/dist/extension';
 
 // ### Global Variable ###
 // # init R3F Config 
+
 const ViewerConfig ={
   baseUnit:100,
   bgColor:'#272730',
   savedImageQuality:2,
 }
-
-// # init Theatre Studio
-studio.initialize({usePersistentStorage:false}) 
-studio.extend(extension)
 
 const helperSheet = getProject('XRViewer').sheet('Node Tree','Helper')
 const assetSheet = getProject('XRViewer').sheet('Node Tree','Asset')
@@ -55,8 +49,15 @@ const sceneHelper = helperSheet.object('helper', {
 })
 
 
+interface RendererProps {
+  containerRef:React.MutableRefObject<any>;
+  figmaData:any;
+  isQuery:boolean;
+  isFigma:boolean;
+  loadingProgress:string;
+}
 
-const Content = forwardRef((props,ref) =>{
+const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProgress}:RendererProps,ref) =>{
 
   const cameraRef = useRef(null);
   const camraObjRef = useRef(null);
@@ -65,16 +66,16 @@ const Content = forwardRef((props,ref) =>{
   useImperativeHandle(ref, () => ({
     saveImage: () => {
       scene.background = null;
-      const w = props.mountRef.current.clientWidth;
-      const h = props.mountRef.current.clientHeight;
+      const w = containerRef.current.clientWidth;
+      const h = containerRef.current.clientHeight;
       const savedImage = saveImageFromRenderer(w,h,Number(sceneHelper.value.quality),scene,gl,camera);
       scene.background = new THREE.Color(ViewerConfig.bgColor);
       return savedImage;
     },
   }));
   
-  const InitContent = () =>{
-    const yScalePerc = (props.figData.length != 0)?props.figData[0].height/props.figData[0].width:(1080/1920);
+  const InitRenderer = useCallback(() =>{
+    const yScalePerc = (figmaData.length != 0)?figmaData[0].height/figmaData[0].width:(1080/1920);
     console.log('the screen aspect ratio is : ' + yScalePerc)
     helperSetting(THREE,scene,helperSheetObj,yScalePerc,ViewerConfig.baseUnit,
       (camHelper,polarHelper,dotHelper)=>
@@ -88,41 +89,41 @@ const Content = forwardRef((props,ref) =>{
       }
     );
     theatreStudioCameraHelperFixed(scene,invalidate)
-  }
+  },[])
 
   useEffect(()=>{
-    if(props.isQuery === true){
-      const isOnLoading = (props.loadingProgress.split('/').length === 2);
-      const isLoadingFinished = (props.loadingProgress.split('/')[0] === props.loadingProgress.split('/')[1]);
+    if(isQuery === true){
+      const isOnLoading = (loadingProgress.split('/').length === 2);
+      const isLoadingFinished = (loadingProgress.split('/')[0] === loadingProgress.split('/')[1]);
       if(isOnLoading && isLoadingFinished){
-        InitContent();
+        InitRenderer();
       }
     }
     else{
-      InitContent();
+      InitRenderer();
     }
 
-  },[props.isQuery,props.loadingProgress])
+  },[isQuery,loadingProgress])
 
   return(
       <SheetProvider sheet={assetSheet}>
         {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
         <ambientLight />
-        <Camera containerRef={props.mountRef} cameraRef={cameraRef} cameraSheetObj={camraObjRef} baseUnit={ViewerConfig.baseUnit}/>
+        <Camera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={camraObjRef} baseUnit={ViewerConfig.baseUnit}/>
         <Orbit cameraSheetObj={camraObjRef.current}></Orbit>
-        {(props.isFigma === false)?
+        {(isFigma === false)?
           <XRContainer
             cameraRef={cameraRef} 
             cameraSheetObj={camraObjRef}
             >
             <SheetProvider sheet={assetSheet}>
-              <ProperScreen figmaData={props.figData} isQuery={props.isQuery} baseUnit={ViewerConfig.baseUnit}></ProperScreen>
+              <ProperScreen figmaData={figmaData} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperScreen>
             </SheetProvider>
           </XRContainer>
           :
           <>
             <SheetProvider sheet={assetSheet}>
-              <ProperScreen figmaData={props.figData} isQuery={props.isQuery} baseUnit={ViewerConfig.baseUnit}></ProperScreen>
+              <ProperScreen figmaData={figmaData} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperScreen>
             </SheetProvider>
           </>
           }
@@ -131,8 +132,8 @@ const Content = forwardRef((props,ref) =>{
 })
 
 const XRViewerApp = () => {
-  const mountRef = useRef(null);
-  const contentRef = useRef(null);
+  const canvasContainerRef = useRef(null);
+  const rendererRef = useRef(null);
   const imgLayoutRef = useRef(null);
 
   const [figData,setFigData] = useState([]);
@@ -149,19 +150,48 @@ const XRViewerApp = () => {
     onDownloadImage(event,isServe,data,imageLayout);
   },[]);
 
-  const InitWithEmptyData = () =>{
+  const InitWithEmptyData = useCallback(() =>{
     console.log('successed - init with empty data')
-  }
+  },[])
 
-  const InitWithStaticData = (data) =>{
+  const InitWithStaticData = useCallback((data) =>{
     console.log('init with saved data')
     setIsFigma(false)
     setIsQuery(false);
     setFigData(data)
     setIsLoading(false);
-  }
+  },[])
 
-  const InitWithQueryData = (token,fileKey,nodeId) =>{
+  const InitWithFigmaData = useCallback((type,value) =>{
+    if(type === 'selection'){
+      if (!value){
+        console.log('failed - no figma selection')
+        return ()=>{}
+      }
+      console.log('successed - init with figma data')
+
+      setIsQuery(false);
+      setIsLoading(true);
+      for(var i=0;i<value.data.length;i++){
+        let index = i;
+        value.data[index].src = URL.createObjectURL(new Blob([value.data[index].imageData], { type: 'image/png' }));
+        if(i === value.data.length - 1){
+          setIsFigma(value.isFigma)
+          setFigData(value.data)
+          setIsLoading(false);
+        }
+      }
+    }
+
+    if(type === 'failed'){
+      if (!value){
+        console.log('failed - get data failed')
+        return ()=>{}
+      }
+    }
+  },[])
+  
+  const InitWithQueryData = useCallback((token,fileKey,nodeId) =>{
     console.log('successed - init with query data')
 
     setIsFigma(false);
@@ -201,36 +231,8 @@ const XRViewerApp = () => {
         }
       );
     }
-  }
+  },[])
 
-  const InitWithFigmaData = (type,value) =>{
-    if(type === 'selection'){
-      if (!value){
-        console.log('failed - no figma selection')
-        return ()=>{}
-      }
-      console.log('successed - init with figma data')
-
-      setIsQuery(false);
-      setIsLoading(true);
-      for(var i=0;i<value.data.length;i++){
-        let index = i;
-        value.data[index].src = URL.createObjectURL(new Blob([value.data[index].imageData], { type: 'image/png' }));
-        if(i === value.data.length - 1){
-          setIsFigma(value.isFigma)
-          setFigData(value.data)
-          setIsLoading(false);
-        }
-      }
-    }
-
-    if(type === 'failed'){
-      if (!value){
-        console.log('failed - get data failed')
-        return ()=>{}
-      }
-    }
-  }
 
   React.useEffect(() => {
     const parsedUrl = new URL(window.location.href);
@@ -241,7 +243,6 @@ const XRViewerApp = () => {
     console.log('fileKey is: ' + fileKey);
     console.log('nodeId is: ' + nodeId);
     console.log('token is: ' + token);
-
     // ## on saved static data(Download(Static))
     if(savedFigData != ''){
       InitWithStaticData(savedFigData)
@@ -270,7 +271,7 @@ const XRViewerApp = () => {
 
   return (
     <>
-    <XRViewerStyle></XRViewerStyle>
+    <XRViewerGlobalrtyle></XRViewerGlobalrtyle>
     <WebXRContainer>
       <ImageListContainer ref={imgLayoutRef} >
           {figData.reverse().map(({ src,type,index,name }) => (
@@ -287,7 +288,7 @@ const XRViewerApp = () => {
           <TopFixedBtn onClick={(e)=>{
             CreateImage({
               event:e,
-              image:contentRef.current.saveImage(),
+              image:rendererRef.current.saveImage(),
               message:'save-canvas-image',
               name:figData[0].name
             })}
@@ -311,7 +312,7 @@ const XRViewerApp = () => {
         </>
         }
       </XRDivContainer>
-      <CanvasContainer ref={mountRef}>
+      <CanvasContainer ref={canvasContainerRef}>
         {(isLoading)?
         <Spinner loadingProgress={`${loadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
         :
@@ -322,13 +323,13 @@ const XRViewerApp = () => {
           alpha: true,
           logarithmicDepthBuffer:true,
           }} >
-            <Content 
-              ref={contentRef} 
-              mountRef={mountRef}
+            <Renderer 
+              ref={rendererRef} 
+              containerRef={canvasContainerRef}
               isFigma={isFigma}
               isQuery={isQuery}
               loadingProgress={loadingProgress}
-              figData={figData.reverse()}
+              figmaData={figData.reverse()}
             />
         </Canvas>
         }

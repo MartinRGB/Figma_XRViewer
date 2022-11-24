@@ -18,30 +18,29 @@ const Screen = (props) =>{
   const [yScalePerc,setYScalePerc] = useState(1);
   const [currMap,setCurrMap] = useState(null);
   const [currVis,setCurrVis] = useState(false);
+  
+  const setupTexture = useCallback((tex) =>{
+    tex.needsUpdate = true;
+    setYScalePerc(tex.image.height / tex.image.width)
+    tex.encoding = THREE.sRGBEncoding;
+    setCurrMap(tex);
+    setCurrVis(true);
+    tex.dispose()
+    invalidate();
+  },[])
 
   useEffect(()=>{
+
     if(props.isQuery === true){
       if(props.hasData && props.index != 0){
         new THREE.TextureLoader().load(props.src, (tex) => {
-          tex.needsUpdate = true;
-          setYScalePerc(tex.image.height / tex.image.width)
-          tex.encoding = THREE.sRGBEncoding;
-          setCurrMap(tex);
-          setCurrVis(true);
-          tex.dispose()
-          invalidate();
+          setupTexture(tex)
         });
       }
     }else{
       if(props.hasData){
         new THREE.TextureLoader().load(props.src, (tex) => {
-          tex.needsUpdate = true;
-          setYScalePerc(tex.image.height / tex.image.width)
-          tex.encoding = THREE.sRGBEncoding;
-          setCurrMap(tex);
-          setCurrVis(true);
-          tex.dispose()
-          invalidate();
+          setupTexture(tex)
         });
       }
       else{
@@ -54,12 +53,7 @@ const Screen = (props) =>{
           var thisImg = loadedImage;
           tex.image = thisImg;
           thisImg.onload = function () {
-              tex.needsUpdate = true;
-              setYScalePerc(tex.image.height / tex.image.width)
-              tex.encoding = THREE.sRGBEncoding;
-              setCurrMap(tex);
-              setCurrVis(true);
-              invalidate();
+            setupTexture(tex)
           };
         })
       }

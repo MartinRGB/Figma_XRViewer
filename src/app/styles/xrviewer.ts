@@ -1,8 +1,8 @@
 import styled,{ createGlobalStyle } from 'styled-components';
-const XRViewerStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+export const XRViewerGlobalrtyle = createGlobalStyle`
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: sans-serif;
         font-size: 10px;
         text-align: center;
         /* margin: 20px; */
@@ -17,7 +17,7 @@ const XRViewerStyle = createGlobalStyle`
         opacity: 1;
         user-select: auto;
         padding: 8px 12px 8px 12px;
-        font-family: 'Inter', sans-serif;
+        font-family: sans-serif;
         border-radius: 100px;
         line-height: 10px;
         font-size: 10px;
@@ -106,5 +106,3 @@ export const CanvasContainer = styled.div`
     flex: 1;
     height:100vh;
 `
-
-export default XRViewerStyle;

@@ -1,141 +1,12 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useCallback} from 'react'
 import {FigmaApi} from '@Utils/figmaAPI';
 import Spinner from '@Components/Spinner';
 import { rootURL,rendererURL,clientID,secrectID } from '@Config';
-import ImporterStyle from '@Styles/Importer';
 import { copyToClipboard } from '@Utils/functions.js'; 
-import styled from 'styled-components';
+import styled,{ThemeProvider,createGlobalStyle} from 'styled-components';
+import {themes,CodeBtn, DataInfo, FlexLeftContainer, FlexRightContainer, GreenBtn, HorizontalFlexContainer, ImageInList, ImageListContainer, ImporterGlobalStyle, JSONTextArea, MarginTopSix, NormalTextArea, Para, StrongText, VerticalFlexContainer,}  from '@Styles/Importer'
 
-const VerticalFlexContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-`
-
-const HorizontalFlexContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100vw;
-  flex:1;
-`
-
-const FlexLeftContainer = styled.div`
-  flex:1;
-  padding:24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-const FlexRightContainer = styled.div`
-  flex:1;
-  padding:24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-const DataInfo = styled.div`
-  width: fit-content;
-  margin: 0 auto;
-`
-const MarginTopSix = styled.div`
-  margin-top: 6px;
-  margin-bottom: 6px;
-  * {
-    margin-top: 6px;
-    margin-bottom: 6px;
-  }
-`
-
-const Para = styled.p`
-  font-size: 14px;
-  opacity: 60%;
-`
-
-const StrongText = styled.strong`
-  font-size: 16px;
-  word-break: break-all;
-`
-
-const CodeBtn = styled.code`
-  //cursor: pointer;
-  background: #7f7f7f4f;
-  padding: 2px 6px 2px 6px;
-  border-radius: 4px;
-  font-family: sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 12px;
-`
-
-const GreenBtn = styled.button`
-  font-size: 14px;
-  line-height: 16px;
-  padding: 4px 8px 4px 8px;
-  border-radius: 6px;
-  background: #10bd4e;
-  color: white;
-  border: 1px solid #ffffff87;
-  cursor: pointer;
-  margin-right:6px;
-  outline: none;
-`
-
-const NormalTextArea = styled.textarea`
-  width: 100%;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  outline: none;
-  font-size: 12px;
-  color:var(--fg);
-  background: #7f7f7f4f;
-  font-family: sans-serif;
-  font-weight: 400;
-`
-const JSONTextArea = styled.textarea`
-  height: 100%;
-  width: 100%;
-  line-height: 24px;
-  padding: 24px;
-  outline: none;
-  font-size: 12px;
-  color:var(--fg);
-  background: transparent;
-  font-family: sans-serif;
-  font-weight: 400;
-`
-
-const ImageListContainer = styled.div`
-  width: 100%;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x;
-  background: #5e5e5e;
-  z-index: 100;
-  padding: 0px;
-  bottom: 0px;
-  padding: 20px;
-  max-height: 190px;
-  height:190px;
-  overflow-x: auto;
-  display: flex;
-  flex:1;
-`
-const ImageInList = styled.img`
-  scroll-snap-align: start;
-  flex: 0 0 150px;
-  width: 150px;
-  height: 150px;
-  border-radius: 5px;
-  object-fit: contain;
-  background: #ffffff40;
-  padding: 12px;
-`
+const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 const ImporterApp = () => {
   const [token,setCurrentToken] = useState('-');
@@ -158,6 +29,14 @@ const ImporterApp = () => {
     clientSecrete:secrectID,
     redirectUri: `${rootURL}callback.html`,
   });
+
+  const [theme, setTheme] = useState('light');
+  console.log('isDarkMode' + darkModeQuery.matches)
+  useEffect(() => {
+  
+    setTheme(darkModeQuery.matches?'dark':'light');
+    
+  },[darkModeQuery.matches]);
 
   useEffect(()=>{
     const parsedUrl = new URL(window.location.href);
@@ -197,25 +76,25 @@ const ImporterApp = () => {
     }
   },[window.location.href]);  
 
-  const getToken = () =>{
+  const getToken = useCallback(() =>{
     figmaApi.getOAuth2Token().then(token => {
       setCurrentToken(token)
       setIsLoading(false);
     });
-  }
+  },[])
 
-  const onRegenerateToken = () =>{
+  const onRegenerateToken = useCallback(() =>{
     localStorage.clear();
     setCurrentToken('-');
     getToken();
-  }
+  },[])
 
-  const onChangeFileUrl = (e) =>{
+  const onChangeFileUrl = useCallback((e) =>{
     const myValue = e.target.value;
     setfileUrl(myValue);
-  }
+  },[])
  
-  const onGetUrl = (url) =>{
+  const onGetUrl = useCallback((url) =>{
     var substrings = url.split('/');
     var length = substrings.length;
     var isNodeUrl = substrings[length - 1].includes("node-id");
@@ -236,9 +115,9 @@ const ImporterApp = () => {
     setCurrentNode(_nodeId)
     setApiUrl(apiUrl)
     setWebUrl(rendererUrl)
-  }
+  },[])
 
-  const FigmaImageRequestUrl = (fileKey,nodeId,imageScale) =>{
+  const FigmaImageRequestUrl = useCallback((fileKey,nodeId,imageScale) =>{
       return(
       `https://api.figma.com/v1/` + 
       `images/${fileKey}?`+ 
@@ -246,9 +125,9 @@ const ImporterApp = () => {
       `svg_include_id=true&format=png&`+
       `scale=${imageScale}`
       )
-  }
+  },[])
 
-  const ImageRequest = (fileKey,nodeId,imageScale,index,length,imgArr) =>{
+  const ImageRequest = useCallback((fileKey,nodeId,imageScale,index,length,imgArr) =>{
     var httpImgRequest = new XMLHttpRequest();
     httpImgRequest.open('GET', FigmaImageRequestUrl(fileKey,nodeId,imageScale), true); 
     httpImgRequest.setRequestHeader("Authorization",`Bearer ${token}`);
@@ -270,17 +149,17 @@ const ImporterApp = () => {
 
       }
     };
-  }
+  },[])
 
-  const onHandleJSONTextAreaChange = (event) => {
+  const onHandleJSONTextAreaChange = useCallback((event) => {
     setJSONTextAreaVal(event.target.value);
-  };
+  },[])
 
-  const onCopyToClipboard = (str) =>{
+  const onCopyToClipboard = useCallback((str) =>{
     copyToClipboard(str);
-  }
+  },[])
 
-  const onGetJSON = (apiUrl,token) =>{
+  const onGetJSON = useCallback((apiUrl,token) =>{
     // # request get json
     setIsLoading(true)
     var httpRequest = new XMLHttpRequest(); 
@@ -296,26 +175,26 @@ const ImporterApp = () => {
         setIsLoading(false)
       }
     };
-  }
+  },[])
 
-  const onSendToUnity = (_token,_key,_node) =>{
+  const onSendToUnity = useCallback((_token,_key,_node) =>{
     var hrefLink = document.createElement('a');
     hrefLink.href = `com.unity3d.kharma:custom/query_token=${_token}&file_key=${_key}&frame_name=${"figma"}&node_id=${_node}`;
     document.body.appendChild(hrefLink);
     hrefLink.click();
     document.body.removeChild(hrefLink);
-  }
+  },[])
 
-  const onOpenWebXR = (url) =>{
+  const onOpenWebXR = useCallback((url) =>{
     //window.location.href=`${webUrl}`
     window.open(`${url}`,'_blank')
-  }
+  },[])
 
-  const onGoOrigSite = (url)=>{
+  const onGoOrigSite = useCallback((url)=>{
     window.location.href=`${url}importer.html`;
-  }
+  },[])
 
-  const onGetImageList = (json) => {
+  const onGetImageList = useCallback((json) => {
     setIsLoading(true)
     var idNodes = [];
     var imgArr = [];
@@ -337,86 +216,88 @@ const ImporterApp = () => {
             }
         }
     }
-  }
+  },[])
 
   return (
     <>
-      <ImporterStyle></ImporterStyle>
-      <VerticalFlexContainer>
-        <HorizontalFlexContainer>
-          <FlexLeftContainer>
-            {(isLoading)?
-              <Spinner hintText={`loading`}></Spinner>
-              :
-              <DataInfo>
-                {
-                  (webUrl === '-')?
-                  <>
-                    <MarginTopSix>
-                      <Para>Your Figma <CodeBtn>Token</CodeBtn> is:</Para>
-                      <StrongText>{token}</StrongText>
+    <ThemeProvider theme={themes[theme]}>
+        <ImporterGlobalStyle></ImporterGlobalStyle>
+        <VerticalFlexContainer>
+          <HorizontalFlexContainer>
+            <FlexLeftContainer>
+              {(isLoading)?
+                <Spinner hintText={`loading`}></Spinner>
+                :
+                <DataInfo>
+                  {
+                    (webUrl === '-')?
+                    <>
                       <MarginTopSix>
-                        <GreenBtn onClick={()=>{onCopyToClipboard(token)}}>Copy</GreenBtn>
-                        <GreenBtn onClick={()=>{onRegenerateToken()}}>Regenerate</GreenBtn>
+                        <Para>Your Figma <CodeBtn>Token</CodeBtn> is:</Para>
+                        <StrongText>{token}</StrongText>
+                        <MarginTopSix>
+                          <GreenBtn onClick={()=>{onCopyToClipboard(token)}}>Copy</GreenBtn>
+                          <GreenBtn onClick={()=>{onRegenerateToken()}}>Regenerate</GreenBtn>
+                        </MarginTopSix>
                       </MarginTopSix>
+
+                      <MarginTopSix>
+                        <NormalTextArea rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></NormalTextArea>
+                        <GreenBtn onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</GreenBtn>
+                      </MarginTopSix>
+                    </>
+                    :
+                    <>
+                    <MarginTopSix>
+                        <Para>Your Figma <CodeBtn>API Url</CodeBtn> is:</Para>
+                        <StrongText>{apiUrl}</StrongText>
+                        <Para>Your <CodeBtn>Figma Token</CodeBtn> is:</Para>
+                        <StrongText>{token}</StrongText>
+                        <Para>Your <CodeBtn>Frame Url</CodeBtn> is:</Para>
+                        <StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText>
+                        <Para>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</Para>
+                        <StrongText>{webUrl}</StrongText>
                     </MarginTopSix>
 
                     <MarginTopSix>
-                      <NormalTextArea rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></NormalTextArea>
-                      <GreenBtn onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</GreenBtn>
+                      <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
+                      <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
+                      <GreenBtn onClick={()=>{onGoOrigSite(rootURL)}}>Go Origin Site</GreenBtn> <br></br>
+                      <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
+                      {(jsonData)?
+                        <GreenBtn onClick={()=>{onGetImageList(jsonData)}}>Get Image</GreenBtn>
+                        :
+                        <></>
+                      }
                     </MarginTopSix>
-                  </>
-                  :
-                  <>
-                  <MarginTopSix>
-                      <Para>Your Figma <CodeBtn>API Url</CodeBtn> is:</Para>
-                      <StrongText>{apiUrl}</StrongText>
-                      <Para>Your <CodeBtn>Figma Token</CodeBtn> is:</Para>
-                      <StrongText>{token}</StrongText>
-                      <Para>Your <CodeBtn>Frame Url</CodeBtn> is:</Para>
-                      <StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText>
-                      <Para>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</Para>
-                      <StrongText>{webUrl}</StrongText>
-                  </MarginTopSix>
-
-                  <MarginTopSix>
-                    <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
-                    <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
-                    <GreenBtn onClick={()=>{onGoOrigSite(rootURL)}}>Go Origin Site</GreenBtn> <br></br>
-                    <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
-                    {(jsonData)?
-                      <GreenBtn onClick={()=>{onGetImageList(jsonData)}}>Get Image</GreenBtn>
-                      :
-                      <></>
-                    }
-                  </MarginTopSix>
-                  </>
-                }
-              </DataInfo>
+                    </>
+                  }
+                </DataInfo>
+              }
+            </FlexLeftContainer>
+            {(jsonData && !isLoading)?
+            <FlexRightContainer>
+              <JSONTextArea value={jsonTextAreaVal} onChange={onHandleJSONTextAreaChange}></JSONTextArea>
+            </FlexRightContainer>
+            :
+            <></>
             }
-          </FlexLeftContainer>
-          {(jsonData && !isLoading)?
-          <FlexRightContainer>
-            <JSONTextArea value={jsonTextAreaVal} onChange={onHandleJSONTextAreaChange}></JSONTextArea>
-          </FlexRightContainer>
+          </HorizontalFlexContainer>
+
+          {(imgArray.length != 0)?
+          <ImageListContainer>
+            {
+              imgArray.map((number) =>
+                <ImageInList src = {number}></ImageInList>
+              )
+            }
+          </ImageListContainer>
           :
           <></>
           }
-        </HorizontalFlexContainer>
 
-        {(imgArray.length != 0)?
-        <ImageListContainer>
-          {
-            imgArray.map((number) =>
-              <ImageInList src = {number}></ImageInList>
-            )
-          }
-        </ImageListContainer>
-        :
-        <></>
-        }
-
-      </VerticalFlexContainer>
+        </VerticalFlexContainer>
+    </ThemeProvider>
     </>
   )
 }
