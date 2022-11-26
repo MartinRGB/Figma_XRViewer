@@ -49,6 +49,7 @@ function postImagePromise(){
   if (nodes.length === 1) {
     
       let frameNode = nodes[0] 
+      console.log(frameNode)
       selectionName = frameNode.name;
       // todo
       for(var c=0;c<frameNode.children.length;c++){

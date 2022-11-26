@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle} from 'react'
+import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense} from 'react'
 
 import * as THREE from 'three'
 import { Canvas, invalidate,useThree } from '@react-three/fiber'
@@ -9,7 +9,7 @@ import Spinner from '@Components/Spinner'
 import Orbit from '@Components/Orbit'
 import Camera from '@Components/Camera'
 import XRContainer from '@Components/XRContainer'
-import ProperScreen from '@Components/ProperScreen'
+import ProperGeometry from '@Components/ProperGeometry'
 import { 
   syncFetchQueryFigmaJSON,
   onCreateImage,onDownloadImage,
@@ -21,8 +21,12 @@ import {FigmaApi} from '@Utils/figmaAPI';
 import { rootURL,clientID,secrectID } from '@Config';
 
 import { getProject,ISheetObject,types } from '@theatre/core'
+
 import { editable as e,SheetProvider } from '@theatre/r3f'
-//const EditableCamera = e(PerspectiveCamera, 'perspectiveCamera')
+import { useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { Stage, useHelper } from '@react-three/drei'
+import { BoxHelper } from 'three';
 
 // todo
 // 2.computer data pass to XR Device 
@@ -91,7 +95,15 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     theatreStudioCameraHelperFixed(scene,invalidate)
   },[])
 
+  
+  // const primRef = useRef();
+  // const primGroupRef = useRef();
+  // const gltf = useLoader(GLTFLoader, 'https://172.22.0.20/directlink/test/Tower_Modifier.gltf')
+
+  // const boxHelper = useHelper(primRef, BoxHelper, "blue");
+  
   useEffect(()=>{
+
     if(isQuery === true){
       const isOnLoading = (loadingProgress.split('/').length === 2);
       const isLoadingFinished = (loadingProgress.split('/')[0] === loadingProgress.split('/')[1]);
@@ -101,33 +113,60 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     }
     else{
       InitRenderer();
+      
+      // console.log(gltf.scene)
+      // console.log(boxHelper)
+      // var box = new THREE.Box3().setFromObject( primRef.current );
+      // console.log(box);
+      // const bX = box.max.x - box.min.x;
+      // const bY = box.max.y - box.min.y;
+      // const bZ = box.max.z - box.min.z;
+      // console.log(bX/bX,bY/bX,bZ/bX);
+      // primGroupRef.current.scale.set(1/bX*0.5,1/bX*0.5,1/bX*0.5);
+      // console.log(primGroupRef.current)
     }
 
   },[isQuery,loadingProgress])
 
+  
+
+
+
+  // GLTF Loader to Load and manipulate 3D Models
+
+
   return(
-      <SheetProvider sheet={assetSheet}>
-        {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
-        <ambientLight />
-        <Camera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={camraObjRef} baseUnit={ViewerConfig.baseUnit}/>
-        <Orbit cameraSheetObj={camraObjRef.current}></Orbit>
-        {(isFigma === false)?
-          <XRContainer
-            cameraRef={cameraRef} 
-            cameraSheetObj={camraObjRef}
-            >
-            <SheetProvider sheet={assetSheet}>
-              <ProperScreen figmaData={figmaData} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperScreen>
-            </SheetProvider>
-          </XRContainer>
-          :
-          <>
-            <SheetProvider sheet={assetSheet}>
-              <ProperScreen figmaData={figmaData} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperScreen>
-            </SheetProvider>
-          </>
+    <> 
+     <Stage preset="soft" preset="rembrandt" intensity={1} environment="sunset">
+        <SheetProvider sheet={assetSheet}>
+          {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
+          {/* <ambientLight /> */}
+          <Camera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={camraObjRef} baseUnit={ViewerConfig.baseUnit}/>
+          <Orbit cameraSheetObj={camraObjRef.current}></Orbit>
+          {(isFigma === false)?
+            // is not in Figma
+            <XRContainer
+              cameraRef={cameraRef} 
+              cameraSheetObj={camraObjRef}
+              >
+              <SheetProvider sheet={assetSheet}>
+                <ProperGeometry figmaData={figmaData}  isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+              </SheetProvider>
+
+            </XRContainer>
+            
+            :
+            // is in Figma
+            <>
+              <SheetProvider sheet={assetSheet}>
+                <ProperGeometry figmaData={figmaData} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+              </SheetProvider>
+            </>
           }
-      </SheetProvider>
+        </SheetProvider>
+      </Stage>
+      
+    </>
   )
 })
 
@@ -233,7 +272,6 @@ const XRViewerApp = () => {
     }
   },[])
 
-
   React.useEffect(() => {
     const parsedUrl = new URL(window.location.href);
     const fileKey = parsedUrl.searchParams.get('query_key');
@@ -314,24 +352,27 @@ const XRViewerApp = () => {
       </XRDivContainer>
       <CanvasContainer ref={canvasContainerRef}>
         {(isLoading)?
-        <Spinner loadingProgress={`${loadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
-        :
-        <Canvas frameloop="demand" gl={{
-          preserveDrawingBuffer:true,
-          outputEncoding:THREE.sRGBEncoding,
-          antialias: true, 
-          alpha: true,
-          logarithmicDepthBuffer:true,
-          }} >
-            <Renderer 
-              ref={rendererRef} 
-              containerRef={canvasContainerRef}
-              isFigma={isFigma}
-              isQuery={isQuery}
-              loadingProgress={loadingProgress}
-              figmaData={figData.reverse()}
-            />
-        </Canvas>
+          <Spinner loadingProgress={`${loadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
+          :
+          <Suspense fallback={<Spinner hintText={`init the renderer`}></Spinner>}>
+            <Canvas frameloop="demand" gl={{
+              preserveDrawingBuffer:true,
+              outputEncoding:THREE.sRGBEncoding,
+              antialias: true, 
+              alpha: true,
+              logarithmicDepthBuffer:true,
+              }} >
+                
+                  <Renderer 
+                    ref={rendererRef} 
+                    containerRef={canvasContainerRef}
+                    isFigma={isFigma}
+                    isQuery={isQuery}
+                    loadingProgress={loadingProgress}
+                    figmaData={figData.reverse()}
+                  />
+            </Canvas>
+          </Suspense>
         }
       </CanvasContainer>
     </WebXRContainer>
