@@ -8,7 +8,7 @@
 		"dev:xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer",
 		"build:all": "npm-run-all -l -p build:xrviewer build:plugin_xrviewer build:plugin_webxr build:plugin_unity",
 		"build:plugin": "npm-run-all -l -p build:plugin_xrviewer build:plugin_webxr build:plugin_unity",
-		"build:xrviewer": "rm -rf ./build;webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
+		"build:xrviewer": "rm -rf ./build && webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
 		"build:plugin_xrviewer": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=xrviewer",
 		"build:watch_p_xrviewer": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=xrviewer --watch",
 		"build:plugin_webxr": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=webxr",
