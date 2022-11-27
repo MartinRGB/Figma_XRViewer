@@ -73,7 +73,8 @@ function postImagePromise(){
                 y:frameNode.y,
                 imageData:resolved,
                 type:'image-framenode',
-                index:index
+                index:index,
+                modelSrc:null,
               }
             )
             console.log("Succeed to send frameNode image!")
@@ -98,6 +99,7 @@ function postImagePromise(){
                       imageData:resolved,
                       type:'image-childnode',
                       index:++index,
+                      modelSrc:(frameNode.children[i].name.includes('.gltf') || frameNode.children[i].name.includes('.glb'))?frameNode.children[i].name:null,
                     }
                   )
                   console.log("Succeed to send childNode image!")

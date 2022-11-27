@@ -18,11 +18,12 @@ const Model = (props) =>{
   const [modelScalePerc,setModelScalePer] = useState(1);
   const [currVis,setCurrVis] = useState(false);
   const gltfRef = useRef(null);
-  const gltf = useLoader(GLTFLoader, `${props.name}`,(loader) => {
-    console.log('finsihed model loading')
-    // const dracoLoader = new DRACOLoader();
-    // dracoLoader.setDecoderPath('/draco-gltf/');
-    // loader.setDRACOLoader(dracoLoader);
+  const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
+    console.log('finsihed model loading from:' + props.modelSrc)
+    const dracoLoader = new DRACOLoader();
+    // todo
+    dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
+    loader.setDRACOLoader(dracoLoader);
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
   
@@ -76,8 +77,13 @@ const Model = (props) =>{
   return (
     
     <e.group 
-      theatreKey={props.name.split('/')[props.name.split(`/`).length - 1] + `_#${props.index}`}
-      name={props.name.split('/')[props.name.split(`/`).length - 1] + `_#${props.index}`}
+      // todo chara fix
+      theatreKey={
+        props.name
+      }
+      name={
+        props.name
+      }
       onPointerOver={useCallback((e) => (onHoverIn(e,modelRef.current)),[])}
       onPointerOut={useCallback((e) => {onHoverOut(e,modelRef.current)},[])}
       ref={modelGroupRef}
@@ -198,19 +204,20 @@ interface ProperScreenProps {
   figmaData:any;
   isQuery:boolean;
   baseUnit:number;
+  isFigma:boolean;
 }
 
-const ProperGeometry = ({figmaData,isQuery,baseUnit}:ProperScreenProps) =>{
+const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) =>{
   return(
     <>
     {(figmaData.length != 0)?
       <>
-        { figmaData.map(({ type,index,name,x,y,width,height,src}) => (
-          (name.includes('gltf') || name.includes('glb'))?
+        { figmaData.map(({ type,index,name,x,y,width,height,src,modelSrc}) => (
+          (modelSrc != null)?
           <Model  
           key={type + '-three-' + index} 
           src={src}
-          name={name}
+          name={`#${index}-`+name.split('/')[name.split('/').length-1].substring(0,24)}
           x={(index===0)?0:x}
           y={(index===0)?0:y}
           index={index}
@@ -219,14 +226,16 @@ const ProperGeometry = ({figmaData,isQuery,baseUnit}:ProperScreenProps) =>{
           fw={figmaData[0].width}
           fh={figmaData[0].height}
           hasData={true}
+          isFigma={isFigma}
           isQuery={isQuery}
           baseUnit={baseUnit}
+          modelSrc={modelSrc}
           />
           :
           <Screen  
             key={type + '-three-' + index} 
             src={src}
-            name={name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${index}`}
+            name={`#${index}-`+name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)}
             x={(index===0)?0:x}
             y={(index===0)?0:y}
             index={index}

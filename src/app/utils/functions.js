@@ -37,6 +37,7 @@ export function saveZip(filename, datas){
 
   const zip = new JSZip();
   const pngFolder = zip.folder("pngs"); // folder name where all files will be placed in 
+  const modelFolder = zip.folder("models"); // folder name where all files will be placed in 
 
   datas.forEach((data) => {
       const blobPromise = fetch(data.url).then((r) => {
@@ -52,10 +53,15 @@ export function saveZip(filename, datas){
         pngFolder.file(name, blobPromise);
       }
       // zip.file(name,blobPromise);
+      if(data.ext === 'gltf' || data.ext === 'glb' ){
+        modelFolder.file(name, blobPromise);
+      }
 
   });
 
-  zip.generateAsync({ type: "blob" }).then((blob) => saveAs(blob, filename));
+  zip.generateAsync({ type: "blob" }).then((blob) => saveAs(blob, filename)).then(()=>{
+    console.log('finishe22d');
+  });
 
 };
 
@@ -88,7 +94,7 @@ export function getImageBlob(uri) {
 }
 
 
-export const onCreateImage = (event,img,msgType,name) => __awaiter(void 0, void 0, void 0, function* () {
+export const onCreateImage = async(event,img,msgType,name) => __awaiter(void 0, void 0, void 0, function* () {
   event.preventDefault();
   // const image = yield contentRef.current.saveImage();
   // const image = yield getImageFunction();
@@ -108,34 +114,47 @@ export const onCreateImage = (event,img,msgType,name) => __awaiter(void 0, void 
   }, '*');
 });
 
-export const onDownloadImage = (event,isServe,figmaData,layout) => {
+export async function syncGetModelBlobFromUrl (url,callback){
+  fetch(url)
+  .then((data) =>{
+    return data.blob();
+  })
+  .then((blob)=>{
+    var bb = new Blob([blob], { type: url.includes('.gltf')?'model/gltf+json':'model/gltf-binary' });
+    callback(bb)  
+  })
+}
+
+export const onDownloadImage = async(event,isServe,figmaData,layout) =>{
   var frameHTML = document.documentElement.innerHTML;
-  //var outputData = figmaData;
   var outputData = new Array(figmaData.length)
-  console.log(figmaData)
-  //var loopNum = 0;
   new Promise((resolve, reject) => {
       if(isServe === true){
         for(var i=0;i<outputData.length;i++){
           let index = i;
-          
           outputData.splice(index,1,{
             name:figmaData[index].name,
             width:figmaData[index].width,
             height:figmaData[index].height,
             x:figmaData[index].x,
             y:figmaData[index].y,
-            src:`./pngs/`+figmaData[index].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_%23${index}`+`.png`,
+            // %23 -> #
+            // todo chara fix
+            src:
+            (figmaData[index].modelSrc != null)?
+            `./pngs/`+`%23${index}-`+ 
+            figmaData[index].name.split('/')[figmaData[index].name.split(`/`).length - 1].substring(0,24)+`.png`
+            :
+            `./pngs/`+`%23${index}-`+ 
+            figmaData[index].name.replaceAll(/\//g,`_`).replaceAll(/\ /g,`_`).substring(0,24)+`.png`,
             type:figmaData[index].type,
             index:figmaData[index].index,
             id:figmaData[index].id,
-            imageData:null
+            imageData:null,
+            modelSrc:(figmaData[index].modelSrc != null)?`./models/`+`%23${index}-`+figmaData[index].modelSrc.split('/')[figmaData[index].modelSrc.split(`/`).length - 1]:null,
           })
-          //outputData[index].imageData = null;
-          //outputData[index].src = `./pngs/`+outputData[index].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_%23${index}`+`.png`;
-          //loopNum++;
+
           if(index === outputData.length - 1){
-              console.log(outputData)
               const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
               const withOutTheatreHTML = newHtml.replaceAll(`<div id="theatrejs-studio-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 100;"></div>`,'');
               resolve({data:withOutTheatreHTML,isServe:true})
@@ -143,14 +162,11 @@ export const onDownloadImage = (event,isServe,figmaData,layout) => {
         }
       }
       else{
-
+        var loopIndex = 0;
         for(var i=0;i<outputData.length;i++){
           let index = i;
           const reader = new FileReader();
-          reader.readAsDataURL(new Blob([figmaData[index].imageData], { type: 'image/png' }));   
-          reader.onloadend = () => {
-            //outputData[index].imageData = null;
-            //outputData[index].src = reader.result;
+          const resolveStaticHTMLDataWithModelSrc = (mSrc) =>{
             outputData.splice(index,1,{
               name:figmaData[index].name,
               width:figmaData[index].width,
@@ -161,15 +177,35 @@ export const onDownloadImage = (event,isServe,figmaData,layout) => {
               type:figmaData[index].type,
               index:figmaData[index].index,
               id:figmaData[index].id,
-              imageData:null
+              imageData:null,
+              modelSrc:mSrc,
             })
-            
-            if(index === outputData.length - 1){
-              // console.log('here')
+            loopIndex++;
+            if(loopIndex === outputData.length){
               console.log(outputData)
               const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
               const withOutTheatreHTML = newHtml.replaceAll(`<div id="theatrejs-studio-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 100;"></div>`,'');
               resolve({data:withOutTheatreHTML,isServe:false})
+            }
+          }
+          reader.readAsDataURL(new Blob([figmaData[index].imageData], { type: 'image/png' }));   
+          reader.onloadend = () => {
+            if(figmaData[index].modelSrc != null){
+              syncGetModelBlobFromUrl(
+                figmaData[index].modelSrc
+                ,
+                (modelBlob)=>{ 
+                  const reader = new FileReader();
+                  reader.readAsDataURL(modelBlob);   
+                  reader.onloadend = () => {
+                    resolveStaticHTMLDataWithModelSrc(reader.result);
+                  }
+                }
+              )
+  
+            }
+            else{
+              resolveStaticHTMLDataWithModelSrc(null);
             }
             
           }
@@ -179,18 +215,73 @@ export const onDownloadImage = (event,isServe,figmaData,layout) => {
 
     }).then(res => {
         if(res.isServe === true){
-          var mUrl = []
+          var mUrl = [];
+          var loopIndex = 0;
+
+          console.log ('start');
+
+          const URLPush = (url,name,ext) =>{
+            console.log('added')
+            mUrl.push({url:url,name:name,ext:ext}) 
+            return mUrl;
+          }
+          const URLLoopTillEnd = () =>{
+            loopIndex++;
+            if(loopIndex === outputData.length){
+              saveZip('my_project',mUrl)
+            }
+          }
+          //console.log(res.data)
           var bb = new Blob([res.data], { type: 'text/html' });
           var htmlUrl = window.URL.createObjectURL(bb);
           mUrl.push({url:htmlUrl,name:'index',ext:'html'})
-          for(var a=0;a<outputData.length;a++){
-            mUrl.push({
-              url:layout.children[outputData.length - 1 - a].src,
-              name:outputData[a].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${a}`,
-              ext:'png'
-            })
+
+          for(var a=0;a<figmaData.length;a++){
+            let index = a;
+            //let data = outputData[index];
+            if(figmaData[index].modelSrc != null){
+              syncGetModelBlobFromUrl(
+                // outputData[index].name
+                figmaData[index].modelSrc
+                ,
+                (modelBlob)=>{ 
+                  //console.log(modelUrl)
+                  // todo chara fix
+                  mUrl =  URLPush(
+                    URL.createObjectURL(modelBlob)
+                    ,
+                    `#${index}-` + figmaData[index].modelSrc.split('/')[figmaData[index].modelSrc.split(`/`).length - 1].split(`.`)[0].substring(0,24),
+                    figmaData[index].modelSrc.includes('.gltf')?'gltf':'glb'
+                  )
+                  mUrl = URLPush(
+                    layout.children[figmaData.length - 1 - index].src,
+                    `#${index}-` + figmaData[index].modelSrc.split('/')[figmaData[index].modelSrc.split(`/`).length - 1].substring(0,24),
+                    'png'
+                  )
+                  URLLoopTillEnd();                  
+                }
+              )
+  
+            }
+            else{
+              //console.log(layout.children[figmaData.length - 1 - index].src)
+              mUrl = URLPush(
+                layout.children[figmaData.length - 1 - index].src,
+                `#${index}-` + figmaData[index].name.replaceAll(/\//g,`_`).replaceAll(/\ /g,`_`).substring(0,24),
+                'png')
+              URLLoopTillEnd();
+            }
           }
-          saveZip('my_project',mUrl)
+          
+          // # Original
+          // for(var a=0;a<outputData.length;a++){
+          //   mUrl.push({
+          //     url:layout.children[outputData.length - 1 - a].src,
+          //     name:`#${a}-` + outputData[a].name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24),
+          //     ext:'png'
+          //   })
+          // }
+          // saveZip('my_project',mUrl)
         }
         else{
           var bb = new Blob([res.data], { type: 'text/html' });
@@ -202,6 +293,7 @@ export const onDownloadImage = (event,isServe,figmaData,layout) => {
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
+          console.log('finsihed')
         }
 
   })
@@ -414,7 +506,6 @@ export function createCanvasGridMaterial(THREE,color,width,height,paddingW,paddi
 };
 
 export const helperSetting = (THREE,scene,sheetObj,yScalePerc,baseUnit,callback) =>{
-
   const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
   //radius angles radius
   const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);

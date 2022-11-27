@@ -113,7 +113,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
 
   return(
     <> 
-     <Stage preset="soft" preset="rembrandt" intensity={1} environment="sunset">
+     <Stage preset="soft" shadows={false} preset="rembrandt" intensity={1} environment="sunset">
         <SheetProvider sheet={assetSheet}>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
           <ambientLight />
@@ -126,14 +126,14 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
               cameraSheetObj={camraObjRef}
               >
               <SheetProvider sheet={assetSheet}>
-                <ProperGeometry figmaData={figmaData}  isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+                <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
               </SheetProvider>     
             </XRContainer>
             :
             // is in Figma
             <>
               <SheetProvider sheet={assetSheet}>
-                <ProperGeometry figmaData={figmaData} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+                <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
               </SheetProvider>
             </>
           }
@@ -164,7 +164,8 @@ const XRViewerApp = () => {
   },[]);
 
   const InitWithEmptyData = useCallback(() =>{
-    console.log('successed - init with empty data')
+    console.log('successed - init with empty data');
+    setIsLoading(false);
   },[])
 
   const InitWithStaticData = useCallback((data) =>{
@@ -211,6 +212,22 @@ const XRViewerApp = () => {
     setIsQuery(true);
     setIsLoading(true);
 
+    const modifyArrDataNSet = (arr) =>{
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.includes('.glb') || arr[i].name.includes('.gltf')){
+          arr[i].modelSrc =  arr[i].name;
+          arr[i].name = arr[i].name.split('/')[arr[i].name.split('/').length-1];
+        }
+        else{
+
+        }
+        if(i === arr.length - 1){
+          setFigData(arr);
+          setIsLoading(false);
+        }
+      }
+    }
+
     if(token === 'auth_everytime'){
       console.log('query - need OAuth')
       
@@ -220,14 +237,15 @@ const XRViewerApp = () => {
         redirectUri: `${rootURL}callback.html`,
       });
 
+
+
       figmaApi.getOAuth2Token().then(authedToken => {
         syncFetchQueryFigmaJSON(authedToken,fileKey,nodeId,
           (str)=>{
             setLoadingProgress(str);
           },
           (arr)=>{
-            setFigData(arr);
-            setIsLoading(false);
+            modifyArrDataNSet(arr);
           }
         );
       });
@@ -239,8 +257,7 @@ const XRViewerApp = () => {
           setLoadingProgress(str);
         },
         (arr)=>{
-          setFigData(arr);
-          setIsLoading(false);
+          modifyArrDataNSet(arr);
         }
       );
     }
@@ -284,72 +301,80 @@ const XRViewerApp = () => {
   return (
     <>
     <XRViewerGlobalrtyle></XRViewerGlobalrtyle>
-    <WebXRContainer>
-      <ImageListContainer ref={imgLayoutRef} >
-          {figData.reverse().map(({ src,type,index,name }) => (
-                <ImageInList  key={type + '-' + index} 
-                      src={src}
-                      className={'img-imported'}
-                      id={type + '-' + index}
-                      name={name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)+`_#${index}`}/>
-          ))}
-      </ImageListContainer>
-      <XRDivContainer>
-        {isFigma?
-        <>
-          <TopFixedBtn onClick={(e)=>{
-            CreateImage({
-              event:e,
-              image:rendererRef.current.saveImage(),
-              message:'save-canvas-image',
-              name:figData[0].name
-            })}
-          }>SaveToFigma</TopFixedBtn>
-          <TopFixedBtn onClick={(e)=>{DownloadImage({
-            event:e,
-            isServe:true,
-            data:figData,
-            imageLayout:imgLayoutRef.current
-          })}}>Download(Serve)</TopFixedBtn>
-          <TopFixedBtn onClick={(e)=>{DownloadImage({
-            event:e,
-            isServe:false,
-            data:figData, 
-            imageLayout:imgLayoutRef.current
-          })}}>Download(Static)</TopFixedBtn>
-        </>:
-        <>
-          <XRButton className="xr-button" mode={'AR'} />
-          <XRButton className="xr-button" mode={'VR'} />
-        </>
-        }
-      </XRDivContainer>
-      <CanvasContainer ref={canvasContainerRef}>
-        {(isLoading)?
-          <Spinner loadingProgress={`${loadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
-          :
-          <Suspense fallback={<Spinner hintText={`init the renderer`}></Spinner>}>
-            <Canvas frameloop="demand" gl={{
-              preserveDrawingBuffer:true,
-              outputEncoding:THREE.sRGBEncoding,
-              antialias: true, 
-              alpha: true,
-              logarithmicDepthBuffer:true,
-              }} >
-                
-                  <Renderer 
-                    ref={rendererRef} 
-                    containerRef={canvasContainerRef}
-                    isFigma={isFigma}
-                    isQuery={isQuery}
-                    loadingProgress={loadingProgress}
-                    figmaData={figData.reverse()}
-                  />
-            </Canvas>
-          </Suspense>
-        }
-      </CanvasContainer>
-    </WebXRContainer>
+    {(isLoading)?
+      <Spinner loadingProgress={`${loadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
+      :
+      <WebXRContainer>
+        <CanvasContainer ref={canvasContainerRef}>
+          {/* {(isLoading)?
+            <Spinner loadingProgress={`${loadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
+            : */}
+            <Suspense fallback={<Spinner hintText={`init the renderer`}></Spinner>}>
+
+              <ImageListContainer ref={imgLayoutRef} >
+              {figData.reverse().map(({ src,type,index,name }) => (
+                    <ImageInList  key={type + '-' + index} 
+                          src={src}
+                          className={'img-imported'}
+                          id={type + '-' + index}
+                          // name={`#${index}-` + name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)}
+                          name={name}
+                          
+                          />
+              ))}
+              </ImageListContainer>
+              <XRDivContainer>
+                {isFigma?
+                <>
+                  <TopFixedBtn onClick={(e)=>{
+                    CreateImage({
+                      event:e,
+                      image:rendererRef.current.saveImage(),
+                      message:'save-canvas-image',
+                      name:figData[0].name
+                    })}
+                  }>SaveToFigma</TopFixedBtn>
+                  <TopFixedBtn onClick={(e)=>{DownloadImage({
+                    event:e,
+                    isServe:true,
+                    data:figData,
+                    imageLayout:imgLayoutRef.current
+                  })}}>Download(Serve)</TopFixedBtn>
+                  <TopFixedBtn onClick={(e)=>{DownloadImage({
+                    event:e,
+                    isServe:false,
+                    data:figData, 
+                    imageLayout:imgLayoutRef.current
+                  })}}>Download(Static)</TopFixedBtn>
+                </>:
+                <>
+                  <XRButton className="xr-button" mode={'AR'} />
+                  <XRButton className="xr-button" mode={'VR'} />
+                </>
+                }
+              </XRDivContainer>
+
+              <Canvas frameloop="demand" gl={{
+                preserveDrawingBuffer:true,
+                outputEncoding:THREE.sRGBEncoding,
+                antialias: true, 
+                alpha: true,
+                logarithmicDepthBuffer:true,
+                }} >
+                    <Renderer 
+                      ref={rendererRef} 
+                      containerRef={canvasContainerRef}
+                      isFigma={isFigma}
+                      isQuery={isQuery}
+                      loadingProgress={loadingProgress}
+                      figmaData={figData.reverse()}
+                    />
+              </Canvas>
+            </Suspense>
+          {/* } */}
+        </CanvasContainer>
+      </WebXRContainer>
+    }
     </>
   )
 }

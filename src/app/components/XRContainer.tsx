@@ -14,8 +14,7 @@ const XRContainer = ({cameraRef,cameraSheetObj,children}:XRContainerProps) =>{
   const UseXR = () => {
     const {player,isPresenting,session} = useXR()
     useEffect(()=>{
-      // const mArr = props.camera.current.getParentRef().current.parent.children;
-      const mArr = cameraRef.current.parent.children;
+      const mArr = scene.children;
       if(isPresenting){
         player.visible = false;
         const mHelper =  searchElementByType(mArr,'type','CameraHelper')
