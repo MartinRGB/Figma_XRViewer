@@ -8,6 +8,7 @@ import {
 import { types } from '@theatre/core'
 import { useHelper } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 const Model = (props) =>{
   const modelGroupRef = useRef(null)
@@ -19,6 +20,9 @@ const Model = (props) =>{
   const gltfRef = useRef(null);
   const gltf = useLoader(GLTFLoader, `${props.name}`,(loader) => {
     console.log('finsihed model loading')
+    // const dracoLoader = new DRACOLoader();
+    // dracoLoader.setDecoderPath('/draco-gltf/');
+    // loader.setDRACOLoader(dracoLoader);
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
   

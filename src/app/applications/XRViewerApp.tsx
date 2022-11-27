@@ -111,16 +111,12 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
   },[isQuery,loadingProgress])
 
 
-
-  // GLTF Loader to Load and manipulate 3D Models
-
-
   return(
     <> 
      <Stage preset="soft" preset="rembrandt" intensity={1} environment="sunset">
         <SheetProvider sheet={assetSheet}>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
-          {/* <ambientLight /> */}
+          <ambientLight />
           <Camera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={camraObjRef} baseUnit={ViewerConfig.baseUnit}/>
           <Orbit cameraSheetObj={camraObjRef.current}></Orbit>
           {(isFigma === false)?
@@ -133,7 +129,6 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
                 <ProperGeometry figmaData={figmaData}  isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
               </SheetProvider>     
             </XRContainer>
-            
             :
             // is in Figma
             <>
