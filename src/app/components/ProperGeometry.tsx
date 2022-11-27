@@ -1,6 +1,6 @@
 import React,{useState,useRef,useEffect,useCallback} from 'react'
 import * as THREE from 'three'
-import { invalidate,useLoader } from '@react-three/fiber'
+import { invalidate,useFrame,useLoader } from '@react-three/fiber'
 import { editable as e} from '@theatre/r3f'
 import { 
   createCanvasGridMaterial,createPlaneCurve
@@ -20,7 +20,7 @@ const Model = (props) =>{
   const gltf = useLoader(GLTFLoader, `${props.name}`,(loader) => {
     console.log('finsihed model loading')
   })
-
+  const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
   
   const storeHoverOrigColor = (sceneObj) =>{
     sceneObj.traverse(function (child) {
@@ -59,8 +59,15 @@ const Model = (props) =>{
       console.log(`finsihed data setting`)
 
     }
+
+    gltf.animations.forEach(clip => mixerRef.current.clipAction(clip).play())
+
   },[props.src,props.hasData]) //props.src,props.hasData
 
+  useFrame((state, delta) => {
+    mixerRef?.current?.update(delta)
+    invalidate();
+  })
 
   return (
     
@@ -195,7 +202,7 @@ const ProperGeometry = ({figmaData,isQuery,baseUnit}:ProperScreenProps) =>{
     {(figmaData.length != 0)?
       <>
         { figmaData.map(({ type,index,name,x,y,width,height,src}) => (
-          (name.includes('gltf'))?
+          (name.includes('gltf') || name.includes('glb'))?
           <Model  
           key={type + '-three-' + index} 
           src={src}

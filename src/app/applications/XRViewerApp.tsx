@@ -1,7 +1,7 @@
 import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense} from 'react'
 
 import * as THREE from 'three'
-import { Canvas, invalidate,useThree } from '@react-three/fiber'
+import { Canvas, invalidate,useFrame,useThree } from '@react-three/fiber'
 import { XRButton  } from '@react-three/xr'
 import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
 import {WebXRContainer,ImageInList,ImageListContainer,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
@@ -95,13 +95,6 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     theatreStudioCameraHelperFixed(scene,invalidate)
   },[])
 
-  
-  // const primRef = useRef();
-  // const primGroupRef = useRef();
-  // const gltf = useLoader(GLTFLoader, 'https://172.22.0.20/directlink/test/Tower_Modifier.gltf')
-
-  // const boxHelper = useHelper(primRef, BoxHelper, "blue");
-  
   useEffect(()=>{
 
     if(isQuery === true){
@@ -113,22 +106,9 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     }
     else{
       InitRenderer();
-      
-      // console.log(gltf.scene)
-      // console.log(boxHelper)
-      // var box = new THREE.Box3().setFromObject( primRef.current );
-      // console.log(box);
-      // const bX = box.max.x - box.min.x;
-      // const bY = box.max.y - box.min.y;
-      // const bZ = box.max.z - box.min.z;
-      // console.log(bX/bX,bY/bX,bZ/bX);
-      // primGroupRef.current.scale.set(1/bX*0.5,1/bX*0.5,1/bX*0.5);
-      // console.log(primGroupRef.current)
     }
 
   },[isQuery,loadingProgress])
-
-  
 
 
 
@@ -151,8 +131,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
               >
               <SheetProvider sheet={assetSheet}>
                 <ProperGeometry figmaData={figmaData}  isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
-              </SheetProvider>
-
+              </SheetProvider>     
             </XRContainer>
             
             :
