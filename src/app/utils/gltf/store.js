@@ -29,7 +29,8 @@ const useStore = create((set, get) => ({
   fileName: '',
   buffer: null,
   textOriginalFile: '',
-  animations: false,
+  // animations: false,
+  animations: null,
   code: '',
   scene: null,
   createZip: async ({ sandboxCode }) => {
@@ -58,8 +59,11 @@ const useStore = create((set, get) => ({
         code: code,
       })
     }
+    // set({
+    //   animations: !!result.animations.length,
+    // })
     set({
-      animations: !!result.animations.length,
+      animations: result.animations,
     })
     // if (!get().scene) set({ scene: result.scene })
     set({ scene: result.scene })

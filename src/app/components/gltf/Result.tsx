@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from 'react'
+import React, { useEffect, useMemo, useCallback, Suspense } from 'react'
 import saveAs from 'file-saver'
 import { Leva, useControls, button } from 'leva'
 import toast from 'react-hot-toast'
@@ -7,17 +7,54 @@ import useSandbox from '@Utils/gltf/useSandbox'
 import Viewer from '@Components/gltf/Viewer'
 import useStore from '@Utils/gltf/store'
 import {onCreateImage} from '@Utils/functions.js'; 
+import styled from 'styled-components';
+import { Canvas } from '@react-three/fiber'
 
+const AlignContainer = styled.div`
+  position: absolute;
+  background: white;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  outline: none;
+  z-index: 100000;
+`
 
+const AlignPara = styled.div`
+  margin:0 auto;
+  font-size: 24px;
+  font-weight: 700;
+`
+
+const FileNameHeading = styled.h1`
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 8px;
+  font-size: 16px;
+`
+
+const LoadingComnponent = () =>{
+  return (
+    <AlignContainer>
+      <AlignPara>Loading ...</AlignPara>
+    </AlignContainer>
+  )
+}
+ 
 const Result = ({children}) =>{
   const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene, animations } = useStore()
   const [config, setConfig] = useControls(() => (
   {
     // types: { value: false, hint: 'Add Typescript definitions' },
-    shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
-    instanceall: { label: 'instance all', value: false, hint: 'Instance every geometry (for cheaper re-use)' },
+    // shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
+    // instanceall: { label: 'instance all', value: true, hint: 'Instance every geometry (for cheaper re-use)' },
     // instance: { value: false, hint: ' Instance re-occuring geometry' },
-    verbose: { value: false, hint: 'Verbose output w/ names and empty groups' },
+    // verbose: { value: false, hint: 'Verbose output w/ names and empty groups' },
     // keepnames: { value: false, label: 'keep names', hint: 'Keep original names' },
     // keepgroups: { value: false, label: 'keep groups', hint: 'Keep (empty) groups' },
     // aggressive: { value: false, hint: 'Aggressively prune the graph (empty groups, transform overlap)' },
@@ -26,9 +63,11 @@ const Result = ({children}) =>{
   }))
 
   const preview = useControls(
-    'preview',
+    'configs',
     {
       autoRotate: false,
+      animation:true,
+      shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
       contactShadow: true,
       intensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'light intensity' },
       preset: {
@@ -47,19 +86,19 @@ const Result = ({children}) =>{
     fileName,
     textOriginalFile,
     code,
-    config: { ...config, ...preview },
+    // config: { ...config, ...preview },
+    config: {...preview },
   })
 
-  useEffect(() => {
-    setConfig({ verbose: animations })
-  }, [animations])
+  // useEffect(() => {
+  //   setConfig({ verbose: animations })
+  // }, [animations])
 
   useEffect(() => {
     generateScene(config)
   }, [config])
 
   useEffect(() => {
-    console.log(scene)
     useStore.setState({scene:null,code:null})
     generateScene(config)
   }, [children])
@@ -111,9 +150,10 @@ const Result = ({children}) =>{
   useControls('exports', exports, { collapsed: false }, [exports])
 
   return(
-    <div className="h-full w-screen">
+    <>
+     
     {!code && !scene ? (
-      <p className="text-4xl font-bold w-screen h-screen flex justify-center items-center">Loading ...</p>
+      <LoadingComnponent/>
     ) : (
       // <div style={{textAlign:'left'}} className="grid grid-cols-5 h-full">
       //   {code && <Code>{code}</Code>}
@@ -121,23 +161,18 @@ const Result = ({children}) =>{
       //     {scene && <Viewer scene={scene} {...config} {...preview} />}
       //   </section>
       // </div>
-      <div style={{textAlign:'left'}} className="grid h-full">
-        <h1
-          style={{
-            textAlign: 'center',
-            width: '100%',
-            position: 'absolute',
-            top: '0px',
-            fontSize: '24px',
-          }} className="font-bold"
-        >{children}</h1>
-        <section className="h-full w-full">
-          {scene && <Viewer scene={scene} {...config} {...preview} />}
-        </section>
+      <Suspense fallback={<LoadingComnponent/>}>
+      <div style={{textAlign:'left'}}>
+        <FileNameHeading>{children}</FileNameHeading>
+        <Canvas gl={{ preserveDrawingBuffer: true }} shadows dpr={[1, 1.5]}>
+          {/* {scene && <Viewer scene={scene} {...config} {...preview} />} */}
+          {scene && <Viewer scene={scene} {...preview} />}
+        </Canvas>
       </div>
+      </Suspense>
     )}
     <Leva hideTitleBar collapsed />
-  </div>
+  </>
   )
 }
 export default Result;

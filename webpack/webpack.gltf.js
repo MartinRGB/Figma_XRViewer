@@ -10,11 +10,11 @@ module.exports = (env, argv) => ({
 
   // This is necessary because Figma's 'eval' works differently than normal eval
   devtool: argv.mode === 'production' ? false : 'inline-source-map', //inline-source-map
-
   devServer: {
     hot: true,
     open: true,
     https: true,
+    port:8886,
   },
 
   module: {
@@ -45,6 +45,7 @@ module.exports = (env, argv) => ({
     code: `./src/plugin/GLTFViewer.ts`, // The entry point for your plugin code
   },
   output: {
+    publicPath: '/',
     filename: '[name].js',
     path: path.resolve(__dirname, '.' ,`../XRViewer_GLTF`), // Compile into a folder called "dist"
   },

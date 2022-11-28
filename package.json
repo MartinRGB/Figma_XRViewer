@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev:xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer",
 		"build:xrviewer": "rm -rf ./build && webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
+		"dev:gltf": "webpack serve --config ./webpack/webpack.gltf.js --mode=development",
 		"dev": "npm-run-all -l -p dev:xrviewer build:watch_p_xrviewer build:watch_p_webxr build:watch_p_unity build:watch_p_gltf",
 		"build:all": "npm-run-all -l -p build:xrviewer build:plugin_xrviewer build:plugin_webxr build:plugin_unity build:plugin_gltf",
 		"build:plugin": "npm-run-all -l -p build:plugin_xrviewer build:plugin_webxr build:plugin_unity build:plugin_gltf",
@@ -55,7 +56,6 @@
 		"lint-staged": "^13.0.3",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^2.8.0",
-		"react-dropzone": "^14.2.3",
 		"react-hot-toast": "^2.4.0",
 		"release-it": "^15.5.0",
 		"style-loader": "^3.3.1",

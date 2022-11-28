@@ -46,6 +46,7 @@ module.exports = (env, argv) => ({
     code: `./src/plugin/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.ts`, // The entry point for your plugin code
   },
   output: {
+    publicPath: '/',
     filename: '[name].js',
     path: path.resolve(__dirname, '.' ,`../${env.PLUGIN === 'xrviewer'?'XRViewer':(env.PLUGIN === 'webxr')?'XRViewer_WebXR':'XRViewer_Unity'}`), // Compile into a folder called "dist"
   },

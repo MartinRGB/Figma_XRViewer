@@ -1,93 +1,152 @@
-import { useDropzone } from 'react-dropzone'
-import React,{ useCallback,useState,useEffect } from 'react'
-// import suzanne from '../public/suzanne.gltf'
+import React,{ useCallback,useEffect,useRef,useState } from 'react'
 import arrayBufferToString from '@Utils/gltf/arrayBufferToString'
 import useStore from '@Utils/gltf/store'
 import Result from '@Components/gltf/Result'
+import styled from 'styled-components';
+
+const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;  
+`
+
+const AlignContainer = styled.div`
+  position: absolute;
+  background: white;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  outline: none;
+`
+
+const AlignPara = styled.div`
+  margin:0 auto;
+  font-size: 24px;
+  font-weight: 700;
+`
+
+const CommentPara = styled.div`
+  margin: 0px auto;
+  font-size: 16px;
+  margin-top: 16px;
+  font-weight: 500;
+`
 
 const GLTFViewerApp = () => {
- 
 
   const { buffer } = useStore((state) => ({
     buffer: state.buffer,
   }))
   const [fileName,setFileName] = useState();
 
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader()
-      reader.onabort = () => console.error('file reading was aborted')
-      reader.onerror = () => console.error('file reading has failed')
-      reader.onload = async () => {
-        console.log('loaded');
-        const data = reader.result
-        useStore.setState({ buffer: data, fileName: file.name })
-        arrayBufferToString(data, (a) => useStore.setState({ textOriginalFile: a }))
-        setFileName(file.name);
-      }
-      reader.readAsArrayBuffer(file)
-    })
-  }, [])
+  const [dragActive, setDragActive] = React.useState(false);
+  const overlayRef = useRef();
+  const resultRef = useRef();
 
-  const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
-    onDrop,
-    maxFiles: 1,
-    accept: '.gltf, .glb',
-  })
+  const handleDragEnter = function(e) {
+    console.log('enter')
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(true);
+
+    if(overlayRef.current){
+      overlayRef.current.style.zIndex= '10000';
+    }
+    if(resultRef.current){
+      resultRef.current.style.pointerEvents = 'none';
+    }
+  };
+
+  const handleDragOver = function(e) {
+    console.log('over')
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(true);
+  };
+
+  const handleDragLeave = function(e) {
+    console.log('leave')
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if(overlayRef.current){
+      overlayRef.current.style.zIndex= '0';
+    }
+    if(resultRef.current){
+      resultRef.current.style.pointerEvents = 'initial';
+    }
+  };
+
+  const handleDrop = function(e) {
+    console.log('drop')
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if(e.dataTransfer.files.length === 1){
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        // at least one file has been dropped so do something
+        // handleFiles(e.dataTransfer.files);
+        console.log( e.dataTransfer.files[0])
+        const file = e.dataTransfer.files[0];
+        const reader = new FileReader()
+        reader.onabort = () => console.error('file reading was aborted')
+        reader.onerror = () => console.error('file reading has failed')
+        reader.onload = async () => {
+          console.log('loaded');
+          const data = reader.result
+          useStore.setState({ buffer: data, fileName: file.name })
+          // arrayBufferToString(data, (a) => useStore.setState({ textOriginalFile: a }))
+          setFileName(file.name);
+        }
+        reader.readAsArrayBuffer(file)
+      }
+    }else{
+    }
+  };
 
   return (
     <>
-    <div style={{
-      width: '100vw',
-      height: '100vh',
-      position:'absolute'
-    }} className="h-full w-screen flex flex-col items-center justify-center text-center" {...getRootProps({
-      onClick: event => event.stopPropagation()
-    })}>
-      <input {...getInputProps()} />
+    <Container 
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver} 
+      onDragLeave={handleDragLeave} 
+      onDrop={handleDrop}>
 
-      <div
+      <AlignContainer
         style={{
-          position: 'absolute',
-          opacity:isDragActive?'1':(buffer?'0':'1'),
-          background:'white',
-          width: '100vw',
-          height: '100vh',
-          pointerEvents:'none',
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          // padding: '20px',
-          outline: 'none',
-          transition: 'border .24s ease-in-out',
-          zIndex: '100000'
+          opacity:dragActive?'1':(buffer?'0':'1'),
         }}
+        ref={overlayRef}
         >
-        {isDragActive ? 
+        {dragActive ? 
         
         (
-          <p style={{margin:'0 auto'}} className="text-4xl font-bold text-blue-600">Drop the files here ...</p>
+          <AlignPara>Drop the files here ...</AlignPara>
         ) 
           : 
         (
-          // buffer?
-          // <></>
-          // : 
-          <p style={{margin:'0 auto'}} className="text-4xl font-bold ">
-            Drag {"'"}n{"'"} drop your GLTF file <span className="text-blue-600">here </span>
-            {/* <button className="font-bold">
-            or{' '} try it with <span className="text-blue-600">Suzanne</span>
-            </button> */}
-          </p>
+          <div style={{
+            width: '100%',
+            textAlign: 'center'
+          }}>
+          <AlignPara>
+            Drag {"'"}n{"'"} drop your <span style={{color:'blue'}}>GLTF</span> file <span className="text-blue-600">here </span> 
+          </AlignPara>
+          <CommentPara>
+            only support 1 file with <span style={{color:'green'}}>.glb</span> or <span style={{color:'green'}}>.gltf</span> extension
+          </CommentPara>
+          </div>
         )}
-      </div>
-      {fileRejections.length ? (
-        <p className="block text-center text-xl pt-4 text-red-300">Only .gltf or .glb files are accepted</p>
-      ) : null}
-      
-      {buffer?<Result>{fileName}</Result>:<></>}
-    </div>
+      </AlignContainer>
+
+        {buffer?<Result ref={resultRef}>{fileName}</Result>:<></>}
+    </Container>
+    
     
     </>
   )
