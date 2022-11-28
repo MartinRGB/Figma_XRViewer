@@ -4,20 +4,22 @@
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
-		"dev": "npm-run-all -l -p dev:xrviewer build:watch_p_xrviewer build:watch_p_webxr build:watch_p_unity",
 		"dev:xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer",
-		"build:all": "npm-run-all -l -p build:xrviewer build:plugin_xrviewer build:plugin_webxr build:plugin_unity",
-		"build:plugin": "npm-run-all -l -p build:plugin_xrviewer build:plugin_webxr build:plugin_unity",
 		"build:xrviewer": "rm -rf ./build && webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
+		"dev": "npm-run-all -l -p dev:xrviewer build:watch_p_xrviewer build:watch_p_webxr build:watch_p_unity build:watch_p_gltf",
+		"build:all": "npm-run-all -l -p build:xrviewer build:plugin_xrviewer build:plugin_webxr build:plugin_unity build:plugin_gltf",
+		"build:plugin": "npm-run-all -l -p build:plugin_xrviewer build:plugin_webxr build:plugin_unity build:plugin_gltf",
 		"build:plugin_xrviewer": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=xrviewer",
 		"build:watch_p_xrviewer": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=xrviewer --watch",
 		"build:plugin_webxr": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=webxr",
 		"build:watch_p_webxr": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=webxr --watch",
 		"build:plugin_unity": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=unity",
 		"build:watch_p_unity": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=unity --watch",
+		"build:plugin_gltf": "webpack --config ./webpack/webpack.gltf.js --mode=production",
+		"build:watch_p_gltf": "webpack --config ./webpack/webpack.gltf.js --mode=development --watch",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
-		"release-only":"dotenv release-it --ci --github.autoGenerate",
-		"release": "rm XRViewer/code.js && rm XRViewer/ui.html && rm XRViewer_WebXR/code.js && rm XRViewer_WebXR/ui.html && rm XRViewer_Unity/code.js && rm XRViewer_Unity/ui.html && rm -rf release && mkdir release && echo all files cleaned && npm run build:plugin_xrviewer && npm run build:plugin_webxr && npm run build:plugin_unity && rm XRViewer/ui.js.LICENSE.txt && rm XRViewer_WebXR/ui.js.LICENSE.txt && rm XRViewer_Unity/ui.js.LICENSE.txt && echo build finished && bestzip release/XRViewer.zip XRViewer/* && bestzip release/XRViewer_WebXR.zip XRViewer_WebXR/* && bestzip release/XRViewer_Unity.zip XRViewer_Unity/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
+		"release-only": "dotenv release-it --ci --github.autoGenerate",
+		"release": "rm XRViewer/code.js && rm XRViewer/ui.html && rm XRViewer_WebXR/code.js && rm XRViewer_WebXR/ui.html && rm XRViewer_Unity/code.js && rm XRViewer_Unity/ui.html && XRViewer_GLTF/code.js && rm XRViewer_GLTF/ui.html && rm -rf release && mkdir release && echo all files cleaned && npm run build:plugin_xrviewer && npm run build:plugin_webxr && npm run build:plugin_unity && npm run build:plugin_gltf && rm XRViewer/ui.js.LICENSE.txt && rm XRViewer_WebXR/ui.js.LICENSE.txt && rm XRViewer_Unity/ui.js.LICENSE.txt && rm XRViewer_GLTF/ui.js.LICENSE.txt && echo build finished && bestzip release/XRViewer.zip XRViewer/* && bestzip release/XRViewer_WebXR.zip XRViewer_WebXR/* && bestzip release/XRViewer_Unity.zip XRViewer_Unity/* && bestzip release/XRViewer_GLTF.zip XRViewer_GLTF/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
 	},
 	"dependencies": {
 		"react": "^18.2.0",
@@ -49,9 +51,12 @@
 		"html-webpack-plugin": "^5.5.0",
 		"husky": "^8.0.2",
 		"jszip": "^3.10.1",
+		"leva": "^0.9.34",
 		"lint-staged": "^13.0.3",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^2.8.0",
+		"react-dropzone": "^14.2.3",
+		"react-hot-toast": "^2.4.0",
 		"release-it": "^15.5.0",
 		"style-loader": "^3.3.1",
 		"styled-components": "^5.3.6",
@@ -62,7 +67,8 @@
 		"url-loader": "^4.1.1",
 		"webpack": "^5.75.0",
 		"webpack-bundle-analyzer": "^4.7.0",
-		"webpack-cli": "^5.0.0"
+		"webpack-cli": "^5.0.0",
+		"zustand": "^4.1.4"
 	},
 	"husky": {
 		"hooks": {

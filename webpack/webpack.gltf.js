@@ -41,19 +41,18 @@ module.exports = (env, argv) => ({
   },
 
   entry: {
-    ui: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.tsx`, // The entry point for your UI code
-    // ui: `./src/app/pages/platform.tsx`, // The entry point for your UI code
-    code: `./src/plugin/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.ts`, // The entry point for your plugin code
+    ui: `./src/app/pages/GLTFViewer.tsx`, // The entry point for your UI code
+    code: `./src/plugin/GLTFViewer.ts`, // The entry point for your plugin code
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, '.' ,`../${env.PLUGIN === 'xrviewer'?'XRViewer':(env.PLUGIN === 'webxr')?'XRViewer_WebXR':'XRViewer_Unity'}`), // Compile into a folder called "dist"
+    path: path.resolve(__dirname, '.' ,`../XRViewer_GLTF`), // Compile into a folder called "dist"
   },
 
   // Tells Webpack to generate "ui.html" and to inline "ui.ts" into it
   plugins: [
     new HtmlWebpackPlugin({
-      template: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':`plugin`}.html`,
+      template: `./src/app/pages/GLTFViewer.html`,
       // template: `./src/app/pages/platform.html`,
       filename: 'ui.html',
       inlineSource: '.(js)$',
@@ -69,7 +68,6 @@ module.exports = (env, argv) => ({
       BROWSER_SUPPORTS_HTML5: true,
       TWO: "1+1",
       "typeof window": JSON.stringify("object"),
-      "process.env.PLUGIN": JSON.stringify(`${env.PLUGIN}`)
     }),
     //...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:`${env.PLUGIN === 'xrviewer'?9001:env.PLUGIN === 'unity'?9002:9003}`})]),
   ],

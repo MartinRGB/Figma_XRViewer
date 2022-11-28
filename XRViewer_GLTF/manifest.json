@@ -1,0 +1,10 @@
+{
+  "name": "XRViewer_GLTF",
+  "id": "11728302823683064102",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html"
+}

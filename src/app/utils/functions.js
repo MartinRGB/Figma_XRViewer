@@ -1,4 +1,3 @@
-
 import JSZip from "jszip";
 import { saveAs } from 'file-saver';
 
@@ -60,7 +59,6 @@ export function saveZip(filename, datas){
   });
 
   zip.generateAsync({ type: "blob" }).then((blob) => saveAs(blob, filename)).then(()=>{
-    console.log('finishe22d');
   });
 
 };
@@ -95,7 +93,7 @@ export function getImageBlob(uri) {
 
 
 export const onCreateImage = async(event,img,msgType,name) => __awaiter(void 0, void 0, void 0, function* () {
-  event.preventDefault();
+  if(event) event.preventDefault();
   // const image = yield contentRef.current.saveImage();
   // const image = yield getImageFunction();
   const image = yield img;
@@ -293,7 +291,6 @@ export const onDownloadImage = async(event,isServe,figmaData,layout) =>{
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
-          console.log('finsihed')
         }
 
   })
