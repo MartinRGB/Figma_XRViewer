@@ -195,25 +195,3 @@ const Result = React.forwardRef((props,ref) =>{
   )
 })
 export default Result;
-
-
-// {!code && !scene ? (
-//   <LoadingComnponent/>
-// ) : (
-//   <Suspense fallback={<LoadingComnponent/>}>
-//     <div style={{textAlign:'left'}}>
-//       <FileNameHeading>{props.children}</FileNameHeading>
-
-//       {scene != null?
-//       <>
-//         <Canvas style={{width:'100vw',height:'100vh'}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
-//           {/* {scene && <Viewer scene={scene} {...config} {...preview} />} */}
-//           <Viewer scene={scene} {...preview}/>
-//         </Canvas>
-//         <Leva  />
-//       </>:
-//       <></>
-//       }
-//     </div>
-//   </Suspense>
-// )}

@@ -39,28 +39,6 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
     }
     
   })
-
-
-  // useEffect(()=>{
-  //   if(ref.current){
-  //     console.log(stageRef.current)
-  //     console.log(ref.current)
-  //     console.log(camera)
-  //     console.log(gl)
-  //     ref.current.object.position.set(0,0,10);
-  //     ref.current.object.matrixWorldNeedsUpdate = true;
-  //     ref.current.object.updateProjectionMatrix()
-  //     ref.current.object.updateMatrixWorld();
-
-  //     ref.current.update();
-  //     camera.position.set(0,0,10);
-  //     camera.matrixWorldNeedsUpdate = true;
-  //     camera.updateProjectionMatrix()
-  //     camera.updateMatrixWorld();
-      
-  //     invalidate();
-  //   }
-  // },[ref.current])
   
 
   return (
