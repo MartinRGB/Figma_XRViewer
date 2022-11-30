@@ -46,9 +46,14 @@ module.exports = (env, argv) => ({
     ],
   },
 
-  entry: {
+  entry: (env.PLUGIN === 'gltf')?
+  {
+    index: `./src/app/pages/plugin.tsx`,
+    // code: `./src/plugin/plugin.ts`, 
+  }
+  :
+  {
     ui: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.tsx`, // The entry point for your UI code
-    // ui: `./src/app/pages/platform.tsx`, // The entry point for your UI code
     code: `./src/plugin/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.ts`, // The entry point for your plugin code
   },
   output: {
@@ -64,6 +69,9 @@ module.exports = (env, argv) => ({
         (env.PLUGIN === 'unity')?
           'XRViewer_Unity'
           :
+          (env.BUILD === 'page')?
+          'gltf'
+          :
           'XRViewer_GLTF'
     }`), // Compile into a folder called "dist"
   },
@@ -73,10 +81,10 @@ module.exports = (env, argv) => ({
     new HtmlWebpackPlugin({
       template: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':`plugin`}.html`,
       // template: `./src/app/pages/platform.html`,
-      filename: 'ui.html',
+      filename: `${env.PLUGIN === 'gltf'?'index':'ui'}.html`,
       inlineSource: '.(js)$',
       inject: 'body',
-      chunks: ['ui'],
+      chunks: [`${env.PLUGIN === 'gltf'?'index':'ui'}`],
       cache: false
     }),
     //new HtmlWebpackInlineSourcePlugin(),

@@ -29,6 +29,7 @@ XRViewer_Unity/*.txt
 # compiled output
 /dist
 /build
+/gltf
 /tmp
 /out-tsc
 
