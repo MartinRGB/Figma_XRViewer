@@ -3,6 +3,7 @@ import arrayBufferToString from '@Utils/gltf/arrayBufferToString'
 import useStore from '@Utils/gltf/store'
 import Result from '@Components/gltf/Result'
 import styled from 'styled-components';
+import { IGLTFViewerApp } from '@CustomTypes';
 
 const Container = styled.div`
   width: 100vw;
@@ -37,7 +38,7 @@ const CommentPara = styled.div`
   font-weight: 500;
 `
 
-const GLTFViewerApp = () => {
+const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild}:IGLTFViewerApp) => {
 
   const { buffer } = useStore((state) => ({
     buffer: state.buffer,
@@ -49,7 +50,6 @@ const GLTFViewerApp = () => {
   const resultRef = useRef();
 
   const handleDragEnter = function(e) {
-    console.log('enter')
     e.preventDefault();
     e.stopPropagation();
     setDragActive(true);
@@ -63,14 +63,14 @@ const GLTFViewerApp = () => {
   };
 
   const handleDragOver = function(e) {
-    console.log('over')
     e.preventDefault();
     e.stopPropagation();
     setDragActive(true);
   };
 
+
+
   const handleDragLeave = function(e) {
-    console.log('leave')
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
@@ -83,7 +83,6 @@ const GLTFViewerApp = () => {
   };
 
   const handleDrop = function(e) {
-    console.log('drop')
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
@@ -91,7 +90,8 @@ const GLTFViewerApp = () => {
       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
         // at least one file has been dropped so do something
         // handleFiles(e.dataTransfer.files);
-        console.log( e.dataTransfer.files[0])
+
+        //console.log( e.dataTransfer.files[0])
         const file = e.dataTransfer.files[0];
         const reader = new FileReader()
         reader.onabort = () => console.error('file reading was aborted')
@@ -144,7 +144,7 @@ const GLTFViewerApp = () => {
         )}
       </AlignContainer>
 
-        {buffer?<Result ref={resultRef}>{fileName}</Result>:<></>}
+        {buffer?<Result ref={resultRef} envBuild={envBuild}>{fileName}</Result>:<></>}
     </Container>
     
     

@@ -49,7 +49,7 @@ module.exports = (env, argv) => ({
   }, {}),
 
   output: {
-    publicPath: '/',
+    publicPath: '',
     filename: "[name].js",
     path: path.resolve(__dirname, '.' ,'../build'),
   },

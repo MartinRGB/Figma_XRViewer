@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev:page_xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer",
 		"build:page_xrviewer": "webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
-		"dev:page_gltf": "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf",
+		"dev:page_gltf": "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf --env BUILD=page",
 		"build:page_gltf": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=gltf --env BUILD=page",
 		"dev:all": "npm-run-all -l -p dev:page_xrviewer dev:page_gltf dev:xrviewer dev:webxr dev:unity dev:gltf",
 		"dev:xrviewer": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=xrviewer  --env WIDTH=400 --env HEIGHT=300 --watch",

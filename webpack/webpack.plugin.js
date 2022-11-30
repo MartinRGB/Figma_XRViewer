@@ -63,7 +63,7 @@ module.exports = (env, argv) => ({
     code: `./src/plugin/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.ts`, // The entry point for your plugin code
   },
   output: {
-    publicPath: '/',
+    publicPath: '',
     filename: '[name].js',
     path: path.resolve(__dirname, '.' ,`../${
       env.PLUGIN === 'xrviewer'?
@@ -103,7 +103,8 @@ module.exports = (env, argv) => ({
       "typeof window": JSON.stringify("object"),
       "process.env.PLUGIN": JSON.stringify(`${env.PLUGIN}`),
       "process.env.WIDTH": JSON.stringify(`${env.WIDTH}`),
-      "process.env.HEIGHT": JSON.stringify(`${env.HEIGHT}`)
+      "process.env.HEIGHT": JSON.stringify(`${env.HEIGHT}`),
+      "process.env.BUILD": JSON.stringify(`${env.BUILD}`)
     }),
     //...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:`${env.PLUGIN === 'xrviewer'?9001:env.PLUGIN === 'unity'?9002:9003}`})]),
   ],

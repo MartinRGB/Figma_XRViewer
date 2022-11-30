@@ -11,7 +11,7 @@ if(process.env.PLUGIN === 'gltf'){
       const App = require('@Applications/GLTFViewerApp')
       const GLTFViewerApp = App.default;
       root.render(
-            <GLTFViewerApp/>
+            <GLTFViewerApp envBuild={process.env.BUILD}/>
       )
 
 }

@@ -24,3 +24,7 @@ export interface DownloadImageProps {
 export interface IPluginApp {
     platform:string;
 }
+
+export interface IGLTFViewerApp {
+    envBuild:string;
+}

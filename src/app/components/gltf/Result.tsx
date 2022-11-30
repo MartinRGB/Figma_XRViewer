@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useCallback, Suspense } from 'react'
+import React, { useEffect, useMemo, useCallback, Suspense, useRef } from 'react'
 import saveAs from 'file-saver'
-import { Leva, useControls, button } from 'leva'
+import { useControls, button } from 'leva'
 import toast from 'react-hot-toast'
 import { isGlb } from '@Utils/gltf/isExtension'
 import useSandbox from '@Utils/gltf/useSandbox'
@@ -38,6 +38,10 @@ const FileNameHeading = styled.h1`
   font-size: 16px;
 `
 
+const Container = styled.div`
+`
+
+
 const LoadingComnponent = () =>{
   return (
     <AlignContainer>
@@ -45,8 +49,8 @@ const LoadingComnponent = () =>{
     </AlignContainer>
   )
 }
- 
-const Result = ({children}) =>{
+
+const Result = React.forwardRef((props,ref) =>{
   const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene, animations } = useStore()
   const [config, setConfig] = useControls(() => (
   {
@@ -61,7 +65,6 @@ const Result = ({children}) =>{
     // meta: { value: false, hint: 'Include metadata (as userData)' },
     // precision: { value: 2, min: 1, max: 8, step: 1, hint: 'Number of fractional digits (default: 2)' },
   }))
-
   const preview = useControls(
     'configs',
     {
@@ -70,6 +73,7 @@ const Result = ({children}) =>{
       shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
       contactShadow: true,
       intensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'light intensity' },
+      dpr: { value: 1.5, min: 0, max: 3, step: 0.1, label: 'dpr' },
       preset: {
         value: 'rembrandt',
         options: ['rembrandt', 'portrait', 'upfront', 'soft'],
@@ -82,30 +86,33 @@ const Result = ({children}) =>{
     { collapsed: false }
   )
 
-  const [loading, sandboxId, error, sandboxCode] = useSandbox({
-    fileName,
-    textOriginalFile,
-    code,
-    // config: { ...config, ...preview },
-    config: {...preview },
-  })
+  // const [loading, sandboxId, error, sandboxCode] = useSandbox({
+  //   fileName,
+  //   textOriginalFile,
+  //   code,
+  //   config: { ...config, ...preview },
+  // })
 
   // useEffect(() => {
   //   setConfig({ verbose: animations })
   // }, [animations])
 
-  useEffect(() => {
-    generateScene(config)
-  }, [config])
+  // useEffect(() => {
+  //   generateScene(preview)
+  // }, [preview])
 
   useEffect(() => {
-    useStore.setState({scene:null,code:null})
-    generateScene(config)
-  }, [children])
+    if(props.children != null){
+      useStore.setState({scene:null,code:null})
+      console.log(props.children)
+      generateScene(preview)
+    }
 
-  const download = useCallback(async () => {
-    createZip({ sandboxCode })
-  }, [sandboxCode, fileName, textOriginalFile, buffer])
+  }, [props.children])
+
+  // const download = useCallback(async () => {
+  //   createZip({ sandboxCode })
+  // }, [sandboxCode, fileName, textOriginalFile, buffer])
 
   const exports = useMemo(() => {
     const temp = {}
@@ -125,15 +132,28 @@ const Result = ({children}) =>{
     //   })
     // )
 
-  temp['export image'] = button(() => {
-    var image = document
-      .getElementsByTagName('canvas')[0]
-      .toDataURL('image/png')
-      .replace('image/png', 'image/octet-stream')
+  if(props.envBuild === 'page'){
+    temp['download image'] = button(() => {
+      var image = document
+        .getElementsByTagName('canvas')[0]
+        .toDataURL('image/png')
+        .replace('image/png', 'image/octet-stream')
+  
+      saveAs(image, `${fileName.split('.')[0]}.png`)
+    })
+  }
+  else{
+    temp['export image to fimga'] = button(() => {
+      var image = document
+        .getElementsByTagName('canvas')[0]
+        .toDataURL('image/png')
+        .replace('image/png', 'image/octet-stream')
+  
+      //saveAs(image, `${fileName.split('.')[0]}.png`)
+      onCreateImage(null,image,'save-canvas-image',`${fileName.split('.')[0]}.png`)
+    })
+  }
 
-    //saveAs(image, `${fileName.split('.')[0]}.png`)
-    onCreateImage(null,image,'save-canvas-image',`${fileName.split('.')[0]}.png`)
-  })
 
   // if (!isGlb(fileName) && !error) {
   //   const name = 'codesandbox' + (loading ? ' loading' : '')
@@ -145,34 +165,55 @@ const Result = ({children}) =>{
   // }
 
     return temp
-  }, [fileName, loading, error, sandboxCode, sandboxId, config.types])
+  }, [fileName]) // config.types, loading, error, sandboxCode, sandboxId
 
   useControls('exports', exports, { collapsed: false }, [exports])
 
   return(
-    <>
-     
-    {!code && !scene ? (
-      <LoadingComnponent/>
-    ) : (
-      // <div style={{textAlign:'left'}} className="grid grid-cols-5 h-full">
-      //   {code && <Code>{code}</Code>}
-      //   <section className="h-full w-full col-span-2">
-      //     {scene && <Viewer scene={scene} {...config} {...preview} />}
-      //   </section>
-      // </div>
-      <Suspense fallback={<LoadingComnponent/>}>
-      <div style={{textAlign:'left'}}>
-        <FileNameHeading>{children}</FileNameHeading>
-        <Canvas gl={{ preserveDrawingBuffer: true }} shadows dpr={[1, 1.5]}>
-          {/* {scene && <Viewer scene={scene} {...config} {...preview} />} */}
-          {scene && <Viewer scene={scene} {...preview} />}
-        </Canvas>
-      </div>
-      </Suspense>
-    )}
-    <Leva hideTitleBar collapsed />
-  </>
+    <Container ref={ref}>
+      {!code && !scene ? (
+        <LoadingComnponent/>
+      ) : (
+        <Suspense fallback={<LoadingComnponent/>}>
+          <div style={{textAlign:'left'}}>
+            <FileNameHeading>{props.children}</FileNameHeading>
+
+            {scene != null?
+            <>
+              <Canvas style={{width:'100vw',height:'100vh'}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
+                {/* {scene && <Viewer scene={scene} {...config} {...preview} />} */}
+                <Viewer scene={scene} {...preview}/>
+              </Canvas>
+              {/* <Leva  /> */}
+            </>:
+            <></>
+            }
+          </div>
+        </Suspense>
+      )}
+    </Container>
   )
-}
+})
 export default Result;
+
+
+// {!code && !scene ? (
+//   <LoadingComnponent/>
+// ) : (
+//   <Suspense fallback={<LoadingComnponent/>}>
+//     <div style={{textAlign:'left'}}>
+//       <FileNameHeading>{props.children}</FileNameHeading>
+
+//       {scene != null?
+//       <>
+//         <Canvas style={{width:'100vw',height:'100vh'}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
+//           {/* {scene && <Viewer scene={scene} {...config} {...preview} />} */}
+//           <Viewer scene={scene} {...preview}/>
+//         </Canvas>
+//         <Leva  />
+//       </>:
+//       <></>
+//       }
+//     </div>
+//   </Suspense>
+// )}

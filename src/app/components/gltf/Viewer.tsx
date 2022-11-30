@@ -9,14 +9,21 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
   const animations = useStore((store) => store.animations)
   const mixerRef = useRef(new THREE.AnimationMixer(scene));
   const ref = useRef()
-  useLayoutEffect(() => {
-    scene.traverse((obj) => {
-      if (obj.isMesh) {
-        obj.castShadow = obj.receiveShadow = shadows
-        obj.material.envMapIntensity = 0.8
-      }
-    })
+
+  useEffect(()=>{
     
+    if(scene != null){
+      console.log('traverse')
+      scene.traverse((obj) => {
+        if (obj.isMesh) {
+          obj.castShadow = obj.receiveShadow = shadows
+          obj.material.envMapIntensity = 0.8
+        }
+      })
+    }
+  },[scene, shadows])
+
+  useEffect(()=>{
     if(animation){
       animations.forEach(clip => mixerRef.current.clipAction(clip).play())
     }
@@ -24,16 +31,13 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
       animations.forEach(clip => mixerRef.current.clipAction(clip).stop())
       animations.forEach(clip => mixerRef.current.clipAction(clip).reset())
     }
-  }, [scene, shadows,animation])
-
+  },[animation])
+  
   useFrame((state, delta) => {
     if(animation){
       mixerRef?.current?.update(delta)
-      invalidate();
     }
-    else{
-
-    }
+    
   })
 
 
@@ -70,7 +74,7 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
         environment={environment}>
           
         <ambientLight intensity={0.25} />
-        <primitive object={scene} />
+          <primitive object={scene} />
         <OrbitControls ref={ref} autoRotate={autoRotate} />
       </Stage>
     </>
