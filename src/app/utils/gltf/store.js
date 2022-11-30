@@ -14,6 +14,9 @@ import { WebGLRenderer } from 'three'
 
 let gltfLoader
 if (typeof window !== 'undefined') {
+  // const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
+  // const dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
+  // const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
   const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
   const dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
   const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)

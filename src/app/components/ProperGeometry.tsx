@@ -9,6 +9,11 @@ import { types } from '@theatre/core'
 import { useHelper } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
+
+const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`
+const dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
+const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
 
 const Model = (props) =>{
   const modelGroupRef = useRef(null)
@@ -20,10 +25,8 @@ const Model = (props) =>{
   const gltfRef = useRef(null);
   const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
     console.log('finsihed model loading from:' + props.modelSrc)
-    const dracoLoader = new DRACOLoader();
-    // todo
-    dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
-    loader.setDRACOLoader(dracoLoader);
+    loader.setDRACOLoader(dracoloader);
+    loader.setKTX2Loader(ktx2Loader);
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
   
