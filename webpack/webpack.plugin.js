@@ -47,10 +47,16 @@ module.exports = (env, argv) => ({
   },
 
   entry: (env.PLUGIN === 'gltf')?
-  {
-    index: `./src/app/pages/plugin.tsx`,
-    // code: `./src/plugin/plugin.ts`, 
-  }
+    ((env.BUILD === 'page')?
+    {
+      index: `./src/app/pages/plugin.tsx`,
+      // code: `./src/plugin/plugin.ts`, 
+    }
+    :
+    {
+      index: `./src/app/pages/plugin.tsx`,
+      code: `./src/plugin/plugin.ts`, 
+    })
   :
   {
     ui: `./src/app/pages/${env.PLUGIN === 'xrviewer'?'xrviewer':'plugin'}.tsx`, // The entry point for your UI code

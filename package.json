@@ -1,13 +1,13 @@
 {
 	"name": "XRViewer",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
 		"dev:page_xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer",
 		"build:page_xrviewer": "webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
-		"dev:page_gltf": 	 "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf",
-		"build:page_gltf": 	   "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=gltf --env BUILD=page",
+		"dev:page_gltf": "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf",
+		"build:page_gltf": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=gltf --env BUILD=page",
 		"dev:all": "npm-run-all -l -p dev:page_xrviewer dev:page_gltf dev:xrviewer dev:webxr dev:unity dev:gltf",
 		"dev:xrviewer": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=xrviewer  --env WIDTH=400 --env HEIGHT=300 --watch",
 		"dev:webxr": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=webxr --env WIDTH=400 --env HEIGHT=300 --watch",
@@ -21,7 +21,7 @@
 		"build:gltf": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=gltf --env WIDTH=900 --env HEIGHT=675",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"release-only": "dotenv release-it --ci --github.autoGenerate",
-		"release": "rm XRViewer/code.js && rm XRViewer/ui.html && rm XRViewer_WebXR/code.js && rm XRViewer_WebXR/ui.html && rm XRViewer_Unity/code.js && rm XRViewer_Unity/ui.html && rm XRViewer_GLTF/code.js && rm XRViewer_GLTF/ui.html && rm -rf release && mkdir release && echo all files cleaned && npm run build:xrviewer && npm run build:webxr && npm run build:unity && npm run build:gltf && rm XRViewer/ui.js.LICENSE.txt && rm XRViewer_WebXR/ui.js.LICENSE.txt && rm XRViewer_Unity/ui.js.LICENSE.txt && rm XRViewer_GLTF/ui.js.LICENSE.txt && echo build finished && bestzip release/XRViewer.zip XRViewer/* && bestzip release/XRViewer_WebXR.zip XRViewer_WebXR/* && bestzip release/XRViewer_Unity.zip XRViewer_Unity/* && bestzip release/XRViewer_GLTF.zip XRViewer_GLTF/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
+		"release": "rm XRViewer/code.js && rm XRViewer/ui.html && rm XRViewer_WebXR/code.js && rm XRViewer_WebXR/ui.html && rm XRViewer_Unity/code.js && rm XRViewer_Unity/ui.html && rm XRViewer_GLTF/code.js && rm XRViewer_GLTF/index.html && rm -rf release && mkdir release && echo all files cleaned && npm run build:xrviewer && npm run build:webxr && npm run build:unity && npm run build:gltf && rm XRViewer/ui.js.LICENSE.txt && rm XRViewer_WebXR/ui.js.LICENSE.txt && rm XRViewer_Unity/ui.js.LICENSE.txt && rm XRViewer_GLTF/index.js.LICENSE.txt && echo build finished && bestzip release/XRViewer.zip XRViewer/* && bestzip release/XRViewer_WebXR.zip XRViewer_WebXR/* && bestzip release/XRViewer_Unity.zip XRViewer_Unity/* && bestzip release/XRViewer_GLTF.zip XRViewer_GLTF/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
 	},
 	"dependencies": {
 		"react": "^18.2.0",
