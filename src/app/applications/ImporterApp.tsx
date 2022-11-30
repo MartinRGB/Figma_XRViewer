@@ -94,7 +94,7 @@ const ImporterApp = () => {
     setfileUrl(myValue);
   },[])
  
-  const onGetUrl = useCallback((url) =>{
+  const onGetUrl = useCallback((url,token) =>{
     var substrings = url.split('/');
     var length = substrings.length;
     var isNodeUrl = substrings[length - 1].includes("node-id");
@@ -108,7 +108,7 @@ const ImporterApp = () => {
 
     var _nodeId = substrings[length - 1].split(`?node-id=`)[1];
     apiUrl = `https://api.figma.com/v1/files/${_fileKey}/nodes?ids=${_nodeId}`
-
+    console.log(token)
     const rendererUrl = rendererURL + `?query_token=${token}&query_key=${_fileKey}&query_node=${_nodeId}`
 
     setCurrentKey(_fileKey)
@@ -127,8 +127,10 @@ const ImporterApp = () => {
       )
   },[])
 
-  const ImageRequest = useCallback((fileKey,nodeId,imageScale,index,length,imgArr) =>{
+  const ImageRequest = useCallback((fileKey,nodeId,imageScale,index,length,imgArr,token) =>{
+    console.log('token')
     var httpImgRequest = new XMLHttpRequest();
+    console.log(fileKey,nodeId,imageScale)
     httpImgRequest.open('GET', FigmaImageRequestUrl(fileKey,nodeId,imageScale), true); 
     httpImgRequest.setRequestHeader("Authorization",`Bearer ${token}`);
     httpImgRequest.send();
@@ -194,7 +196,7 @@ const ImporterApp = () => {
     window.location.href=`${url}importer.html`;
   },[])
 
-  const onGetImageList = useCallback((json) => {
+  const onGetImageList = useCallback((json,token,fileKey) => {
     setIsLoading(true)
     var idNodes = [];
     var imgArr = [];
@@ -204,7 +206,7 @@ const ImporterApp = () => {
     //# preview
     const firstNodeKey = Object.keys(json.nodes)[0]
     idNodes.push(firstNodeKey); 
-
+    console.log(key)
     for(var i =0;i< firstNodeValue.document.children.length;i++){
         console.log(i)
         idNodes.push(firstNodeValue.document.children[i].id)
@@ -212,7 +214,7 @@ const ImporterApp = () => {
             console.log(idNodes);
             // # get image url
             for(var a = 0;a<idNodes.length;a++){
-                ImageRequest(key,idNodes[a],1,a,idNodes.length,imgArr)
+                ImageRequest(fileKey,idNodes[a],1,a,idNodes.length,imgArr,token)
             }
         }
     }
@@ -243,7 +245,7 @@ const ImporterApp = () => {
 
                       <MarginTopSix>
                         <NormalTextArea rows={1} cols={33} onChange={(e)=>onChangeFileUrl(e)} value={fileUrl}></NormalTextArea>
-                        <GreenBtn onClick={()=>{onGetUrl(fileUrl)}}>Get API & Renderer Url</GreenBtn>
+                        <GreenBtn onClick={()=>{onGetUrl(fileUrl,token)}}>Get API & Renderer Url</GreenBtn>
                       </MarginTopSix>
                     </>
                     :
@@ -255,6 +257,8 @@ const ImporterApp = () => {
                         <StrongText>{token}</StrongText>
                         <Para>Your <CodeBtn>Frame Url</CodeBtn> is:</Para>
                         <StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText>
+                        <Para>Your <CodeBtn>API Url</CodeBtn> is:</Para>
+                        <StrongText>{apiUrl}</StrongText>
                         <Para>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</Para>
                         <StrongText>{webUrl}</StrongText>
                     </MarginTopSix>
@@ -265,7 +269,7 @@ const ImporterApp = () => {
                       <GreenBtn onClick={()=>{onGoOrigSite(rootURL)}}>Go Origin Site</GreenBtn> <br></br>
                       <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
                       {(jsonData)?
-                        <GreenBtn onClick={()=>{onGetImageList(jsonData)}}>Get Image</GreenBtn>
+                        <GreenBtn onClick={()=>{onGetImageList(jsonData,token,key)}}>Get Image</GreenBtn>
                         :
                         <></>
                       }
