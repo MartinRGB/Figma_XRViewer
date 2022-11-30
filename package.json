@@ -1,12 +1,12 @@
 {
 	"name": "XRViewer",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
 		"dev:page_xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer",
 		"build:page_xrviewer": "rm -rf ./build && webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
-		"dev:page_gltf": 	 "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf",
+		"dev:page_gltf": "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf",
 		"dev:all": "npm-run-all -l -p dev:page_xrviewer dev:page_gltf dev:xrviewer dev:webxr dev:unity dev:gltf",
 		"build:all": "npm-run-all -l -p build:page_xrviewer build:xrviewer build:webxr build:unity build:gltf",
 		"build:plugin": "npm-run-all -l -p build:xrviewer build:webxr build:unity build:gltf",
