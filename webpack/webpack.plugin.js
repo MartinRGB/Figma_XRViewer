@@ -7,11 +7,17 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = (env, argv) => ({
   mode: argv.mode === 'production' ? 'production' : 'development',
-
-  // This is necessary because Figma's 'eval' works differently than normal eval
   devtool: argv.mode === 'production' ? false : 'inline-source-map', //inline-source-map
 
-  devServer: {
+  devServer: 
+  (env.PLUGIN === 'gltf')?
+  {
+    hot: true,
+    open: true,
+    https: true,
+    port:8886,    
+  }:
+  {
     hot: true,
     open: true,
     https: true,
@@ -48,7 +54,18 @@ module.exports = (env, argv) => ({
   output: {
     publicPath: '/',
     filename: '[name].js',
-    path: path.resolve(__dirname, '.' ,`../${env.PLUGIN === 'xrviewer'?'XRViewer':(env.PLUGIN === 'webxr')?'XRViewer_WebXR':'XRViewer_Unity'}`), // Compile into a folder called "dist"
+    path: path.resolve(__dirname, '.' ,`../${
+      env.PLUGIN === 'xrviewer'?
+      'XRViewer'
+      :
+      (env.PLUGIN === 'webxr')?
+        'XRViewer_WebXR'
+        :
+        (env.PLUGIN === 'unity')?
+          'XRViewer_Unity'
+          :
+          'XRViewer_GLTF'
+    }`), // Compile into a folder called "dist"
   },
 
   // Tells Webpack to generate "ui.html" and to inline "ui.ts" into it
@@ -70,7 +87,9 @@ module.exports = (env, argv) => ({
       BROWSER_SUPPORTS_HTML5: true,
       TWO: "1+1",
       "typeof window": JSON.stringify("object"),
-      "process.env.PLUGIN": JSON.stringify(`${env.PLUGIN}`)
+      "process.env.PLUGIN": JSON.stringify(`${env.PLUGIN}`),
+      "process.env.WIDTH": JSON.stringify(`${env.WIDTH}`),
+      "process.env.HEIGHT": JSON.stringify(`${env.HEIGHT}`)
     }),
     //...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:`${env.PLUGIN === 'xrviewer'?9001:env.PLUGIN === 'unity'?9002:9003}`})]),
   ],

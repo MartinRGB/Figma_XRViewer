@@ -31,7 +31,7 @@ figma.ui.onmessage = msg => {
     figma.currentPage.appendChild(rect)
     figma.currentPage.selection = [rect];
     //figma.viewport.scrollAndZoomIntoView([rect]);
-}
+  }
   if (msg.type === 'cancel') {
     figma.closePlugin();
   }

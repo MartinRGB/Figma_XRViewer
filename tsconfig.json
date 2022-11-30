@@ -11,6 +11,7 @@
     "removeComments": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
+    "module":"esnext",
     "allowSyntheticDefaultImports":true,
     "baseUrl": "./",
     "paths":{
