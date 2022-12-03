@@ -18,7 +18,6 @@ if(process.env.PLUGIN === 'gltf'){
 else{
       const App = require('@Applications/PluginApp')
       const PluginApp = App.default;
-      console.log(PluginApp)
       root.render(
             <PluginApp platform={process.env.PLUGIN}/>
       )

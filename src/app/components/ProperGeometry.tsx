@@ -4,7 +4,7 @@ import { invalidate,useFrame,useLoader } from '@react-three/fiber'
 import { editable as e} from '@theatre/r3f'
 import { 
   createCanvasGridMaterial,createPlaneCurve
-} from '@Utils/functions.js'; 
+} from '@Utils/threeHelper.js'; 
 import { types } from '@theatre/core'
 import { useHelper } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -92,10 +92,10 @@ const Model = (props) =>{
       ref={modelGroupRef}
       objRef={modelSheetObj}
       visible={currVis}
-      scale={currVis?[modelScalePerc*(props.width/props.fw),modelScalePerc*(props.width/props.fw),modelScalePerc*(props.width/props.fw)]:[1,1,1]}
+      scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]}
       position={
-        [((props.x + props.width/2) - props.fw/2)/(props.fw)*props.baseUnit,
-        ((props.fh/2 -(props.y + props.height/2))/(props.fh))*(props.fh/props.fw)*props.baseUnit,
+        [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
+        ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
         props.index*0.0005 * props.baseUnit]}
     
     >
@@ -130,7 +130,13 @@ const Screen = (props) =>{
   useEffect(()=>{
 
     if(props.isQuery === true){
-      if(props.hasData && props.index != 0){
+      // if(props.hasData && props.index != 0){
+      //   new THREE.TextureLoader().load(props.src, (tex) => {
+      //     setupTexture(tex)
+      //   });
+      // }
+
+      if(props.hasData){
         new THREE.TextureLoader().load(props.src, (tex) => {
           setupTexture(tex)
         });
@@ -179,10 +185,10 @@ const Screen = (props) =>{
         }),
       }} 
       visible={currVis}
-      scale={props.hasData?[1*(props.width/props.fw),yScalePerc*(props.width/props.fw),1]:[1,yScalePerc,1]}
+      scale={props.hasData?[1*(props.width/props.frameWidth),yScalePerc*(props.width/props.frameWidth),1]:[1,yScalePerc,1]}
       position={props.hasData?
-        [((props.x + props.width/2) - props.fw/2)/(props.fw)*props.baseUnit,
-         ((props.fh/2 -(props.y + props.height/2))/(props.fh))*(props.fh/props.fw)*props.baseUnit,
+        [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
+         ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
          props.index*0.0005 * props.baseUnit]
         :
         [0,0,0]}
@@ -215,7 +221,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) 
     <>
     {(figmaData.length != 0)?
       <>
-        { figmaData.map(({ type,index,name,x,y,width,height,src,modelSrc}) => (
+        { figmaData.map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
           (modelSrc != null)?
           <Model  
           key={type + '-three-' + index} 
@@ -226,8 +232,10 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) 
           index={index}
           width={width}
           height={height}
-          fw={figmaData[0].width}
-          fh={figmaData[0].height}
+          // frameWidth={figmaData[0].width}
+          // frameHeight={figmaData[0].height}
+          frameWidth={frameWidth}
+          frameHeight={frameHeight}
           hasData={true}
           isFigma={isFigma}
           isQuery={isQuery}
@@ -244,8 +252,10 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) 
             index={index}
             width={width}
             height={height}
-            fw={figmaData[0].width}
-            fh={figmaData[0].height}
+            // fw={figmaData[0].width}
+            // fh={figmaData[0].height}
+            frameWidth={frameWidth}
+            frameHeight={frameHeight}
             hasData={true}
             isQuery={isQuery}
             baseUnit={baseUnit}

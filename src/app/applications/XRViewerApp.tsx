@@ -11,12 +11,12 @@ import Camera from '@Components/Camera'
 import XRContainer from '@Components/XRContainer'
 import ProperGeometry from '@Components/ProperGeometry'
 import { 
-  syncFetchQueryFigmaJSON,
-  onCreateImage,onDownloadImage,
-  saveImageFromRenderer,
   helperSetting,
   theatreStudioCameraHelperFixed
-} from '@Utils/functions.js'; 
+} from '@Utils/threeHelper.js'; 
+import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage.js'
+import {onDownloadHTML} from '@Utils/downloadHTML.js'
+import {syncFetchQueryFigmaJSON}  from '@Utils/queryData.js'
 import {FigmaApi} from '@Utils/figmaAPI';
 import { rootURL,clientID,secrectID } from '@Config';
 
@@ -159,8 +159,8 @@ const XRViewerApp = () => {
     onCreateImage(event,image,message,name)
   },[figData]);
 
-  const DownloadImage = useCallback(({event,isServe,data,imageLayout}:DownloadImageProps) => {
-    onDownloadImage(event,isServe,data,imageLayout);
+  const DownloadHTML = useCallback(({event,isServe,data,imageLayout}:DownloadImageProps) => {
+    onDownloadHTML(event,isServe,data,imageLayout);
   },[]);
 
   const InitWithEmptyData = useCallback(() =>{
@@ -334,13 +334,13 @@ const XRViewerApp = () => {
                       name:figData[0].name
                     })}
                   }>SaveToFigma</TopFixedBtn>
-                  <TopFixedBtn onClick={(e)=>{DownloadImage({
+                  <TopFixedBtn onClick={(e)=>{DownloadHTML({
                     event:e,
                     isServe:true,
                     data:figData,
                     imageLayout:imgLayoutRef.current
                   })}}>Download(Serve)</TopFixedBtn>
-                  <TopFixedBtn onClick={(e)=>{DownloadImage({
+                  <TopFixedBtn onClick={(e)=>{DownloadHTML({
                     event:e,
                     isServe:false,
                     data:figData, 
