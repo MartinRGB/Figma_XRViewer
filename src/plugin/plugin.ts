@@ -12,6 +12,64 @@ figma.showUI(__html__,{width:Number(process.env.WIDTH),height:Number(process.env
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 
+const mapKeyValue = (key,child,frame) =>{
+  child[key] = frame[key]
+}
+
+const setFrameToNode = (frameNode) =>{
+  if((frameNode.effects.length + frameNode.strokes.length + frameNode.fills.length) != 0){
+    const rect = figma.createRectangle();
+    rect.x = 0;
+    rect.y = 0;
+    rect.resize(frameNode.width,frameNode.height)
+    mapKeyValue('fills',rect,frameNode);
+    mapKeyValue('strokes',rect,frameNode);
+    mapKeyValue('strokeAlign',rect,frameNode);
+    mapKeyValue('strokeBottomWeight',rect,frameNode);
+    mapKeyValue('strokeCap',rect,frameNode);
+    mapKeyValue('strokeJoin',rect,frameNode);
+    mapKeyValue('strokeLeftWeight',rect,frameNode);
+    mapKeyValue('strokeMiterLimit',rect,frameNode);
+    mapKeyValue('strokeRightWeight',rect,frameNode);
+    mapKeyValue('strokeTopWeight',rect,frameNode);
+    mapKeyValue('strokeStyleId',rect,frameNode);
+    mapKeyValue('strokeWeight',rect,frameNode);
+    mapKeyValue('topLeftRadius',rect,frameNode);
+    mapKeyValue('topRightRadius',rect,frameNode);
+    mapKeyValue('rotation',rect,frameNode);
+    mapKeyValue('effects',rect,frameNode);
+    mapKeyValue('cornerSmoothing',rect,frameNode);
+    mapKeyValue('cornerRadius',rect,frameNode);
+    mapKeyValue('bottomRightRadius',rect,frameNode);
+    mapKeyValue('bottomLeftRadius',rect,frameNode);
+    mapKeyValue('blendMode',rect,frameNode);
+    mapKeyValue('name',rect,frameNode);
+    frameNode.fills = new Array(0);
+    frameNode.strokes = new Array(0);
+    frameNode.effects = new Array(0);
+    frameNode.insertChild(0,rect);
+  }
+}
+
+let nodes = figma.currentPage.selection;
+
+if (nodes.length === 1) {
+    
+  let frameNode = nodes[0] 
+  setFrameToNode(frameNode);
+   
+}
+else if(nodes.length > 1){
+    //sendMsg("failed",null);
+  console.error("Only support one frame!")
+  throw new Error('Only support one frame!');
+}
+else {
+    //sendMsg("failed",null);
+    console.error("No frame has been selected!")
+    throw new Error('No frame has been selected');
+}
+
 function sendMsg(tp,val) {
   figma.ui.postMessage({type: tp, value:val});
 }

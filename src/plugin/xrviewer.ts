@@ -43,24 +43,34 @@ var selectionName = '';
 function postImagePromise(){
   let nodes = figma.currentPage.selection;
   const dataArray = [];
-  const invisibileIndex = [];
+  //const invisibileIndex = [];
   var index = 0;
   // todo,mutiple selection
   //sendMsg("isFigmaEnv",true)
   if (nodes.length === 1) {
     
       let frameNode = nodes[0] 
-      
+      let childrenNode = [...frameNode.children];
+      console.log(childrenNode);
+      console.log(frameNode)
       console.log('from figma: ')
       console.log(frameNode)
       selectionName = frameNode.name;
       // todo
       for(var c=0;c<frameNode.children.length;c++){
         // # get invisible node
-        if(!frameNode.children[c].visible) invisibileIndex.push(c)
-        frameNode.children[c].visible = false;
+        if(!frameNode.children[c].visible) {
+          //invisibileIndex.push(c)
+          childrenNode[c] = null;
+          
+        }
+        else{
+          childrenNode[c].visible = false;
+        }
       }
 
+      childrenNode = childrenNode.filter(n => {return n != null && n != '';})
+      console.log(childrenNode);
       frameNode.exportAsync({
         contentsOnly: true,
         format: "PNG",
@@ -79,20 +89,21 @@ function postImagePromise(){
                 y:frameNode.y,
                 imageData:resolved,
                 type:'image-framenode',
-                index:index,
+                index:0,
                 modelSrc:null,
               }
             )
             console.log('from figma: ' +"Succeed to send frameNode image!")
             
-            for(let i=0;i<frameNode.children.length;i++){
+            for(let i=0;i<childrenNode.length;i++){
               // # filt invisible node
-              if(invisibileIndex.includes(i)){
-                console.log('from figma: ' + i + ' is invisible node');
-              }
-              else{
-                frameNode.children[i].visible = true;
-                frameNode.children[i].exportAsync({
+              // if(invisibileIndex.includes(i)){
+              //   console.log('from figma: ' + i + ' is invisible node');
+              // }
+              // else{
+                console.log(i);
+                childrenNode[i].visible = true;
+                childrenNode[i].exportAsync({
                   contentsOnly: true,
                   format: "PNG",
                   constraint: {
@@ -103,20 +114,21 @@ function postImagePromise(){
                   resolved => {
                     dataArray.push(
                       { 
-                        name:frameNode.children[i].name,
-                        width:frameNode.children[i].width,
-                        height:frameNode.children[i].height,
-                        x:frameNode.children[i].x,
-                        y:frameNode.children[i].y,
+                        name:childrenNode[i].name,
+                        width:childrenNode[i].width,
+                        height:childrenNode[i].height,
+                        x:childrenNode[i].x,
+                        y:childrenNode[i].y,
                         imageData:resolved,
                         type:'image-childnode',
-                        index:++index,
-                        modelSrc:(frameNode.children[i].name.includes('.gltf') || frameNode.children[i].name.includes('.glb'))?frameNode.children[i].name:null,
+                        // index:++index,
+                        index:i + 1,
+                        modelSrc:(childrenNode[i].name.includes('.gltf') || childrenNode[i].name.includes('.glb'))?childrenNode[i].name:null,
                       }
                     )
                     console.log('from figma: ' + `Succeed to send childNode ${i} image!`)
                     // # use index because need filt invisible node
-                    if(index === (frameNode.children.length - invisibileIndex.length)){
+                    if((i + 1 ) === (childrenNode.length)){ //index
                       console.log('from figma: ' +'last childNode image!')
                       sendMsg("selection",{isFigma:true,data:dataArray});
                     }
@@ -128,7 +140,7 @@ function postImagePromise(){
                 })
               }
 
-            }
+            // }
         },
         rejected => {
             console.error(rejected)
