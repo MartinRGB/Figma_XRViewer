@@ -6,7 +6,7 @@ import { isGlb } from '@Utils/gltf/isExtension'
 import useSandbox from '@Utils/gltf/useSandbox'
 import Viewer from '@Components/gltf/Viewer'
 import useStore from '@Utils/gltf/store'
-import {onCreateImage} from '@Utils/functions.js'; 
+import {onCreateImage} from '@Utils/saveImage.js'; 
 import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber'
 
