@@ -43,18 +43,24 @@ var selectionName = '';
 function postImagePromise(){
   let nodes = figma.currentPage.selection;
   const dataArray = [];
+  const invisibileIndex = [];
   var index = 0;
   // todo,mutiple selection
   //sendMsg("isFigmaEnv",true)
   if (nodes.length === 1) {
     
       let frameNode = nodes[0] 
+      
+      console.log('from figma: ')
       console.log(frameNode)
       selectionName = frameNode.name;
       // todo
       for(var c=0;c<frameNode.children.length;c++){
+        // # get invisible node
+        if(!frameNode.children[c].visible) invisibileIndex.push(c)
         frameNode.children[c].visible = false;
       }
+
       frameNode.exportAsync({
         contentsOnly: true,
         format: "PNG",
@@ -77,42 +83,51 @@ function postImagePromise(){
                 modelSrc:null,
               }
             )
-            console.log("Succeed to send frameNode image!")
+            console.log('from figma: ' +"Succeed to send frameNode image!")
+            
             for(let i=0;i<frameNode.children.length;i++){
-              frameNode.children[i].visible = true
-              frameNode.children[i].exportAsync({
-                contentsOnly: true,
-                format: "PNG",
-                constraint: {
-                    type: "SCALE",
-                    value: exportScale,
-                }
-              }).then( 
-                resolved => {
-                  dataArray.push(
-                    { 
-                      name:frameNode.children[i].name,
-                      width:frameNode.children[i].width,
-                      height:frameNode.children[i].height,
-                      x:frameNode.children[i].x,
-                      y:frameNode.children[i].y,
-                      imageData:resolved,
-                      type:'image-childnode',
-                      index:++index,
-                      modelSrc:(frameNode.children[i].name.includes('.gltf') || frameNode.children[i].name.includes('.glb'))?frameNode.children[i].name:null,
-                    }
-                  )
-                  console.log("Succeed to send childNode image!")
-                  if(i === frameNode.children.length -1){
-                    console.log('last childNode image!')
-                    sendMsg("selection",{isFigma:true,data:dataArray});
+              // # filt invisible node
+              if(invisibileIndex.includes(i)){
+                console.log('from figma: ' + i + ' is invisible node');
+              }
+              else{
+                frameNode.children[i].visible = true;
+                frameNode.children[i].exportAsync({
+                  contentsOnly: true,
+                  format: "PNG",
+                  constraint: {
+                      type: "SCALE",
+                      value: exportScale,
                   }
-              }, rejected => {
-                console.error(rejected)
-                sendMsg("failed",null);
-                console.error("Failed to send image!")
-                throw new Error('Failed to send image!');
-              })
+                }).then( 
+                  resolved => {
+                    dataArray.push(
+                      { 
+                        name:frameNode.children[i].name,
+                        width:frameNode.children[i].width,
+                        height:frameNode.children[i].height,
+                        x:frameNode.children[i].x,
+                        y:frameNode.children[i].y,
+                        imageData:resolved,
+                        type:'image-childnode',
+                        index:++index,
+                        modelSrc:(frameNode.children[i].name.includes('.gltf') || frameNode.children[i].name.includes('.glb'))?frameNode.children[i].name:null,
+                      }
+                    )
+                    console.log('from figma: ' + `Succeed to send childNode ${i} image!`)
+                    // # use index because need filt invisible node
+                    if(index === (frameNode.children.length - invisibileIndex.length)){
+                      console.log('from figma: ' +'last childNode image!')
+                      sendMsg("selection",{isFigma:true,data:dataArray});
+                    }
+                }, rejected => {
+                  console.error(rejected)
+                  sendMsg("failed",null);
+                  console.error("Failed to send image!")
+                  throw new Error('Failed to send image!');
+                })
+              }
+
             }
         },
         rejected => {
@@ -143,6 +158,7 @@ figma.ui.onmessage = (msg) => {
       let data = msg.blob
       let imageHash = figma.createImage(data).hash
       const rect = figma.createRectangle()
+      console.log('from figma: ')
       console.log(msg)
       rect.name = msg.name;
       rect.resize(msg.width,msg.height)

@@ -297,22 +297,33 @@ export const onDownloadImage = async(event,isServe,figmaData,layout) =>{
 };
 // ################################## web-request ##################################
 export async function syncGetBase64FromUrl (url,callback){
-  fetch(url)
-  .then((data) =>{
-    return data.blob()
-  })
-  .then((blob)=>{
-    const reader = new FileReader();
-    reader.readAsDataURL(blob); 
-    reader.onloadend = () => {
-      callback(reader.result)  
-      //return base64data
-    } 
-  })
+  // fetch(url)
+  // .then((data) =>{
+  //   return data.blob()
+  // })
+  // .then((blob)=>{
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(blob); 
+  //   reader.onloadend = () => {
+  //     callback(reader.result)  
+  //     //return base64data
+  //   } 
+  // })
+  const data = await(fetch(url));
+  const blobData = await(data.blob());
+  console.log(blobData);
+  const reader = new FileReader();
+  reader.readAsDataURL(blobData); 
+  reader.onloadend = () => {
+    callback(reader.result)  
+    //return base64data
+  } 
 }
 
 export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCallback,finishedCallback) {
   var num = 0;
+  var mIndex = 0;
+
   const _apiUrlBase = `https://api.figma.com/v1/files/`
   const _apiUrl = _apiUrlBase + `${fileKey}/nodes?ids=${nodeId}`
 
@@ -323,13 +334,19 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
   const json = await data.json();
 
   const parentNode = Object.values(json.nodes)[0].document;
-
+  // # filter invisilbe node
+  const invisibleIndex = [];
+  for(let b=0;b<parentNode.children.length;b++){
+    if(parentNode.children[b].visible === false){
+      invisibleIndex.push(b)
+    }
+  }
   const childrenLength = parentNode.children.length;
-
-  var jsonArr = new Array(childrenLength+1);
+  // # array length is all node - invisibile node
+  var jsonArr = new Array(childrenLength - invisibleIndex.length +1);
 
   const getSyncData = async (callback)=>{
-
+    console.log("0 is started!");
     fetch(
       `https://api.figma.com/v1/` + 
       `images/${fileKey}?`+ 
@@ -348,9 +365,9 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
       return apiSrc;
     })
     .then((src) =>{
-      const mIndex = 0;
+      const frameIndex = 0;
       syncGetBase64FromUrl(src,(base64Src)=>{
-        jsonArr.splice(mIndex,1,{
+        jsonArr.splice(frameIndex,1,{
           name:parentNode.name,
           width:parentNode.absoluteRenderBounds.width,
           height:parentNode.absoluteRenderBounds.height,
@@ -358,16 +375,17 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
           y:parentNode.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
           src:base64Src,
           type:`image-framenode`,
-          index:mIndex,
+          index:frameIndex,
           id:parentNode.id,
           fw:parentNode.absoluteRenderBounds.width,
           fh:parentNode.absoluteRenderBounds.height
         })
 
         console.log('fetched num ' + num);
-        console.log('fetched index ' + 0);
+        console.log('fetched index ' + frameIndex);
+
         num++
-        progressCallback(`${num}/${childrenLength+1}`)
+        progressCallback(`${num}/${childrenLength - invisibleIndex.length +1}`)
         callback(num);
       })
     });
@@ -375,53 +393,61 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
     for(var i=0;i<childrenLength;i++){
       let index = i
       const node = parentNode.children[index];
-
-      fetch(
-        `https://api.figma.com/v1/` + 
-        `images/${fileKey}?`+ 
-        `ids=${node.id}&`+
-        `svg_include_id=true&format=png&`+
-        `scale=${1}`
-        ,{
-        headers: {'Authorization': `Bearer ${token}`},
-        method: 'GET',
-      })
-      .then((response) =>{
-        return response.json()
-      })
-      .then((responseObject) =>{
-        const apiSrc = Object.values(responseObject.images)[0];
-        return apiSrc;
-      })
-      .then((src)=>{
-        const mIndex = index + 1;
-        syncGetBase64FromUrl(src,(base64Src)=>{
-          jsonArr.splice(mIndex,1,{
-            name:node.name,
-            width:node.absoluteRenderBounds.width,
-            height:node.absoluteRenderBounds.height,
-            x:node.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
-            y:node.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
-            src:base64Src,
-            type:`image-childnode`,
-            index:index+1,
-            id:node.id,
-            fw:parentNode.absoluteRenderBounds.width,
-            fh:parentNode.absoluteRenderBounds.height
-          })
-
-          console.log('fetched num ' + num);
-          console.log('fetched index ' + (index+1));
-          num++
-          progressCallback(`${num}/${childrenLength+1}`)
-          callback(num);
+      if(invisibleIndex.includes(index)){
+        console.log('from figma: ' + index + ' is invisible node');
+      }
+      else{
+        fetch(
+          `https://api.figma.com/v1/` + 
+          `images/${fileKey}?`+ 
+          `ids=${node.id}&`+
+          `svg_include_id=true&format=png&`+
+          `scale=${1}`
+          ,{
+          headers: {'Authorization': `Bearer ${token}`},
+          method: 'GET',
         })
-      })
+        .then((response) =>{
+          return response.json()
+        })
+        .then((responseObject) =>{
+          const apiSrc = Object.values(responseObject.images)[0];
+          return apiSrc;
+        })
+        .then((src)=>{
+          //const mIndex = index + 1;
+          let index = ++mIndex;
+          syncGetBase64FromUrl(src,(base64Src)=>{
+            console.log('node Name' +node.name);
+            jsonArr.splice(index,1,{
+              name:node.name,
+              width:node.absoluteRenderBounds.width,
+              height:node.absoluteRenderBounds.height,
+              x:node.absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
+              y:node.absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+              src:base64Src,
+              type:`image-childnode`,
+              index:index,
+              id:node.id,
+              fw:parentNode.absoluteRenderBounds.width,
+              fh:parentNode.absoluteRenderBounds.height
+            })
+            
+            console.log('fetched num ' + num);
+            console.log('fetched index ' + (index)); // all index +1 -> index
+
+            num++
+            progressCallback(`${num}/${childrenLength  - invisibleIndex.length  +1}`)
+            callback(num);
+
+          })
+        })
+      }
     }
   }
 
   await getSyncData((number)=>{
-    if(number === childrenLength+1){
+    if(number === childrenLength  - invisibleIndex.length  +1){
       finishedCallback(jsonArr)
     }
   })
