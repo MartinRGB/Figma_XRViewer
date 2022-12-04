@@ -68,12 +68,12 @@ const Camera = ({cameraRef,containerRef,cameraSheetObj,baseUnit}:CameraProps) =>
       position={[0,0,baseUnit]}/>
     <EditableCamera
       theatreKey="camera" 
-      // makeDefault
       objRef={cameraSheetObj}
-      ref={cameraRef}
       additionalProps={{ 
         control: true,
       }} 
+      ref={cameraRef}
+      // makeDefault
       fov={60} 
       aspect={mAspect} 
       near={0.01}

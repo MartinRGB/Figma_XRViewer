@@ -1,7 +1,16 @@
 const envPlugin = process.env.PLUGIN;
+var exportScale = 1;
+var finishNum = 0;
+const isContainFrame = false;
 
 export const sendMsg = (tp,val) => {
   figma.ui.postMessage({type: tp, value:val});
+}
+
+export const rejectedMsg = (msg) => {
+  console.error(msg)
+  sendMsg("failed",null);
+  throw new Error(msg);
 }
 
 export const setFrameToNode = (frameNode) =>{
@@ -45,6 +54,43 @@ export const setFrameToNode = (frameNode) =>{
 }
 
 
+export const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCallback) => {
+  for(let i=0;i<childrenNode.length;i++){
+    childrenNode[i].visible = true;
+    childrenNode[i].exportAsync({
+      contentsOnly: true,
+      format: "PNG",
+      constraint: {
+          type: "SCALE",
+          value: exportScale,
+      }
+    })
+    .then( 
+      resolved => {
+        nodeOBJCallback(
+          { 
+            name:childrenNode[i].name,
+            imageData:resolved,
+            type:'image-childnode',
+            index:i + (isContainFrame?1:0),
+            //modelSrc:(childrenNode[i].name.includes('.gltf') || childrenNode[i].name.includes('.glb'))?childrenNode[i].name:null,
+          },
+          i
+        )
+
+        finishNum++;
+        if(finishNum === exportLength){
+          console.log('from figma: ' +'last exported image!')
+          console.log('0000000000')
+          finishCallback();
+        }
+
+      }, rejected => {
+        console.error(rejected)
+        rejectedMsg('Failed to send image!')
+      })
+  }
+}
 
 
 
@@ -57,12 +103,20 @@ figma.ui.onmessage = msg => {
       const rect = figma.createRectangle()
       console.log(msg)
       rect.name = msg.name;
-      rect.resize(msg.width,msg.height)
+      rect.resize(Number(process.env.WIDTH),Number(process.env.HEIGHT))
       rect.fills = [
           { type: "IMAGE", scaleMode: "FIT",  imageHash },
       ]
       figma.currentPage.appendChild(rect)
       figma.currentPage.selection = [rect];
+    }
+
+    if (msg.type === 'get_data') {
+      const fileKey = figma.fileKey;
+      const fileName = figma.root.name.replaceAll(' ','-');
+      //console.log(figma.currentPage.id);
+      const nodeId = figma.currentPage.id; //figma.currentPage.selection[0].id.replaceAll(':','%3A')
+      sendMsg("finished_msg", [fileKey,fileName,nodeId]);
     }
   }
 

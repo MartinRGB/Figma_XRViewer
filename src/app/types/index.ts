@@ -27,4 +27,6 @@ export interface IPluginApp {
 
 export interface IGLTFViewerApp {
     envBuild:string;
+    width:number;
+    height:number;
 }

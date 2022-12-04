@@ -6,9 +6,12 @@ import { isGlb } from '@Utils/gltf/isExtension'
 import useSandbox from '@Utils/gltf/useSandbox'
 import Viewer from '@Components/gltf/Viewer'
 import useStore from '@Utils/gltf/store'
-import {onCreateImage} from '@Utils/saveImage.js'; 
+import {onCreateImage,trimCanvas} from '@Utils/saveImage.js'; 
 import styled from 'styled-components';
-import { Canvas } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber';
+import {postData} from '@Utils/server.js';
+import { PerspectiveCamera } from '@react-three/drei'
+import {nginxAssetLink} from '@Config'
 
 const AlignContainer = styled.div`
   position: absolute;
@@ -31,11 +34,15 @@ const AlignPara = styled.div`
 `
 
 const FileNameHeading = styled.h1`
-  text-align: center;
-  width: 100%;
   position: absolute;
-  top: 8px;
-  font-size: 16px;
+  top: 15px;
+  left: 16px;
+  font-size: 12px;
+  background: #292d39;
+  color:white;
+  padding: 10px 20px 10px 20px;
+  margin: 0;
+  border-radius: 8px;
 `
 
 const Container = styled.div`
@@ -51,7 +58,7 @@ const LoadingComnponent = () =>{
 }
 
 const Result = React.forwardRef((props,ref) =>{
-  const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene, animations } = useStore()
+  const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene, animations,figmaMsg } = useStore()
   const [config, setConfig] = useControls(() => (
   {
     // types: { value: false, hint: 'Add Typescript definitions' },
@@ -69,11 +76,12 @@ const Result = React.forwardRef((props,ref) =>{
     'configs',
     {
       autoRotate: false,
+      perspectiveCamera: true,
       animation:true,
       shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
       contactShadow: true,
       intensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'light intensity' },
-      dpr: { value: 1.5, min: 0, max: 3, step: 0.1, label: 'dpr' },
+      dpr: { value: 1.5, min: 0, max: 2, step: 0.1, label: 'dpr' },
       preset: {
         value: 'rembrandt',
         options: ['rembrandt', 'portrait', 'upfront', 'soft'],
@@ -83,7 +91,7 @@ const Result = React.forwardRef((props,ref) =>{
         options: ['', 'sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
       },
     },
-    { collapsed: false }
+    { collapsed: true }
   )
 
   // const [loading, sandboxId, error, sandboxCode] = useSandbox({
@@ -138,19 +146,66 @@ const Result = React.forwardRef((props,ref) =>{
         .getElementsByTagName('canvas')[0]
         .toDataURL('image/png')
         .replace('image/png', 'image/octet-stream')
-  
-      saveAs(image, `${fileName.split('.')[0]}.png`)
+
+      //################# resize //#################
+
+      var img = document.createElement('img');
+      img.src = image;
+      img.onload = function()
+      {        
+          var canvas = document.createElement('canvas');
+          var ctx = canvas.getContext('2d');
+
+          canvas.width = window.innerWidth*preview.dpr;
+          canvas.height =  window.innerHeight*preview.dpr;
+
+          // We resize the image with the canvas method drawImage();
+          ctx.drawImage(img, 0, 0, window.innerWidth*preview.dpr, window.innerHeight*preview.dpr);
+
+          var dataURI = canvas.toDataURL('image/png',2.0).replace('image/png', 'image/octet-stream');
+
+          saveAs(dataURI, `${fileName.split('.')[0]}.png`)
+          /////////////////////////////////////////
+          // Use and treat your Data URI here !! //
+          /////////////////////////////////////////
+      };
+
     })
   }
   else{
     temp['export image to fimga'] = button(() => {
+      const fileKey = figmaMsg[0]
+      //const fileName = figmaMsg[1]
+      const nodeId = figmaMsg[2];
+
       var image = document
         .getElementsByTagName('canvas')[0]
-        .toDataURL('image/png')
+        .toDataURL('image/png',2.0)
         .replace('image/png', 'image/octet-stream')
   
+      // ############## save to figma ##############
+      
+      // console.log(nginxAssetLink+`/${fileKey}/Model/${fileName}`)
+      const inFigName = nginxAssetLink+`/${fileKey}/Model/${fileName}`;
       //saveAs(image, `${fileName.split('.')[0]}.png`)
-      onCreateImage(null,image,'save-canvas-image',`${fileName.split('.')[0]}.png`)
+      onCreateImage(null,image,'save-canvas-image',inFigName) //`${fileName.split('.')[0]}.png`
+
+      // ############## save model to cloud drive ##############
+
+      
+
+      const bb = new Blob([buffer],{type:'model/gltf+json'});
+      const blob = URL.createObjectURL(bb);
+      postData(
+        blob, //blob
+        `/${fileKey}/Model/`,  //`./zfile/test/${fileKey}/${nodeId}/`
+        `${fileName}`,
+        // ()=>{setIsLoading(true)},
+        // ()=>{setIsLoading(false)},
+        ()=>{},
+        ()=>{},
+      )
+
     })
   }
 
@@ -168,7 +223,6 @@ const Result = React.forwardRef((props,ref) =>{
   }, [fileName]) // config.types, loading, error, sandboxCode, sandboxId
 
   useControls('exports', exports, { collapsed: false }, [exports])
-
   return(
     <Container ref={ref}>
       {!code && !scene ? (
@@ -180,7 +234,9 @@ const Result = React.forwardRef((props,ref) =>{
 
             {scene != null?
             <>
-              <Canvas style={{width:'100vw',height:'100vh'}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
+              {/* 100vw 100vh */}
+              {/* <Canvas style={{width:`${props.width}px`,height:`${props.height}px`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}> */}
+              <Canvas style={{width:`100vw`,height:`100vh`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
                 {/* {scene && <Viewer scene={scene} {...config} {...preview} />} */}
                 <Viewer scene={scene} {...preview}/>
               </Canvas>
@@ -195,3 +251,4 @@ const Result = React.forwardRef((props,ref) =>{
   )
 })
 export default Result;
+

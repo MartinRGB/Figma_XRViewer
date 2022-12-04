@@ -1,27 +1,39 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { invalidate, useFrame, useThree } from '@react-three/fiber'
-import { Environment, OrbitControls, PerspectiveCamera, Stage } from '@react-three/drei'
+import { Environment, OrbitControls, OrthographicCamera, PerspectiveCamera, Stage } from '@react-three/drei'
 import useStore from '@Utils/gltf/store'
 import * as THREE from 'three'
+import CombinedCamera from './CombinedCamera'
 
-const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, intensity,animation }) =>{
-  const scene = useStore((store) => store.scene)
+const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, intensity,animation ,perspectiveCamera}) =>{
+  const gltfScene = useStore((store) => store.scene)
   const animations = useStore((store) => store.animations)
-  const mixerRef = useRef(new THREE.AnimationMixer(scene));
-  const ref = useRef()
+  const mixerRef = useRef(new THREE.AnimationMixer(gltfScene));
+  const orbitRef = useRef()
+  const {invalidate,scene,gl,camera} = useThree()
+
+  const [size, setSize] = useState([0, 0]);
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   useEffect(()=>{
     
-    if(scene != null){
-      console.log('traverse')
-      scene.traverse((obj) => {
+    if(gltfScene != null){
+      //console.log('traverse')
+      gltfScene.traverse((obj) => {
         if (obj.isMesh) {
           obj.castShadow = obj.receiveShadow = shadows
           obj.material.envMapIntensity = 0.8
         }
       })
     }
-  },[scene, shadows])
+  },[gltfScene, shadows])
 
   useEffect(()=>{
     if(animation){
@@ -32,14 +44,14 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
       animations.forEach(clip => mixerRef.current.clipAction(clip).reset())
     }
   },[animation])
+
   
   useFrame((state, delta) => {
     if(animation){
       mixerRef?.current?.update(delta)
+      invalidate();
     }
-    
   })
-  
 
   return (
     <>
@@ -48,12 +60,20 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
         intensity={intensity}
         contactShadow={contactShadow}
         shadows
-        adjustCamera
+        adjustCamera={false}
         environment={environment}>
-          
+          <CombinedCamera
+            fov={50}
+            aspect={size[0]/size[1]}
+            near={0.01}
+            far={10000}
+            zoom={1}
+            position={[0, 0, 5]}
+            isPespective={perspectiveCamera}
+          />
         <ambientLight intensity={0.25} />
-          <primitive object={scene} />
-        <OrbitControls ref={ref} autoRotate={autoRotate} />
+          <primitive object={gltfScene} />
+        <OrbitControls ref={orbitRef} autoRotate={autoRotate} />
       </Stage>
     </>
   )

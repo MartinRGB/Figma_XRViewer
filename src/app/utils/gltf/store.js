@@ -36,6 +36,7 @@ const useStore = create((set, get) => ({
   animations: null,
   code: '',
   scene: null,
+  figmaMsg:null,
   createZip: async ({ sandboxCode }) => {
     await import('./createZip').then((mod) => mod.createZip)
     const { fileName, textOriginalFile, buffer } = get()

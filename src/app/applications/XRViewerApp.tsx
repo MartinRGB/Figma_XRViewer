@@ -113,7 +113,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
 
   return(
     <> 
-     <Stage shadows={false} preset="rembrandt" intensity={1} environment="sunset">
+     <Stage shadows={false} preset="rembrandt" intensity={1} environment="sunset" adjustCamera={false}>
         <SheetProvider sheet={assetSheet}>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
           <ambientLight />

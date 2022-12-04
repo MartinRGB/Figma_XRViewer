@@ -38,7 +38,7 @@ const CommentPara = styled.div`
   font-weight: 500;
 `
 
-const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild}:IGLTFViewerApp) => {
+const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild,width,height}:IGLTFViewerApp) => {
 
   const { buffer } = useStore((state) => ({
     buffer: state.buffer,
@@ -109,6 +109,26 @@ const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild}:IGLTFViewerApp) => {
     }
   };
 
+  useEffect(()=>{
+    parent.postMessage({ pluginMessage: { type: 'get_data' } }, '*')
+    window.onmessage = (event) => {
+      if(event.data.pluginMessage != undefined){
+        const {type,value} = event.data.pluginMessage;
+        if(type === 'finished_msg'){
+          console.log(value)
+          const fileKey = value[0]
+          const fileName = value[1]
+          const nodeId = value[2];
+          useStore.setState({ figmaMsg: value})
+          console.log('fileKey: ' + fileKey);
+          console.log('fileName: ' + fileName);
+          console.log('nodeId: ' + nodeId);
+        }
+      }
+      
+    };
+  },[]);  
+
   return (
     <>
     <Container 
@@ -144,7 +164,7 @@ const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild}:IGLTFViewerApp) => {
         )}
       </AlignContainer>
 
-        {buffer?<Result ref={resultRef} envBuild={envBuild}>{fileName}</Result>:<></>}
+        {buffer?<Result ref={resultRef} envBuild={envBuild} width={width} height={height}>{fileName}</Result>:<></>}
     </Container>
     
     

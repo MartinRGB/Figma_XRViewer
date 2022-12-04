@@ -8,7 +8,7 @@ export const sendMsg = (tp,val) => {
   figma.ui.postMessage({type: tp, value:val});
 }
 
-const rejectedMsg = (msg) => {
+export const rejectedMsg = (msg) => {
   console.error(msg)
   sendMsg("failed",null);
   throw new Error(msg);
