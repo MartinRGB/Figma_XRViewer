@@ -55,7 +55,7 @@ export const setFrameToNode = (frameNode) =>{
 }
 
 const exportFrameOBJ = (frameNode,exportLength,frameOBJCallback,finishCallback) => {
-  frameNode.exportAsync({contentsOnly: true,format: "PNG",constraint: {type: "SCALE",value: exportScale,}})
+  frameNode.exportAsync({contentsOnly: true, useAbsoluteBounds:true,format: "PNG",constraint: {type: "SCALE",value: exportScale,}})
   .then(resolved => {
     frameOBJCallback({ 
       name:frameNode.name,
@@ -88,6 +88,7 @@ const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCal
     childrenNode[i].visible = true;
     childrenNode[i].exportAsync({
       contentsOnly: true,
+      useAbsoluteBounds:true,
       format: "PNG",
       constraint: {
           type: "SCALE",

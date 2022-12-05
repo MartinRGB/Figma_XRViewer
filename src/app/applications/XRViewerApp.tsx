@@ -230,7 +230,6 @@ const XRViewerApp = () => {
 
     if(token === 'auth_everytime'){
       console.log('query - need OAuth')
-      
       const figmaApi = new FigmaApi({
         clientId: clientID,
         clientSecrete: secrectID,

@@ -49,7 +49,6 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
   const json = await data.json();
 
   const parentNode = Object.values(json.nodes)[0].document;
-  
   // # filter invisilbe node
   const childrenNode = await getVisibleNode(parentNode);
   const childrenLength = childrenNode.length;
@@ -80,12 +79,12 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
         frameOBJCallback(
           {
             name:frameNode.name,
-            width:frameNode.absoluteRenderBounds.width,
-            height:frameNode.absoluteRenderBounds.height,
+            width:frameNode.absoluteBoundingBox.width,
+            height:frameNode.absoluteBoundingBox.height,
             frameWidth:frameNode.absoluteRenderBounds.width,
             frameHeight:frameNode.absoluteRenderBounds.height,
-            x:frameNode.absoluteRenderBounds.x - frameNode.absoluteRenderBounds.x,
-            y:frameNode.absoluteRenderBounds.y - frameNode.absoluteRenderBounds.y,
+            x:frameNode.absoluteBoundingBox.x - frameNode.absoluteBoundingBox.x,
+            y:frameNode.absoluteBoundingBox.y - frameNode.absoluteBoundingBox.y,
             src:base64Src,
             type:`image-framenode`,
             index:0,
@@ -123,12 +122,12 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
           nodeOBJCallback(
             {
               name:childrenNode[index].name,
-              width:childrenNode[index].absoluteRenderBounds.width,
-              height:childrenNode[index].absoluteRenderBounds.height,
+              width:childrenNode[index].absoluteBoundingBox.width,
+              height:childrenNode[index].absoluteBoundingBox.height,
               frameWidth:parentNode.absoluteRenderBounds.width,
               frameHeight:parentNode.absoluteRenderBounds.height,
-              x:childrenNode[index].absoluteRenderBounds.x - parentNode.absoluteRenderBounds.x,
-              y:childrenNode[index].absoluteRenderBounds.y - parentNode.absoluteRenderBounds.y,
+              x:childrenNode[index].absoluteBoundingBox.x - parentNode.absoluteBoundingBox.x,
+              y:childrenNode[index].absoluteBoundingBox.y - parentNode.absoluteBoundingBox.y,
               src:base64Src,
               type:`image-childnode`,
               index:index + (isContainFrame?1:0),
