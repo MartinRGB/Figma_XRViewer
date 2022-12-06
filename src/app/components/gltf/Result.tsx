@@ -14,25 +14,6 @@ import { PerspectiveCamera } from '@react-three/drei'
 import {nginxAssetLink,nginxUploadFolder} from '@Config'
 import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
 
-const AlignContainer = styled.div`
-  position: absolute;
-  background: white;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  flex: 1 1 0%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  outline: none;
-  z-index: 100000;
-`
-
-const AlignPara = styled.div`
-  margin: 0 auto;
-  font-size: 20px;
-  font-weight: 700;
-`
 
 const FileNameHeading = styled.h1`
   position: absolute;
@@ -53,7 +34,7 @@ interface LoadingProps
 {
   isLoading:boolean;
 }
-const LoadingComp2 = ({isLoading}:LoadingProps) =>{
+const LoadingComp = ({isLoading}:LoadingProps) =>{
   const [compLoadingState,setCompLoadingState] = useState(true);
   const [compLoadingText,setCompLoadingText] = useState('');
 
@@ -254,25 +235,6 @@ const Result = React.forwardRef((props,ref) =>{
   useControls('exports', exports, { collapsed: false }, [exports])
   return(
     <Container ref={ref}>
-      {/* {!code && !scene ? (
-        <LoadingComp/>
-      ) : (
-        <Suspense fallback={ <LoadingComp/>}>
-          <div style={{textAlign:'left'}}>
-            <FileNameHeading>{props.children}</FileNameHeading>
-            {scene != null?
-            <>
-            
-              <Canvas style={{width:`100vw`,height:`100vh`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
-                <Viewer scene={scene} {...preview}/>
-              </Canvas>
-            </>:
-            <></>
-            }
-          </div>
-        </Suspense>
-      )} */}
-
           <div style={{textAlign:'left'}}>
             <FileNameHeading>{props.children}</FileNameHeading>
             {scene != null?
@@ -285,7 +247,7 @@ const Result = React.forwardRef((props,ref) =>{
               <>
               </>
             }
-            <LoadingComp2 isLoading={isLoading}></LoadingComp2>
+            <LoadingComp isLoading={isLoading}></LoadingComp>
           </div>
     </Container>
   )
