@@ -3,6 +3,7 @@ var selectionName = '';
 const modelExtArr = ['.gltf','.glb']
 var finishNum = 0;
 const isContainFrame = false;
+const isUseAbsoluteBounds = true;
 
 export const sendMsg = (tp,val) => {
   figma.ui.postMessage({type: tp, value:val});
@@ -55,7 +56,11 @@ export const setFrameToNode = (frameNode) =>{
 }
 
 const exportFrameOBJ = (frameNode,exportLength,frameOBJCallback,finishCallback) => {
-  frameNode.exportAsync({contentsOnly: true, useAbsoluteBounds:true,format: "PNG",constraint: {type: "SCALE",value: exportScale,}})
+  frameNode.exportAsync({
+    contentsOnly: true,
+    useAbsoluteBounds:isUseAbsoluteBounds,
+    format: "PNG",
+    constraint: {type: "SCALE",value: exportScale,}})
   .then(resolved => {
     frameOBJCallback({ 
       name:frameNode.name,
@@ -88,7 +93,7 @@ const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCal
     childrenNode[i].visible = true;
     childrenNode[i].exportAsync({
       contentsOnly: true,
-      useAbsoluteBounds:true,
+      useAbsoluteBounds:isUseAbsoluteBounds,
       format: "PNG",
       constraint: {
           type: "SCALE",
