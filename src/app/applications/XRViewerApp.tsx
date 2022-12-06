@@ -16,9 +16,9 @@ import {
 } from '@Utils/threeHelper.js'; 
 import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage.js'
 import {onDownloadHTML} from '@Utils/downloadHTML.js'
-import {syncFetchQueryFigmaJSON}  from '@Utils/queryData.js'
+import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON}  from '@Utils/queryData.js'
 import {FigmaApi} from '@Utils/figmaAPI';
-import { rootURL,clientID,secrectID } from '@Config';
+import { webRootURL,webClientID,webSecrectID} from '@Config';
 
 import { getProject,ISheetObject,types } from '@theatre/core'
 
@@ -228,18 +228,31 @@ const XRViewerApp = () => {
       }
     }
 
-    if(token === 'auth_everytime'){
+    if(token === 'local_server'){
+      console.log('query - local server')
+      console.log(fileKey)
+      console.log(nodeId)
+      
+      asyncFetchQueryLocalServerJSON(
+        fileKey,nodeId,
+        (str)=>{
+          setLoadingProgress(str);
+        },
+        (arr)=>{
+          modifyArrDataNSet(arr);
+        }
+      )
+    }
+    else if(token === 'auth_everytime'){
       console.log('query - need OAuth')
       const figmaApi = new FigmaApi({
-        clientId: clientID,
-        clientSecrete: secrectID,
-        redirectUri: `${rootURL}callback.html`,
+        clientId: webClientID,
+        clientSecrete: webSecrectID,
+        redirectUri: `${webRootURL}callback.html`,
       });
 
-
-
       figmaApi.getOAuth2Token().then(authedToken => {
-        syncFetchQueryFigmaJSON(authedToken,fileKey,nodeId,
+        asyncFetchQueryFigmaJSON(authedToken,fileKey,nodeId,
           (str)=>{
             setLoadingProgress(str);
           },
@@ -251,7 +264,7 @@ const XRViewerApp = () => {
     }
     else{
       console.log('query - already exist OAuth')
-      syncFetchQueryFigmaJSON(token,fileKey,nodeId,
+      asyncFetchQueryFigmaJSON(token,fileKey,nodeId,
         (str)=>{
           setLoadingProgress(str);
         },

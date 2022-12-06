@@ -1,7 +1,6 @@
 const envPlugin = process.env.PLUGIN;
-var exportScale = 1;
 var finishNum = 0;
-const isContainFrame = false;
+import { nginxDirLink,nginxUploadFolder,figmaExportScale,figmaIsContainFrame,figmaIsUseAbsoluteBounds } from "src/app/configs.ts";
 
 export const sendMsg = (tp,val) => {
   figma.ui.postMessage({type: tp, value:val});
@@ -53,16 +52,43 @@ export const setFrameToNode = (frameNode) =>{
   }
 }
 
+const mapFrameToChild = (child,frame) =>{
+  //fileKey nodeId
+  const fileKey = figma.fileKey;
+  const nodeId = figma.currentPage.selection[0].id.replaceAll(':','%3A');
+  
+  const finalLink = nginxDirLink + nginxUploadFolder + '/' + fileKey +'/' + nodeId + '/'
+
+  const isModel = (frame.name.includes('https://') && (frame.name.includes('.gltf') || frame.name.includes('.glb')));
+  child.id = frame.id;
+  child.name = isModel?
+    frame.name.replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A')
+    :
+    frame.name;
+  child.width = frame.width;
+  child.height = frame.height;
+  child.x = frame.x;
+  child.y = frame.y;
+  child.absoluteBoundingBox = frame.absoluteBoundingBox;
+  child.absoluteRenderBounds = frame.absoluteRenderBounds;
+  child.src = 
+    isModel? 
+    ((finalLink +  frame.name.split('/')[frame.name.split('/').length - 1]) + `.png`).replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A') 
+    : 
+    ((finalLink + frame.name) + `.png`).replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A') 
+}
+
 
 export const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCallback) => {
   for(let i=0;i<childrenNode.length;i++){
     childrenNode[i].visible = true;
     childrenNode[i].exportAsync({
       contentsOnly: true,
+      useAbsoluteBounds:figmaIsUseAbsoluteBounds,
       format: "PNG",
       constraint: {
           type: "SCALE",
-          value: exportScale,
+          value: figmaExportScale,
       }
     })
     .then( 
@@ -72,7 +98,7 @@ export const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,fi
             name:childrenNode[i].name,
             imageData:resolved,
             type:'image-childnode',
-            index:i + (isContainFrame?1:0),
+            index:i + (figmaIsContainFrame?1:0),
             //modelSrc:(childrenNode[i].name.includes('.gltf') || childrenNode[i].name.includes('.glb'))?childrenNode[i].name:null,
           },
           i
@@ -141,6 +167,66 @@ figma.ui.onmessage = msg => {
           //sendMsg("failed",null);
           console.error("No frame has been selected!")
           throw new Error('No frame has been selected');
+      }
+    }
+  }
+
+  // LocalServer
+  if(envPlugin === 'localserver'){  
+    if (msg.type === 'get_data') {
+      let nodes = figma.currentPage.selection;
+      if (nodes.length === 1) {
+        const fileKey = figma.fileKey;
+        const fileName = figma.root.name.replaceAll(' ','-');
+        const nodeId = figma.currentPage.selection[0].id.replaceAll(':','%3A');
+
+        let frameNode = nodes[0];
+        setFrameToNode(frameNode);
+        console.log(frameNode);
+        const imgArray = [];
+        let childrenNode = [...frameNode.children];
+  
+        // ############### json add ###############
+        const jsonObject = {};
+        mapFrameToChild(jsonObject,frameNode)
+        jsonObject.children = [];
+  
+        // ############### filt invisible node ###############
+        for(var c=0;c<frameNode.children.length;c++){
+          // # get invisible node
+          if(!frameNode.children[c].visible) {
+            childrenNode[c] = null;
+          }
+          else{
+            // ############### child json add ###############
+            const jsonChildObject = {};
+            mapFrameToChild(jsonChildObject,frameNode.children[c])
+            jsonObject.children.push(jsonChildObject);
+  
+            childrenNode[c].visible = false;
+          }
+        }
+  
+        childrenNode = childrenNode.filter(n => {return n != null && n != '';})
+        const exportLength = childrenNode.length + (figmaIsContainFrame?1:0);
+  
+        exportNodeImgObjArr(
+          childrenNode,exportLength,
+          (nodeOBJ,i) =>
+          {
+            imgArray.push(nodeOBJ)
+            console.log('from figma: ' + `Succeed to get childNode ${i} image!`)
+          },
+          ()=>{
+            sendMsg("finished_msg", [fileKey,fileName,nodeId,imgArray,{node:jsonObject}]);
+          }
+        )
+      }
+      else if(nodes.length > 1){
+        rejectedMsg('Only support one frame!')
+      }
+      else {
+          rejectedMsg('No frame has been selected')
       }
     }
   }

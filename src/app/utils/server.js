@@ -40,7 +40,7 @@ export async function postData (url,path,name,startCallback,endCallback) {
     console.log(nginxUploadFolder + path)
     // ########################### METHOD - QUERY DATA ###########################
     dataToPHPServer(
-      `${nginxUploadPHPLink}?fileDir=${nginxUploadFolder + path}&fileName=${name}`,
+      `${nginxUploadPHPLink}?fileDir=${path}&fileName=${name}`,
       blob,
       {},
       endCallback

@@ -1,4 +1,6 @@
-async function syncGetBase64FromUrl (url,callback){
+import { nginxDirLink,nginxUploadFolder} from '@Config';
+
+async function asyncGetBase64FromUrl (url,callback){
   // fetch(url)
   // .then((data) =>{
   //   return data.blob()
@@ -34,9 +36,8 @@ async function getVisibleNode (parentNode){
   return childrenNode
 }
 
-export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCallback,finishedCallback) {
+export async function asyncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCallback,finishedCallback) {
   var num = 0;
-  var mIndex = 0;
   const isContainFrame = false;
 
   const _apiUrlBase = `https://api.figma.com/v1/files/`
@@ -75,7 +76,7 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
     })
     .then((src)=>{
       ///////////
-      syncGetBase64FromUrl(src,(base64Src)=>{
+      asyncGetBase64FromUrl(src,(base64Src)=>{
         frameOBJCallback(
           {
             name:frameNode.name,
@@ -118,7 +119,7 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
         return apiSrc;
       })
       .then((src)=>{
-        syncGetBase64FromUrl(src,(base64Src)=>{
+        asyncGetBase64FromUrl(src,(base64Src)=>{
           nodeOBJCallback(
             {
               name:childrenNode[index].name,
@@ -168,6 +169,68 @@ export async function syncFetchQueryFigmaJSON (token,fileKey,nodeId,progressCall
 
   await getSyncData((number)=>{
     if(number === childrenLength + (isContainFrame?1:0)){
+      finishedCallback(jsonArr)
+    }
+  })
+}
+
+
+export async function asyncFetchQueryLocalServerJSON (fileKey,nodeId,progressCallback,finishedCallback) {
+  var num = 0;
+  const isContainFrame = false;
+
+  const _apiUrl = `${nginxDirLink}${nginxUploadFolder}/${fileKey}/${nodeId.replaceAll(':','%253A')}/data.json`
+
+  const data = await fetch(_apiUrl,)
+  const json = await data.json();
+  console.log(json.node)
+  const parentNode = json.node;
+  // # filter invisilbe node
+  const childrenNode = parentNode.children;
+  const childrenLength = childrenNode.length;
+  // # array length is (all node - invisibile node),local server is already filted
+  var jsonArr = new Array(childrenLength);
+
+  const getNodeImgOBJArr = (fileKey,parentNode,childrenNode,nodeOBJCallback) =>{
+    for(var i=0;i<childrenNode.length;i++){
+      let index = i
+      const node = childrenNode[index];
+      console.log(node)
+      nodeOBJCallback(
+        {
+          name:childrenNode[index].name,
+          width:childrenNode[index].absoluteBoundingBox.width,
+          height:childrenNode[index].absoluteBoundingBox.height,
+          frameWidth:parentNode.absoluteRenderBounds.width,
+          frameHeight:parentNode.absoluteRenderBounds.height,
+          x:childrenNode[index].absoluteBoundingBox.x - parentNode.absoluteBoundingBox.x,
+          y:childrenNode[index].absoluteBoundingBox.y - parentNode.absoluteBoundingBox.y,
+          src:node.src,
+          type:`image-childnode`,
+          index:index + (isContainFrame?1:0),
+          id:childrenNode[index].id,
+        },
+        index
+      )
+    }
+  }
+
+  const getSyncData = async (callback)=>{
+
+    getNodeImgOBJArr(fileKey,parentNode,childrenNode,(nodeOBJ,index) =>{
+        jsonArr.splice(index + (isContainFrame?1:0),1,nodeOBJ)
+
+        console.log('fetched num ' + num);
+        console.log('fetched index ' +  `${index }`);
+
+        num++
+        progressCallback(`${num}/${childrenLength}`)
+        callback(num);
+    })
+  }
+
+  await getSyncData((number)=>{
+    if(number === childrenLength){
       finishedCallback(jsonArr)
     }
   })

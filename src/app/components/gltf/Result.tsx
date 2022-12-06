@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber';
 import {postData} from '@Utils/server.js';
 import { PerspectiveCamera } from '@react-three/drei'
-import {nginxAssetLink} from '@Config'
+import {nginxAssetLink,nginxUploadFolder} from '@Config'
 
 const AlignContainer = styled.div`
   position: absolute;
@@ -198,7 +198,8 @@ const Result = React.forwardRef((props,ref) =>{
       const blob = URL.createObjectURL(bb);
       postData(
         blob, //blob
-        `/${fileKey}/Model/`,  //`./zfile/test/${fileKey}/${nodeId}/`
+        //`/${fileKey}/Model/`,  //`./zfile/test/${fileKey}/${nodeId}/`
+        `${nginxUploadFolder}/${fileKey}/Model/`,
         `${fileName}`,
         // ()=>{setIsLoading(true)},
         // ()=>{setIsLoading(false)},

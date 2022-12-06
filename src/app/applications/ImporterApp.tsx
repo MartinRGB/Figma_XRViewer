@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useCallback} from 'react'
 import {FigmaApi} from '@Utils/figmaAPI';
 import Spinner from '@Components/Spinner';
-import { rootURL,rendererURL,clientID,secrectID } from '@Config';
+import { webRootURL,webRendererURL,webClientID,webSecrectID } from '@Config';
 import { copyToClipboard } from '@Utils/functions.js'; 
 import styled,{ThemeProvider,createGlobalStyle} from 'styled-components';
 import {themes,CodeBtn, DataInfo, FlexLeftContainer, FlexRightContainer, GreenBtn, HorizontalFlexContainer, ImageInList, ImageListContainer, ImporterGlobalStyle, JSONTextArea, MarginTopSix, NormalTextArea, Para, StrongText, VerticalFlexContainer,}  from '@Styles/Importer'
@@ -25,9 +25,9 @@ const ImporterApp = () => {
   const [isLoading,setIsLoading] = useState(true);
 
   const figmaApi = new FigmaApi({
-    clientId:clientID,
-    clientSecrete:secrectID,
-    redirectUri: `${rootURL}callback.html`,
+    clientId:webClientID,
+    clientSecrete:webSecrectID,
+    redirectUri: `${webRootURL}callback.html`,
   });
 
   const [theme, setTheme] = useState('light');
@@ -48,7 +48,7 @@ const ImporterApp = () => {
         console.log(token)
         const queryKey = parsedUrl.searchParams.get('query_key');
         const queryNode = parsedUrl.searchParams.get('query_node');
-        const _rendererUrlBase = rendererURL;
+        const _rendererUrlBase = webRendererURL;
         const _rendererUrl = _rendererUrlBase + `?query_token=${token}&query_key=${queryKey}&query_node=${queryNode}`
         const _apiUrlBase = `https://api.figma.com/v1/files/`
         const _apiUrl = _apiUrlBase + `${queryKey}/nodes?ids=${queryNode}`
@@ -109,7 +109,7 @@ const ImporterApp = () => {
     var _nodeId = substrings[length - 1].split(`?node-id=`)[1];
     apiUrl = `https://api.figma.com/v1/files/${_fileKey}/nodes?ids=${_nodeId}`
     console.log(token)
-    const rendererUrl = rendererURL + `?query_token=${token}&query_key=${_fileKey}&query_node=${_nodeId}`
+    const rendererUrl = webRendererURL + `?query_token=${token}&query_key=${_fileKey}&query_node=${_nodeId}`
 
     setCurrentKey(_fileKey)
     setCurrentNode(_nodeId)
@@ -266,7 +266,7 @@ const ImporterApp = () => {
                     <MarginTopSix>
                       <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
                       <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
-                      <GreenBtn onClick={()=>{onGoOrigSite(rootURL)}}>Go Origin Site</GreenBtn> <br></br>
+                      <GreenBtn onClick={()=>{onGoOrigSite(webRootURL)}}>Go Origin Site</GreenBtn> <br></br>
                       <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
                       {(jsonData)?
                         <GreenBtn onClick={()=>{onGetImageList(jsonData,token,key)}}>Get Image</GreenBtn>

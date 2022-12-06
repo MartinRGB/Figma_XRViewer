@@ -1,9 +1,6 @@
-var exportScale = 1;
 var selectionName = '';
-const modelExtArr = ['.gltf','.glb']
 var finishNum = 0;
-const isContainFrame = false;
-const isUseAbsoluteBounds = true;
+import { figmaExportScale,figmaIsContainFrame,figmaIsUseAbsoluteBounds } from "src/app/configs.ts";
 
 export const sendMsg = (tp,val) => {
   figma.ui.postMessage({type: tp, value:val});
@@ -58,9 +55,9 @@ export const setFrameToNode = (frameNode) =>{
 const exportFrameOBJ = (frameNode,exportLength,frameOBJCallback,finishCallback) => {
   frameNode.exportAsync({
     contentsOnly: true,
-    useAbsoluteBounds:isUseAbsoluteBounds,
+    useAbsoluteBounds:figmaIsUseAbsoluteBounds,
     format: "PNG",
-    constraint: {type: "SCALE",value: exportScale,}})
+    constraint: {type: "SCALE",value: figmaExportScale,}})
   .then(resolved => {
     frameOBJCallback({ 
       name:frameNode.name,
@@ -93,11 +90,11 @@ const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCal
     childrenNode[i].visible = true;
     childrenNode[i].exportAsync({
       contentsOnly: true,
-      useAbsoluteBounds:isUseAbsoluteBounds,
+      useAbsoluteBounds:figmaIsUseAbsoluteBounds,
       format: "PNG",
       constraint: {
           type: "SCALE",
-          value: exportScale,
+          value: figmaExportScale,
       }
     })
     .then( 
@@ -114,7 +111,7 @@ const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCal
             frameWidth:childrenNode[i].parent.width,
             frameHeight:childrenNode[i].parent.height,
             // index:++index,
-            index:i + (isContainFrame?1:0),
+            index:i + (figmaIsContainFrame?1:0),
             modelSrc:(childrenNode[i].name.includes('.gltf') || childrenNode[i].name.includes('.glb'))?childrenNode[i].name:null,
           },
           i
@@ -160,10 +157,10 @@ const postImagePromise = () => {
       }
 
       childrenNode = childrenNode.filter(n => {return n != null && n != '';})
-      const exportLength = childrenNode.length + (isContainFrame?1:0);
+      const exportLength = childrenNode.length + (figmaIsContainFrame?1:0);
       console.log(childrenNode);
 
-      if(isContainFrame){
+      if(figmaIsContainFrame){
         exportFrameOBJ(
           frameNode,exportLength,
           (frameOBJ) =>
