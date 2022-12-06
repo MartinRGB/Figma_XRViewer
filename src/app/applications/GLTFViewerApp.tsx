@@ -26,15 +26,15 @@ const AlignContainer = styled.div`
 `
 
 const AlignPara = styled.div`
-  margin:0 auto;
-  font-size: 24px;
+  margin: 0 auto;
+  font-size: 20px;
   font-weight: 700;
 `
 
 const CommentPara = styled.div`
   margin: 0px auto;
-  font-size: 16px;
-  margin-top: 16px;
+  font-size: 14px;
+  margin-top: 14px;
   font-weight: 500;
 `
 

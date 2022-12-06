@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoadingContainer = styled.div`
+export const LoadingComponent = styled.div`
     width: 100vw;
     height: 100vh;
     position: absolute;
@@ -10,11 +10,27 @@ export const LoadingContainer = styled.div`
     opacity: 0.9;
 `
 
+export const LoadingContainer = styled.div`
+  padding: 60px;
+  margin: 0 auto;
+  width: 100%;
+`
 
 export const Loading = styled.p`
   margin: 0 auto;
+  margin-bottom: 8px;
   color: black;
-  font-size: 36px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+`
+export const LoadingProgressBar = styled.div`
+    height: 4px;
+    background: #1da1f2;
+    box-shadow: 2px 14px 15px -7px rgb(30 166 250 / 36%);
+    border-radius: 50px;
+    width: 0%;
+    transition: all 0.2s;
 `
 
 export const Container = styled.div`

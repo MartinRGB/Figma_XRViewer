@@ -22,7 +22,7 @@ const Camera = ({cameraRef,containerRef,cameraSheetObj,baseUnit}:CameraProps) =>
   useEffect(()=>{
     let width = containerRef.current.clientWidth;
     let height = containerRef.current.clientHeight;
-    console.log('aspect: ' + width/height)
+    console.log('camera aspect: ' + width/height)
     setAspect(width / height);
     
     cameraSheetObj.current.onValuesChange(newValues => {

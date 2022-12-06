@@ -2,14 +2,14 @@ import React, {useEffect,useState} from 'react'
 import { webRootURL } from '@Config';
 import { IPluginApp } from '@CustomTypes';
 import {dataToPHPServer,postData} from '@Utils/server.js'
-import {Container,FlexContainer,FigmaButton,LoadingContainer,Loading} from '@Styles/Plugin'
+import {Container,FlexContainer,FigmaButton,LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
 import {nginxUploadFolder,nginxDirLink} from '@Config'
 
 const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
   const [isLoading,setIsLoading] = useState(true);
+  const [loadingProgress,setLoadingProgress] = useState(0);
   const [loadingText,setLoadingText] = useState('Uploading...');
   useEffect(()=>{
-    
     parent.postMessage({ pluginMessage: { type: 'get_data' } }, '*')
 
     window.onmessage = (event) => {
@@ -23,6 +23,8 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
           const nodeId = value[2];
           //const platform = value[3];
           setIsLoading(false);
+          setLoadingText('Finished!')
+          setLoadingProgress(1);
           window.open(`${webRootURL}${platform === 'webxr'?'index':'importer'}.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
           parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
      
@@ -33,14 +35,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
           const nodeId = value[2];
           const data = value[3];
           const nodeJSON = value[4];
-          //const platform = value[3];
-          // console.log('fileKey: ' + fileKey);
-          // console.log('fileName: ' + fileName);
-          // console.log('nodeId: ' + nodeId);
-          // console.log(data)
-          // console.log(nodeJSON)
-          setIsLoading(true)
-          setLoadingText('Uploading...')
+          let fetchNum = 0;
           let loadingNum = 0;
           const totalLoadingNum = data.length + 1;
 
@@ -57,9 +52,12 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
           },1000);setLoadingText('Finished!');}
           
           // ############### upload json data ###############
-          postData(jsonBlob, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `data.json`,()=>{},
+          postData(jsonBlob, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `data.json`,()=>{
+              fetchNum++;setLoadingProgress(((loadingNum+fetchNum)/2/totalLoadingNum));
+            },
+            ()=>{},
             ()=>{
-              loadingNum++;
+              loadingNum++;setLoadingProgress(((loadingNum+fetchNum)/2/totalLoadingNum));
               if(loadingNum === totalLoadingNum){finishCBFunc()}
             },
           )
@@ -70,15 +68,27 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             const blob = URL.createObjectURL(bb);
             // # plain img data
             if(!data[index].name.includes('.gltf') && !data[index].name.includes('https://')){
-              postData(blob, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `${data[index].name}.png`,()=>{},
-                ()=>{loadingNum++;if(loadingNum === totalLoadingNum){finishCBFunc()}},
+              postData(blob, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `${data[index].name}.png`,()=>{
+                  fetchNum++;setLoadingProgress(((loadingNum+fetchNum)/2/totalLoadingNum));
+                },
+                ()=>{},
+                ()=>{
+                  loadingNum++;setLoadingProgress(((loadingNum+fetchNum)/2/totalLoadingNum));
+                  if(loadingNum === totalLoadingNum){finishCBFunc()}
+                },
               )
             }
             else{
               // # model img data
               const name = data[index].name.split('/')[data[index].name.split('/').length - 1];
-              postData(blob,`${nginxUploadFolder}/${fileKey}/${nodeId}/`, `${name}.png`,()=>{},
-                ()=>{loadingNum++;if(loadingNum === totalLoadingNum){finishCBFunc()}},
+              postData(blob,`${nginxUploadFolder}/${fileKey}/${nodeId}/`, `${name}.png`,()=>{
+                  fetchNum++;setLoadingProgress(((loadingNum+fetchNum)/2/totalLoadingNum));
+                },
+                ()=>{},
+                ()=>{
+                  loadingNum++;setLoadingProgress(((loadingNum+fetchNum)/2/totalLoadingNum));
+                  if(loadingNum === totalLoadingNum){finishCBFunc()}
+                },
               )
             }
           }
@@ -111,7 +121,12 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
         }onClick={onCancel}>Cancel</button>
       </div>
     </div>
-    <LoadingContainer style={{zIndex:`${isLoading?'1':'-1'}`,opacity:`${isLoading?'1':'0'}`}}><Loading>{loadingText}</Loading></LoadingContainer>
+    <LoadingComponent style={{zIndex:`${isLoading?'1':'-1'}`,opacity:`${isLoading?'1':'0'}`}}>
+      <LoadingContainer>
+        <Loading>{loadingText}</Loading>
+        <LoadingProgressBar style={{width:`${loadingProgress*100}%`}}></LoadingProgressBar>
+      </LoadingContainer>
+    </LoadingComponent>
     </>
   )
 }

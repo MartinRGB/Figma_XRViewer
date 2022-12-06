@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback, Suspense, useRef } from 'react'
+import React, { useEffect, useMemo, useCallback, Suspense, useRef, useState } from 'react'
 import saveAs from 'file-saver'
 import { useControls, button } from 'leva'
 import toast from 'react-hot-toast'
@@ -12,6 +12,7 @@ import { Canvas } from '@react-three/fiber';
 import {postData} from '@Utils/server.js';
 import { PerspectiveCamera } from '@react-three/drei'
 import {nginxAssetLink,nginxUploadFolder} from '@Config'
+import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
 
 const AlignContainer = styled.div`
   position: absolute;
@@ -28,8 +29,8 @@ const AlignContainer = styled.div`
 `
 
 const AlignPara = styled.div`
-  margin:0 auto;
-  font-size: 24px;
+  margin: 0 auto;
+  font-size: 20px;
   font-weight: 700;
 `
 
@@ -48,12 +49,28 @@ const FileNameHeading = styled.h1`
 const Container = styled.div`
 `
 
+interface LoadingProps 
+{
+  isLoading:boolean;
+}
+const LoadingComp2 = ({isLoading}:LoadingProps) =>{
+  const [compLoadingState,setCompLoadingState] = useState(true);
+  const [compLoadingText,setCompLoadingText] = useState('');
 
-const LoadingComnponent = () =>{
-  return (
-    <AlignContainer>
-      <AlignPara>Loading ...</AlignPara>
-    </AlignContainer>
+  useEffect(() => {
+    if(isLoading){
+      setCompLoadingState(true);setCompLoadingText('Loading...')
+    }
+    else{
+      setCompLoadingText('Finished...');setTimeout(()=>{setCompLoadingState(false)},1000)
+    }
+  }, [isLoading])
+  return(
+    <LoadingComponent style={{zIndex:`${compLoadingState?'9999':'-1'}`,opacity:`${compLoadingState?'1':'0'}`,top:`0`}}>
+      <LoadingContainer style={{width:`40%`}}>
+        <Loading>{compLoadingText}</Loading>
+      </LoadingContainer>
+    </LoadingComponent>
   )
 }
 
@@ -114,9 +131,20 @@ const Result = React.forwardRef((props,ref) =>{
       useStore.setState({scene:null,code:null})
       console.log(props.children)
       generateScene(preview)
+      setIsLoading(true);
     }
 
   }, [props.children])
+
+  const [isLoading,setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if(scene != null){
+      
+      setIsLoading(false);
+    }
+    
+  }, [scene])
 
   // const download = useCallback(async () => {
   //   createZip({ sandboxCode })
@@ -174,6 +202,7 @@ const Result = React.forwardRef((props,ref) =>{
   }
   else{
     temp['export image to fimga'] = button(() => {
+      setIsLoading(true);
       const fileKey = figmaMsg[0]
       //const fileName = figmaMsg[1]
       const nodeId = figmaMsg[2];
@@ -192,8 +221,6 @@ const Result = React.forwardRef((props,ref) =>{
 
       // ############## save model to cloud drive ##############
 
-      
-
       const bb = new Blob([buffer],{type:'model/gltf+json'});
       const blob = URL.createObjectURL(bb);
       postData(
@@ -203,8 +230,9 @@ const Result = React.forwardRef((props,ref) =>{
         `${fileName}`,
         // ()=>{setIsLoading(true)},
         // ()=>{setIsLoading(false)},
-        ()=>{},
-        ()=>{},
+        ()=>{}, //start
+        ()=>{}, //middle
+        ()=>{setIsLoading(false)}, //end
       )
 
     })
@@ -226,28 +254,39 @@ const Result = React.forwardRef((props,ref) =>{
   useControls('exports', exports, { collapsed: false }, [exports])
   return(
     <Container ref={ref}>
-      {!code && !scene ? (
-        <LoadingComnponent/>
+      {/* {!code && !scene ? (
+        <LoadingComp/>
       ) : (
-        <Suspense fallback={<LoadingComnponent/>}>
+        <Suspense fallback={ <LoadingComp/>}>
           <div style={{textAlign:'left'}}>
             <FileNameHeading>{props.children}</FileNameHeading>
-
             {scene != null?
             <>
-              {/* 100vw 100vh */}
-              {/* <Canvas style={{width:`${props.width}px`,height:`${props.height}px`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}> */}
+            
               <Canvas style={{width:`100vw`,height:`100vh`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
-                {/* {scene && <Viewer scene={scene} {...config} {...preview} />} */}
                 <Viewer scene={scene} {...preview}/>
               </Canvas>
-              {/* <Leva  /> */}
             </>:
             <></>
             }
           </div>
         </Suspense>
-      )}
+      )} */}
+
+          <div style={{textAlign:'left'}}>
+            <FileNameHeading>{props.children}</FileNameHeading>
+            {scene != null?
+              <>
+                <Canvas style={{width:`100vw`,height:`100vh`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
+                  <Viewer scene={scene} {...preview}/>
+                </Canvas>
+              </>
+              :
+              <>
+              </>
+            }
+            <LoadingComp2 isLoading={isLoading}></LoadingComp2>
+          </div>
     </Container>
   )
 })

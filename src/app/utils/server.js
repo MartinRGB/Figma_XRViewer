@@ -22,7 +22,7 @@ export async function dataToPHPServer (link,blob,headers,endCallback) {
   });
 }
 
-export async function postData (url,path,name,startCallback,endCallback) {
+export async function postData (url,path,name,startCallback,middleCallback,endCallback) {
 
   //setIsLoading(true)
   startCallback();
@@ -37,7 +37,8 @@ export async function postData (url,path,name,startCallback,endCallback) {
   })
   .then((blob)=>{
     console.log(blob)
-    console.log(nginxUploadFolder + path)
+    middleCallback();
+    //console.log(nginxUploadFolder + path)
     // ########################### METHOD - QUERY DATA ###########################
     dataToPHPServer(
       `${nginxUploadPHPLink}?fileDir=${path}&fileName=${name}`,

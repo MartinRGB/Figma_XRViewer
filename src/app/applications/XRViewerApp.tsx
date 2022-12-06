@@ -79,7 +79,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
   }));
   
   const InitRenderer = useCallback(() =>{
-    const yScalePerc = (figmaData.length != 0)?figmaData[0].height/figmaData[0].width:(1080/1920);
+    const yScalePerc = (figmaData.length != 0)?figmaData[0].frameHeight/figmaData[0].frameWidth:(1080/1920);
     console.log('the screen aspect ratio is : ' + yScalePerc)
     helperSetting(THREE,scene,helperSheetObj,yScalePerc,ViewerConfig.baseUnit,
       (camHelper,polarHelper,dotHelper)=>

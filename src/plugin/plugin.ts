@@ -9,6 +9,7 @@ export const sendMsg = (tp,val) => {
 export const rejectedMsg = (msg) => {
   console.error(msg)
   sendMsg("failed",null);
+  figma.closePlugin();
   throw new Error(msg);
 }
 
@@ -52,7 +53,7 @@ export const setFrameToNode = (frameNode) =>{
   }
 }
 
-const mapFrameToChild = (child,frame) =>{
+const mapPropsFrom = (frame) =>{
   //fileKey nodeId
   const fileKey = figma.fileKey;
   const nodeId = figma.currentPage.selection[0].id.replaceAll(':','%3A');
@@ -60,22 +61,24 @@ const mapFrameToChild = (child,frame) =>{
   const finalLink = nginxDirLink + nginxUploadFolder + '/' + fileKey +'/' + nodeId + '/'
 
   const isModel = (frame.name.includes('https://') && (frame.name.includes('.gltf') || frame.name.includes('.glb')));
-  child.id = frame.id;
-  child.name = isModel?
+  const obj = {}
+  obj.id = frame.id;
+  obj.name = isModel?
     frame.name.replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A')
     :
     frame.name;
-  child.width = frame.width;
-  child.height = frame.height;
-  child.x = frame.x;
-  child.y = frame.y;
-  child.absoluteBoundingBox = frame.absoluteBoundingBox;
-  child.absoluteRenderBounds = frame.absoluteRenderBounds;
-  child.src = 
+  obj.width = frame.width;
+  obj.height = frame.height;
+  obj.x = frame.x;
+  obj.y = frame.y;
+  obj.absoluteBoundingBox = frame.absoluteBoundingBox;
+  obj.absoluteRenderBounds = frame.absoluteRenderBounds;
+  obj.src = 
     isModel? 
     ((finalLink +  frame.name.split('/')[frame.name.split('/').length - 1]) + `.png`).replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A') 
     : 
     ((finalLink + frame.name) + `.png`).replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A') 
+  return obj
 }
 
 
@@ -107,7 +110,6 @@ export const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,fi
         finishNum++;
         if(finishNum === exportLength){
           console.log('from figma: ' +'last exported image!')
-          console.log('0000000000')
           finishCallback();
         }
 
@@ -159,14 +161,10 @@ figma.ui.onmessage = msg => {
         sendMsg("finished_msg", [fileKey,fileName,nodeId]);
       }
       else if(nodes.length > 1){
-          //sendMsg("failed",null);
-        console.error("Only support one frame!")
-        throw new Error('Only support one frame!');
+        rejectedMsg('Only support one frame!')
       }
       else {
-          //sendMsg("failed",null);
-          console.error("No frame has been selected!")
-          throw new Error('No frame has been selected');
+        rejectedMsg('No frame has been selected')
       }
     }
   }
@@ -187,22 +185,18 @@ figma.ui.onmessage = msg => {
         let childrenNode = [...frameNode.children];
   
         // ############### json add ###############
-        const jsonObject = {};
-        mapFrameToChild(jsonObject,frameNode)
+        
+        const jsonObject = mapPropsFrom(frameNode);
         jsonObject.children = [];
   
         // ############### filt invisible node ###############
         for(var c=0;c<frameNode.children.length;c++){
           // # get invisible node
-          if(!frameNode.children[c].visible) {
-            childrenNode[c] = null;
-          }
+          if(!frameNode.children[c].visible) {childrenNode[c] = null;}
           else{
             // ############### child json add ###############
-            const jsonChildObject = {};
-            mapFrameToChild(jsonChildObject,frameNode.children[c])
+            const jsonChildObject = mapPropsFrom(frameNode.children[c]);
             jsonObject.children.push(jsonChildObject);
-  
             childrenNode[c].visible = false;
           }
         }
@@ -215,7 +209,7 @@ figma.ui.onmessage = msg => {
           (nodeOBJ,i) =>
           {
             imgArray.push(nodeOBJ)
-            console.log('from figma: ' + `Succeed to get childNode ${i} image!`)
+            //console.log('from figma: ' + `Succeed to get childNode ${i} image!`)
           },
           ()=>{
             sendMsg("finished_msg", [fileKey,fileName,nodeId,imgArray,{node:jsonObject}]);
@@ -226,7 +220,7 @@ figma.ui.onmessage = msg => {
         rejectedMsg('Only support one frame!')
       }
       else {
-          rejectedMsg('No frame has been selected')
+        rejectedMsg('No frame has been selected')
       }
     }
   }

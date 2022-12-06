@@ -9,6 +9,7 @@ export const sendMsg = (tp,val) => {
 export const rejectedMsg = (msg) => {
   console.error(msg)
   sendMsg("failed",null);
+  figma.closePlugin();
   throw new Error(msg);
 }
 
@@ -120,7 +121,6 @@ const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCal
         finishNum++;
         if(finishNum === exportLength){
           console.log('from figma: ' +'last exported image!')
-          console.log('0000000000')
           finishCallback();
         }
 

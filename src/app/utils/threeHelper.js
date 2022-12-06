@@ -75,6 +75,7 @@ export function createCanvasGridMaterial(THREE,color,width,height,paddingW,paddi
 
 export const helperSetting = (THREE,scene,sheetObj,yScalePerc,baseUnit,callback) =>{
   const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
+  console.log( -yScalePerc/2*baseUnit)
   //radius angles radius
   const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
   polarGridHelper.position.y = -yScalePerc/2*baseUnit;
