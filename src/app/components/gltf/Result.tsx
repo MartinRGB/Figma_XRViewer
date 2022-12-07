@@ -194,11 +194,8 @@ const Result = React.forwardRef((props,ref) =>{
       const blob = URL.createObjectURL(bb);
       postData(
         blob, //blob
-        //`/${fileKey}/Model/`,  //`./zfile/test/${fileKey}/${nodeId}/`
         `${nginxUploadFolder}/${fileKey}/Model/`,
         `${fileName.replaceAll(' ','%20').replaceAll('(','%28').replaceAll(')','%29')}`,
-        // ()=>{setIsLoading(true)},
-        // ()=>{setIsLoading(false)},
         ()=>{}, //start
         ()=>{}, //middle
         ()=>{setIsLoading(false)}, //end
@@ -227,7 +224,7 @@ const Result = React.forwardRef((props,ref) =>{
             <FileNameHeading>{props.children}</FileNameHeading>
             {scene != null?
               <>
-                <Canvas style={{width:`640px`,height:`640px`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
+                <Canvas style={{width:`100vw`,height:`100vh`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
                   <Viewer scene={scene} {...preview}/>
                 </Canvas>
               </>

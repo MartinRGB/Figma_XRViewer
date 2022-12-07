@@ -5,7 +5,7 @@ import useStore from '@Utils/gltf/store'
 import * as THREE from 'three'
 import CombinedCamera from './CombinedCamera'
 
-const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, intensity,animation ,perspectiveCamera}) =>{
+const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, intensity,animation ,perspectiveCamera,dpr}) =>{
   const gltfScene = useStore((store) => store.scene)
   const animations = useStore((store) => store.animations)
   const mixerRef = useRef(new THREE.AnimationMixer(gltfScene));
@@ -68,6 +68,7 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
             near={0.01}
             far={10000}
             zoom={1}
+            dpr={dpr}
             position={[0, 0, 5]}
             isPespective={perspectiveCamera}
           />

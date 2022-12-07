@@ -12,12 +12,18 @@ interface CombinedCameraProps {
   aspect:number,
   position:number[],
   isPespective:boolean,
+  dpr:number,
 }
 
-const CombinedCamera = ({fov,near,far,zoom,aspect,position,isPespective}:CombinedCameraProps) =>{
+const CombinedCamera = ({fov,near,far,zoom,aspect,position,isPespective,dpr}:CombinedCameraProps) =>{
   const orthRef = useRef();
   const persRef = useRef();
   const {invalidate,scene,gl,camera} = useThree()
+
+  
+  useEffect(()=>{
+    orthRef.current.zoom = 100;
+  },[dpr])
 
   useLayoutEffect(() => {
     function updateSize() {
@@ -34,7 +40,6 @@ const CombinedCamera = ({fov,near,far,zoom,aspect,position,isPespective}:Combine
       persRef.current.zoom = zoom;
       persRef.current.position.set(position[0],position[1],position[2]);
       persRef.current.updateProjectionMatrix();
-      console.log(isPespective)
     }
     else{
       var hyperfocus = ( near + far ) / 2;
@@ -50,18 +55,13 @@ const CombinedCamera = ({fov,near,far,zoom,aspect,position,isPespective}:Combine
       orthRef.current.top = halfHeight;
       orthRef.current.bottom = -halfHeight;
       orthRef.current.zoom = zoom*aspect;
+      //orthRef.current.zoom = 100;
       orthRef.current.position.set(position[0],position[1],position[2]);
       orthRef.current.far = far+((far/25)*persRef.current.zoom)-0.5;
 
       orthRef.current.updateProjectionMatrix();
-      console.log(isPespective)
     }
   },[isPespective])
-
-  useEffect(()=>{
-  },[])
-  useFrame((state, delta) => {
-  })
 
   return (
     <>
