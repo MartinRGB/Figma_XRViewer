@@ -1,5 +1,5 @@
 // export to LAN SERVER OR WEB SERVER
-export const isLocal = false; 
+export const isLocal = true; 
 // load three.js decoder from LAN Sever
 export const isDecoderFromLoacl = isLocal?true:false; 
 // load three.js decoder from LAN Sever 

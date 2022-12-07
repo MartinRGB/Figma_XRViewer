@@ -11,6 +11,8 @@ import Camera from '@Components/Camera'
 import XRContainer from '@Components/XRContainer'
 import ProperGeometry from '@Components/ProperGeometry'
 import { 
+  createLineCurve,
+  createPlaneCurve,
   helperSetting,
   theatreStudioCameraHelperFixed
 } from '@Utils/threeHelper'; 
@@ -26,7 +28,6 @@ import { editable as e,SheetProvider } from '@theatre/r3f'
 import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Stage, useHelper } from '@react-three/drei'
-import { BoxHelper } from 'three';
 
 // todo
 // 2.computer data pass to XR Device 
@@ -64,8 +65,9 @@ interface RendererProps {
 const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProgress}:RendererProps,ref) =>{
 
   const cameraRef = useRef(null);
-  const camraObjRef = useRef(null);
+  const camraSheetObj = useRef(null);
   const helperSheetObj = useRef(sceneHelper)
+
   const {invalidate,scene,gl,camera} = useThree()
   useImperativeHandle(ref, () => ({
     saveImage: () => {
@@ -92,7 +94,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
         })
       }
     );
-    theatreStudioCameraHelperFixed(scene,invalidate)
+    theatreStudioCameraHelperFixed(scene,invalidate);
   },[])
 
   useEffect(()=>{
@@ -111,29 +113,41 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
   },[isQuery,loadingProgress])
 
 
+  
+  
+  const groupRef= useRef(null);
+  const groupSheetObj = useRef(null);
+
+
+
   return(
     <> 
      <Stage shadows={false} preset="rembrandt" intensity={1} environment="sunset" adjustCamera={false}>
         <SheetProvider sheet={assetSheet}>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
           <ambientLight />
-          <Camera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={camraObjRef} baseUnit={ViewerConfig.baseUnit}/>
-          <Orbit cameraSheetObj={camraObjRef.current}></Orbit>
+          <Camera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={camraSheetObj} baseUnit={ViewerConfig.baseUnit}/>
+          <Orbit cameraSheetObj={camraSheetObj.current}></Orbit>
           {(isFigma === false)?
             // is not in Figma
             <XRContainer
               cameraRef={cameraRef} 
-              cameraSheetObj={camraObjRef}
+              cameraSheetObj={camraSheetObj}
               >
               <SheetProvider sheet={assetSheet}>
-                <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+                <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
+                  <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+                </e.group>
               </SheetProvider>     
             </XRContainer>
             :
             // is in Figma
             <>
+            
               <SheetProvider sheet={assetSheet}>
-                <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+                <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
+                    <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+                </e.group>
               </SheetProvider>
             </>
           }

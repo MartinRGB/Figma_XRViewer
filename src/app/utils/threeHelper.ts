@@ -75,7 +75,6 @@ export function createCanvasGridMaterial(THREE,color,width,height,paddingW,paddi
 
 export const helperSetting = (THREE,scene,sheetObj,yScalePerc,baseUnit,callback) =>{
   const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
-  console.log( -yScalePerc/2*baseUnit)
   //radius angles radius
   const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
   polarGridHelper.position.y = -yScalePerc/2*baseUnit;
@@ -143,32 +142,107 @@ export const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
   });  
 }
 
-
-export function createPlaneCurve(THREE,g, z){
-  if (z == 0) {
-      z = 0.00001;
+export function createPlaneCurve(THREE,geo, curve){
+  if (curve == 0) {
+    curve = 0.00001;
   }
-  let p = g.parameters;
-  let hw = p.width * 0.5;
-  let a = new THREE.Vector2(-hw, 0);
-  let b = new THREE.Vector2(0, z);
-  let c = new THREE.Vector2(hw, 0);
-  let ab = new THREE.Vector2().subVectors(a, b);
-  let bc = new THREE.Vector2().subVectors(b, c);
-  let ac = new THREE.Vector2().subVectors(a, c);
+  let para = geo.parameters;
+  let halfWidth = para.width * 0.5;
+  let pointA = new THREE.Vector2(-halfWidth, 0);
+  let pointB = new THREE.Vector2(0, curve);
+  let pointC = new THREE.Vector2(halfWidth, 0);
+  //distance
+  let ab = new THREE.Vector2().subVectors(pointA, pointB);
+  let bc = new THREE.Vector2().subVectors(pointB, pointC);
+  let ac = new THREE.Vector2().subVectors(pointA, pointC);
   let r = (ab.length() * bc.length() * ac.length()) / (2 * Math.abs(ab.cross(ac)));
-  let center = new THREE.Vector2(0, z - r);
-  let baseV = new THREE.Vector2().subVectors(a, center);
+  let center = new THREE.Vector2(0, curve - r);
+  let baseV = new THREE.Vector2().subVectors(pointA, center);
   let baseAngle = baseV.angle() - Math.PI * 0.5;
   let arc = baseAngle * 2;
-  let uv = g.attributes.uv;
-  let pos = g.attributes.position;
+  let uv = geo.attributes.uv;
+  let pos = geo.attributes.position;
   let mainV = new THREE.Vector2();
+
   for (let i = 0; i < uv.count; i++) {
       let uvRatio = 1 - uv.getX(i);
       let y = pos.getY(i);
-      mainV.copy(c).rotateAround(center, arc * uvRatio);
+      mainV.copy(pointC).rotateAround(center, arc * uvRatio);
       pos.setXYZ(i, mainV.x, y, -mainV.y);
   }
   pos.needsUpdate = true;
 };
+
+export function createLineCurve(THREE,points,halfWidth, curve){
+  if (curve == 0) {
+    curve = 0.00001;
+  }
+  let pointA = new THREE.Vector2(-halfWidth, 0);
+  let pointB = new THREE.Vector2(0, curve);
+  let pointC = new THREE.Vector2(halfWidth, 0);
+  //distance
+  let ab = new THREE.Vector2().subVectors(pointA, pointB);
+  let bc = new THREE.Vector2().subVectors(pointB, pointC);
+  let ac = new THREE.Vector2().subVectors(pointA, pointC);
+  let r = (ab.length() * bc.length() * ac.length()) / (2 * Math.abs(ab.cross(ac)));
+  let center = new THREE.Vector2(0, curve - r);
+  let baseV = new THREE.Vector2().subVectors(pointA, center);
+  let baseAngle = baseV.angle() - Math.PI * 0.5;
+  let arc = baseAngle * 2;
+  let mainV = new THREE.Vector2();
+
+  for (let i = 0; i < points.length; i++) {
+      let uvRatio = 1 - points[i].x/halfWidth;
+      mainV.copy(pointC).rotateAround(center, arc * uvRatio/2);
+      let y = points[i].y;
+      points[i].x = mainV.x;
+      points[i].y = y;
+      points[i].z = -mainV.y ;
+  }
+
+  // const giveXReturnXYZ = (x) =>{
+  //   let uvRatio = 1 - x/halfWidth;
+  //   mainV.copy(pointC).rotateAround(center, arc * uvRatio/2);
+  //   const pX = mainV.x;
+  //   const pZ = -mainV.y;
+  //   console.log('x: ' + pX + ' z: ' +pZ)
+  // }
+  // giveXReturnXYZ(50);
+  
+  const newPoints = points;
+  return newPoints;
+};
+
+// const lineCurve = new THREE.LineCurve3( 
+//   new THREE.Vector3( -ViewerConfig.baseUnit/2, 0,0 ), 
+//   new THREE.Vector3( ViewerConfig.baseUnit/2, 0,0 )
+// ); 
+
+// const pathRef = useRef(null);
+// const pathSheetObj = useRef(null);
+// const pathGeo = useRef(null);
+// useEffect(()=>{ 
+//   pathSheetObj.current.onValuesChange(newValues => {
+//     const points = lineCurve.getPoints( 40 ); 
+//     const newPoints = createLineCurve(THREE,points,ViewerConfig.baseUnit/2,newValues.curve);
+//     pathGeo.current.setFromPoints(newPoints)
+//   });
+
+// },[pathRef])
+
+// <e.line 
+//   theatreKey={'curve'}
+//   ref={pathRef}
+//   objRef={pathSheetObj}
+//   additionalProps={{ 
+//     curve: types.number(0, {
+//       nudgeMultiplier: ViewerConfig.baseUnit/100,
+//       range:[0,ViewerConfig.baseUnit]
+//     }),
+//   }} 
+// >
+//   <bufferGeometry ref={pathGeo} attach="geometry" 
+//   // onUpdate={onUpdate}  
+//   />
+//   <lineBasicMaterial attach="material" color={'red'} linewidth={50} />
+// </e.line>  

@@ -196,7 +196,8 @@ const Screen = (props) =>{
         }),
       }} 
       visible={currVis}
-      scale={props.hasData?[1*(props.width/props.frameWidth),yScalePerc*(props.width/props.frameWidth),1]:[1,yScalePerc,1]}
+      // scale={props.hasData?[1*(props.width/props.frameWidth),yScalePerc*(props.width/props.frameWidth),1]:[1,yScalePerc,1]}
+      scale={[1,1,1]}
       position={props.hasData?
         [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
          ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
@@ -204,7 +205,8 @@ const Screen = (props) =>{
         :
         [0,0,0]}
      >
-      <planeGeometry ref={screenGeom} args={[props.baseUnit, props.baseUnit, 40, 40]} />
+      {/* <planeGeometry ref={screenGeom} args={[props.baseUnit, props.baseUnit, 40, 40]} /> */}
+      <planeGeometry ref={screenGeom} args={[props.hasData?props.baseUnit*(props.width/props.frameWidth):props.baseUnit, props.hasData?props.baseUnit*yScalePerc*(props.width/props.frameWidth):props.baseUnit, 40, 40]} />
       <meshBasicMaterial 
           ref={screeMaterial}
           // depthTest={true}

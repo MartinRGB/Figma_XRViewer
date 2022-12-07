@@ -145,46 +145,6 @@ export const exportChildImgObjArrForFigma = (childrenNode,childlength,nodeOBJCal
   }
 }
 
-// export const exportChildImgObjArrForFigma = (childrenNode,childlength,nodeOBJCallback,finishCallback) => {
-//   const exportLength = childlength
-//   let finishNum = 0;
-//   for(let i=0;i<childrenNode.length;i++){
-//     childrenNode[i].visible = true;
-//     childrenNode[i].exportAsync({
-//       contentsOnly: true,
-//       useAbsoluteBounds:figmaIsUseAbsoluteBounds,
-//       format: "PNG",
-//       constraint: {
-//           type: "SCALE",
-//           value: figmaExportScale,
-//       }
-//     })
-//     .then( 
-//       resolved => {
-//         nodeOBJCallback(
-//           { 
-//             name:childrenNode[i].name,
-//             imageData:resolved,
-//             type:'image-childnode',
-//             index:i,
-//             //modelSrc:(childrenNode[i].name.includes('.gltf') || childrenNode[i].name.includes('.glb'))?childrenNode[i].name:null,
-//           },
-//           i
-//         )
-
-//         finishNum++;
-//         if(finishNum === exportLength){
-//           console.log('from figma: ' +'last exported image!')
-//           finishCallback();
-//         }
-
-//       }, rejected => {
-//         console.error(rejected)
-//         rejectedMsg('Failed to send image!')
-//       })
-//   }
-// }
-
 export const getVisibleChildNode = (frameNode,visibleNodeCallback) =>{
   let childrenNode = [...frameNode.children];
   for(var c=0;c<frameNode.children.length;c++){
