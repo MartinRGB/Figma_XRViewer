@@ -191,7 +191,7 @@ const Screen = (props) =>{
       objRef={screenSheetObj}
       additionalProps={{ 
         curve: types.number(defaultCurve, {
-          nudgeMultiplier: 0.01,
+          nudgeMultiplier: props.baseUnit/100,
           range:[0,props.baseUnit]
         }),
       }} 
