@@ -1,4 +1,4 @@
-import {nginxUploadPHPLink,nginxUploadFolder} from '../configs/index';
+import { nginxUploadPHPLink } from "@Config";
 
 export async function dataToPHPServer (link,blob,headers,endCallback) {
 

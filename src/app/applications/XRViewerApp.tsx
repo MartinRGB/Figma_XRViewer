@@ -13,10 +13,10 @@ import ProperGeometry from '@Components/ProperGeometry'
 import { 
   helperSetting,
   theatreStudioCameraHelperFixed
-} from '@Utils/threeHelper.js'; 
-import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage.js'
-import {onDownloadHTML} from '@Utils/downloadHTML.js'
-import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON}  from '@Utils/queryData.js'
+} from '@Utils/threeHelper'; 
+import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage'
+import {onDownloadHTML} from '@Utils/downloadHTML'
+import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON}  from '@Utils/queryData'
 import {FigmaApi} from '@Utils/figmaAPI';
 import { webRootURL,webClientID,webSecrectID} from '@Config';
 

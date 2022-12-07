@@ -11,15 +11,24 @@ import parserBabel from 'prettier/parser-babel'
 import parserTS from 'prettier/parser-typescript'
 import { REVISION } from 'three'
 import { WebGLRenderer } from 'three'
+import { isDecoderFromLoacl } from '@Config';
 
-let gltfLoader
+let gltfLoader,dracoloader,ktx2Loader;
 if (typeof window !== 'undefined') {
-  // const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
-  // const dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
-  // const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
-  const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
-  const dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
-  const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
+
+  if(isDecoderFromLoacl){
+    const decoderPath = `https://172.22.0.20:8222/service_1/decoder`
+    dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
+    ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
+    dracoloader.preload()
+  }
+  else{
+    const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
+    dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
+    ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
+    dracoloader.preload()
+  }
+
 
   gltfLoader = new GLTFLoader()
     .setCrossOrigin('anonymous')

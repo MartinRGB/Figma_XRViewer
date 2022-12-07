@@ -1,8 +1,8 @@
 import React, {useState,useEffect,useCallback} from 'react'
 import {FigmaApi} from '@Utils/figmaAPI';
 import Spinner from '@Components/Spinner';
-import { webRootURL,webRendererURL,webClientID,webSecrectID } from '@Config';
-import { copyToClipboard } from '@Utils/functions.js'; 
+import { webRootURL,webClientID,webSecrectID } from '@Config';
+import { copyToClipboard } from '@Utils/functions'; 
 import styled,{ThemeProvider,createGlobalStyle} from 'styled-components';
 import {themes,CodeBtn, DataInfo, FlexLeftContainer, FlexRightContainer, GreenBtn, HorizontalFlexContainer, ImageInList, ImageListContainer, ImporterGlobalStyle, JSONTextArea, MarginTopSix, NormalTextArea, Para, StrongText, VerticalFlexContainer,}  from '@Styles/Importer'
 
@@ -48,7 +48,7 @@ const ImporterApp = () => {
         console.log(token)
         const queryKey = parsedUrl.searchParams.get('query_key');
         const queryNode = parsedUrl.searchParams.get('query_node');
-        const _rendererUrlBase = webRendererURL;
+        const _rendererUrlBase = webRootURL;
         const _rendererUrl = _rendererUrlBase + `?query_token=${token}&query_key=${queryKey}&query_node=${queryNode}`
         const _apiUrlBase = `https://api.figma.com/v1/files/`
         const _apiUrl = _apiUrlBase + `${queryKey}/nodes?ids=${queryNode}`
@@ -105,11 +105,10 @@ const ImporterApp = () => {
     {
       apiUrl = `https://api.figma.com/v1/files/${_fileKey}`;
     }
-
     var _nodeId = substrings[length - 1].split(`?node-id=`)[1];
     apiUrl = `https://api.figma.com/v1/files/${_fileKey}/nodes?ids=${_nodeId}`
     console.log(token)
-    const rendererUrl = webRendererURL + `?query_token=${token}&query_key=${_fileKey}&query_node=${_nodeId}`
+    const rendererUrl = webRootURL + `?query_token=${token}&query_key=${_fileKey}&query_node=${_nodeId}`
 
     setCurrentKey(_fileKey)
     setCurrentNode(_nodeId)

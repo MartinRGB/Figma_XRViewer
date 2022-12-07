@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import { useThree } from '@react-three/fiber'
 import { XR, Controllers, Hands, useXR } from '@react-three/xr'
-import { searchElementByType } from '@Utils/functions.js'; 
+import { searchElementByType } from '@Utils/functions'; 
 
 interface XRContainerProps {
   cameraRef:React.ForwardedRef<any>;

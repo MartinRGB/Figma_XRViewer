@@ -1,4 +1,4 @@
-import { searchElementByType } from "./functions";
+import { searchElementByType } from "@Utils/functions";
 
 export function createCanvasDotMaterial(THREE,color, size){
   var matCanvas = document.createElement('canvas');

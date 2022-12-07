@@ -6,26 +6,14 @@ import { isGlb } from '@Utils/gltf/isExtension'
 import useSandbox from '@Utils/gltf/useSandbox'
 import Viewer from '@Components/gltf/Viewer'
 import useStore from '@Utils/gltf/store'
-import {onCreateImage,trimCanvas} from '@Utils/saveImage.js'; 
+import {onCreateImage,trimCanvas} from '@Utils/saveImage'; 
 import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber';
-import {postData} from '@Utils/server.js';
+import {postData} from '@Utils/server';
 import { PerspectiveCamera } from '@react-three/drei'
 import {nginxAssetLink,nginxUploadFolder} from '@Config'
-import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
+import {LoadingContainer,LoadingComponent,Loading,FileNameHeading} from '@Styles/Plugin'
 
-
-const FileNameHeading = styled.h1`
-  position: absolute;
-  top: 15px;
-  left: 16px;
-  font-size: 12px;
-  background: #292d39;
-  color:white;
-  padding: 10px 20px 10px 20px;
-  margin: 0;
-  border-radius: 8px;
-`
 
 const Container = styled.div`
 `
@@ -186,7 +174,7 @@ const Result = React.forwardRef((props,ref) =>{
       setIsLoading(true);
       const fileKey = figmaMsg[0]
       //const fileName = figmaMsg[1]
-      const nodeId = figmaMsg[2];
+      //const nodeId = figmaMsg[2];
 
       var image = document
         .getElementsByTagName('canvas')[0]
@@ -196,7 +184,7 @@ const Result = React.forwardRef((props,ref) =>{
       // ############## save to figma ##############
       
       // console.log(nginxAssetLink+`/${fileKey}/Model/${fileName}`)
-      const inFigName = nginxAssetLink+`/${fileKey}/Model/${fileName}`;
+      const inFigName = nginxAssetLink+`/${fileKey}/Model/${fileName.replaceAll(' ','%20').replaceAll('(','%28').replaceAll(')','%29')}`;
       //saveAs(image, `${fileName.split('.')[0]}.png`)
       onCreateImage(null,image,'save-canvas-image',inFigName) //`${fileName.split('.')[0]}.png`
 
@@ -208,7 +196,7 @@ const Result = React.forwardRef((props,ref) =>{
         blob, //blob
         //`/${fileKey}/Model/`,  //`./zfile/test/${fileKey}/${nodeId}/`
         `${nginxUploadFolder}/${fileKey}/Model/`,
-        `${fileName}`,
+        `${fileName.replaceAll(' ','%20').replaceAll('(','%28').replaceAll(')','%29')}`,
         // ()=>{setIsLoading(true)},
         // ()=>{setIsLoading(false)},
         ()=>{}, //start
@@ -239,7 +227,7 @@ const Result = React.forwardRef((props,ref) =>{
             <FileNameHeading>{props.children}</FileNameHeading>
             {scene != null?
               <>
-                <Canvas style={{width:`100vw`,height:`100vh`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
+                <Canvas style={{width:`640px`,height:`640px`}}gl={{ preserveDrawingBuffer: true }} shadows dpr={[0, preview.dpr]}>
                   <Viewer scene={scene} {...preview}/>
                 </Canvas>
               </>

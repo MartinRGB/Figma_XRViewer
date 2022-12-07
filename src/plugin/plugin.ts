@@ -1,129 +1,11 @@
 const envPlugin = process.env.PLUGIN;
-var finishNum = 0;
-import { nginxDirLink,nginxUploadFolder,figmaExportScale,figmaIsContainFrame,figmaIsUseAbsoluteBounds } from "src/app/configs.ts";
+import { sendMsg,rejectedMsg,convertFrameToChild,JSONMapPropsFromParent,exportChildImgObjArrForLocal,getVisibleChildNode } from './pluginUtils'
 
-export const sendMsg = (tp,val) => {
-  figma.ui.postMessage({type: tp, value:val});
-}
-
-export const rejectedMsg = (msg) => {
-  console.error(msg)
-  sendMsg("failed",null);
-  figma.closePlugin();
-  throw new Error(msg);
-}
-
-export const setFrameToNode = (frameNode) =>{
-  
-  const mapKeyValue = (key,child,frame) =>{
-    child[key] = frame[key]
-  }
-
-  if((frameNode.effects.length + frameNode.strokes.length + frameNode.fills.length) != 0){
-    const rect = figma.createRectangle();
-    rect.x = 0;
-    rect.y = 0;
-    rect.resize(frameNode.width,frameNode.height)
-    mapKeyValue('fills',rect,frameNode);
-    mapKeyValue('strokes',rect,frameNode);
-    mapKeyValue('strokeAlign',rect,frameNode);
-    mapKeyValue('strokeBottomWeight',rect,frameNode);
-    mapKeyValue('strokeCap',rect,frameNode);
-    mapKeyValue('strokeJoin',rect,frameNode);
-    mapKeyValue('strokeLeftWeight',rect,frameNode);
-    mapKeyValue('strokeMiterLimit',rect,frameNode);
-    mapKeyValue('strokeRightWeight',rect,frameNode);
-    mapKeyValue('strokeTopWeight',rect,frameNode);
-    mapKeyValue('strokeStyleId',rect,frameNode);
-    mapKeyValue('strokeWeight',rect,frameNode);
-    mapKeyValue('topLeftRadius',rect,frameNode);
-    mapKeyValue('topRightRadius',rect,frameNode);
-    mapKeyValue('rotation',rect,frameNode);
-    mapKeyValue('effects',rect,frameNode);
-    mapKeyValue('cornerSmoothing',rect,frameNode);
-    mapKeyValue('cornerRadius',rect,frameNode);
-    mapKeyValue('bottomRightRadius',rect,frameNode);
-    mapKeyValue('bottomLeftRadius',rect,frameNode);
-    mapKeyValue('blendMode',rect,frameNode);
-    mapKeyValue('name',rect,frameNode);
-    frameNode.fills = new Array(0);
-    frameNode.strokes = new Array(0);
-    frameNode.effects = new Array(0);
-    frameNode.insertChild(0,rect);
-  }
-}
-
-const mapPropsFrom = (frame) =>{
-  //fileKey nodeId
-  const fileKey = figma.fileKey;
-  const nodeId = figma.currentPage.selection[0].id.replaceAll(':','%3A');
-  
-  const finalLink = nginxDirLink + nginxUploadFolder + '/' + fileKey +'/' + nodeId + '/'
-
-  const isModel = (frame.name.includes('https://') && (frame.name.includes('.gltf') || frame.name.includes('.glb')));
-  const obj = {}
-  obj.id = frame.id;
-  obj.name = isModel?
-    frame.name.replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A')
-    :
-    frame.name;
-  obj.width = frame.width;
-  obj.height = frame.height;
-  obj.x = frame.x;
-  obj.y = frame.y;
-  obj.absoluteBoundingBox = frame.absoluteBoundingBox;
-  obj.absoluteRenderBounds = frame.absoluteRenderBounds;
-  obj.src = 
-    isModel? 
-    ((finalLink +  frame.name.split('/')[frame.name.split('/').length - 1]) + `.png`).replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A') 
-    : 
-    ((finalLink + frame.name) + `.png`).replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A') 
-  return obj
-}
-
-
-export const exportNodeImgObjArr = (childrenNode,exportLength,nodeOBJCallback,finishCallback) => {
-  for(let i=0;i<childrenNode.length;i++){
-    childrenNode[i].visible = true;
-    childrenNode[i].exportAsync({
-      contentsOnly: true,
-      useAbsoluteBounds:figmaIsUseAbsoluteBounds,
-      format: "PNG",
-      constraint: {
-          type: "SCALE",
-          value: figmaExportScale,
-      }
-    })
-    .then( 
-      resolved => {
-        nodeOBJCallback(
-          { 
-            name:childrenNode[i].name,
-            imageData:resolved,
-            type:'image-childnode',
-            index:i + (figmaIsContainFrame?1:0),
-            //modelSrc:(childrenNode[i].name.includes('.gltf') || childrenNode[i].name.includes('.glb'))?childrenNode[i].name:null,
-          },
-          i
-        )
-
-        finishNum++;
-        if(finishNum === exportLength){
-          console.log('from figma: ' +'last exported image!')
-          finishCallback();
-        }
-
-      }, rejected => {
-        console.error(rejected)
-        rejectedMsg('Failed to send image!')
-      })
-  }
-}
-
-
+const fileKey = figma.fileKey;
+const fileName = figma.root.name;
 
 figma.ui.onmessage = msg => {
-  // GLTF
+  // ############### GLTF ###############
   if(envPlugin === 'gltf'){
     if(msg.type ==='save-canvas-image'){
       let data = msg.blob
@@ -140,25 +22,20 @@ figma.ui.onmessage = msg => {
     }
 
     if (msg.type === 'get_data') {
-      const fileKey = figma.fileKey;
-      const fileName = figma.root.name.replaceAll(' ','-');
-      //console.log(figma.currentPage.id);
-      const nodeId = figma.currentPage.id; //figma.currentPage.selection[0].id.replaceAll(':','%3A')
-      sendMsg("finished_msg", [fileKey,fileName,nodeId]);
+      const figmaId = figma.currentPage.id
+      sendMsg("finished_msg", [fileKey,fileName.replaceAll(' ','-'),figmaId]);
     }
   }
 
-  // WebXR Unity
+  // ############### WebXR Unity ###############
   if(envPlugin === 'webxr' || envPlugin === 'unity'){  
     if (msg.type === 'get_data') {
       let nodes = figma.currentPage.selection;
       if (nodes.length === 1) {
         let frameNode = nodes[0]
-        setFrameToNode(frameNode);
-        const fileKey = figma.fileKey;
-        const fileName = figma.root.name.replaceAll(' ','-');
+        convertFrameToChild(frameNode);
         const nodeId = figma.currentPage.selection[0].id.replaceAll(':','%3A');
-        sendMsg("finished_msg", [fileKey,fileName,nodeId]);
+        sendMsg("finished_msg", [fileKey,fileName.replaceAll(' ','-'),nodeId]);
       }
       else if(nodes.length > 1){
         rejectedMsg('Only support one frame!')
@@ -169,50 +46,44 @@ figma.ui.onmessage = msg => {
     }
   }
 
-  // LocalServer
+  // ############### LocalServer ###############
   if(envPlugin === 'localserver'){  
     if (msg.type === 'get_data') {
       let nodes = figma.currentPage.selection;
       if (nodes.length === 1) {
-        const fileKey = figma.fileKey;
-        const fileName = figma.root.name.replaceAll(' ','-');
         const nodeId = figma.currentPage.selection[0].id.replaceAll(':','%3A');
 
         let frameNode = nodes[0];
-        setFrameToNode(frameNode);
+        convertFrameToChild(frameNode);
         console.log(frameNode);
         const imgArray = [];
-        let childrenNode = [...frameNode.children];
-  
+
         // ############### json add ###############
-        
-        const jsonObject = mapPropsFrom(frameNode);
-        jsonObject.children = [];
+        const jsonArr = JSONMapPropsFromParent(frameNode,fileKey,figma.currentPage.selection[0].id);
+        jsonArr.children = [];
   
-        // ############### filt invisible node ###############
-        for(var c=0;c<frameNode.children.length;c++){
-          // # get invisible node
-          if(!frameNode.children[c].visible) {childrenNode[c] = null;}
-          else{
-            // ############### child json add ###############
-            const jsonChildObject = mapPropsFrom(frameNode.children[c]);
-            jsonObject.children.push(jsonChildObject);
-            childrenNode[c].visible = false;
-          }
+        // ############### filt filt invisible node ###############
+        let childrenNode = getVisibleChildNode(frameNode,
+        (visibleChildNode)=>{
+          // ############### child json add ###############
+          const jsonChildArr = JSONMapPropsFromParent(visibleChildNode,fileKey,figma.currentPage.selection[0].id);
+          jsonArr.children.push(jsonChildArr);
         }
-  
+        );
+
         childrenNode = childrenNode.filter(n => {return n != null && n != '';})
-        const exportLength = childrenNode.length + (figmaIsContainFrame?1:0);
+
+        const exportChildLength = childrenNode.length;
   
-        exportNodeImgObjArr(
-          childrenNode,exportLength,
+        exportChildImgObjArrForLocal(
+          childrenNode,exportChildLength,
           (nodeOBJ,i) =>
           {
             imgArray.push(nodeOBJ)
             //console.log('from figma: ' + `Succeed to get childNode ${i} image!`)
           },
           ()=>{
-            sendMsg("finished_msg", [fileKey,fileName,nodeId,imgArray,{node:jsonObject}]);
+            sendMsg("finished_msg", [fileKey,fileName.replaceAll(' ','-'),nodeId,imgArray,{node:jsonArr}]);
           }
         )
       }
@@ -225,6 +96,7 @@ figma.ui.onmessage = msg => {
     }
   }
 
+  // ############### Cancel ###############
   if (msg.type === 'cancel') {
     figma.closePlugin();
   }

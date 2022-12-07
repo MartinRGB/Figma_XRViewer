@@ -1,9 +1,8 @@
 import React, {useEffect,useState} from 'react'
-import { webRootURL } from '@Config';
 import { IPluginApp } from '@CustomTypes';
-import {dataToPHPServer,postData} from '@Utils/server.js'
-import {Container,FlexContainer,FigmaButton,LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
-import {nginxUploadFolder,nginxDirLink} from '@Config'
+import {dataToPHPServer,postData} from '@Utils/server'
+import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
+import {webRootURL,nginxHostWebUrl,nginxUploadFolder,isLocal} from '@Config'
 
 const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
   const [isLoading,setIsLoading] = useState(true);
@@ -47,6 +46,8 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
 
           const finishCBFunc = () =>{setTimeout(()=>{
             setIsLoading(false)
+            //overwrite files to nginxHostWebUrl's folder
+            //isLocal?webRootURL:nginxHostWebUrl
             window.open(`${webRootURL}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
             parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
           },1000);setLoadingText('Finished!');}

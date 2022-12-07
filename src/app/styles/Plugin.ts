@@ -1,5 +1,17 @@
 import styled from 'styled-components';
 
+export const FileNameHeading = styled.h1`
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  font-size: 12px;
+  background: #292d39;
+  color:white;
+  padding: 10px 20px 10px 20px;
+  margin: 0;
+  border-radius: 8px;
+`
+
 export const LoadingComponent = styled.div`
     width: 100vw;
     height: 100vh;
@@ -34,27 +46,62 @@ export const LoadingProgressBar = styled.div`
 `
 
 export const Container = styled.div`
-  display: flex;
   width: 100vw;
   height: 100vh;
-  flex-direction: inherit;
-  align-items: center;
+  overflow: hidden;
+  position: absolute;  
 `
 
-export const FigmaButton = styled.button`
-  margin:6px;
-  padding:10px 20px 10px 20px;
-`
-
-export const FlexContainer = styled.div`
-margin: 0px auto;
+export const AlignContainer = styled.div`
+  position: absolute;
+  background: white;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  flex: 1 1 0%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  outline: none;
 `
 
-export const Image = styled.img`
-  width: 100px;
-  height: auto;
-  object-fit: contain;
+export const AlignPara = styled.div`
+  margin: 0 auto;
+  font-size: 20px;
+  font-weight: 700;
 `
+
+export const CommentPara = styled.div`
+  margin: 0px auto;
+  font-size: 14px;
+  margin-top: 14px;
+  font-weight: 500;
+`
+
+
+//#################################################
+// export const Container = styled.div`
+//   display: flex;
+//   width: 100vw;
+//   height: 100vh;
+//   flex-direction: inherit;
+//   align-items: center;
+// `
+
+// export const FigmaButton = styled.button`
+//   margin:6px;
+//   padding:10px 20px 10px 20px;
+// `
+
+// export const FlexContainer = styled.div`
+// margin: 0px auto;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `
+
+// export const Image = styled.img`
+//   width: 100px;
+//   height: auto;
+//   object-fit: contain;
+// `

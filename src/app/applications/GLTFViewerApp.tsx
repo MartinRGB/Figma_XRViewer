@@ -4,39 +4,7 @@ import useStore from '@Utils/gltf/store'
 import Result from '@Components/gltf/Result'
 import styled from 'styled-components';
 import { IGLTFViewerApp } from '@CustomTypes';
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  position: absolute;  
-`
-
-const AlignContainer = styled.div`
-  position: absolute;
-  background: white;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  flex: 1 1 0%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  outline: none;
-`
-
-const AlignPara = styled.div`
-  margin: 0 auto;
-  font-size: 20px;
-  font-weight: 700;
-`
-
-const CommentPara = styled.div`
-  margin: 0px auto;
-  font-size: 14px;
-  margin-top: 14px;
-  font-weight: 500;
-`
+import { Container,AlignContainer,AlignPara,CommentPara } from '@Styles/Plugin'
 
 const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild,width,height}:IGLTFViewerApp) => {
 

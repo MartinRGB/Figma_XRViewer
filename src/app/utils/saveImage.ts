@@ -1,4 +1,4 @@
-import {__awaiter} from './functions'
+import {__awaiter} from '@Utils/functions'
 function getImage(src) {
   return new Promise(resolve => {
     const image = new Image();

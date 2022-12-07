@@ -4,16 +4,27 @@ import { invalidate,useFrame,useLoader } from '@react-three/fiber'
 import { editable as e} from '@theatre/r3f'
 import { 
   createCanvasGridMaterial,createPlaneCurve
-} from '@Utils/threeHelper.js'; 
+} from '@Utils/threeHelper'; 
 import { types } from '@theatre/core'
-import { useHelper } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
+import { isDecoderFromLoacl } from '@Config';
+let dracoloader;
+let ktx2Loader;
+if(isDecoderFromLoacl){
+  const decoderPath = `https://172.22.0.20:8222/service_1/decoder`
+  dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
+  ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
+  dracoloader.preload()
+}
+else{
+  const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
+  dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
+  ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
+  dracoloader.preload()
+}
 
-const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`
-const dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
-const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
 
 const Model = (props) =>{
   const modelGroupRef = useRef(null)
@@ -199,7 +210,7 @@ const Screen = (props) =>{
           // depthTest={true}
           // depthWrite={false}
           side={THREE.DoubleSide}
-          alphaTest ={0.0001}
+          alphaTest ={0.1}
           transparent={true}
           map={currMap}
           toneMapped={false}

@@ -21,8 +21,9 @@
       "@Assets/*": ["src/app/assets/*"],
       "@Styles/*": ["src/app/styles/*"],
       "@Utils/*": ["src/app/utils/*"],
+      "@Plugins/*": ["src/plugin/*"],
       "@CustomTypes": ["src/app/types"],
-      "@Config": ["src/app/configs"],
+      "@Config": ["src/config"],
     },
     "typeRoots": [
       "./node_modules/@types",
