@@ -12,7 +12,6 @@ import XRContainer from '@Components/XRContainer'
 import ProperGeometry from '@Components/ProperGeometry'
 import { 
   helperSetting,
-  theatreStudioCameraHelperFixed
 } from '@Utils/threeHelper'; 
 import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage'
 import {onDownloadHTML} from '@Utils/downloadHTML'
@@ -95,7 +94,6 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
         })
       }
     );
-    theatreStudioCameraHelperFixed(scene,invalidate);
   },[])
 
   useEffect(()=>{

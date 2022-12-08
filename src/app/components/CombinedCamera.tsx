@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import { editable as e } from '@theatre/r3f'
 import { types } from '@theatre/core'
 import { searchElementByType } from '../utils/functions'
+import { theatreStudioCameraHelperFixed } from '../utils/threeHelper'
 
 interface CameraProps {
   cameraRef:React.ForwardedRef<any>;
@@ -39,7 +40,7 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
   // Perspective && Enable Mode
   const [isPerspective,setIsPerspective] = useState(true);
   const [isEnableHelper,setIsEnableHelper] = useState(false);
-  const helperRef = useRef();
+  const helperRef = useRef(cameraRef.current);
   useEffect(()=>{ 
     const isExistHelper =  searchElementByType(scene.children,'type','CameraHelper');
     if( isExistHelper === null){
@@ -50,14 +51,16 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
     }
     helperRef.current = new THREE.CameraHelper( cameraRef.current );
     scene.add( helperRef.current );
-
+    theatreStudioCameraHelperFixed(scene,invalidate);
     if(isEnableHelper){
       helperRef.current.visible = true;
     }
     else{
       helperRef.current.visible = false;
     }
+    //todo fix
   },[isPerspective,,isEnableHelper])
+
   useEffect(()=>{
 
     cameraSheetObj.current.onValuesChange(newValues => {

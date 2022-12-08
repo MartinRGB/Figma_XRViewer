@@ -96,19 +96,22 @@ export const helperSetting = (scene,sheetObj,yScalePerc,baseUnit,callback) =>{
   callback(polarGridHelper,dotGridHelper)
 }
 
+
+let snapBtnCameraFixlistener;
+// todo dynamic delete cameraHelper & select
 export const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
   
   const snapBtn = document.getElementById('theatrejs-studio-root').shadowRoot.children[1].children[0].children[1].children[0].children[1];
   const mArr = scene.children;
-  const mHelper =  searchElementByType(mArr,'type','CameraHelper');
+  const cameraHelper =  searchElementByType(mArr,'type','CameraHelper');
 
-  snapBtn.addEventListener("click", 
-  (event)=>{
-    if(mArr.includes(mHelper)){
+  snapBtn.removeEventListener("click", snapBtnCameraFixlistener);  
+  snapBtnCameraFixlistener = (event) => {
+    if(mArr.includes(cameraHelper)){
       event.stopPropagation()
       new Promise(function(resolve, reject) {
         console.log('remove step 1 - remove helper first')
-        mHelper.removeFromParent();
+        cameraHelper.removeFromParent();
         invalidate() 
         setTimeout(() => resolve(1), 1); // (*)
       }).then(function(result) { // (**)
@@ -122,14 +125,14 @@ export const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
         // enable cameraHelper when open SnapShot
         const closeBtn = document.getElementById('theatrejs-studio-root').shadowRoot.children[1].children[0].children[2].children[8].children[0].children[0];
         const closeListener = () =>{
-          if(!mArr.includes(mHelper)){
+          if(!mArr.includes(cameraHelper)){
             //no need to event.stopPropagation()
             new Promise(function(resolve, reject) {
               console.log('add step 1 - close window first')
               setTimeout(() => resolve(1), 1); // (*)
             }).then(function(result) { // (**)
-              console.log('add step 2 - add camHelper')
-              scene.add(mHelper);
+              console.log('add step 2 - add cameraHelper')
+              scene.add(cameraHelper);
               invalidate();
             })
           }
@@ -139,8 +142,11 @@ export const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
         closeBtn.addEventListener("click",closeListener)
       },1)
     }
+
     return true;
-  });  
+  }
+  snapBtn.addEventListener("click", snapBtnCameraFixlistener);  
+
 }
 
 export function createPlaneCurve(geo, curve){

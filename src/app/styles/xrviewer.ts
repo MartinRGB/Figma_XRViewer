@@ -43,24 +43,23 @@ export const WebXRContainer = styled.div`
     flex-direction: row-reverse;
 `
 export const ImageListContainer = styled.div`
-    width: 100%;
+    width: calc(100% - 40px);
+    padding: 20px;
     gap: 1rem;
     overflow-x: auto;
-    scroll-snap-type: x;
     z-index: 100;
     bottom: 0px;
-    max-height: 140px;
-    height: 140px;
-    display: flex;
-    flex: 1;
     position: absolute;
+    display: flex;
+    flex-flow: row;
 `
 
 export const ImageInList = styled.img`
+    padding:20px;
     scroll-snap-align: start;
-    flex: 0 0 100px;
-    width: 100px;
-    height: 100px;
+    flex: 0 0 60px;
+    width: 60px;
+    height: 60px;
     border-radius: 5px;
     object-fit: contain;
     background: #ffffff40;
@@ -105,4 +104,5 @@ export const TopFixedBtn = styled.div`
 export const CanvasContainer = styled.div`
     flex: 1;
     height:100vh;
+    width:100vw;
 `

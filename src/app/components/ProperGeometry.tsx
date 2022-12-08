@@ -10,9 +10,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import { isDecoderFromLoacl } from '@Config';
-import { useHelper,Select,TransformControls } from '@react-three/drei';
-import { BoxHelper, Object3D } from 'three'
-import { TransformControls as TransformControlsImpl, OrbitControls as OrbitControlsImpl } from 'three-stdlib'
+import { Select,TransformControls } from '@react-three/drei';
 
 let dracoloader;
 let ktx2Loader;
@@ -151,7 +149,6 @@ const Model = (props) =>{
     <Select box 
       onChange={(e)=>{
         setSelected([])
-        console.log(e)
         if(e.length != 0){
           setSelected([modelGroupRef.current])
         }
@@ -271,11 +268,13 @@ const Screen = (props) =>{
   const [selected, setSelected] = React.useState([])
   const active = selected[0]
 
+  const controlRef = useRef()
   // on Canvas Select
   useEffect(() => {
     if(active != undefined){
       if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([screenSheetObj.current])
+
     }
     else{
       if(props.orbitRef.current) props.orbitRef.current.enabled  = true
@@ -308,9 +307,15 @@ const Screen = (props) =>{
     })
   }
 
+  useEffect(() => {
+    if(controlRef.current){
+      controlRef.current.name = 'controls'
+    }
+  },[controlRef])
+
   return(
     <>
-      {active && <TransformControls object={active} 
+      {active && <TransformControls object={active} name={'controls'} ref={controlRef}
         onMouseUp={(e)=>{onSelectMouseUp()}}
       />}
       <Select box 
