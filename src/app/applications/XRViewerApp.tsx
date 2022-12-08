@@ -42,10 +42,9 @@ const ViewerConfig ={
   savedImageQuality:2,
 }
 
-const helperSheet = getProject('XRViewer').sheet('Node Tree','Helper')
+const helperSheet = getProject('XRViewer').sheet('Node Tree','Controller')
 const assetSheet = getProject('XRViewer').sheet('Node Tree','Asset')
-const controllerSheet = getProject('XRViewer').sheet('Node Tree','Controller')
-const sceneHelper = helperSheet.object('helper', {
+const sceneHelper = helperSheet.object(' - Helper Controller', {
   // cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),
   dotHelper:types.boolean(false),
@@ -64,6 +63,7 @@ interface RendererProps {
 const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProgress}:RendererProps,ref) =>{
 
   const cameraRef = useRef(null);
+  const orbitRef = useRef(null);
   const cameraSheetObj = useRef(null);
   const helperSheetObj = useRef(sceneHelper)
   const groupRef= useRef(null);
@@ -116,27 +116,33 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
   return(
     <> 
      <Stage shadows={false} preset="rembrandt" intensity={1} environment="sunset" adjustCamera={false}>
-        <SheetProvider sheet={assetSheet}>
+          <SheetProvider sheet={helperSheet}>
+            <CombinedCamera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
+          </SheetProvider>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
           <ambientLight />
-          <CombinedCamera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
-          <Orbit cameraSheetObj={cameraSheetObj}></Orbit>
+          
+          <Orbit orbitRef={orbitRef} cameraSheetObj={cameraSheetObj}></Orbit>
           {(isFigma === false)?
             // is not in Figma
             <XRContainer cameraSheetObj={cameraSheetObj}>
-              <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
-                <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
-              </e.group> 
+              <SheetProvider sheet={helperSheet}>
+                <e.group theatreKey={' - Main Controller'} ref={groupRef} objRef={groupSheetObj}>
+                  <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
+                </e.group> 
+              </SheetProvider>
             </XRContainer>
             :
             // is in Figma
             <>
-              <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
-                  <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
-              </e.group>
+              <SheetProvider sheet={helperSheet}>
+                <e.group theatreKey={' - Main Controller'} ref={groupRef} objRef={groupSheetObj}>
+                    <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
+                </e.group>
+              </SheetProvider>
             </>
           }
-        </SheetProvider>
+        {/* </SheetProvider> */}
       </Stage>
       
     </>
@@ -280,6 +286,11 @@ const XRViewerApp = () => {
     const fileKey = parsedUrl.searchParams.get('query_key');
     const nodeId = parsedUrl.searchParams.get('query_node');
     const token = parsedUrl.searchParams.get('query_token');
+
+    // window.studio.onSelectionChange((newSelection) => {
+    //   //console.log(newSelection) // [ISheetObject, ISheet]
+    //   console.log(window.studio.selection)
+    // })
 
     console.log('fileKey is: ' + fileKey);
     console.log('nodeId is: ' + nodeId);

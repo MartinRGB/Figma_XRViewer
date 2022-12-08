@@ -1,11 +1,11 @@
 import React,{useState,useRef,useEffect,useCallback} from 'react'
 import * as THREE from 'three'
 import { invalidate,useFrame,useLoader, useThree } from '@react-three/fiber'
-import { editable as e} from '@theatre/r3f'
+import { editable as e, SheetProvider} from '@theatre/r3f'
 import { 
   createCanvasGridMaterial,createPlaneCurve
 } from '@Utils/threeHelper'; 
-import { types } from '@theatre/core'
+import { getProject, types } from '@theatre/core'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
@@ -103,7 +103,60 @@ const Model = (props) =>{
     invalidate();
   })
 
+  const [selected, setSelected] = React.useState([])
+  const active = selected[0]
+
+  // on Canvas Select
+  useEffect(() => {
+    if(active != undefined){
+      if(props.orbitRef.current) props.orbitRef.current.enabled  = false
+      window.studio.setSelection([modelSheetObj.current])
+    }
+    else{
+      if(props.orbitRef.current) props.orbitRef.current.enabled  = true
+      //window.studio.setSelection([])
+    }
+    
+  },[active])
+
+  // on Studio Select 
+  useEffect(() => {
+    window.studio.onSelectionChange((newSelection) => {
+      //console.log(newSelection) // [ISheetObject, ISheet]
+      if(window.studio.selection.length !=0 && window.studio.selection[0].address.objectKey ===  props.name){
+        console.log('selected name is ' + props.name);
+        //setSelected([screenRef.current])
+        if(active === undefined){setSelected([modelGroupRef.current])}
+      }
+      else{
+        setSelected([])
+      }
+    })
+  },[])
+
+  // on Select Move Mouse up
+  const onSelectMouseUp = () =>{
+    window.studio.transaction(({ set }) => {
+      set(modelSheetObj.current.props.position.x, modelGroupRef.current.position.x)
+      set(modelSheetObj.current.props.position.y, modelGroupRef.current.position.y)
+      set(modelSheetObj.current.props.position.z, modelGroupRef.current.position.z)
+    })
+  }
+
   return (
+    <>
+    {active && <TransformControls object={active} 
+    onMouseUp={(e)=>{onSelectMouseUp()}}
+    />}
+    <Select box 
+      onChange={(e)=>{
+        setSelected([])
+        console.log(e)
+        if(e.length != 0){
+          setSelected([modelGroupRef.current])
+        }
+      }}
+    >
       <e.group 
         // todo chara fix
         theatreKey={
@@ -114,6 +167,7 @@ const Model = (props) =>{
         }
         onPointerOver={useCallback((e) => (onHoverIn(e)),[])}
         onPointerOut={useCallback((e) => {onHoverOut(e)},[])}
+        onPointerDown = {useCallback((e) => {e.stopPropagation()},[])}
         ref={modelGroupRef}
         objRef={modelSheetObj}
         visible={currVis}
@@ -126,6 +180,8 @@ const Model = (props) =>{
       >
         <primitive ref={modelRef} object={gltf.scene} />
       </e.group>
+    </Select>
+    </>
   )
 }
 
@@ -212,53 +268,105 @@ const Screen = (props) =>{
     boxHelperRef.current = null;
   }
 
+  const [selected, setSelected] = React.useState([])
+  const active = selected[0]
+
+  // on Canvas Select
+  useEffect(() => {
+    if(active != undefined){
+      if(props.orbitRef.current) props.orbitRef.current.enabled  = false
+      window.studio.setSelection([screenSheetObj.current])
+    }
+    else{
+      if(props.orbitRef.current) props.orbitRef.current.enabled  = true
+      //window.studio.setSelection([])
+    }
+    
+  },[active])
+
+  // on Studio Select 
+  useEffect(() => {
+    window.studio.onSelectionChange((newSelection) => {
+      //console.log(newSelection) // [ISheetObject, ISheet]
+      if(window.studio.selection.length !=0 && window.studio.selection[0].address.objectKey ===  props.name){
+        console.log('selected name is ' + props.name);
+        //setSelected([screenRef.current])
+        if(active === undefined){setSelected([screenRef.current])}
+      }
+      else{
+        setSelected([])
+      }
+    })
+  },[])
+  
+  // on Select Move Mouse up
+  const onSelectMouseUp = () =>{
+    window.studio.transaction(({ set }) => {
+      set(screenSheetObj.current.props.position.x, screenRef.current.position.x)
+      set(screenSheetObj.current.props.position.y, screenRef.current.position.y)
+      set(screenSheetObj.current.props.position.z, screenRef.current.position.z)
+    })
+  }
+
   return(
-  <e.mesh 
-      theatreKey={props.name}
-      name={props.name}
-      onPointerOver={useCallback((e) => {onHoverIn(e)},[])}
-      onPointerOut={useCallback((e) => {onHoverOut(e)},[])}
-      ref={screenRef}
-      objRef={screenSheetObj}
-      additionalProps={{ 
-        curve: types.number(defaultCurve, {
-          nudgeMultiplier: props.baseUnit/100,
-          range:[0,props.baseUnit]
-        }),
-      }} 
-      visible={currVis}
-      // scale={props.hasData?[1*(props.width/props.frameWidth),yScalePerc*(props.width/props.frameWidth),1]:[1,yScalePerc,1]}
-      scale={[1,1,1]}
-      position={props.hasData?
-        [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
-         ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
-         props.index*0.0005 * props.baseUnit]
-        :
-        [0,0,0]}
-     >
-      {/* <planeGeometry ref={screenGeom} args={[props.baseUnit, props.baseUnit, 40, 40]} /> */}
-      <planeGeometry ref={screenGeom} args={[
-        props.hasData?
-          props.baseUnit*(props.width/props.frameWidth)
-          :
-          props.baseUnit,
-        props.hasData?
-          props.baseUnit*yScalePerc*(props.width/props.frameWidth)
-          :
-          props.baseUnit*yScalePerc, 
-      40, 40]} />
-      <meshBasicMaterial 
-          ref={screeMaterial}
-          // depthTest={true}
-          // depthWrite={false}
-          side={THREE.DoubleSide}
-          alphaTest ={0.1}
-          transparent={true}
-          map={currMap}
-          toneMapped={false}
-          color={hovered ? 'hotpink' : 'white'}
-          />
-  </e.mesh>
+    <>
+      {active && <TransformControls object={active} 
+        onMouseUp={(e)=>{onSelectMouseUp()}}
+      />}
+      <Select box 
+        onChange={(e)=>{
+          setSelected([])
+          setSelected(e)
+        }}
+      >
+        <e.mesh 
+            theatreKey={props.name}
+            name={props.name}
+            onPointerOver={useCallback((e) => {onHoverIn(e)},[])}
+            onPointerOut={useCallback((e) => {onHoverOut(e)},[])}
+            ref={screenRef}
+            objRef={screenSheetObj}
+            additionalProps={{ 
+              curve: types.number(defaultCurve, {
+                nudgeMultiplier: props.baseUnit/100,
+                range:[0,props.baseUnit]
+              }),
+            }} 
+            visible={currVis}
+            // scale={props.hasData?[1*(props.width/props.frameWidth),yScalePerc*(props.width/props.frameWidth),1]:[1,yScalePerc,1]}
+            scale={[1,1,1]}
+            position={props.hasData?
+              [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
+              ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
+              props.index*0.0005 * props.baseUnit]
+              :
+              [0,0,0]}
+          >
+            {/* <planeGeometry ref={screenGeom} args={[props.baseUnit, props.baseUnit, 40, 40]} /> */}
+            <planeGeometry ref={screenGeom} args={[
+              props.hasData?
+                props.baseUnit*(props.width/props.frameWidth)
+                :
+                props.baseUnit,
+              props.hasData?
+                props.baseUnit*yScalePerc*(props.width/props.frameWidth)
+                :
+                props.baseUnit*yScalePerc, 
+            40, 40]} />
+            <meshBasicMaterial 
+                ref={screeMaterial}
+                // depthTest={true}
+                // depthWrite={false}
+                side={THREE.DoubleSide}
+                alphaTest ={0.1}
+                transparent={true}
+                map={currMap}
+                toneMapped={false}
+                color={hovered ? 'hotpink' : 'white'}
+                />
+        </e.mesh>
+      </Select>
+    </>
   )
 }
 
@@ -267,11 +375,13 @@ interface ProperScreenProps {
   isQuery:boolean;
   baseUnit:number;
   isFigma:boolean;
+  orbitRef:React.MutableRefObject<any>;
 }
 
-const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) =>{
+const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef}:ProperScreenProps) =>{
   return(
     <>
+    <SheetProvider sheet={getProject('XRViewer').sheet('Node Tree','Asset')}>
     {(figmaData.length != 0)?
       <>
         { figmaData.map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
@@ -294,6 +404,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) 
           isQuery={isQuery}
           baseUnit={baseUnit}
           modelSrc={modelSrc}
+          orbitRef={orbitRef}
           />
           :
           <Screen  
@@ -312,6 +423,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) 
             hasData={true}
             isQuery={isQuery}
             baseUnit={baseUnit}
+            orbitRef={orbitRef}
             />
         ))}
       </>
@@ -322,11 +434,11 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit}:ProperScreenProps) 
         (isQuery === true)?
         <></> 
         :
-        <Screen name={'Screen'} hasData={false} baseUnit={baseUnit}/>
+        <Screen name={'Screen'} hasData={false} baseUnit={baseUnit} orbitRef={orbitRef}/>
       }
       </>
     }
-    
+    </SheetProvider>
     </>
   )
 }
