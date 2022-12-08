@@ -107,11 +107,11 @@ const Model = (props) =>{
   // on Canvas Select
   useEffect(() => {
     if(active != undefined){
-      if(props.orbitRef.current) props.orbitRef.current.enabled  = false
+      //if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([modelSheetObj.current])
     }
     else{
-      if(props.orbitRef.current) props.orbitRef.current.enabled  = true
+      //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
       //window.studio.setSelection([])
     }
     
@@ -141,9 +141,20 @@ const Model = (props) =>{
     })
   }
 
+  // disable orbit when drag
+  const controlRef = useRef()
+  useEffect(() => {
+    if (controlRef.current) {
+      const controls = controlRef.current
+      const callback = (event) => {props.orbitRef.current.enabled = !event.value}
+      controls.addEventListener("dragging-changed", callback)
+      return () => controls.removeEventListener("dragging-changed", callback)
+    }
+  })
+
   return (
     <>
-    {active && <TransformControls object={active} 
+    {active && <TransformControls object={active}  ref={controlRef}
     onMouseUp={(e)=>{onSelectMouseUp()}}
     />}
     <Select box 
@@ -268,16 +279,16 @@ const Screen = (props) =>{
   const [selected, setSelected] = React.useState([])
   const active = selected[0]
 
-  const controlRef = useRef()
+
   // on Canvas Select
   useEffect(() => {
     if(active != undefined){
-      if(props.orbitRef.current) props.orbitRef.current.enabled  = false
+      //if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([screenSheetObj.current])
 
     }
     else{
-      if(props.orbitRef.current) props.orbitRef.current.enabled  = true
+      //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
       //window.studio.setSelection([])
     }
     
@@ -307,16 +318,22 @@ const Screen = (props) =>{
     })
   }
 
+  // disable orbit when drag
+  const controlRef = useRef()
   useEffect(() => {
-    if(controlRef.current){
-      controlRef.current.name = 'controls'
+    if (controlRef.current) {
+      const controls = controlRef.current
+      const callback = (event) => {props.orbitRef.current.enabled = !event.value}
+      controls.addEventListener("dragging-changed", callback)
+      return () => controls.removeEventListener("dragging-changed", callback)
     }
-  },[controlRef])
+  })
 
   return(
     <>
       {active && <TransformControls object={active} name={'controls'} ref={controlRef}
         onMouseUp={(e)=>{onSelectMouseUp()}}
+        onChange={(e)=>{onSelectMouseUp()}}
       />}
       <Select box 
         onChange={(e)=>{
