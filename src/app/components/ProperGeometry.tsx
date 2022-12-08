@@ -57,28 +57,31 @@ const Model = (props) =>{
     
   }
 
+  const [hovered,hover] = useState(false);
   const onHoverIn = (e) =>{
     e.stopPropagation()
-    modelRef.current.traverse(function (child) {
-      if(child.hasOwnProperty('material')){
-        child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
-      }
-    });
+    hover(true)
+    // modelRef.current.traverse(function (child) {
+    //   if(child.hasOwnProperty('material')){
+    //     child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
+    //   }
+    // });
     
-    boxHelperRef.current = new THREE.BoxHelper( modelGroupRef.current, 0xff0000 );
-    scene.add( boxHelperRef.current );
+    // boxHelperRef.current = new THREE.BoxHelper( modelGroupRef.current, 0xff0000 );
+    // scene.add( boxHelperRef.current );
   }
 
 
   const onHoverOut = (e) =>{
     e.stopPropagation()
-    modelRef.current.traverse(function (child) {
-      if(child.hasOwnProperty('material')){
-        child.material.color = child.material.userData.originalColor
-      }
-    });
-    scene.remove( boxHelperRef.current );
-    boxHelperRef.current=null;
+    hover(false)
+    // modelRef.current.traverse(function (child) {
+    //   if(child.hasOwnProperty('material')){
+    //     child.material.color = child.material.userData.originalColor
+    //   }
+    // });
+    // scene.remove( boxHelperRef.current );
+    // boxHelperRef.current=null;
   }
 
   useEffect(()=>{
@@ -152,10 +155,55 @@ const Model = (props) =>{
     }
   })
 
+  // hintbox
+  const [isShowHint,setIsShowHint] = useState(false);
+  useEffect(() => {
+    if(active){
+      setIsShowHint(true)
+      modelRef.current.traverse(function (child) {
+        if(child.hasOwnProperty('material')){
+          child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
+        }
+      });
+    }
+    else{
+      if(hovered){
+        setIsShowHint(true)
+        modelRef.current.traverse(function (child) {
+          if(child.hasOwnProperty('material')){
+            child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
+          }
+        });
+        if(boxHelperRef.current === null) {
+          boxHelperRef.current = new THREE.BoxHelper( modelGroupRef.current, 0xff0000 );
+          scene.add( boxHelperRef.current );
+        }
+      }
+      else{
+        setIsShowHint(false)
+        if(modelRef.current)
+        {
+          modelRef.current.traverse(function (child) {
+            if(child.hasOwnProperty('material')){
+              child.material.color = child.material.userData.originalColor
+            }
+          });
+        }
+        scene.remove( boxHelperRef.current );
+        boxHelperRef.current = null;
+      }
+    }
+  },[active,hovered])
+
   return (
     <>
     {active && <TransformControls object={active}  ref={controlRef}
-    onMouseUp={(e)=>{onSelectMouseUp()}}
+    onMouseUp={(e)=>{
+      if(boxHelperRef.current) boxHelperRef.current.update()
+      onSelectMouseUp()}}
+    onChange={(e)=>{
+      // if(boxHelperRef.current) boxHelperRef.current.update()
+      onSelectMouseUp()}}
     />}
     <Select box 
       onChange={(e)=>{
@@ -196,6 +244,7 @@ const Model = (props) =>{
 const Screen = (props) =>{
 
   const [hovered, hover] = useState(false)
+  const [isShowHint,setIsShowHint] = useState(false);
   const screeMaterial = useRef(null)
   const screenGeom = useRef(null)
   const screenRef = useRef(null)
@@ -264,16 +313,16 @@ const Screen = (props) =>{
   const onHoverIn = (e) =>{
     e.stopPropagation()
     hover(true)
-    boxHelperRef.current = new THREE.BoxHelper( screenRef.current, 0xff0000 );
-    scene.add( boxHelperRef.current );
+    // boxHelperRef.current = new THREE.BoxHelper( screenRef.current, 0xff0000 );
+    // scene.add( boxHelperRef.current );
   }
 
 
   const onHoverOut = (e) =>{
     e.stopPropagation()
     hover(false)
-    scene.remove( boxHelperRef.current );
-    boxHelperRef.current = null;
+    // scene.remove( boxHelperRef.current );
+    // boxHelperRef.current = null;
   }
 
   const [selected, setSelected] = React.useState([])
@@ -329,11 +378,36 @@ const Screen = (props) =>{
     }
   })
 
+  // hintbox
+  useEffect(() => {
+    if(active){
+      setIsShowHint(true)
+    }
+    else{
+      if(hovered){
+        setIsShowHint(true)
+        if(boxHelperRef.current === null) {
+          boxHelperRef.current = new THREE.BoxHelper( screenRef.current, 0xff0000 );
+          scene.add( boxHelperRef.current );
+        }
+      }
+      else{
+        setIsShowHint(false)
+        scene.remove( boxHelperRef.current );
+        boxHelperRef.current = null;
+      }
+    }
+  },[active,hovered])
+
   return(
     <>
       {active && <TransformControls object={active} name={'controls'} ref={controlRef}
-        onMouseUp={(e)=>{onSelectMouseUp()}}
-        onChange={(e)=>{onSelectMouseUp()}}
+        onMouseUp={(e)=>{
+          if(boxHelperRef.current) boxHelperRef.current.update()
+          onSelectMouseUp()}}
+        onChange={(e)=>{
+          
+          onSelectMouseUp()}}
       />}
       <Select box 
         onChange={(e)=>{
@@ -384,7 +458,7 @@ const Screen = (props) =>{
                 transparent={true}
                 map={currMap}
                 toneMapped={false}
-                color={hovered ? 'hotpink' : 'white'}
+                color={isShowHint ? 'hotpink' : 'white'} //hovered
                 />
         </e.mesh>
       </Select>
