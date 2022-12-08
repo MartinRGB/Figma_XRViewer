@@ -75,7 +75,7 @@ export function createCanvasGridMaterial(color,width,height,paddingW,paddingH,li
 };
 
 export const helperSetting = (scene,sheetObj,yScalePerc,baseUnit,callback) =>{
-  const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
+  // const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
   //radius angles radius
   const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
   polarGridHelper.position.y = -yScalePerc/2*baseUnit;
@@ -93,7 +93,7 @@ export const helperSetting = (scene,sheetObj,yScalePerc,baseUnit,callback) =>{
   dotGridHelper.visible = sheetObj.current.value.dotHelper;
   scene.add(dotGridHelper);
   
-  callback(cameraGuideHelper,polarGridHelper,dotGridHelper)
+  callback(polarGridHelper,dotGridHelper)
 }
 
 export const theatreStudioCameraHelperFixed = (scene,invalidate)=>{

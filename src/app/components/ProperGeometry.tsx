@@ -237,7 +237,16 @@ const Screen = (props) =>{
         [0,0,0]}
      >
       {/* <planeGeometry ref={screenGeom} args={[props.baseUnit, props.baseUnit, 40, 40]} /> */}
-      <planeGeometry ref={screenGeom} args={[props.hasData?props.baseUnit*(props.width/props.frameWidth):props.baseUnit, props.hasData?props.baseUnit*yScalePerc*(props.width/props.frameWidth):props.baseUnit, 40, 40]} />
+      <planeGeometry ref={screenGeom} args={[
+        props.hasData?
+          props.baseUnit*(props.width/props.frameWidth)
+          :
+          props.baseUnit,
+        props.hasData?
+          props.baseUnit*yScalePerc*(props.width/props.frameWidth)
+          :
+          props.baseUnit*yScalePerc, 
+      40, 40]} />
       <meshBasicMaterial 
           ref={screeMaterial}
           // depthTest={true}

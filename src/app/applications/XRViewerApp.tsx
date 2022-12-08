@@ -7,9 +7,7 @@ import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
 import {WebXRContainer,ImageInList,ImageListContainer,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
 import Spinner from '@Components/Spinner'
 import Orbit from '@Components/Orbit'
-import PersCamera from '@Components/PersCamera'
-import OrthCamera from '@Components/OrthCamera';
-import Camera from '@Components/Camera';
+import CombinedCamera from '@Components/CombinedCamera';
 import XRContainer from '@Components/XRContainer'
 import ProperGeometry from '@Components/ProperGeometry'
 import { 
@@ -88,10 +86,9 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     const yScalePerc = (figmaData.length != 0)?figmaData[0].frameHeight/figmaData[0].frameWidth:(1080/1920);
     console.log('the screen aspect ratio is : ' + yScalePerc)
     helperSetting(scene,helperSheetObj,yScalePerc,ViewerConfig.baseUnit,
-      (camHelper,polarHelper,dotHelper)=>
+      (polarHelper,dotHelper)=>
       {
         helperSheetObj.current.onValuesChange((val)=>{
-          // camHelper.visible = val.cameraHelper
           polarHelper.visible = val.polarHelper
           dotHelper.visible = val.dotHelper
           invalidate()
@@ -122,12 +119,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
         <SheetProvider sheet={assetSheet}>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
           <ambientLight />
-          {/* {isPers?
-            <PersCamera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit}/>
-            :
-            <OrthCamera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit}/>
-          } */}
-          <Camera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
+          <CombinedCamera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
           <Orbit cameraSheetObj={cameraSheetObj}></Orbit>
           {(isFigma === false)?
             // is not in Figma

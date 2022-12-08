@@ -5,8 +5,6 @@ import * as THREE from 'three'
 import { editable as e } from '@theatre/r3f'
 import { types } from '@theatre/core'
 import { searchElementByType } from '../utils/functions'
-const EditablePersCamera = e(PerspectiveCamera, 'perspectiveCamera')
-const EditableOrthCamera = e(OrthographicCamera, 'orthographicCamera')
 
 interface CameraProps {
   cameraRef:React.ForwardedRef<any>;
@@ -16,7 +14,7 @@ interface CameraProps {
 }
 
 // # Camera & Fake Camera
-const Camera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) =>{
+const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) =>{
   const realCamera = useRef(null);
   const persCam = useRef(null);
   const orthCam = useRef(null);
@@ -38,6 +36,7 @@ const Camera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) =>{
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
+  // Perspective && Enable Mode
   const [isPerspective,setIsPerspective] = useState(true);
   const [isEnableHelper,setIsEnableHelper] = useState(false);
   const helperRef = useRef();
@@ -176,4 +175,4 @@ const Camera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) =>{
   )
 
 };
-export default Camera;
+export default CombinedCamera;
