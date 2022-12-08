@@ -10,7 +10,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import { isDecoderFromLoacl } from '@Config';
-import { Select,TransformControls } from '@react-three/drei';
+import { Select,TransformControls,AdaptiveEvents,AdaptiveDpr, Detailed  } from '@react-three/drei';
 
 let dracoloader;
 let ktx2Loader;
@@ -36,53 +36,12 @@ const Model = (props) =>{
   const [modelScalePerc,setModelScalePer] = useState(1);
   const [currVis,setCurrVis] = useState(false);
   const {invalidate,scene,gl,camera} = useThree()
-  const gltfRef = useRef(null);
   const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
     console.log('finsihed model loading from:' + props.modelSrc)
     loader.setDRACOLoader(dracoloader);
     loader.setKTX2Loader(ktx2Loader);
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
-
-  const boxHelperRef = useRef(null);
-  
-  const storeHoverOrigColor = (sceneObj) =>{
-    sceneObj.traverse(function (child) {
-      if(child.hasOwnProperty('material')){
-        if(!child.material.userData.hasOwnProperty('originalColor')){
-          child.material.userData.originalColor = child.material.color;
-        }
-      }
-    });
-    
-  }
-
-  const [hovered,hover] = useState(false);
-  const onHoverIn = (e) =>{
-    e.stopPropagation()
-    hover(true)
-    // modelRef.current.traverse(function (child) {
-    //   if(child.hasOwnProperty('material')){
-    //     child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
-    //   }
-    // });
-    
-    // boxHelperRef.current = new THREE.BoxHelper( modelGroupRef.current, 0xff0000 );
-    // scene.add( boxHelperRef.current );
-  }
-
-
-  const onHoverOut = (e) =>{
-    e.stopPropagation()
-    hover(false)
-    // modelRef.current.traverse(function (child) {
-    //   if(child.hasOwnProperty('material')){
-    //     child.material.color = child.material.userData.originalColor
-    //   }
-    // });
-    // scene.remove( boxHelperRef.current );
-    // boxHelperRef.current=null;
-  }
 
   useEffect(()=>{
     if(props.hasData && props.index != 0){
@@ -92,11 +51,8 @@ const Model = (props) =>{
       storeHoverOrigColor(modelRef.current);
       setCurrVis(true);
       console.log(`finsihed data setting`)
-
     }
-
     gltf.animations.forEach(clip => mixerRef.current.clipAction(clip).play())
-
   },[props.src,props.hasData]) //props.src,props.hasData
 
   useFrame((state, delta) => {
@@ -104,8 +60,25 @@ const Model = (props) =>{
     invalidate();
   })
 
+  useEffect(()=>{ 
+    modelSheetObj.current.onValuesChange(newValues => {
+      if(boxHelperRef.current) boxHelperRef.current.update()
+    });
+  },[modelGroupRef])
+  
+  const [hovered,hover] = useState(false);
   const [selected, setSelected] = React.useState([])
   const active = selected[0]
+
+  const storeHoverOrigColor = (sceneObj) =>{
+    sceneObj.traverse(function (child) {
+      if(child.hasOwnProperty('material')){
+        if(!child.material.userData.hasOwnProperty('originalColor')){
+          child.material.userData.originalColor = child.material.color;
+        }
+      }
+    });
+  }
 
   // on Canvas Select
   useEffect(() => {
@@ -117,7 +90,6 @@ const Model = (props) =>{
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
       //window.studio.setSelection([])
     }
-    
   },[active])
 
   // on Studio Select 
@@ -157,40 +129,48 @@ const Model = (props) =>{
 
   // hintbox
   const [isShowHint,setIsShowHint] = useState(false);
+  const boxHelperRef = useRef(null);
+  const showHint = () =>{
+    modelRef.current.traverse(function (child) {
+      if(child.hasOwnProperty('material')){
+        child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
+      }
+    });
+  }
+  const hideHint = () =>{
+    if(modelRef.current){
+      modelRef.current.traverse(function (child) {
+        if(child.hasOwnProperty('material')){
+          child.material.color = child.material.userData.originalColor
+        }
+      });
+    }
+  }
+  const addBoxHelper = () =>{
+    if(boxHelperRef.current === null) {
+      boxHelperRef.current = new THREE.BoxHelper( modelGroupRef.current, 'hotpink' );
+      scene.add( boxHelperRef.current );
+    }
+  }
+  const removeBoxHelper = () =>{
+    scene.remove( boxHelperRef.current );
+    boxHelperRef.current = null;
+  }
   useEffect(() => {
     if(active){
       setIsShowHint(true)
-      modelRef.current.traverse(function (child) {
-        if(child.hasOwnProperty('material')){
-          child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
-        }
-      });
+      showHint()
     }
     else{
       if(hovered){
         setIsShowHint(true)
-        modelRef.current.traverse(function (child) {
-          if(child.hasOwnProperty('material')){
-            child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
-          }
-        });
-        if(boxHelperRef.current === null) {
-          boxHelperRef.current = new THREE.BoxHelper( modelGroupRef.current, 0xff0000 );
-          scene.add( boxHelperRef.current );
-        }
+        showHint();
+        addBoxHelper();
       }
       else{
         setIsShowHint(false)
-        if(modelRef.current)
-        {
-          modelRef.current.traverse(function (child) {
-            if(child.hasOwnProperty('material')){
-              child.material.color = child.material.userData.originalColor
-            }
-          });
-        }
-        scene.remove( boxHelperRef.current );
-        boxHelperRef.current = null;
+        hideHint();
+        removeBoxHelper();
       }
     }
   },[active,hovered])
@@ -202,27 +182,16 @@ const Model = (props) =>{
       if(boxHelperRef.current) boxHelperRef.current.update()
       onSelectMouseUp()}}
     onChange={(e)=>{
-      // if(boxHelperRef.current) boxHelperRef.current.update()
+      if(boxHelperRef.current) boxHelperRef.current.update()
       onSelectMouseUp()}}
     />}
-    <Select box 
-      onChange={(e)=>{
-        setSelected([])
-        if(e.length != 0){
-          setSelected([modelGroupRef.current])
-        }
-      }}
-    >
+    <Select box onChange={(e)=>{if(e.length != 0){setSelected([modelGroupRef.current])}}}>
       <e.group 
         // todo chara fix
-        theatreKey={
-          props.name
-        }
-        name={
-          props.name
-        }
-        onPointerOver={useCallback((e) => (onHoverIn(e)),[])}
-        onPointerOut={useCallback((e) => {onHoverOut(e)},[])}
+        theatreKey={props.name}
+        name={props.name}
+        onPointerOver={useCallback((e) => {e.stopPropagation();hover(true)},[])}
+        onPointerOut={useCallback((e) => {e.stopPropagation();hover(false)},[])}
         onPointerDown = {useCallback((e) => {e.stopPropagation()},[])}
         ref={modelGroupRef}
         objRef={modelSheetObj}
@@ -232,7 +201,6 @@ const Model = (props) =>{
           [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
           ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
           props.index*0.0005 * props.baseUnit]}
-      
       >
         <primitive ref={modelRef} object={gltf.scene} />
       </e.group>
@@ -243,7 +211,6 @@ const Model = (props) =>{
 
 const Screen = (props) =>{
 
-  const [hovered, hover] = useState(false)
   const [isShowHint,setIsShowHint] = useState(false);
   const screeMaterial = useRef(null)
   const screenGeom = useRef(null)
@@ -268,12 +235,6 @@ const Screen = (props) =>{
   useEffect(()=>{
 
     if(props.isQuery === true){
-      // if(props.hasData && props.index != 0){
-      //   new THREE.TextureLoader().load(props.src, (tex) => {
-      //     setupTexture(tex)
-      //   });
-      // }
-
       if(props.hasData){
         new THREE.TextureLoader().load(props.src, (tex) => {
           setupTexture(tex)
@@ -305,51 +266,30 @@ const Screen = (props) =>{
   useEffect(()=>{ 
     screenSheetObj.current.onValuesChange(newValues => {
       createPlaneCurve(screenGeom.current,newValues.curve)
+      if(boxHelperRef.current) boxHelperRef.current.update()
     });
   },[screenRef])
 
-  const boxHelperRef = useRef(null);
-
-  const onHoverIn = (e) =>{
-    e.stopPropagation()
-    hover(true)
-    // boxHelperRef.current = new THREE.BoxHelper( screenRef.current, 0xff0000 );
-    // scene.add( boxHelperRef.current );
-  }
-
-
-  const onHoverOut = (e) =>{
-    e.stopPropagation()
-    hover(false)
-    // scene.remove( boxHelperRef.current );
-    // boxHelperRef.current = null;
-  }
-
+  const [hovered, hover] = useState(false)
   const [selected, setSelected] = React.useState([])
   const active = selected[0]
-
 
   // on Canvas Select
   useEffect(() => {
     if(active != undefined){
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([screenSheetObj.current])
-
     }
     else{
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
       //window.studio.setSelection([])
     }
-    
   },[active])
 
   // on Studio Select 
   useEffect(() => {
     window.studio.onSelectionChange((newSelection) => {
-      //console.log(newSelection) // [ISheetObject, ISheet]
       if(window.studio.selection.length !=0 && window.studio.selection[0].address.objectKey ===  props.name){
-        console.log('selected name is ' + props.name);
-        //setSelected([screenRef.current])
         if(active === undefined){setSelected([screenRef.current])}
       }
       else{
@@ -379,6 +319,17 @@ const Screen = (props) =>{
   })
 
   // hintbox
+  const boxHelperRef = useRef(null);
+  const addBoxHelper = () =>{
+    if(boxHelperRef.current === null) {
+      boxHelperRef.current = new THREE.BoxHelper( screenRef.current, 'hotpink' );
+      scene.add( boxHelperRef.current );
+    }
+  }
+  const removeBoxHelper = () =>{
+    scene.remove( boxHelperRef.current );
+    boxHelperRef.current = null;
+  }
   useEffect(() => {
     if(active){
       setIsShowHint(true)
@@ -386,15 +337,11 @@ const Screen = (props) =>{
     else{
       if(hovered){
         setIsShowHint(true)
-        if(boxHelperRef.current === null) {
-          boxHelperRef.current = new THREE.BoxHelper( screenRef.current, 0xff0000 );
-          scene.add( boxHelperRef.current );
-        }
+        addBoxHelper()
       }
       else{
         setIsShowHint(false)
-        scene.remove( boxHelperRef.current );
-        boxHelperRef.current = null;
+        removeBoxHelper()
       }
     }
   },[active,hovered])
@@ -406,20 +353,15 @@ const Screen = (props) =>{
           if(boxHelperRef.current) boxHelperRef.current.update()
           onSelectMouseUp()}}
         onChange={(e)=>{
-          
+          if(boxHelperRef.current) boxHelperRef.current.update()
           onSelectMouseUp()}}
       />}
-      <Select box 
-        onChange={(e)=>{
-          setSelected([])
-          setSelected(e)
-        }}
-      >
+      <Select box onChange={(e)=>{setSelected(e)}}>
         <e.mesh 
             theatreKey={props.name}
             name={props.name}
-            onPointerOver={useCallback((e) => {onHoverIn(e)},[])}
-            onPointerOut={useCallback((e) => {onHoverOut(e)},[])}
+            onPointerOver={useCallback((e) => {e.stopPropagation();hover(true)},[])}
+            onPointerOut={useCallback((e) => {e.stopPropagation();hover(false)},[])}
             ref={screenRef}
             objRef={screenSheetObj}
             additionalProps={{ 

@@ -1540,7 +1540,7 @@
     "utility-types" "^3.10.0"
     "zustand" "^3.5.13"
 
-"@react-three/fiber@^8.9.1", "@react-three/fiber@>=6.0", "@react-three/fiber@>=7.0.6", "@react-three/fiber@>=8.0", "@react-three/fiber@>=8.0.0":
+"@react-three/fiber@^8.9.1", "@react-three/fiber@>=6.0", "@react-three/fiber@>=7.0", "@react-three/fiber@>=7.0.6", "@react-three/fiber@>=8.0", "@react-three/fiber@>=8.0.0":
   "integrity" "sha512-xRMO9RGp0DkxSFu5BmmkjCxJ4r0dEpLobtxXdZwI0h2rZZaCnkPM5zThRN8xaZNbZhzRSVICeNOFaZltr9xFyQ=="
   "resolved" "https://registry.npmmirror.com/@react-three/fiber/-/fiber-8.9.1.tgz"
   "version" "8.9.1"
@@ -1553,6 +1553,16 @@
     "scheduler" "^0.21.0"
     "suspend-react" "^0.0.8"
     "zustand" "^3.7.1"
+
+"@react-three/postprocessing@^2.7.0":
+  "integrity" "sha512-lJfV8GYp+L1SlGRcl8QPUg9QMdO+8ojW2kfaEc/MuvoI4rX3TRhVd3qFjjF++0bBmzt8LeQpDHCOHFAaT3MNYA=="
+  "resolved" "https://registry.npmmirror.com/@react-three/postprocessing/-/postprocessing-2.7.0.tgz"
+  "version" "2.7.0"
+  dependencies:
+    "postprocessing" "^6.29.0"
+    "react-merge-refs" "^1.1.0"
+    "screen-space-reflections" "2.5.0"
+    "three-stdlib" "^2.8.11"
 
 "@react-three/xr@^5.0.5":
   "integrity" "sha512-LuctbbI5zkJcpWlM8gAKRWvYYrUa03s5wJq45iGkcwcPTFOhKJ1Xi+W/6/5EXRd7ujaWCabJ+jjPqB66SQaMTw=="
@@ -5650,6 +5660,11 @@
     "picocolors" "^1.0.0"
     "source-map-js" "^1.0.2"
 
+"postprocessing@^6.29.0", "postprocessing@^6.29.1", "postprocessing@>=6.28.0":
+  "integrity" "sha512-w+XoL2Z7YpVDsHbIeg6sldMMmDqZS4Hul1FDq3TjOeXZ0Wnp0Qy1EvR7QmYJxyWBux1cKQx/k3XO7LxfvPsZyg=="
+  "resolved" "https://registry.npmmirror.com/postprocessing/-/postprocessing-6.29.1.tgz"
+  "version" "6.29.1"
+
 "potpack@^1.0.1":
   "integrity" "sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ=="
   "resolved" "https://registry.npmjs.org/potpack/-/potpack-1.0.2.tgz"
@@ -6278,6 +6293,11 @@
     "ajv-formats" "^2.1.1"
     "ajv-keywords" "^5.0.0"
 
+"screen-space-reflections@2.5.0":
+  "integrity" "sha512-fWSDMhJS0xwD3LTxRRch7Lb9NzxsR66sCmtDmAA7i+OGnghUrBBsrha85ng7StnCBaLq/BKmZ97dLxWd1XgWdQ=="
+  "resolved" "https://registry.npmmirror.com/screen-space-reflections/-/screen-space-reflections-2.5.0.tgz"
+  "version" "2.5.0"
+
 "select-hose@^2.0.0":
   "integrity" "sha512-mEugaLK+YfkijB4fx0e6kImuJdCIt2LxCRcbEYPqRGCs4F2ogyfZU5IAZRdjCP8JPq2AtdNoC/Dux63d9Kiryg=="
   "resolved" "https://registry.npmjs.org/select-hose/-/select-hose-2.0.0.tgz"
@@ -6878,7 +6898,7 @@
   "resolved" "https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.5.17.tgz"
   "version" "0.5.17"
 
-"three-stdlib@^2.12.1", "three-stdlib@^2.18.1":
+"three-stdlib@^2.12.1", "three-stdlib@^2.18.1", "three-stdlib@^2.8.11":
   "integrity" "sha512-ImKJXIlmx/iYH3U2CeLiYA2V60UqhpwLE2ErOME+FrD3Xodk7oQU5N9IZGKQzGjnl3hOfLmLZ5BPJrotmttBjg=="
   "resolved" "https://registry.npmmirror.com/three-stdlib/-/three-stdlib-2.19.0.tgz"
   "version" "2.19.0"
@@ -6895,7 +6915,7 @@
     "potpack" "^1.0.1"
     "zstddec" "^0.0.2"
 
-"three@^0.146.0", "three@>= 0.123.0", "three@>=0.103.0", "three@>=0.122.0", "three@>=0.126", "three@>=0.131.3", "three@>=0.133", "three@>=0.137", "three@>=0.141":
+"three@^0.146.0", "three@>= 0.123.0", "three@>= 0.125.0 < 0.147.0", "three@>=0.103.0", "three@>=0.122.0", "three@>=0.126", "three@>=0.131.3", "three@>=0.133", "three@>=0.136.0", "three@>=0.137", "three@>=0.141", "three@>=0.141.0":
   "integrity" "sha512-1lvNfLezN6OJ9NaFAhfX4sm5e9YCzHtaRgZ1+B4C+Hv6TibRMsuBAM5/wVKzxjpYIlMymvgsHEFrrigEfXnb2A=="
   "resolved" "https://registry.npmmirror.com/three/-/three-0.146.0.tgz"
   "version" "0.146.0"

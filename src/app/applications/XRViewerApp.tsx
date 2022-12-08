@@ -24,7 +24,7 @@ import { getProject,ISheetObject,types } from '@theatre/core'
 import { editable as e,SheetProvider } from '@theatre/r3f'
 import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { Stage, useHelper } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, Stage, useHelper } from '@react-three/drei'
 
 // todo
 // 2.computer data pass to XR Device 
@@ -48,6 +48,7 @@ const sceneHelper = helperSheet.object(' - Helper Controller', {
   polarHelper: types.boolean(true),
   dotHelper:types.boolean(false),
   quality: types.stringLiteral(ViewerConfig.savedImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
+  dpr:types.number(1, {nudgeMultiplier: 0.5,range:[0,2]}),
 })
 
 
@@ -90,6 +91,8 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
         helperSheetObj.current.onValuesChange((val)=>{
           polarHelper.visible = val.polarHelper
           dotHelper.visible = val.dotHelper
+          // console.log(gl)
+          gl.setPixelRatio(val.dpr)
           invalidate()
         })
       }
@@ -110,6 +113,8 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     }
 
   },[isQuery,loadingProgress])
+
+
   
   return(
     <> 
@@ -140,6 +145,8 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
               </SheetProvider>
             </>
           }
+          
+          <AdaptiveDpr pixelated />
         {/* </SheetProvider> */}
       </Stage>
       
@@ -319,6 +326,7 @@ const XRViewerApp = () => {
 
   }, []);
 
+
   return (
     <>
     <XRViewerGlobalrtyle></XRViewerGlobalrtyle>
@@ -375,12 +383,19 @@ const XRViewerApp = () => {
                 }
               </XRDivContainer>
 
-              <Canvas frameloop="demand" gl={{
-                preserveDrawingBuffer:true,
-                outputEncoding:THREE.sRGBEncoding,
-                antialias: true, 
-                alpha: true,
-                logarithmicDepthBuffer:true,
+              <Canvas frameloop="demand" 
+                performance = {{
+                  current: 1,
+                  min: 0.1,
+                  max: 1,
+                  debounce: 200,
+                }}
+                gl={{
+                  preserveDrawingBuffer:true,
+                  outputEncoding:THREE.sRGBEncoding,
+                  antialias: true, 
+                  alpha: true,
+                  logarithmicDepthBuffer:true,
                 }} >
                     <Renderer 
                       ref={rendererRef} 

@@ -10,7 +10,7 @@ interface OrbitProps {
 const Orbit = ({orbitRef,cameraSheetObj}:OrbitProps) =>{
   // const orbitRef = useRef(null);
   const [showOribt,setShowOrbit] = useState(true)
-  useFrame(() => {
+  useFrame((state) => {
     if(cameraSheetObj.current.value.control){
       setShowOrbit(true)
     }
