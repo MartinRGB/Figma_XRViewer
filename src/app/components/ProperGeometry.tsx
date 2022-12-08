@@ -1,6 +1,6 @@
 import React,{useState,useRef,useEffect,useCallback} from 'react'
 import * as THREE from 'three'
-import { invalidate,useFrame,useLoader } from '@react-three/fiber'
+import { invalidate,useFrame,useLoader, useThree } from '@react-three/fiber'
 import { editable as e} from '@theatre/r3f'
 import { 
   createCanvasGridMaterial,createPlaneCurve
@@ -10,6 +10,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import { isDecoderFromLoacl } from '@Config';
+import { useHelper,Select,TransformControls } from '@react-three/drei';
+import { BoxHelper, Object3D } from 'three'
+import { TransformControls as TransformControlsImpl, OrbitControls as OrbitControlsImpl } from 'three-stdlib'
+
 let dracoloader;
 let ktx2Loader;
 if(isDecoderFromLoacl){
@@ -33,6 +37,7 @@ const Model = (props) =>{
   const [yScalePerc,setYScalePerc] = useState(1);
   const [modelScalePerc,setModelScalePer] = useState(1);
   const [currVis,setCurrVis] = useState(false);
+  const {invalidate,scene,gl,camera} = useThree()
   const gltfRef = useRef(null);
   const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
     console.log('finsihed model loading from:' + props.modelSrc)
@@ -40,6 +45,8 @@ const Model = (props) =>{
     loader.setKTX2Loader(ktx2Loader);
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
+
+  const boxHelperRef = useRef(null);
   
   const storeHoverOrigColor = (sceneObj) =>{
     sceneObj.traverse(function (child) {
@@ -49,23 +56,31 @@ const Model = (props) =>{
         }
       }
     });
+    
   }
 
-  const onHoverIn = (e,sceneObj) =>{
-    sceneObj.traverse(function (child) {
+  const onHoverIn = (e) =>{
+    e.stopPropagation()
+    modelRef.current.traverse(function (child) {
       if(child.hasOwnProperty('material')){
         child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
       }
     });
+    
+    boxHelperRef.current = new THREE.BoxHelper( modelGroupRef.current, 0xff0000 );
+    scene.add( boxHelperRef.current );
   }
 
 
-  const onHoverOut = (e,sceneObj) =>{
-    sceneObj.traverse(function (child) {
+  const onHoverOut = (e) =>{
+    e.stopPropagation()
+    modelRef.current.traverse(function (child) {
       if(child.hasOwnProperty('material')){
         child.material.color = child.material.userData.originalColor
       }
     });
+    scene.remove( boxHelperRef.current );
+    boxHelperRef.current=null;
   }
 
   useEffect(()=>{
@@ -89,29 +104,28 @@ const Model = (props) =>{
   })
 
   return (
-    
-    <e.group 
-      // todo chara fix
-      theatreKey={
-        props.name
-      }
-      name={
-        props.name
-      }
-      onPointerOver={useCallback((e) => (onHoverIn(e,modelRef.current)),[])}
-      onPointerOut={useCallback((e) => {onHoverOut(e,modelRef.current)},[])}
-      ref={modelGroupRef}
-      objRef={modelSheetObj}
-      visible={currVis}
-      scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]}
-      position={
-        [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
-        ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
-        props.index*0.0005 * props.baseUnit]}
-    
-    >
-      <primitive ref={modelRef} object={gltf.scene} />
-    </e.group>
+      <e.group 
+        // todo chara fix
+        theatreKey={
+          props.name
+        }
+        name={
+          props.name
+        }
+        onPointerOver={useCallback((e) => (onHoverIn(e)),[])}
+        onPointerOut={useCallback((e) => {onHoverOut(e)},[])}
+        ref={modelGroupRef}
+        objRef={modelSheetObj}
+        visible={currVis}
+        scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]}
+        position={
+          [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
+          ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
+          props.index*0.0005 * props.baseUnit]}
+      
+      >
+        <primitive ref={modelRef} object={gltf.scene} />
+      </e.group>
   )
 }
 
@@ -126,7 +140,7 @@ const Screen = (props) =>{
   const [yScalePerc,setYScalePerc] = useState(1);
   const [currMap,setCurrMap] = useState(null);
   const [currVis,setCurrVis] = useState(false);
-  
+  const {invalidate,scene,gl,camera} = useThree()
 
   const setupTexture = useCallback((tex) =>{
     tex.needsUpdate = true;
@@ -160,7 +174,7 @@ const Screen = (props) =>{
       }
       else{
         new Promise(function(resolve, reject) {
-          resolve(createCanvasGridMaterial(THREE,'white',1920,1080,9,9,4).image.toDataURL("image/png"))
+          resolve(createCanvasGridMaterial('white',1920,1080,9,9,4).image.toDataURL("image/png"))
         }).then(function(result) { // (**)
           var tex = new THREE.Texture();
           var loadedImage = new Image();
@@ -177,16 +191,33 @@ const Screen = (props) =>{
 
   useEffect(()=>{ 
     screenSheetObj.current.onValuesChange(newValues => {
-      createPlaneCurve(THREE,screenGeom.current,newValues.curve)
+      createPlaneCurve(screenGeom.current,newValues.curve)
     });
   },[screenRef])
+
+  const boxHelperRef = useRef(null);
+
+  const onHoverIn = (e) =>{
+    e.stopPropagation()
+    hover(true)
+    boxHelperRef.current = new THREE.BoxHelper( screenRef.current, 0xff0000 );
+    scene.add( boxHelperRef.current );
+  }
+
+
+  const onHoverOut = (e) =>{
+    e.stopPropagation()
+    hover(false)
+    scene.remove( boxHelperRef.current );
+    boxHelperRef.current = null;
+  }
 
   return(
   <e.mesh 
       theatreKey={props.name}
       name={props.name}
-      onPointerOver={useCallback((e) => hover(true),[])}
-      onPointerOut={useCallback((e) => hover(false),[])}
+      onPointerOver={useCallback((e) => {onHoverIn(e)},[])}
+      onPointerOut={useCallback((e) => {onHoverOut(e)},[])}
       ref={screenRef}
       objRef={screenSheetObj}
       additionalProps={{ 
@@ -216,7 +247,7 @@ const Screen = (props) =>{
           transparent={true}
           map={currMap}
           toneMapped={false}
-          color={hovered ? (props.index === 0?'':'hotpink') : 'white'}
+          color={hovered ? 'hotpink' : 'white'}
           />
   </e.mesh>
   )

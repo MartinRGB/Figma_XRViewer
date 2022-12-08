@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense} from 'react'
+import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense, useLayoutEffect} from 'react'
 
 import * as THREE from 'three'
 import { Canvas, invalidate,useFrame,useThree } from '@react-three/fiber'
@@ -7,12 +7,12 @@ import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
 import {WebXRContainer,ImageInList,ImageListContainer,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
 import Spinner from '@Components/Spinner'
 import Orbit from '@Components/Orbit'
-import Camera from '@Components/Camera'
+import PersCamera from '@Components/PersCamera'
+import OrthCamera from '@Components/OrthCamera';
+import Camera from '@Components/Camera';
 import XRContainer from '@Components/XRContainer'
 import ProperGeometry from '@Components/ProperGeometry'
 import { 
-  createLineCurve,
-  createPlaneCurve,
   helperSetting,
   theatreStudioCameraHelperFixed
 } from '@Utils/threeHelper'; 
@@ -46,8 +46,9 @@ const ViewerConfig ={
 
 const helperSheet = getProject('XRViewer').sheet('Node Tree','Helper')
 const assetSheet = getProject('XRViewer').sheet('Node Tree','Asset')
+const controllerSheet = getProject('XRViewer').sheet('Node Tree','Controller')
 const sceneHelper = helperSheet.object('helper', {
-  cameraHelper:types.boolean(false),
+  // cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),
   dotHelper:types.boolean(false),
   quality: types.stringLiteral(ViewerConfig.savedImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
@@ -65,8 +66,10 @@ interface RendererProps {
 const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProgress}:RendererProps,ref) =>{
 
   const cameraRef = useRef(null);
-  const camraSheetObj = useRef(null);
+  const cameraSheetObj = useRef(null);
   const helperSheetObj = useRef(sceneHelper)
+  const groupRef= useRef(null);
+  const groupSheetObj = useRef(null);
 
   const {invalidate,scene,gl,camera} = useThree()
   useImperativeHandle(ref, () => ({
@@ -79,15 +82,16 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
       return savedImage;
     },
   }));
+
   
   const InitRenderer = useCallback(() =>{
     const yScalePerc = (figmaData.length != 0)?figmaData[0].frameHeight/figmaData[0].frameWidth:(1080/1920);
     console.log('the screen aspect ratio is : ' + yScalePerc)
-    helperSetting(THREE,scene,helperSheetObj,yScalePerc,ViewerConfig.baseUnit,
+    helperSetting(scene,helperSheetObj,yScalePerc,ViewerConfig.baseUnit,
       (camHelper,polarHelper,dotHelper)=>
       {
         helperSheetObj.current.onValuesChange((val)=>{
-          camHelper.visible = val.cameraHelper
+          // camHelper.visible = val.cameraHelper
           polarHelper.visible = val.polarHelper
           dotHelper.visible = val.dotHelper
           invalidate()
@@ -111,44 +115,33 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     }
 
   },[isQuery,loadingProgress])
-
-
   
-  
-  const groupRef= useRef(null);
-  const groupSheetObj = useRef(null);
-
-
-
   return(
     <> 
      <Stage shadows={false} preset="rembrandt" intensity={1} environment="sunset" adjustCamera={false}>
         <SheetProvider sheet={assetSheet}>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
           <ambientLight />
-          <Camera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={camraSheetObj} baseUnit={ViewerConfig.baseUnit}/>
-          <Orbit cameraSheetObj={camraSheetObj.current}></Orbit>
+          {/* {isPers?
+            <PersCamera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit}/>
+            :
+            <OrthCamera containerRef={containerRef} cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit}/>
+          } */}
+          <Camera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
+          <Orbit cameraSheetObj={cameraSheetObj}></Orbit>
           {(isFigma === false)?
             // is not in Figma
-            <XRContainer
-              cameraRef={cameraRef} 
-              cameraSheetObj={camraSheetObj}
-              >
-              <SheetProvider sheet={assetSheet}>
-                <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
-                  <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
-                </e.group>
-              </SheetProvider>     
+            <XRContainer cameraSheetObj={cameraSheetObj}>
+              <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
+                <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+              </e.group> 
             </XRContainer>
             :
             // is in Figma
             <>
-            
-              <SheetProvider sheet={assetSheet}>
-                <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
-                    <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
-                </e.group>
-              </SheetProvider>
+              <e.group theatreKey={' - MainController'} ref={groupRef} objRef={groupSheetObj}>
+                  <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit}></ProperGeometry>
+              </e.group>
             </>
           }
         </SheetProvider>
@@ -157,6 +150,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     </>
   )
 })
+
 
 const XRViewerApp = () => {
   const canvasContainerRef = useRef(null);

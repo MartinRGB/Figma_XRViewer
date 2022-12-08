@@ -10,7 +10,7 @@ const Orbit = ({cameraSheetObj}:OrbitProps) =>{
   const orbitRef = useRef(null);
   const [showOribt,setShowOrbit] = useState(true)
   useFrame(() => {
-    if(cameraSheetObj.value.control){
+    if(cameraSheetObj.current.value.control){
       setShowOrbit(true)
     }
     else{

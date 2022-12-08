@@ -1,6 +1,7 @@
 import { searchElementByType } from "@Utils/functions";
+import * as THREE from 'three'
 
-export function createCanvasDotMaterial(THREE,color, size){
+export function createCanvasDotMaterial(color, size){
   var matCanvas = document.createElement('canvas');
   matCanvas.width = matCanvas.height = size;
   var matContext = matCanvas.getContext('2d');
@@ -18,7 +19,7 @@ export function createCanvasDotMaterial(THREE,color, size){
   return texture;
 };
 
-export function createCanvasGridMaterial(THREE,color,width,height,paddingW,paddingH,lineWidth){
+export function createCanvasGridMaterial(color,width,height,paddingW,paddingH,lineWidth){
   var matCanvas = document.createElement('canvas');
   matCanvas.width = width;
   matCanvas.height = height;
@@ -73,7 +74,7 @@ export function createCanvasGridMaterial(THREE,color,width,height,paddingW,paddi
   return texture;
 };
 
-export const helperSetting = (THREE,scene,sheetObj,yScalePerc,baseUnit,callback) =>{
+export const helperSetting = (scene,sheetObj,yScalePerc,baseUnit,callback) =>{
   const cameraGuideHelper =  searchElementByType(scene.children,'type','CameraHelper');
   //radius angles radius
   const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
@@ -85,7 +86,7 @@ export const helperSetting = (THREE,scene,sheetObj,yScalePerc,baseUnit,callback)
   const ground = new THREE.PlaneGeometry(baseUnit*8, baseUnit*8, Math.min(250,Math.max(40,baseUnit*8.*5)), Math.min(250,Math.max(40,baseUnit*8.*5)));
   ground.rotateX(Math.PI / 2);
   const dotGrid = new THREE.PointsMaterial({ transparent: false, fog: false });
-  (dotGrid.map = createCanvasDotMaterial(THREE,'#ffffff', baseUnit*8)), (dotGrid.size = 1*0.00825);
+  (dotGrid.map = createCanvasDotMaterial('#ffffff', baseUnit*8)), (dotGrid.size = 1*0.00825);
   const dotGridHelper = new THREE.Points(ground, dotGrid);
   dotGridHelper.position.y =  -yScalePerc/2*baseUnit;
   dotGridHelper.position.z = baseUnit;
@@ -142,7 +143,7 @@ export const theatreStudioCameraHelperFixed = (scene,invalidate)=>{
   });  
 }
 
-export function createPlaneCurve(THREE,geo, curve){
+export function createPlaneCurve(geo, curve){
   if (curve == 0) {
     curve = 0.00001;
   }
@@ -173,7 +174,7 @@ export function createPlaneCurve(THREE,geo, curve){
   pos.needsUpdate = true;
 };
 
-export function createLineCurve(THREE,points,halfWidth, curve){
+export function createLineCurve(points,halfWidth, curve){
   if (curve == 0) {
     curve = 0.00001;
   }
@@ -208,41 +209,36 @@ export function createLineCurve(THREE,points,halfWidth, curve){
   //   console.log('x: ' + pX + ' z: ' +pZ)
   // }
   // giveXReturnXYZ(50);
-  
+
   const newPoints = points;
   return newPoints;
 };
+
 
 // const lineCurve = new THREE.LineCurve3( 
 //   new THREE.Vector3( -ViewerConfig.baseUnit/2, 0,0 ), 
 //   new THREE.Vector3( ViewerConfig.baseUnit/2, 0,0 )
 // ); 
-
 // const pathRef = useRef(null);
 // const pathSheetObj = useRef(null);
 // const pathGeo = useRef(null);
 // useEffect(()=>{ 
 //   pathSheetObj.current.onValuesChange(newValues => {
 //     const points = lineCurve.getPoints( 40 ); 
-//     const newPoints = createLineCurve(THREE,points,ViewerConfig.baseUnit/2,newValues.curve);
+//     const newPoints = createLineCurve(points,ViewerConfig.baseUnit/2,newValues.curve);
 //     pathGeo.current.setFromPoints(newPoints)
 //   });
-
 // },[pathRef])
 
 // <e.line 
-//   theatreKey={'curve'}
-//   ref={pathRef}
-//   objRef={pathSheetObj}
+//   theatreKey={'curve'} ref={pathRef} objRef={pathSheetObj}
 //   additionalProps={{ 
 //     curve: types.number(0, {
 //       nudgeMultiplier: ViewerConfig.baseUnit/100,
 //       range:[0,ViewerConfig.baseUnit]
 //     }),
 //   }} 
-// >
-//   <bufferGeometry ref={pathGeo} attach="geometry" 
-//   // onUpdate={onUpdate}  
-//   />
-//   <lineBasicMaterial attach="material" color={'red'} linewidth={50} />
+//   >
+//   <bufferGeometry ref={pathGeo} attach="geometry" />
+//   <lineBasicMaterial attach="material" color={'red'} />
 // </e.line>  

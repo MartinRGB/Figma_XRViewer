@@ -4,12 +4,11 @@ import { XR, Controllers, Hands, useXR } from '@react-three/xr'
 import { searchElementByType } from '@Utils/functions'; 
 
 interface XRContainerProps {
-  cameraRef:React.ForwardedRef<any>;
   cameraSheetObj:React.MutableRefObject<any>;
   children?: React.ReactNode;
 }
 
-const XRContainer = ({cameraRef,cameraSheetObj,children}:XRContainerProps) =>{
+const XRContainer = ({cameraSheetObj,children}:XRContainerProps) =>{
   const {invalidate,scene,gl,camera} = useThree()
   const UseXR = () => {
     const {player,isPresenting,session} = useXR()
