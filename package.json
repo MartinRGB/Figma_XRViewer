@@ -1,6 +1,6 @@
 {
 	"name": "XRViewer",
-	"version": "0.2.12",
+	"version": "0.2.13",
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
@@ -23,7 +23,10 @@
 		"build:gltf": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=gltf --env WIDTH=640 --env HEIGHT=640",
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"release-only": "dotenv release-it --ci --github.autoGenerate",
-		"release": "rm XRViewer/code.js && rm XRViewer/ui.html && rm XRViewer_WebXR/code.js && rm XRViewer_WebXR/ui.html && rm XRViewer_LocalServer/code.js && rm XRViewer_LocalServer/ui.html && rm XRViewer_Unity/code.js && rm XRViewer_Unity/ui.html && rm XRViewer_GLTF/code.js && rm XRViewer_GLTF/index.html && rm -rf release && mkdir release && echo all files cleaned && npm run build:xrviewer && npm run build:webxr && npm run build:localserver && npm run build:unity && npm run build:gltf && rm XRViewer/ui.js.LICENSE.txt && rm XRViewer_WebXR/ui.js.LICENSE.txt && rm XRViewer_LocalServer/ui.js.LICENSE.txt && rm XRViewer_Unity/ui.js.LICENSE.txt && rm XRViewer_GLTF/index.js.LICENSE.txt && echo build finished && bestzip release/XRViewer.zip XRViewer/* && bestzip release/XRViewer_WebXR.zip XRViewer_WebXR/* && bestzip release/XRViewer_LocalServer.zip XRViewer_LocalServer/* && bestzip release/XRViewer_Unity.zip XRViewer_Unity/* && bestzip release/XRViewer_GLTF.zip XRViewer_GLTF/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped && dotenv release-it --ci --github.autoGenerate"
+		"zip:all": "bestzip release/XRViewer.zip XRViewer/* && bestzip release/XRViewer_WebXR.zip XRViewer_WebXR/* && bestzip release/XRViewer_LocalServer.zip XRViewer_LocalServer/* && bestzip release/XRViewer_Unity.zip XRViewer_Unity/* && bestzip release/XRViewer_GLTF.zip XRViewer_GLTF/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped",
+		"delete-license": "rm XRViewer/ui.js.LICENSE.txt && rm XRViewer_WebXR/ui.js.LICENSE.txt && rm XRViewer_LocalServer/ui.js.LICENSE.txt && rm XRViewer_Unity/ui.js.LICENSE.txt && rm XRViewer_GLTF/index.js.LICENSE.txt",
+		"clean-build": "rm XRViewer/code.js && rm XRViewer/ui.html && rm XRViewer_WebXR/code.js && rm XRViewer_WebXR/ui.html && rm XRViewer_LocalServer/code.js && rm XRViewer_LocalServer/ui.html && rm XRViewer_Unity/code.js && rm XRViewer_Unity/ui.html && rm XRViewer_GLTF/code.js && rm XRViewer_GLTF/index.html && rm -rf release",
+		"release": "npm run clean-build && mkdir release && echo all files cleaned && npm run build:all && npm run delete-license && echo build finished && npm run zip:all && dotenv release-it --ci --github.autoGenerate"
 	},
 	"dependencies": {
 		"react": "^18.2.0",
