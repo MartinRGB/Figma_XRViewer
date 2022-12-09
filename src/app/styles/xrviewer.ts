@@ -55,6 +55,7 @@ export const ImageListContainer = styled.div`
     position: absolute;
     display: flex;
     flex-flow: row;
+    align-items: baseline;
     ::-webkit-scrollbar {
         height: 6px;
         background-color: transparent;
@@ -72,6 +73,7 @@ export const ImageListContainer = styled.div`
 
 export const ImageInList = styled.img`
     padding:20px;
+    transition:all 0.15s;
     scroll-snap-align: start;
     flex: 0 0 60px;
     width: 60px;

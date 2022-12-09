@@ -58,10 +58,11 @@ interface RendererProps {
   isQuery:boolean;
   isFigma:boolean;
   loadingProgress:string;
-  finishCallback:()=>void;
+  finishedRenderingCallback:()=>void;
+  selectCallback:(e:any)=>void;
 }
 
-const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProgress,finishCallback}:RendererProps,ref) =>{
+const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProgress,finishedRenderingCallback,selectCallback}:RendererProps,ref) =>{
 
   const cameraRef = useRef(null);
   const orbitRef = useRef(null);
@@ -106,12 +107,12 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
       const isLoadingFinished = (loadingProgress.split('/')[0] === loadingProgress.split('/')[1]);
       if(isOnLoading && isLoadingFinished){
         InitRenderer();
-        finishCallback();
+        finishedRenderingCallback();
       }
     }
     else{
       InitRenderer();
-      finishCallback();
+      finishedRenderingCallback();
     }
   },[isQuery,loadingProgress])
   
@@ -130,7 +131,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
             <XRContainer cameraSheetObj={cameraSheetObj}>
               <SheetProvider sheet={helperSheet}>
                 <e.group theatreKey={' - Main Controller'} ref={groupRef} objRef={groupSheetObj}>
-                  <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
+                  <ProperGeometry selectCallback={(e)=>{selectCallback(e)}} figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
                 </e.group> 
               </SheetProvider>
             </XRContainer>
@@ -139,7 +140,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
             <>
               <SheetProvider sheet={helperSheet}>
                 <e.group theatreKey={' - Main Controller'} ref={groupRef} objRef={groupSheetObj}>
-                    <ProperGeometry figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
+                    <ProperGeometry selectCallback={(e)=>{selectCallback(e)}}figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
                 </e.group>
               </SheetProvider>
             </>
@@ -339,7 +340,6 @@ const XRViewerApp = () => {
                             id={type + '-' + index}
                             // name={`#${index}-` + name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)}
                             name={name}
-                            
                             />
                 ))}
                 </ImageListContainer>
@@ -396,7 +396,25 @@ const XRViewerApp = () => {
                         isQuery={isQuery}
                         loadingProgress={loadingProgress}
                         figmaData={figData.reverse()}
-                        finishCallback={()=>{setIsRendered(true)}}
+                        finishedRenderingCallback={()=>{setIsRendered(true)}}
+                        selectCallback={(e)=>{
+                          
+                          for(var i=0;i<imgLayoutRef.current.children.length;i++){
+                            let reverseCurrIndex = (imgLayoutRef.current.children.length-1)-i;
+                            if(i === e){
+                              imgLayoutRef.current.children[reverseCurrIndex].style.backgroundColor = 'rgba(255, 105, 180, 0.15)'
+                              imgLayoutRef.current.children[reverseCurrIndex].style.width = '100px'
+                              imgLayoutRef.current.children[reverseCurrIndex].style.height = '100px'
+                            }
+                            else{
+                              if(imgLayoutRef.current.children[reverseCurrIndex].style.backgroundColor === 'rgba(255, 105, 180, 0.15)'){
+                                imgLayoutRef.current.children[reverseCurrIndex].style.backgroundColor = 'rgba(40,43,47,0.8)'
+                                imgLayoutRef.current.children[reverseCurrIndex].style.width = '60px'
+                                imgLayoutRef.current.children[reverseCurrIndex].style.height = '60px'
+                              }
+                            }
+                          }
+                        }}
                       />
                 </Canvas>
           </CanvasContainer>

@@ -85,6 +85,7 @@ const Model = (props) =>{
     if(active != undefined){
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([modelSheetObj.current])
+      props.selectCallback(props.index)
     }
     else{
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
@@ -165,21 +166,32 @@ const Model = (props) =>{
   useEffect(() => {
     if(active){
       setIsShowHint(true)
-      showHint()
+      //showHint()
     }
     else{
       if(hovered){
         setIsShowHint(true)
-        showHint();
-        addBoxHelper();
+        // showHint();
+        // addBoxHelper();
       }
       else{
         setIsShowHint(false)
-        hideHint();
-        removeBoxHelper();
+        // hideHint();
+        // removeBoxHelper();
       }
     }
   },[active,hovered])
+
+  useEffect(() => {
+    if(isShowHint){
+      showHint();
+      addBoxHelper();
+    }
+    else{
+      hideHint();
+      removeBoxHelper();
+    }
+  },[isShowHint])
 
   // transform mode
   const [tMode,setTMode] = useState(0);
@@ -201,7 +213,14 @@ const Model = (props) =>{
       if(boxHelperRef.current) boxHelperRef.current.update()
       onSelectTransformControl()}}
     />}
-    <Select box onChange={(e)=>{if(e.length != 0){setSelected([modelGroupRef.current])}}}>
+    <Select box onChange={(e)=>{
+      if(e.length != 0){
+        setSelected([modelGroupRef.current])
+      }
+      else{
+        setSelected(e)
+      }
+      }}>
       <e.group 
         // todo chara fix
         theatreKey={props.name}
@@ -296,6 +315,7 @@ const Screen = (props) =>{
     if(active != undefined){
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([screenSheetObj.current])
+      props.selectCallback(props.index);
     }
     else{
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
@@ -353,21 +373,49 @@ const Screen = (props) =>{
     scene.remove( boxHelperRef.current );
     boxHelperRef.current = null;
   }
+  // useEffect(() => {
+  //   if(active){
+  //     setIsShowHint(true)
+  //   }
+  //   else{
+  //     if(hovered){
+  //       setIsShowHint(true)
+  //       addBoxHelper()
+  //     }
+  //     else{
+  //       setIsShowHint(false)
+  //       removeBoxHelper()
+  //     }
+  //   }
+  // },[active,hovered])
+  
   useEffect(() => {
     if(active){
       setIsShowHint(true)
+      //showHint()
     }
     else{
       if(hovered){
         setIsShowHint(true)
-        addBoxHelper()
+        // showHint();
+        // addBoxHelper();
       }
       else{
         setIsShowHint(false)
-        removeBoxHelper()
+        // hideHint();
+        // removeBoxHelper();
       }
     }
   },[active,hovered])
+
+  useEffect(() => {
+    if(isShowHint){
+      addBoxHelper();
+    }
+    else{
+      removeBoxHelper();
+    }
+  },[isShowHint])
 
   // transform mode
   const [tMode,setTMode] = useState(0);
@@ -447,9 +495,10 @@ interface ProperScreenProps {
   baseUnit:number;
   isFigma:boolean;
   orbitRef:React.MutableRefObject<any>;
+  selectCallback:(e:any) => void;
 }
 
-const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef}:ProperScreenProps) =>{
+const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallback}:ProperScreenProps) =>{
   return(
     <>
     <SheetProvider sheet={getProject('XRViewer').sheet('Node Tree','Asset')}>
@@ -458,24 +507,25 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef}:ProperScre
         { figmaData.reverse().map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
           (modelSrc != null)?
           <Model  
-          key={type + '-three-' + index} 
-          src={src}
-          name={`#${index}-`+name.split('/')[name.split('/').length-1].substring(0,24)}
-          x={(index===0)?0:x}
-          y={(index===0)?0:y}
-          index={index}
-          width={width}
-          height={height}
-          // frameWidth={figmaData[0].width}
-          // frameHeight={figmaData[0].height}
-          frameWidth={frameWidth}
-          frameHeight={frameHeight}
-          hasData={true}
-          isFigma={isFigma}
-          isQuery={isQuery}
-          baseUnit={baseUnit}
-          modelSrc={modelSrc}
-          orbitRef={orbitRef}
+            key={type + '-three-' + index} 
+            src={src}
+            name={`#${index}-`+name.split('/')[name.split('/').length-1].substring(0,24)}
+            x={(index===0)?0:x}
+            y={(index===0)?0:y}
+            index={index}
+            width={width}
+            height={height}
+            // frameWidth={figmaData[0].width}
+            // frameHeight={figmaData[0].height}
+            frameWidth={frameWidth}
+            frameHeight={frameHeight}
+            hasData={true}
+            isFigma={isFigma}
+            isQuery={isQuery}
+            baseUnit={baseUnit}
+            modelSrc={modelSrc}
+            orbitRef={orbitRef}
+            selectCallback={(e)=>{selectCallback(e)}}
           />
           :
           <Screen  
@@ -495,6 +545,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef}:ProperScre
             isQuery={isQuery}
             baseUnit={baseUnit}
             orbitRef={orbitRef}
+            selectCallback={(e)=>{selectCallback(e)}}
             />
         ))}
       </>
