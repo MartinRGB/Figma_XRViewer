@@ -504,7 +504,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
     <SheetProvider sheet={getProject('XRViewer').sheet('Node Tree','Asset')}>
     {(figmaData.length != 0)?
       <>
-        { figmaData.reverse().map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
+        { figmaData.map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
           (modelSrc != null)?
           <Model  
             key={type + '-three-' + index} 

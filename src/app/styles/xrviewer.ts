@@ -44,7 +44,7 @@ export const WebXRContainer = styled.div`
 `
 export const ImageListContainer = styled.div`
     // width: calc(100% - 40px);
-    width:calc(100% - 577px);
+    width:calc(100% - 559px);
     transform: translate(263px, 0px);
     // padding: 10px;
     padding: 10px 0px 10px 0px;

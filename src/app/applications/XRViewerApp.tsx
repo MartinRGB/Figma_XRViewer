@@ -321,6 +321,7 @@ const XRViewerApp = () => {
 
   const [isRendered,setIsRendered] = useState(false);
 
+  //todo error when in XRViewer Plugin,cannot load
   return (
     <>
     <XRViewerGlobalrtyle></XRViewerGlobalrtyle>
@@ -333,7 +334,7 @@ const XRViewerApp = () => {
         <WebXRContainer>
           <CanvasContainer ref={canvasContainerRef}>
                 <ImageListContainer ref={imgLayoutRef} >
-                {figData.reverse().map(({ src,type,index,name }) => (
+                {figData.map(({ src,type,index,name }) => (
                       <ImageInList  key={type + '-' + index} 
                             src={src}
                             className={'img-imported'}
@@ -400,17 +401,18 @@ const XRViewerApp = () => {
                         selectCallback={(e)=>{
                           
                           for(var i=0;i<imgLayoutRef.current.children.length;i++){
-                            let reverseCurrIndex = (imgLayoutRef.current.children.length-1)-i;
+                            let iterationIndex = (imgLayoutRef.current.children.length-1)-i;
+                            //let iterationIndex = i;
                             if(i === e){
-                              imgLayoutRef.current.children[reverseCurrIndex].style.backgroundColor = 'rgba(255, 105, 180, 0.15)'
-                              imgLayoutRef.current.children[reverseCurrIndex].style.width = '100px'
-                              imgLayoutRef.current.children[reverseCurrIndex].style.height = '100px'
+                              imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgba(255, 105, 180, 0.15)'
+                              imgLayoutRef.current.children[iterationIndex].style.width = '100px'
+                              imgLayoutRef.current.children[iterationIndex].style.height = '100px'
                             }
                             else{
-                              if(imgLayoutRef.current.children[reverseCurrIndex].style.backgroundColor === 'rgba(255, 105, 180, 0.15)'){
-                                imgLayoutRef.current.children[reverseCurrIndex].style.backgroundColor = 'rgba(40,43,47,0.8)'
-                                imgLayoutRef.current.children[reverseCurrIndex].style.width = '60px'
-                                imgLayoutRef.current.children[reverseCurrIndex].style.height = '60px'
+                              if(imgLayoutRef.current.children[iterationIndex].style.backgroundColor === 'rgba(255, 105, 180, 0.15)'){
+                                imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgba(40,43,47,0.8)'
+                                imgLayoutRef.current.children[iterationIndex].style.width = '60px'
+                                imgLayoutRef.current.children[iterationIndex].style.height = '60px'
                               }
                             }
                           }
