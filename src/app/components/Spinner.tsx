@@ -55,7 +55,6 @@ const SpinnerContainer = styled.div`
   place-items: center;
   transition: background-color 0.3s;
   overflow: hidden;
-  z-index:99999;
 `
 
 const IpSVG = styled.svg`
