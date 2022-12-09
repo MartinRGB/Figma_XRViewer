@@ -1,25 +1,12 @@
 import { nginxDirLink,nginxUploadFolder} from '@Config';
 
 async function asyncGetBase64FromUrl (url,callback){
-  // fetch(url)
-  // .then((data) =>{
-  //   return data.blob()
-  // })
-  // .then((blob)=>{
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(blob); 
-  //   reader.onloadend = () => {
-  //     callback(reader.result)  
-  //     //return base64data
-  //   } 
-  // })
   const data = await(fetch(url));
   const blobData = await(data.blob());
   const reader = new FileReader();
   reader.readAsDataURL(blobData); 
   reader.onloadend = () => {
     callback(reader.result)  
-    //return base64data
   } 
 }
 

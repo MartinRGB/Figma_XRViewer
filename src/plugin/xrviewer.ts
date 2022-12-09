@@ -61,4 +61,4 @@ figma.ui.onmessage = (msg) => {
   }
 };
 
-figma.showUI(__html__,{width:900,height:675});
+figma.showUI(__html__,{width:1080,height:608});

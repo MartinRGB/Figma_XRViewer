@@ -35,6 +35,7 @@ export const Loading = styled.p`
   font-size: 14px;
   text-align: center;
   font-weight: bold;
+  translate(0px, -18px);
 `
 export const LoadingProgressBar = styled.div`
     height: 4px;

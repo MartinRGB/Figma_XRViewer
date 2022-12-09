@@ -1,8 +1,8 @@
 import React, {useEffect,useState} from 'react'
 import { IPluginApp } from '@CustomTypes';
-import {dataToPHPServer,postData} from '@Utils/server'
+import {postData} from '@Utils/server'
 import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
-import {webRootURL,nginxHostWebUrl,nginxUploadFolder,isLocal} from '@Config'
+import {webRootURL,nginxHostWebUrl,nginxUploadFolder} from '@Config'
 
 const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
   const [isLoading,setIsLoading] = useState(true);

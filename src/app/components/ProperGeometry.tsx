@@ -107,12 +107,18 @@ const Model = (props) =>{
     })
   },[])
 
-  // on Select Move Mouse up
-  const onSelectMouseUp = () =>{
+  // on Select Move Mouse up & drag
+  const onSelectTransformControl = () =>{
     window.studio.transaction(({ set }) => {
       set(modelSheetObj.current.props.position.x, modelGroupRef.current.position.x)
       set(modelSheetObj.current.props.position.y, modelGroupRef.current.position.y)
       set(modelSheetObj.current.props.position.z, modelGroupRef.current.position.z)
+      set(modelSheetObj.current.props.rotation.x, modelGroupRef.current.rotation.x)
+      set(modelSheetObj.current.props.rotation.y, modelGroupRef.current.rotation.y)
+      set(modelSheetObj.current.props.rotation.z, modelGroupRef.current.rotation.z)
+      set(modelSheetObj.current.props.scale.x,    modelGroupRef.current.scale.x)
+      set(modelSheetObj.current.props.scale.y,    modelGroupRef.current.scale.y)
+      set(modelSheetObj.current.props.scale.z,    modelGroupRef.current.scale.z)
     })
   }
 
@@ -175,15 +181,25 @@ const Model = (props) =>{
     }
   },[active,hovered])
 
+  // transform mode
+  const [tMode,setTMode] = useState(0);
+  const changeTMode = (e) =>{
+    if(controlRef.current){
+      e.stopPropagation();
+      let modeVal = tMode + 1;
+      setTMode((modeVal < 3)?modeVal:0)
+    }
+  }
+
   return (
     <>
-    {active && <TransformControls object={active}  ref={controlRef}
+    {active && <TransformControls object={active}  ref={controlRef}  mode={['translate','rotate','scale'][tMode]}
     onMouseUp={(e)=>{
       if(boxHelperRef.current) boxHelperRef.current.update()
-      onSelectMouseUp()}}
+      onSelectTransformControl()}}
     onChange={(e)=>{
       if(boxHelperRef.current) boxHelperRef.current.update()
-      onSelectMouseUp()}}
+      onSelectTransformControl()}}
     />}
     <Select box onChange={(e)=>{if(e.length != 0){setSelected([modelGroupRef.current])}}}>
       <e.group 
@@ -193,6 +209,7 @@ const Model = (props) =>{
         onPointerOver={useCallback((e) => {e.stopPropagation();hover(true)},[])}
         onPointerOut={useCallback((e) => {e.stopPropagation();hover(false)},[])}
         onPointerDown = {useCallback((e) => {e.stopPropagation()},[])}
+        onContextMenu={(e) => {e.stopPropagation();changeTMode(e);}}
         ref={modelGroupRef}
         objRef={modelSheetObj}
         visible={currVis}
@@ -298,12 +315,18 @@ const Screen = (props) =>{
     })
   },[])
   
-  // on Select Move Mouse up
-  const onSelectMouseUp = () =>{
+  // on Select Move Mouse up & drag
+  const onSelectTransformControl = () =>{
     window.studio.transaction(({ set }) => {
       set(screenSheetObj.current.props.position.x, screenRef.current.position.x)
       set(screenSheetObj.current.props.position.y, screenRef.current.position.y)
       set(screenSheetObj.current.props.position.z, screenRef.current.position.z)
+      set(screenSheetObj.current.props.rotation.x, screenRef.current.rotation.x)
+      set(screenSheetObj.current.props.rotation.y, screenRef.current.rotation.y)
+      set(screenSheetObj.current.props.rotation.z, screenRef.current.rotation.z)
+      set(screenSheetObj.current.props.scale.x,    screenRef.current.scale.x)
+      set(screenSheetObj.current.props.scale.y,    screenRef.current.scale.y)
+      set(screenSheetObj.current.props.scale.z,    screenRef.current.scale.z)
     })
   }
 
@@ -346,15 +369,24 @@ const Screen = (props) =>{
     }
   },[active,hovered])
 
+  // transform mode
+  const [tMode,setTMode] = useState(0);
+  const changeTMode = (e) =>{
+    if(controlRef.current){
+      let modeVal = tMode + 1;
+      setTMode((modeVal < 3)?modeVal:0)
+    }
+  }
+
   return(
     <>
-      {active && <TransformControls object={active} name={'controls'} ref={controlRef}
+      {active && <TransformControls object={active} name={'controls'} ref={controlRef} mode={['translate','rotate','scale'][tMode]}
         onMouseUp={(e)=>{
           if(boxHelperRef.current) boxHelperRef.current.update()
-          onSelectMouseUp()}}
+          onSelectTransformControl()}}
         onChange={(e)=>{
           if(boxHelperRef.current) boxHelperRef.current.update()
-          onSelectMouseUp()}}
+          onSelectTransformControl()}}
       />}
       <Select box onChange={(e)=>{setSelected(e)}}>
         <e.mesh 
@@ -362,6 +394,7 @@ const Screen = (props) =>{
             name={props.name}
             onPointerOver={useCallback((e) => {e.stopPropagation();hover(true)},[])}
             onPointerOut={useCallback((e) => {e.stopPropagation();hover(false)},[])}
+            onContextMenu={(e) => {e.stopPropagation();changeTMode(e);}}
             ref={screenRef}
             objRef={screenSheetObj}
             additionalProps={{ 
@@ -422,7 +455,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef}:ProperScre
     <SheetProvider sheet={getProject('XRViewer').sheet('Node Tree','Asset')}>
     {(figmaData.length != 0)?
       <>
-        { figmaData.map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
+        { figmaData.reverse().map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
           (modelSrc != null)?
           <Model  
           key={type + '-three-' + index} 

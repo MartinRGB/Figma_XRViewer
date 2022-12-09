@@ -384,6 +384,13 @@ const XRViewerApp = () => {
               </XRDivContainer>
 
               <Canvas frameloop="demand" 
+                style={{
+                  // display: 'block',
+                  // width: 'calc(100% - 577px)',
+                  // height: 'calc(100% - 189px)',
+                  // transform: 'translate(280px, 52px)',
+                  // border: '1px solid'
+                }}
                 performance = {{
                   current: 1,
                   min: 0.1,

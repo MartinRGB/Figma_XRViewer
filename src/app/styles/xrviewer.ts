@@ -27,7 +27,7 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         background: rgba(29,53,59,0.7);
         backdrop-filter: blur(14px);
         border-bottom: 1px solid rgba(255,255,255,0.08);
-        margin:15px 5px;
+        margin:10px 5px;
         z-index: 11;
         cursor: pointer;
     }
@@ -43,15 +43,31 @@ export const WebXRContainer = styled.div`
     flex-direction: row-reverse;
 `
 export const ImageListContainer = styled.div`
-    width: calc(100% - 40px);
-    padding: 20px;
+    // width: calc(100% - 40px);
+    width:calc(100% - 577px);
+    transform: translate(263px, 0px);
+    // padding: 10px;
+    padding: 10px 0px 10px 0px;
     gap: 1rem;
     overflow-x: auto;
     z-index: 100;
-    bottom: 0px;
+    bottom: 10px;
     position: absolute;
     display: flex;
     flex-flow: row;
+    ::-webkit-scrollbar {
+        height: 6px;
+        background-color: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #ffffff;
+        border-radius: 100px;
+    }
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+        background-color: rgba(40,43,47,0.8);
+        border-radius: 100px;
+    }
 `
 
 export const ImageInList = styled.img`
@@ -62,8 +78,9 @@ export const ImageInList = styled.img`
     height: 60px;
     border-radius: 5px;
     object-fit: contain;
-    background: #ffffff40;
     padding: 12px;
+    box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+    background-color: rgba(40,43,47,0.8);
 `
 
 export const XRDivContainer = styled.div`
@@ -91,7 +108,7 @@ export const TopFixedBtn = styled.div`
     background: rgba(29,53,59,0.7);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin:15px 5px;
+    margin:10px 5px;
     z-index: 11;
     cursor: pointer;
 
