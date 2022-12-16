@@ -68,7 +68,6 @@ function UniformsCache() {
 					break;
 				// ############################## LTC TextureAreaLight ##############################
 				case 'TextureAreaLight':
-					console.log('123')
 					uniforms = {
 						areaLightColor: new Color(),
 						areaLightPosition: new Vector3(),
@@ -359,7 +358,7 @@ function WebGLLights( extensions, capabilities ) {
 				spotLength ++;
 
 			} else if ( light.isRectAreaLight ) {
-
+				
 				const uniforms = cache.get( light );
 
 				// (a) intensity is the total visible light emitted
@@ -378,7 +377,7 @@ function WebGLLights( extensions, capabilities ) {
 			} 
 			// ############################## LTC TextureAreaLight ##############################
 			else if ( light.isTextureAreaLight ) {
-
+				
 				const uniforms = cache.get( light );
 				
 				uniforms.areaLightColor.copy( color ).multiplyScalar( intensity );

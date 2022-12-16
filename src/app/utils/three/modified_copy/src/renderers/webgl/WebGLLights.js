@@ -68,6 +68,7 @@ function UniformsCache() {
 					break;
 				// ############################## LTC TextureAreaLight ##############################
 				case 'TextureAreaLight':
+					console.log('123')
 					uniforms = {
 						areaLightColor: new Color(),
 						areaLightPosition: new Vector3(),
@@ -379,11 +380,11 @@ function WebGLLights( extensions, capabilities ) {
 			else if ( light.isTextureAreaLight ) {
 
 				const uniforms = cache.get( light );
-
-				uniforms.areaLightColor.copy( light.color ).multiplyScalar( light.intensity );
+				
+				uniforms.areaLightColor.copy( color ).multiplyScalar( intensity );
 				uniforms.halfWidth.set( light.width * 0.5, 0.0, 0.0 );
 				uniforms.halfHeight.set( 0.0, light.height * 0.5, 0.0 );
-				uniforms.areaLightIntensity = light.intensity;
+				uniforms.areaLightIntensity = intensity;
 				uniforms.areaLightRoughness = light.roughness;
 				uniforms.areaLightTextureIsNull = (light.texture === null)?true:false;
 				uniforms.areaLightRouhnessControllable = light.isRouhnessControllable;
@@ -486,7 +487,7 @@ function WebGLLights( extensions, capabilities ) {
 		if ( textureAreaLength > 0 ) {
 
 			if ( capabilities.isWebGL2 ) {
-
+				
 				// WebGL 2
 
 				state.rectAreaLTC1 = UniformsLib.LTC_FLOAT_1;
@@ -495,7 +496,7 @@ function WebGLLights( extensions, capabilities ) {
 			} else {
 
 				// WebGL 1
-
+				
 				if ( extensions.has( 'OES_texture_float_linear' ) === true ) {
 
 					state.rectAreaLTC1 = UniformsLib.LTC_FLOAT_1;

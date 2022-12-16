@@ -203,7 +203,7 @@ void computeMultiscattering( const in vec3 normal, const in vec3 viewDir, const 
 		
 		float roughnessMIN = 0.35;
 		float M_Roughness = material.roughness; //material.roughness //lightRoughness
-		M_Roughness *= M_Roughness;
+		//M_Roughness *= M_Roughness;
 		M_Roughness += roughnessMIN;
 
 		//float L_Roughness = lightRoughness; //material.roughness //
@@ -213,6 +213,7 @@ void computeMultiscattering( const in vec3 normal, const in vec3 viewDir, const 
 		// comment this for material lightness;
 		if(lightRouhnessControllable){
 			M_Roughness = lightRoughness;
+			M_Roughness += roughnessMIN;
 		}
 
 		// LTC Fresnel Approximation by Stephen Hill

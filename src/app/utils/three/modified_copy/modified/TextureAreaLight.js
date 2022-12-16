@@ -3,7 +3,8 @@ import { AreaLightProxy } from './AreaLightProxy.js';
 
 class TextureAreaLight extends Light {
 
-	constructor( color,
+	constructor( 
+		color,
 		intensity,
 		roughness,
 		width,

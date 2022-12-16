@@ -100,9 +100,9 @@ class AreaLightProxy extends Mesh {
 				uniforms: d,
 				vertexShader: c.vertexShader,
 				fragmentShader: c.fragmentShader,
-				defines: {
-					AREA_TEXTURE: !! light.texture
-				},
+				// defines: {
+				// 	AREA_TEXTURE: !! light.texture
+				// },
 				blending: AdditiveBlending,
 				depthWrite: ! 1,
 				depthTest: ! 1,

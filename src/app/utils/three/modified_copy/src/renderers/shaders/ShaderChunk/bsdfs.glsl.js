@@ -353,6 +353,7 @@ float IntegrateEdge(vec3 v1, vec3 v2)
 }
 
 vec3 LTC_Evaluate_Without_Texture(vec3 N, vec3 V, vec3 P, mat3 Minv, vec3 points[4]) {
+    
     // construct orthonormal basis around N
     vec3 T1, T2;
     T1 = normalize(V - N*dot(V, N));
@@ -381,23 +382,38 @@ vec3 LTC_Evaluate_Without_Texture(vec3 N, vec3 V, vec3 P, mat3 Minv, vec3 points
     L[3] = normalize(L[3]);
     L[4] = normalize(L[4]);
 
-    // integrate
-    float sum = 0.0;
+    // ### METHOD I
 
-    sum += IntegrateEdge(L[0], L[1]);
-    sum += IntegrateEdge(L[1], L[2]);
-    sum += IntegrateEdge(L[2], L[3]);
-    if (n >= 4)
-        sum += IntegrateEdge(L[3], L[4]);
-    if (n == 5)
-        sum += IntegrateEdge(L[4], L[0]);
+    // calculate vector form factor
+	vec3 vectorFormFactor = vec3( 0.0 );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 0 ], L[ 1 ] );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 1 ], L[ 2 ] );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 2 ], L[ 3 ] );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 3 ], L[ 0 ] );
 
-    //sum = twoSided ? abs(sum) : max(0.0, sum);
-	sum = max(0.0, sum);
+	// adjust for horizon clipping
+	float result = LTC_ClippedSphereFormFactor( vectorFormFactor );
 
-    vec3 Lo_i = vec3(sum, sum, sum);
+    return vec3( result );
+
+    // // ### METHOD II 
+    // // integrate
+    // float sum = 0.0;
+
+    // sum += IntegrateEdge(L[0], L[1]);
+    // sum += IntegrateEdge(L[1], L[2]);
+    // sum += IntegrateEdge(L[2], L[3]);
+    // if (n >= 4)
+    //     sum += IntegrateEdge(L[3], L[4]);
+    // if (n == 5)
+    //     sum += IntegrateEdge(L[4], L[0]);
+
+    // //sum = twoSided ? abs(sum) : max(0.0, sum);
+	// sum = max(0.0, sum);
+
+    // vec3 Lo_i = vec3(sum, sum, sum);
 	
-	return Lo_i;
+	// return Lo_i;
 }
 
 
@@ -446,26 +462,30 @@ vec3 blurredImage( in float roughness,in vec2 uv , in sampler2D tex)
 
 
 vec3 filterBorderRegion(in float roughness,in vec2 uv,in sampler2D tex){
-	float scale = 1.;
-    float error = 0.1; //0.45
-    // Convert uv range to -1 to 1
-    vec2 UVC = uv * 2.0 - 1.0;
-    UVC *= (1. * 0.5 + 0.5) * (1. + (1. - scale));
-    // Convert back to 0 to 1 range
-    UVC = UVC * 0.5 + 0.5;
+    // this is useless now
+	// float scale = 1.;
+    // float error = 0.4; //0.45
 
-    vec4 ClearCol;
-    vec4 BlurCol;
+    // // Convert uv range to -1 to 1
+    // vec2 UVC = uv * 2.0 - 1.0;
+    // UVC *= (1. * 0.5 + 0.5) * (1. + (1. - scale));
+    // // Convert back to 0 to 1 range
+    // UVC = UVC * 0.5 + 0.5;
+
+    // vec4 ClearCol;
+    // vec4 BlurCol;
     
-    BlurCol.rgb = blurredImage(2.,uv,tex);
-	if(UVC.x < 1. && UVC.x > 0. && UVC.y > 0. && UVC.y < 1.){
-        ClearCol.rgb = blurredImage(min(2.,roughness),UVC,tex);
-    }
-	//ClearCol.rgb = blurredImage(roughness,UVC,tex);
-	float boxMask = maskBox(UVC,vec2(scale+0.),error);
-    BlurCol.rgb = mix(BlurCol.rgb, ClearCol.rgb, boxMask);
-
-	return BlurCol.rgb;
+    // BlurCol.rgb = blurredImage(2.,uv,tex);
+	// if(UVC.x < 1. && UVC.x > 0. && UVC.y > 0. && UVC.y < 1.){
+    //     ClearCol.rgb = blurredImage(min(2.,roughness),UVC,tex);
+    // }
+	// //ClearCol.rgb = blurredImage(roughness,UVC,tex);
+	// float boxMask = maskBox(UVC,vec2(scale+0.),error);
+    // BlurCol.rgb = mix(BlurCol.rgb, ClearCol.rgb, boxMask);
+    // return BlurCol
+    
+    // # Method 2
+	return blurredImage(min(2.,roughness),uv,tex).rgb;
 }
 
 // https://advances.realtimerendering.com/s2016/s2016_ltc_rnd.pdf p-104  -> filtered border region
@@ -508,6 +528,10 @@ vec3 FetchDiffuseFilteredTexture(float roughness,vec3 L[5],vec3 vLooupVector,sam
 	// float boxMask = maskBox(UVC,vec2(scale+0.),error);
     // BlurCol.rgb = mix(BlurCol.rgb, ClearCol.rgb, boxMask);
 
+    // to delete border light even the canvas is dark
+    // UV -= .5;
+    // UV /= 1.1;
+    // UV += .5;
 
 	return filterBorderRegion(roughness,UV,tex);
 }
@@ -541,18 +565,32 @@ vec3 LTC_Evaluate_With_Texture( in bool isDiffuse,in float roughness,const in ve
 	PL[3] = normalize(L[3]);
 	PL[4] = normalize(L[4]);
 
-	// integrate for every edge.
-	float sum = 0.0;
+
+    // ### Method I
+
+    // calculate vector form factor
+	vec3 vectorFormFactor = vec3( 0.0 );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 0 ], PL[ 1 ] );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 1 ], PL[ 2 ] );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 2 ], PL[ 3 ] );
+	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 3 ], PL[ 0 ] );
+
+	// adjust for horizon clipping
+	float sum = LTC_ClippedSphereFormFactor( vectorFormFactor );
+
+    // // ### Method II
+	// // integrate for every edge.
+	// float sum = 0.0;
 	
-	sum += IntegrateEdge(PL[0], PL[1]);
-    sum += IntegrateEdge(PL[1], PL[2]);
-    sum += IntegrateEdge(PL[2], PL[3]);
-    if (n >= 4)
-        sum += IntegrateEdge(PL[3], PL[4]);
-    if (n == 5)
-		sum += IntegrateEdge(PL[4], PL[0]);
+	// sum += IntegrateEdge(PL[0], PL[1]);
+    // sum += IntegrateEdge(PL[1], PL[2]);
+    // sum += IntegrateEdge(PL[2], PL[3]);
+    // if (n >= 4)
+    //     sum += IntegrateEdge(PL[3], PL[4]);
+    // if (n == 5)
+	// 	sum += IntegrateEdge(PL[4], PL[0]);
 		
-	sum =  max(0.0, sum);
+	// sum =  max(0.0, sum);
     
     // Calculate colour
     vec3 e1 = normalize(L[0] - L[1]);
@@ -569,14 +607,11 @@ vec3 LTC_Evaluate_With_Texture( in bool isDiffuse,in float roughness,const in ve
     // pLight += .5;
     
 	vec3 ref_col;
-
 	//ref_col = filterBorderRegion(roughness,vec2(saturate(pLight.x),saturate(pLight.y)),tex);
 
 	ref_col = FetchDiffuseFilteredTexture(roughness,L,vec3(sum),tex);
 
 	vec3 Lo_i = vec3(sum)*ref_col;
-	
-	Lo_i = max(vec3(0.),Lo_i);
 	
     return Lo_i;
 
