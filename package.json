@@ -4,6 +4,7 @@
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
+		"dev:screen": "webpack serve --config ./webpack/webpack.screen.js --mode=development",
 		"dev:page_xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer",
 		"build:page_xrviewer": "webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer",
 		"dev:page_gltf": "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf --env BUILD=page --env WIDTH=640 --env HEIGHT=640",
@@ -33,9 +34,11 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
+		"@babel/plugin-transform-runtime": "^7.19.6",
 		"@babel/preset-env": "^7.20.2",
 		"@babel/preset-flow": "^7.18.6",
 		"@babel/preset-react": "^7.18.6",
+		"@babel/preset-typescript": "^7.18.6",
 		"@figma/plugin-typings": "^1.55.1",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.9",
 		"@react-three/drei": "^9.43.2",

@@ -232,13 +232,22 @@ const Model = (props) =>{
         ref={modelGroupRef}
         objRef={modelSheetObj}
         visible={currVis}
-        scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]}
+        // scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]}
+        scale={[1,1,1]}
         position={
           [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
           ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
           props.index*0.0005 * props.baseUnit]}
+        // position={
+        //   [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
+        //   ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
+        //   props.index*0.0005 * props.baseUnit]}
       >
-        <primitive ref={modelRef} object={gltf.scene} />
+        <primitive 
+          ref={modelRef} 
+
+          scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]} 
+          object={gltf.scene} />
       </e.group>
     </Select>
     </>

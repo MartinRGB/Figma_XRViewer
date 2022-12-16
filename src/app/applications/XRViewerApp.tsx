@@ -22,8 +22,6 @@ import { webRootURL,webClientID,webSecrectID} from '@Config';
 import { getProject,ISheetObject,types } from '@theatre/core'
 
 import { editable as e,SheetProvider } from '@theatre/r3f'
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { AdaptiveDpr, AdaptiveEvents, Stage, useHelper } from '@react-three/drei'
 
 // todo
@@ -146,7 +144,6 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
             </>
           }
           <AdaptiveDpr pixelated />
-        {/* </SheetProvider> */}
       </Stage>
       
     </>

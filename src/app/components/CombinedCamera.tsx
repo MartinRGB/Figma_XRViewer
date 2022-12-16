@@ -173,7 +173,6 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
       position={[0,0,baseUnit]}>
         {isPerspective?<PerspectiveCamera ref={cameraRef}/>:<OrthographicCamera ref={cameraRef} />}
     </e.group>
-
     </>
   )
 

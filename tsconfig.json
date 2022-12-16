@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es6",
     "outDir": "dist",
     "jsx": "react",
     "esModuleInterop": true,
@@ -24,6 +24,8 @@
       "@Plugins/*": ["src/plugin/*"],
       "@CustomTypes": ["src/app/types"],
       "@Config": ["src/config"],
+      "three":["src/app/utils/three/src/Three.js"],
+      "three/*":["src/app/utils/three/"]
     },
     "typeRoots": [
       "./node_modules/@types",
