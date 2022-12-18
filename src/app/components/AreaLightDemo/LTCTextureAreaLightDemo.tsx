@@ -95,13 +95,22 @@ interface AreaLightProps{
 const AreaLight =  ({lightColor,lightIntensity,lightRoughness,lightRoughnessControllable,lightWidth,lightHeight,lightTexture,position,rotation,castShadow}:AreaLightProps) =>{
   const {gl,scene} = useThree();
   const textureAreaRef = useRef();
+  const cameraHelperRef = useRef(null);
   useEffect(()=>{
     if(textureAreaRef.current){
-      const helper = new THREE.CameraHelper( textureAreaRef.current.shadow.camera );
-      scene.add( helper );
+      if(cameraHelperRef.current === null){
+
+        cameraHelperRef.current = new THREE.CameraHelper( textureAreaRef.current.shadow.camera );
+        scene.add( cameraHelperRef.current );
+      }
     }
 
   },[])
+
+  useFrame(() => {
+    if(cameraHelperRef.current) cameraHelperRef.current.update()
+  });
+
   return(
   <>
     <group position={position} rotation={rotation}>
@@ -193,7 +202,7 @@ export const LTCTextureAreaLightDemo = ({}) =>{
     // position:{value:[0,20,-250],step:1},
     lightWidth:{value:14.4,step:0.1},
     lightHeight:{value:9,step:1},
-    position:{value:[0,6,-8],step:0.1},
+    position:{value:[0,6,-14],step:0.1},
     rotation:{value:[0.4,0,0],step:0.01},
     position2:{value:[719,0,-540],step:1},
     rotation2:{value:[0,0,0]},
@@ -201,39 +210,33 @@ export const LTCTextureAreaLightDemo = ({}) =>{
   })
 
     // disable orbit when drag
-    const controlRef = useRef()
     const orbitRef = useRef()
-    useEffect(() => {
-      if (controlRef.current) {
-        const controls = controlRef.current
-        const callback = (event) => {orbitRef.current.enabled = !event.value}
-        controls.addEventListener("dragging-changed", callback)
-        return () => controls.removeEventListener("dragging-changed", callback)
-      }
-    })
+    
+    // const controlRef = useRef()
+    // useEffect(() => {
+    //   if (controlRef.current) {
+    //     const controls = controlRef.current
+    //     const callback = (event) => {orbitRef.current.enabled = !event.value}
+    //     controls.addEventListener("dragging-changed", callback)
+    //     return () => controls.removeEventListener("dragging-changed", callback)
+    //   }
+    // })
 
 
-  const boxRef = useRef();
+  const areaLightRotRef = useRef()
+  const areaLightRotRef2 = useRef();
   useFrame(() => {
-    boxRef.current.rotation.y += 0.004;
-    boxRef.current.rotation.x += 0.004;
-    boxRef.current.rotation.z += 0.004;
+    if(areaLightRotRef.current){
+      areaLightRotRef.current.rotation.y += 0.004;
+      areaLightRotRef2.current.rotation.y += 0.004;
+    }
   });
 
-
-  // const spotLightRef = useRef();
-  // useHelper(spotLightRef,THREE.SpotLightHelper, "teal");
-  // console.log(spotLightRef.current)
-
-  // const pointLightRef = useRef();
-  // useHelper(pointLightRef,THREE.PointLightHelper,0.5,"hotpink");
-  // console.log(pointLightRef.current)
-
-  // const dirLightRef = useRef();
-  // const dirShadowCameraRef = useRef();
-  // useHelper(dirLightRef,THREE.DirectionalLightHelper, 1.0, "hotpink");
-  // // useHelper(dirShadowCameraRef,THREE.CameraHelper)
-  // console.log(dirLightRef.current)
+  const imgTex = new THREE.TextureLoader().load(`https://172.22.0.20:8222/external/assets/test_222.png`);
+  imgTex.minFilter = THREE.NearestFilter;
+  imgTex.magFilter = THREE.LinearFilter;
+  imgTex.wrapS = imgTex.wrapT = THREE.ClampToEdgeWrapping;
+  imgTex.repeat.set( 1, 1 );
 
   return(
     <>
@@ -259,21 +262,17 @@ export const LTCTextureAreaLightDemo = ({}) =>{
           lightRoughnessControllable={lightRoughnessControllable}
           position={position} 
           rotation={rotation}
+          castShadow={true}
         />
-        <Ground size={[1000,1000]} position={[0, -screenWidth/2, 0]} rotation={[-Math.PI / 2, 0, 0]}/>
-        <Model ModelSrc={LINK.HelmetSrc} autoRotate={true} scale={[0.25*halfScreenWidth,0.25*halfScreenWidth,0.25*halfScreenWidth]} position={[25,-30,-200]} ></Model>
-        <Model ModelSrc={LINK.ShoeSrc} autoRotate={true} scale={[0.25*halfScreenWidth,0.25*halfScreenWidth,0.25*halfScreenWidth]} position={[-25,-30,-200]} ></Model> */}
-        {/* <Model ModelSrc={`https://172.22.0.20:8222/external/Model/star_wars_the_clone_wars_venator_prefab.glb`} scale={[1.5*halfScreenWidth,1.5*halfScreenWidth,1.5*halfScreenWidth]} position={position2} rotation={rotation2} ></Model> */}
+        {/* <Ground size={[1000,1000]} position={[0, -screenWidth/2, 0]} rotation={[-Math.PI / 2, 0, 0]} repeat={[40,40]}/> */}
+        {/* <Model ModelSrc={LINK.HelmetSrc} autoRotate={true} scale={[0.25*halfScreenWidth,0.25*halfScreenWidth,0.25*halfScreenWidth]} position={[25,-50,-200]} ></Model>
+        <Model ModelSrc={LINK.ShoeSrc} autoRotate={true} scale={[0.25*halfScreenWidth,0.25*halfScreenWidth,0.25*halfScreenWidth]} position={[-25,-50,-200]} ></Model>
+        <Model ModelSrc={`https://172.22.0.20:8222/external/Model/star_wars_the_clone_wars_venator_prefab.glb`} scale={[1.5*halfScreenWidth,1.5*halfScreenWidth,1.5*halfScreenWidth]} position={position2} rotation={rotation2} ></Model> */} */}
       </Suspense>
       {/* <TextureAreaLightScreenEffects CubeSrc={LINK.CubeSrc}/> */}
       <OrbitControls makeDefault ref={orbitRef}/>
-      
-        {/* <directionalLight ref={dirLightRef} color={'#dfebff'} intensity={1.5} position={[0,4,-6]} castShadow shadow-camera-far={20} shadow-mapSize-height={512} shadow-mapSize-width={512}>
-          <perspectiveCamera ref={dirShadowCameraRef} attach="shadow-camera"></perspectiveCamera>
-        </directionalLight> */}
-        {/* <spotLight castShadow position={[0, 4, -6]} ref={spotLightRef} angle={0.5} distance={20} /> */}
-        {/* <pointLight castShadow color="white" ref={pointLightRef} intensity={1} position={[2, 5, 2]} /> */}
-        <PivotControls ref={controlRef}>
+        {/* <PivotControls ref={controlRef}> */}
+        <group ref={areaLightRotRef}>
         <AreaLight 
           lightColor={lightColor}
           lightIntensity={lightIntensity} 
@@ -286,18 +285,27 @@ export const LTCTextureAreaLightDemo = ({}) =>{
           rotation={rotation}
           castShadow={true}
         />
-        </PivotControls>
+        </group>
+
+        <group ref={areaLightRotRef2} rotation={[0,Math.PI,0]}>
+        <AreaLight 
+          lightColor={lightColor}
+          lightIntensity={lightIntensity} 
+          lightRoughness={lightRoughness}
+          lightWidth={lightWidth} 
+          lightHeight={lightHeight} 
+          lightTexture={imgTex} 
+          lightRoughnessControllable={lightRoughnessControllable}
+          position={position} 
+          rotation={rotation}
+          castShadow={true}
+        />
+        </group>
+        {/* </PivotControls> */}
         <Model ModelSrc={LINK.ShoeSrc} autoRotate={true} scale={[0.0125*halfScreenWidth,0.0125*halfScreenWidth,0.0125*halfScreenWidth]} position={[-2.5,1.,0]} ></Model>
         <Model ModelSrc={LINK.HelmetSrc} autoRotate={true} scale={[0.025*halfScreenWidth,0.025*halfScreenWidth,0.025*halfScreenWidth]} position={[2.5,1.,0]} ></Model>
         <Ground size={[1000,1000]} position={[0, -1.25, 0]} rotation={[-Math.PI / 2, 0, 0]} repeat={[40,40]}/>
-        {/* <Plane
-          receiveShadow
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -1, 0]}
-          args={[1000, 1000]}
-        >
-          <meshStandardMaterial attach="material" color="white" />
-        </Plane> */}
+
       </>
     </>
   )

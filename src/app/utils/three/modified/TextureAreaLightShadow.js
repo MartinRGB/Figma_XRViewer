@@ -23,7 +23,7 @@ class TextureAreaLightShadow {
 
 		this.bias = 0;
 		this.normalBias = 0;
-		this.radius = 1;
+		this.radius = 0.1;
 		this.blurSamples = 8;
 
 		this.mapSize = new Vector2( 512, 512 );
@@ -70,6 +70,7 @@ class TextureAreaLightShadow {
 		shadowCamera.right = light.width/2;
 		shadowCamera.top = -light.height/2;
 		shadowCamera.bottom = light.height/2;
+		shadowCamera.updateProjectionMatrix();
 		
 		////////////////
 		// # get world property
