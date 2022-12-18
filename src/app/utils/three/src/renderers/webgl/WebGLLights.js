@@ -144,6 +144,17 @@ function ShadowUniformsCache() {
 
 				// TODO (abelnation): set RectAreaLight shadow uniforms
 
+				// ############################## LTC TextureAreaLight ##############################
+				case 'TextureAreaLight':
+					uniforms = {
+						shadowBias: 0,
+						shadowNormalBias: 0,
+						shadowRadius: 1,
+						shadowMapSize: new Vector2()
+					};
+					break;
+				// ############################## LTC TextureAreaLight ##############################
+
 			}
 
 			lights[ light.id ] = uniforms;
@@ -180,9 +191,10 @@ function WebGLLights( extensions, capabilities ) {
 			directionalLength: - 1,
 			pointLength: - 1,
 			spotLength: - 1,
-			// ############################## LTC TextureAreaLight ##############################
 			rectAreaLength: - 1,
+			// ############################## LTC TextureAreaLight ##############################
 			textureAreaLength: - 1,
+			numTextureAreaShadows: -1,
 			// ############################## LTC TextureAreaLight ##############################
 			areaLightTextureLength: - 1,
 			hemiLength: - 1,
@@ -210,6 +222,9 @@ function WebGLLights( extensions, capabilities ) {
 		// ############################## LTC TextureAreaLight ##############################
 		textureArea: [],
 		areaLightTextures: [],
+		textureAreaShadow: [],
+		textureAreaShadowMap: [],
+		textureAreaShadowMatrix: [],
 		// ############################## LTC TextureAreaLight ##############################
 		point: [],
 		pointShadow: [],
@@ -239,6 +254,7 @@ function WebGLLights( extensions, capabilities ) {
 		// ############################## LTC TextureAreaLight ##############################
 		let textureAreaLength = 0;
 		let areaLightTextureLength = 0;
+		let numTextureAreaShadows = 0;
 		// ############################## LTC TextureAreaLight ##############################
 		let hemiLength = 0;
 
@@ -395,6 +411,25 @@ function WebGLLights( extensions, capabilities ) {
 				state.textureArea[ textureAreaLength ] = uniforms;
 				state.areaLightTextures[ areaLightTextureLength ] = light.texture;
 
+				if ( light.castShadow ) {
+
+					const shadow = light.shadow;
+					shadow.updateMatrices( light );
+					const shadowUniforms = shadowCache.get( light );
+
+					shadowUniforms.shadowBias = shadow.bias;
+					shadowUniforms.shadowNormalBias = shadow.normalBias;
+					shadowUniforms.shadowRadius = shadow.radius;
+					shadowUniforms.shadowMapSize = shadow.mapSize;
+
+					state.textureAreaShadow[ textureAreaLength ] = shadowUniforms;
+					state.textureAreaShadowMap[ textureAreaLength ] = shadowMap;
+					state.textureAreaShadowMatrix[ textureAreaLength ] = light.shadow.matrix;
+
+					numTextureAreaShadows ++;
+
+				}
+
 				textureAreaLength ++;
 				areaLightTextureLength ++;
 
@@ -529,6 +564,7 @@ function WebGLLights( extensions, capabilities ) {
 			// ############################## LTC TextureAreaLight ##############################
 			hash.rectAreaLength !== rectAreaLength ||
 			hash.textureAreaLength !== textureAreaLength ||
+			hash.numTextureAreaShadows !== numTextureAreaShadows ||
 			// ############################## LTC TextureAreaLight ##############################
 			hash.areaLightTextureLength !== areaLightTextureLength ||
 			hash.hemiLength !== hemiLength ||
@@ -543,6 +579,9 @@ function WebGLLights( extensions, capabilities ) {
 			// ############################## LTC TextureAreaLight ##############################
 			state.textureArea.length = textureAreaLength;
 			state.areaLightTextures.length = areaLightTextureLength;
+			state.textureAreaShadow.length = numTextureAreaShadows;
+			state.textureAreaShadowMap.length = numTextureAreaShadows;
+			state.textureAreaShadowMatrix.length = numTextureAreaShadows;
 			// ############################## LTC TextureAreaLight ##############################
 			state.point.length = pointLength;
 			state.hemi.length = hemiLength;
@@ -566,6 +605,7 @@ function WebGLLights( extensions, capabilities ) {
 			// ############################## LTC TextureAreaLight ##############################
 			hash.textureAreaLength = textureAreaLength;
 			hash.areaLightTextureLength = areaLightTextureLength;
+			hash.numTextureAreaShadows = numTextureAreaShadows;
 			// ############################## LTC TextureAreaLight ##############################
 			hash.hemiLength = hemiLength;
 

@@ -1444,6 +1444,9 @@ function WebGLRenderer( parameters = {} ) {
 			// ############################## LTC TextureAreaLight ##############################
 			uniforms.textureAreaLights.value = lights.state.textureArea;
 			uniforms.areaLightTextures.value = lights.state.areaLightTextures;
+			uniforms.textureAreaLightShadows.value = lights.state.textureAreaShadow;
+			uniforms.textureAreaShadowMap.value = lights.state.textureAreaShadowMap;
+			uniforms.textureAreaShadowMatrix.value = lights.state.textureAreaShadowMatrix;
 			// ############################## LTC TextureAreaLight ##############################
 			uniforms.ltc_1.value = lights.state.rectAreaLTC1;
 			uniforms.ltc_2.value = lights.state.rectAreaLTC2;
@@ -1868,6 +1871,7 @@ function WebGLRenderer( parameters = {} ) {
 		// ############################## LTC TextureAreaLight ##############################
 		uniforms.textureAreaLights.needsUpdate = value;
 		uniforms.areaLightTextures.needsUpdate = value;
+		uniforms.textureAreaLightShadows.needsUpdate = value;
 		// ############################## LTC TextureAreaLight ##############################
 		uniforms.hemisphereLights.needsUpdate = value;
 

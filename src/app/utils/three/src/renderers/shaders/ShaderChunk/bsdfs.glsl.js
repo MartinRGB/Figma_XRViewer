@@ -352,6 +352,21 @@ float IntegrateEdge(vec3 v1, vec3 v2)
 	return res;
 }
 
+vec3 IntegrateEdgeVec(vec3 v1, vec3 v2)
+{
+    float x = dot(v1, v2);
+    float y = abs(x);
+
+    float a = 0.8543985 + (0.4965155 + 0.0145206*y)*y;
+    float b = 3.4175940 + (4.1616724 + y)*y;
+    float v = a / b;
+
+    float theta_sintheta = (x > 0.0) ? v : 0.5*inversesqrt(max(1.0 - x*x, 1e-7)) - v;
+
+    return cross(v1, v2)*theta_sintheta;
+}
+
+
 vec3 LTC_Evaluate_Without_Texture(vec3 N, vec3 V, vec3 P, mat3 Minv, vec3 points[4]) {
     
     // construct orthonormal basis around N
@@ -386,10 +401,10 @@ vec3 LTC_Evaluate_Without_Texture(vec3 N, vec3 V, vec3 P, mat3 Minv, vec3 points
 
     // calculate vector form factor
 	vec3 vectorFormFactor = vec3( 0.0 );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 0 ], L[ 1 ] );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 1 ], L[ 2 ] );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 2 ], L[ 3 ] );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( L[ 3 ], L[ 0 ] );
+	vectorFormFactor += IntegrateEdgeVec( L[ 0 ], L[ 1 ] );
+	vectorFormFactor += IntegrateEdgeVec( L[ 1 ], L[ 2 ] );
+	vectorFormFactor += IntegrateEdgeVec( L[ 2 ], L[ 3 ] );
+	vectorFormFactor += IntegrateEdgeVec( L[ 3 ], L[ 0 ] );
 
 	// adjust for horizon clipping
 	float result = LTC_ClippedSphereFormFactor( vectorFormFactor );
@@ -463,29 +478,29 @@ vec3 blurredImage( in float roughness,in vec2 uv , in sampler2D tex)
 
 vec3 filterBorderRegion(in float roughness,in vec2 uv,in sampler2D tex){
     // this is useless now
-	// float scale = 1.;
-    // float error = 0.4; //0.45
+	float scale = 1.;
+    float error = 0.4; //0.45
 
-    // // Convert uv range to -1 to 1
-    // vec2 UVC = uv * 2.0 - 1.0;
-    // UVC *= (1. * 0.5 + 0.5) * (1. + (1. - scale));
-    // // Convert back to 0 to 1 range
-    // UVC = UVC * 0.5 + 0.5;
+    // Convert uv range to -1 to 1
+    vec2 UVC = uv * 2.0 - 1.0;
+    UVC *= (1. * 0.5 + 0.5) * (1. + (1. - scale));
+    // Convert back to 0 to 1 range
+    UVC = UVC * 0.5 + 0.5;
 
-    // vec4 ClearCol;
-    // vec4 BlurCol;
+    vec4 ClearCol;
+    vec4 BlurCol;
     
-    // BlurCol.rgb = blurredImage(2.,uv,tex);
-	// if(UVC.x < 1. && UVC.x > 0. && UVC.y > 0. && UVC.y < 1.){
-    //     ClearCol.rgb = blurredImage(min(2.,roughness),UVC,tex);
-    // }
-	// //ClearCol.rgb = blurredImage(roughness,UVC,tex);
-	// float boxMask = maskBox(UVC,vec2(scale+0.),error);
-    // BlurCol.rgb = mix(BlurCol.rgb, ClearCol.rgb, boxMask);
-    // return BlurCol
+    BlurCol.rgb = blurredImage(2.,uv,tex);
+	if(UVC.x < 1. && UVC.x > 0. && UVC.y > 0. && UVC.y < 1.){
+        ClearCol.rgb = blurredImage(min(2.,roughness),UVC,tex);
+    }
+	//ClearCol.rgb = blurredImage(roughness,UVC,tex);
+	float boxMask = maskBox(UVC,vec2(scale+0.),error);
+    BlurCol.rgb = mix(BlurCol.rgb, ClearCol.rgb, boxMask);
+    return BlurCol.rgb;
     
     // # Method 2
-	return blurredImage(min(2.,roughness),uv,tex).rgb;
+	//return blurredImage(min(2.,roughness),uv,tex).rgb;
 }
 
 // https://advances.realtimerendering.com/s2016/s2016_ltc_rnd.pdf p-104  -> filtered border region
@@ -570,10 +585,10 @@ vec3 LTC_Evaluate_With_Texture( in bool isDiffuse,in float roughness,const in ve
 
     // calculate vector form factor
 	vec3 vectorFormFactor = vec3( 0.0 );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 0 ], PL[ 1 ] );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 1 ], PL[ 2 ] );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 2 ], PL[ 3 ] );
-	vectorFormFactor += LTC_EdgeVectorFormFactor( PL[ 3 ], PL[ 0 ] );
+	vectorFormFactor += IntegrateEdgeVec( PL[ 0 ], PL[ 1 ] );
+	vectorFormFactor += IntegrateEdgeVec( PL[ 1 ], PL[ 2 ] );
+	vectorFormFactor += IntegrateEdgeVec( PL[ 2 ], PL[ 3 ] );
+	vectorFormFactor += IntegrateEdgeVec( PL[ 3 ], PL[ 0 ] );
 
 	// adjust for horizon clipping
 	float sum = LTC_ClippedSphereFormFactor( vectorFormFactor );

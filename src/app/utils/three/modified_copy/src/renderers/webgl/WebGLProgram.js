@@ -193,6 +193,7 @@ function replaceLightNums( string, parameters ) {
 		// ############################## LTC TextureAreaLight ##############################
 		.replace( /NUM_TEXTURE_AREA_LIGHTS/g, parameters.numTextureAreaLights )
 		.replace( /NUM_AREA_LIGHT_TEXTURES/g, parameters.numAreaLightTextures )
+		.replace( /NUM_TEXTURE_AREA_LIGHT_SHADOWS/g, parameters.numTextureAreaLightShadows )
 		// ############################## LTC TextureAreaLight ##############################
 		;
 

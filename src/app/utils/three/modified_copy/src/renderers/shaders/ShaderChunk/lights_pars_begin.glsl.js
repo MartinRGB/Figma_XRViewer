@@ -190,12 +190,17 @@ float getSpotAttenuation( const in float coneCosine, const in float penumbraCosi
 
 	// Pre-computed values of LinearTransformedCosine approximation of BRDF
 	// BRDF approximation Texture is 64x64
-	uniform sampler2D ltc_1; // RGBA Float
-	uniform sampler2D ltc_2; // RGBA Float
+	// ############################## LTC TextureAreaLight ##############################
+	// uniform sampler2D ltc_1; // RGBA Float
+	// uniform sampler2D ltc_2; // RGBA Float
+	// ############################## LTC TextureAreaLight ##############################
 	uniform RectAreaLight rectAreaLights[ NUM_RECT_AREA_LIGHTS ];
 
 #endif
 // ############################## LTC TextureAreaLight ##############################
+
+uniform sampler2D ltc_1; // RGBA Float
+uniform sampler2D ltc_2; // RGBA Float
 
 #if NUM_TEXTURE_AREA_LIGHTS > 0
 
@@ -217,17 +222,12 @@ float getSpotAttenuation( const in float coneCosine, const in float penumbraCosi
 
 	// Pre-computed values of LinearTransformedCosine approximation of BRDF
 	// BRDF approximation Texture is 64x64
-	// ############################## LTC TextureAreaLight ##############################
-	// uniform sampler2D ltc_1; // RGBA Float
-	// uniform sampler2D ltc_2; // RGBA Float
-	// ############################## LTC TextureAreaLight ##############################
-	uniform RectAreaLight rectAreaLights[ NUM_RECT_AREA_LIGHTS ];
+	uniform sampler2D areaLightTextures[ NUM_TEXTURE_AREA_LIGHTS ];
+	uniform TextureAreaLight textureAreaLights[ NUM_TEXTURE_AREA_LIGHTS ];
 
 #endif
-// ############################## LTC TextureAreaLight ##############################
 
-uniform sampler2D ltc_1; // RGBA Float
-uniform sampler2D ltc_2; // RGBA Float
+// ############################## LTC TextureAreaLight ##############################
 
 #if NUM_HEMI_LIGHTS > 0
 

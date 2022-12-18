@@ -204,6 +204,7 @@ function WebGLPrograms( renderer, cubemaps, cubeuvmaps, extensions, capabilities
 			// ############################## LTC TextureAreaLight ##############################
 			numTextureAreaLights: lights.textureArea.length,
 			numAreaLightTextures: lights.areaLightTextures.length,
+			numTextureAreaLightShadows: lights.textureAreaShadowMap.length,
 			// ############################## LTC TextureAreaLight ##############################
 			numHemiLights: lights.hemi.length,
 
@@ -311,6 +312,7 @@ function WebGLPrograms( renderer, cubemaps, cubeuvmaps, extensions, capabilities
 		// ############################## LTC TextureAreaLight ##############################
 		array.push( parameters.numTextureAreaLights );
 		array.push( parameters.numAreaLightTextures );
+		array.push( parameters.numTextureAreaLightShadows );
 		// ############################## LTC TextureAreaLight ##############################
 		array.push( parameters.numDirLightShadows );
 		array.push( parameters.numPointLightShadows );

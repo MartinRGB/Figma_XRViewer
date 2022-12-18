@@ -41,9 +41,6 @@ import { PointLight } from '../lights/PointLight.js';
 import { DirectionalLight } from '../lights/DirectionalLight.js';
 import { AmbientLight } from '../lights/AmbientLight.js';
 import { RectAreaLight } from '../lights/RectAreaLight.js';
-// ############################## LTC TextureAreaLight ##############################
-import { TextureAreaLight } from '../../modified/TextureAreaLight.js';
-// ############################## LTC TextureAreaLight ##############################
 import { LightProbe } from '../lights/LightProbe.js';
 import { OrthographicCamera } from '../cameras/OrthographicCamera.js';
 import { PerspectiveCamera } from '../cameras/PerspectiveCamera.js';
@@ -831,14 +828,6 @@ class ObjectLoader extends Loader {
 				object = new RectAreaLight( data.color, data.intensity, data.width, data.height );
 
 				break;
-			
-			// ############################## LTC TextureAreaLight ##############################
-			case 'TextureAreaLight':
-
-				object = new TextureAreaLight( ata.color, data.intensity, data.width, data.height, data.texture, data.normal, data.right, data.up, data.size, data.attenuation );
-
-				break;
-			// ############################## LTC TextureAreaLight ##############################
 
 			case 'SpotLight':
 

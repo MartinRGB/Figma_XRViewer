@@ -203,6 +203,17 @@ const UniformsLib = {
 		} },
 
 		areaLightTextures: { value: [] },
+
+		textureAreaLightShadows: { value: [], properties: {
+			shadowBias: {},
+			shadowNormalBias: {},
+			shadowRadius: {},
+			shadowMapSize: {}
+		} },
+
+		textureAreaShadowMap: { value: [] },
+		textureAreaShadowMatrix: { value: [] },
+
 		// ############################## LTC TextureAreaLight ##############################
 
 	},

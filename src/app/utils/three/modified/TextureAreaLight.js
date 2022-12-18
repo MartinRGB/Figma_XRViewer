@@ -1,5 +1,7 @@
-import { Light, Vector3 } from '../src/Three.js';
+import { Light, Vector3, Object3D } from '../src/Three.js';
 import { AreaLightProxy } from './AreaLightProxy.js';
+import { TextureAreaLightShadow } from './TextureAreaLightShadow.js'
+import { OrthographicCamera } from '../src/cameras/OrthographicCamera.js';
 
 class TextureAreaLight extends Light {
 
@@ -33,6 +35,14 @@ class TextureAreaLight extends Light {
 		this.linearAttenuation = ( linearAttenuation !== undefined ) ? linearAttenuation : 0.5;
 		this.quadraticAttenuation = ( quadraticAttenuation !== undefined ) ? quadraticAttenuation : 0.5;
 		this.lightProxy = ( renderer !== null ) ? new AreaLightProxy( this, renderer ) : null;
+		
+		this.shadow = new TextureAreaLightShadow(-this.width/2,this.width/2,-this.height/2,this.height/2,0.01,500);
+		this.updateMatrix();
+	}
+
+	dispose() {
+		super.dispose()
+		this.shadow.dispose();
 
 	}
 
@@ -50,6 +60,8 @@ class TextureAreaLight extends Light {
 		this.linearAttenuation = source.linearAttenuation;
 		this.quadraticAttenuation = source.quadraticAttenuation;
 		this.lightProxy = source.lightProxy;
+
+		this.shadow = source.shadow.clone();
 
 		return this;
 

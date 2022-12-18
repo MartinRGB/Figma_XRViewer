@@ -5,11 +5,11 @@ import { LUTCubeLoader } from 'postprocessing'
 import React from 'react'
 
 interface ScreenEffectsProps{
-  CubeSrc:string;
+  CubeSrc?:string;
 }
 
 const TextureAreaLightScreenEffects = ({CubeSrc}:ScreenEffectsProps) =>{
-  const texture = useLoader(LUTCubeLoader, CubeSrc)
+  const texture = CubeSrc?useLoader(LUTCubeLoader, CubeSrc):null;
   const { enabled,...props } = useControls({
     enabled: true,
     temporalResolve: true,
@@ -46,7 +46,7 @@ const TextureAreaLightScreenEffects = ({CubeSrc}:ScreenEffectsProps) =>{
       <EffectComposer disableNormalPass>
         <SSR {...props} />
         <Bloom luminanceThreshold={0.5} mipmapBlur luminanceSmoothing={0} intensity={1.5} />
-        <LUT lut={texture} />
+        {texture && <LUT lut={texture} />}
       </EffectComposer>
     )
   )

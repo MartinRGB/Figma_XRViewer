@@ -173,11 +173,22 @@ IncidentLight directLight;
 #if ( NUM_TEXTURE_AREA_LIGHTS > 0 ) && defined( RE_Direct_TextureArea )
 
 	TextureAreaLight textureAreaLight;
+	
+	#if defined( USE_SHADOWMAP ) && NUM_TEXTURE_AREA_LIGHT_SHADOWS > 0
+	TextureAreaLightShadow textureAreaLightShadow;
+	#endif
 
 	#pragma unroll_loop_start
 	for ( int i = 0; i < NUM_TEXTURE_AREA_LIGHTS; i ++ ) {
 
 		textureAreaLight = textureAreaLights[ i ];
+
+		#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_TEXTURE_AREA_LIGHT_SHADOWS )
+		//todo directionalShaow has no direction,select spot or point
+		textureAreaLightShadow = textureAreaLightShadows[ i ];
+		textureAreaLight.areaLightColor *= receiveShadow ? getPCSSShadow( textureAreaShadowMap[ i ], textureAreaLightShadow.shadowMapSize, textureAreaLightShadow.shadowBias, textureAreaLightShadow.shadowRadius, vTextureAreaShadowCoord[ i ] ) : 1.0;
+		#endif
+
 		RE_Direct_TextureArea( textureAreaLight, geometry, material, reflectedLight, areaLightTextures[i] );
 
 	}
