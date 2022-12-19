@@ -47,7 +47,7 @@ figma.ui.onmessage = msg => {
   }
 
   // ############### LocalServer ###############
-  if(envPlugin === 'localserver'){  
+  if(envPlugin === 'local_webxr' || envPlugin === 'local_unity'){  
     if (msg.type === 'get_data') {
       let nodes = figma.currentPage.selection;
       if (nodes.length === 1) {
@@ -83,7 +83,7 @@ figma.ui.onmessage = msg => {
             //console.log('from figma: ' + `Succeed to get childNode ${i} image!`)
           },
           ()=>{
-            sendMsg("finished_msg", [fileKey,fileName.replaceAll(' ','-'),nodeId,imgArray,{node:jsonArr}]);
+            sendMsg("finished_msg", [fileKey,fileName.replaceAll(' ','-'),nodeId,imgArray,{nodes:[{"document":jsonArr}]}]);
           }
         )
       }

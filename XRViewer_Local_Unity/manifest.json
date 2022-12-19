@@ -1,6 +1,6 @@
 {
-  "name": "XRViewer_LocalServer",
-  "id": "1172830282368306410",
+  "name": "XRViewer_Local_Unity",
+  "id": "1172830282368306419",
   "api": "1.0.0",
   "main": "code.js",
   "editorType": [

@@ -565,7 +565,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
         (isQuery === true)?
         <></> 
         :
-        <Screen name={'Screen'} hasData={false} baseUnit={baseUnit} orbitRef={orbitRef}/>
+        <Screen name={'Screen'} hasData={false} baseUnit={baseUnit} orbitRef={orbitRef} selectCallback={(e)=>{selectCallback(e)}}/>
       }
       </>
     }

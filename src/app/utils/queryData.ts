@@ -170,8 +170,7 @@ export async function asyncFetchQueryLocalServerJSON (fileKey,nodeId,progressCal
 
   const data = await fetch(_apiUrl,)
   const json = await data.json();
-  console.log(json.node)
-  const parentNode = json.node;
+  const parentNode = json.nodes[0].document;
   // # filter invisilbe node
   const childrenNode = parentNode.children;
   const childrenLength = childrenNode.length;

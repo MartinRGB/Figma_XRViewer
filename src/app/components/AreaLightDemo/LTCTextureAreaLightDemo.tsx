@@ -191,7 +191,6 @@ export const LTCTextureAreaLightDemo = ({}) =>{
           }
         }
         else{
-
           setThreeTexture(null)
           setVideo(null)
         }
@@ -212,31 +211,15 @@ export const LTCTextureAreaLightDemo = ({}) =>{
     // disable orbit when drag
     const orbitRef = useRef()
     
-    // const controlRef = useRef()
-    // useEffect(() => {
-    //   if (controlRef.current) {
-    //     const controls = controlRef.current
-    //     const callback = (event) => {orbitRef.current.enabled = !event.value}
-    //     controls.addEventListener("dragging-changed", callback)
-    //     return () => controls.removeEventListener("dragging-changed", callback)
-    //   }
-    // })
-
-
-  const areaLightRotRef = useRef()
-  const areaLightRotRef2 = useRef();
-  useFrame(() => {
-    if(areaLightRotRef.current){
-      areaLightRotRef.current.rotation.y += 0.004;
-      areaLightRotRef2.current.rotation.y += 0.004;
-    }
-  });
-
-  const imgTex = new THREE.TextureLoader().load(`https://172.22.0.20:8222/external/assets/test_222.png`);
-  imgTex.minFilter = THREE.NearestFilter;
-  imgTex.magFilter = THREE.LinearFilter;
-  imgTex.wrapS = imgTex.wrapT = THREE.ClampToEdgeWrapping;
-  imgTex.repeat.set( 1, 1 );
+    const controlRef = useRef()
+    useEffect(() => {
+      if (controlRef.current) {
+        const controls = controlRef.current
+        const callback = (event) => {orbitRef.current.enabled = !event.value}
+        controls.addEventListener("dragging-changed", callback)
+        return () => controls.removeEventListener("dragging-changed", callback)
+      }
+    })
 
   return(
     <>
@@ -271,8 +254,7 @@ export const LTCTextureAreaLightDemo = ({}) =>{
       </Suspense>
       {/* <TextureAreaLightScreenEffects CubeSrc={LINK.CubeSrc}/> */}
       <OrbitControls makeDefault ref={orbitRef}/>
-        {/* <PivotControls ref={controlRef}> */}
-        <group ref={areaLightRotRef}>
+        <PivotControls ref={controlRef}>
         <AreaLight 
           lightColor={lightColor}
           lightIntensity={lightIntensity} 
@@ -285,23 +267,7 @@ export const LTCTextureAreaLightDemo = ({}) =>{
           rotation={rotation}
           castShadow={true}
         />
-        </group>
-
-        <group ref={areaLightRotRef2} rotation={[0,Math.PI,0]}>
-        <AreaLight 
-          lightColor={lightColor}
-          lightIntensity={lightIntensity} 
-          lightRoughness={lightRoughness}
-          lightWidth={lightWidth} 
-          lightHeight={lightHeight} 
-          lightTexture={imgTex} 
-          lightRoughnessControllable={lightRoughnessControllable}
-          position={position} 
-          rotation={rotation}
-          castShadow={true}
-        />
-        </group>
-        {/* </PivotControls> */}
+        </PivotControls>
         <Model ModelSrc={LINK.ShoeSrc} autoRotate={true} scale={[0.0125*halfScreenWidth,0.0125*halfScreenWidth,0.0125*halfScreenWidth]} position={[-2.5,1.,0]} ></Model>
         <Model ModelSrc={LINK.HelmetSrc} autoRotate={true} scale={[0.025*halfScreenWidth,0.025*halfScreenWidth,0.025*halfScreenWidth]} position={[2.5,1.,0]} ></Model>
         <Ground size={[1000,1000]} position={[0, -1.25, 0]} rotation={[-Math.PI / 2, 0, 0]} repeat={[40,40]}/>

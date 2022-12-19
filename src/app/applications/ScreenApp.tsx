@@ -1,5 +1,5 @@
 import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense, useLayoutEffect} from 'react'
-import SceneTest from 'src/app/components/ScreenTest.ts'
+import SceneTest from 'src/app/components/AreaLightDemo/ScreenTest.ts'
 import styled from 'styled-components'
 
 const ScreenApp = () => {

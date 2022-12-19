@@ -22,10 +22,16 @@ XRViewer_Unity/*.js
 XRViewer_Unity/*.zip
 XRViewer_Unity/*.txt
 
-XRViewer_LocalServer/*.html
-XRViewer_LocalServer/*.js
-XRViewer_LocalServer/*.zip
-XRViewer_LocalServer/*.txt
+XRViewer_Local_WebXR/*.html
+XRViewer_Local_WebXR/*.js
+XRViewer_Local_WebXR/*.zip
+XRViewer_Local_WebXR/*.txt
+
+XRViewer_Local_Unity/*.html
+XRViewer_Local_Unity/*.js
+XRViewer_Local_Unity/*.zip
+XRViewer_Local_Unity/*.txt
+
 
 /release
 

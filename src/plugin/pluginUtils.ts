@@ -13,7 +13,9 @@ export const rejectedMsg = (msg) => {
 
 const mapKeyValue = (keys,child,frame) =>{
   for(var i =0;i<keys.length;i++){
-    child[keys[i].toString()] = frame[keys[i].toString()]
+    if(frame[keys[i].toString()]){
+      child[keys[i].toString()] = frame[keys[i].toString()]
+    }
   }
 }
 
@@ -43,8 +45,63 @@ export const JSONMapPropsFromParent = (frame,key,node) =>{
 
   const isModel = (frame.name.includes('https://') && (frame.name.includes('.gltf') || frame.name.includes('.glb')));
   const obj = {}
-  const copyProperties = ['id','width','height','x','y','absoluteBoundingBox','absoluteRenderBounds'];
+  const copyProperties = [
+    'id','width','height','x','y','absoluteBoundingBox','absoluteRenderBounds','type','scrollBehavior','blendMode','strokes','strokeWeight','strokeAlign'
+  ,'characters','style'];
   mapKeyValue(copyProperties,obj,frame)
+
+  obj.fills = []
+  if(frame['fills']){
+    for(var a=0;a<frame['fills'].length;a++){
+      const fillsChild = frame['fills'][a]
+      const fillsChildObj = {};
+      if(fillsChild['type']) fillsChildObj['type'] = fillsChild['type']
+      if(fillsChild['visible']) fillsChildObj['visible'] = fillsChild['visible']
+      if(fillsChild['opacity']) fillsChildObj['opacity'] = fillsChild['opacity']
+      if(fillsChild['blendMode']) fillsChildObj['blendMode'] = fillsChild['blendMode']
+      if(fillsChild['scaleMode']) fillsChildObj['scaleMode'] = fillsChild['scaleMode']
+      if(fillsChild['imageTransform']) fillsChildObj['imageTransform'] = fillsChild['imageTransform']
+      if(fillsChild['scalingFactor']) fillsChildObj['scalingFactor'] = fillsChild['scalingFactor']
+      if(fillsChild['rotation']) fillsChildObj['rotation'] = fillsChild['rotation']
+      if(fillsChild['filters']) fillsChildObj['filters'] = fillsChild['filters']
+      if(fillsChild['imageHash']) fillsChildObj['imageHash'] = fillsChild['imageHash']
+      if(fillsChild['color']) {
+        fillsChildObj['color'] = {
+          "r":fillsChild['color']['r'],
+          "g":fillsChild['color']['g'],
+          "b":fillsChild['color']['b'],
+          "a":1
+        }
+      }
+
+      obj.fills.push(fillsChildObj);
+    }
+  }
+
+  if(frame.type === 'TEXT'){
+    console.log(frame)
+    obj.style= {
+      "fontFamily": frame.fontName.family,
+      "fontPostScriptName": null,
+      "fontWeight": frame.fontWeight,
+      "textAutoResize": frame.textAutoResize,
+      "fontSize": frame.fontSize,
+      "textAlignHorizontal": frame.textAlignHorizontal,
+      "textAlignVertical": frame.textAlignVertical,
+      "letterSpacing": frame.letterSpacing.value,
+      "lineHeightPx": null,
+      "lineHeightPercent": null,
+      "lineHeightUnit":null,
+      "textDecoration":frame.textDecoration,
+      "textCase":frame.textCase,
+    }
+  }
+
+  obj.constraints =  {
+    "vertical": "TOP",
+    "horizontal": "LEFT"
+  };
+
   obj.name = isModel?
     frame.name.replaceAll('(','%28').replaceAll(')','%29').replaceAll('%3A','%253A')
     :

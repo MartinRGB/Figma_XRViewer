@@ -15,20 +15,8 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
       const {type,value} = event.data.pluginMessage;
   
       if(type == 'finished_msg'){
-  
-        if(platform != 'localserver'){
-          const fileKey = value[0]
-          const fileName = value[1]
-          const nodeId = value[2];
-          //const platform = value[3];
-          setIsLoading(false);
-          setLoadingText('Finished!')
-          setLoadingProgress(1);
-          window.open(`${webRootURL}${platform === 'webxr'?'index':'importer'}.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
-          parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-     
-        }
-        else{
+
+        if(platform === 'local_webxr' || platform === 'local_unity'){
           const fileKey = value[0]
           const fileName = value[1]
           const nodeId = value[2];
@@ -48,7 +36,12 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             setIsLoading(false)
             //overwrite files to nginxHostWebUrl's folder
             //isLocal?webRootURL:nginxHostWebUrl
-            window.open(`${webRootURL}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+            if(platform === 'local_webxr'){
+              window.open(`${webRootURL}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+            }
+            else if(platform === 'local_unity'){
+              window.open(`${webRootURL}importer.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+            }
             parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
           },1000);setLoadingText('Finished!');}
           
@@ -93,6 +86,25 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
               )
             }
           }
+        }
+        // figma Unity & WebXR
+        else{
+          const fileKey = value[0]
+          const fileName = value[1]
+          const nodeId = value[2];
+          //const platform = value[3];
+          setIsLoading(false);
+          setLoadingText('Finished!')
+          setLoadingProgress(1);
+
+          if(platform === 'webxr'){
+            window.open(`${webRootURL}index.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+          }
+          else if(platform === 'unity'){
+            window.open(`${webRootURL}importer.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+          }
+          
+          parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
         }
 
       }

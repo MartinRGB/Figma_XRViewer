@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useCallback} from 'react'
 import {FigmaApi} from '@Utils/figmaAPI';
 import Spinner from '@Components/Spinner';
-import { webRootURL,webClientID,webSecrectID } from '@Config';
+import { webRootURL,webClientID,webSecrectID, nginxUploadFolder,nginxDirLink } from '@Config';
 import { copyToClipboard } from '@Utils/functions'; 
 import styled,{ThemeProvider,createGlobalStyle} from 'styled-components';
 import {themes,CodeBtn, DataInfo, FlexLeftContainer, FlexRightContainer, GreenBtn, HorizontalFlexContainer, ImageInList, ImageListContainer, ImporterGlobalStyle, JSONTextArea, MarginTopSix, NormalTextArea, Para, StrongText, VerticalFlexContainer,}  from '@Styles/Importer'
@@ -40,33 +40,64 @@ const ImporterApp = () => {
 
   useEffect(()=>{
     const parsedUrl = new URL(window.location.href);
+    // open html with queryKey (from figma)
     if(parsedUrl.searchParams.get('query_key') != null){
       //TODO smart way of getting token
-      figmaApi.getOAuth2Token().then(token => {
-        setCurrentToken(token)
-        setIsLoading(false);
-        console.log(token)
+      if(parsedUrl.searchParams.get('query_token') === 'auth_everytime'){
+        figmaApi.getOAuth2Token().then(token => {
+          setCurrentToken(token)
+          setIsLoading(false);
+          console.log(token)
+          const queryKey = parsedUrl.searchParams.get('query_key');
+          const queryNode = parsedUrl.searchParams.get('query_node');
+          const _rendererUrlBase = webRootURL;
+          const _rendererUrl = _rendererUrlBase + `?query_token=${token}&query_key=${queryKey}&query_node=${queryNode}`
+          const _apiUrlBase = `https://api.figma.com/v1/files/`
+          const _apiUrl = _apiUrlBase + `${queryKey}/nodes?ids=${queryNode}`
+    
+          setCurrentKey(queryKey)
+          setCurrentNode(queryNode)
+    
+          setApiUrl(_apiUrl)
+          setWebUrl(_rendererUrl)
+  
+          if(parsedUrl.searchParams.get('query_platform') === 'unity' ){
+            onSendToUnity(token,queryKey,queryNode);
+          }
+  
+          if(parsedUrl.searchParams.get('query_platform') === 'webxr' ){
+            window.location.href =`${_rendererUrl}`;
+          }
+        });
+      }
+
+      if(parsedUrl.searchParams.get('query_token') === 'local_server'){
         const queryKey = parsedUrl.searchParams.get('query_key');
         const queryNode = parsedUrl.searchParams.get('query_node');
+        const queryToken = parsedUrl.searchParams.get('query_token');
+
         const _rendererUrlBase = webRootURL;
-        const _rendererUrl = _rendererUrlBase + `?query_token=${token}&query_key=${queryKey}&query_node=${queryNode}`
-        const _apiUrlBase = `https://api.figma.com/v1/files/`
-        const _apiUrl = _apiUrlBase + `${queryKey}/nodes?ids=${queryNode}`
-  
+        const _rendererUrl = _rendererUrlBase + `?query_token=${queryToken}&query_key=${queryKey}&query_node=${queryNode}`
+
+        const _apiUrl = `${nginxDirLink}${nginxUploadFolder}/${queryKey}/${queryNode.replaceAll(':','%253A')}/data.json`
+
+        setIsLoading(false);
+        setCurrentToken(queryToken)
         setCurrentKey(queryKey)
         setCurrentNode(queryNode)
-  
-        setApiUrl(_apiUrl)
         setWebUrl(_rendererUrl)
+        setApiUrl(_apiUrl)
 
-        if(parsedUrl.searchParams.get('query_platform') === 'unity' ){
-          onSendToUnity(token,queryKey,queryNode);
+        if(parsedUrl.searchParams.get('query_platform') === 'local_unity' ){
+          onSendToUnity(queryToken,queryKey,queryNode);
         }
-        if(parsedUrl.searchParams.get('query_platform') === 'webxr' ){
-          window.location.href =`${_rendererUrl}`;
-        }
-      });
+
+        // if(parsedUrl.searchParams.get('query_platform') === 'local_webxr' ){
+
+        // }
+      }
     }
+    // open html without queryKey (directly from weburl)
     else{
       figmaApi.getOAuth2Token().then(token => {
         setCurrentToken(token)
@@ -126,26 +157,26 @@ const ImporterApp = () => {
       )
   },[])
 
-  const ImageRequest = useCallback((fileKey,nodeId,imageScale,index,length,imgArr,token) =>{
-    console.log('token')
+  const ImageRequestFigma = useCallback((fileKey,nodeId,imageScale,index,length,token) =>{
+    
     var httpImgRequest = new XMLHttpRequest();
     console.log(fileKey,nodeId,imageScale)
     httpImgRequest.open('GET', FigmaImageRequestUrl(fileKey,nodeId,imageScale), true); 
     httpImgRequest.setRequestHeader("Authorization",`Bearer ${token}`);
     httpImgRequest.send();
     let a = index;
-    console.log(a);
+    //console.log(a);
     httpImgRequest.onreadystatechange = function () {
       if (httpImgRequest.readyState == 4 && httpImgRequest.status == 200) {
         // get json data
         var json = JSON.parse(httpImgRequest.responseText);
-        imgArr.push(Object.values(json.images)[0]);
-        console.log(imgArr);
+        //imgArr.push(Object.values(json.images)[0]);
+        //console.log(imgArr);
         setImageArray(imageArray => [...imageArray,Object.values(json.images)[0]])
         if(a === length - 1){
           //setImageArray(imgArr);
           setIsLoading(false)
-          console.log(imgArr)
+          //console.log(imgArr)
         }
 
       }
@@ -179,11 +210,20 @@ const ImporterApp = () => {
   },[])
 
   const onSendToUnity = useCallback((_token,_key,_node) =>{
-    var hrefLink = document.createElement('a');
-    hrefLink.href = `com.unity3d.kharma:custom/query_token=${_token}&file_key=${_key}&frame_name=${"figma"}&node_id=${_node}`;
-    document.body.appendChild(hrefLink);
-    hrefLink.click();
-    document.body.removeChild(hrefLink);
+    if(_token === 'local_server'){
+      var hrefLink = document.createElement('a');
+      hrefLink.href = `com.unity3d.kharma:custom/query_token=${_token}&file_key=${_key}&frame_name=${"figma"}&node_id=${_node}`;
+      document.body.appendChild(hrefLink);
+      hrefLink.click();
+      document.body.removeChild(hrefLink);
+    }
+    else{
+      var hrefLink = document.createElement('a');
+      hrefLink.href = `com.unity3d.kharma:custom/query_token=${_token}&file_key=${_key}&frame_name=${"figma"}&node_id=${_node}`;
+      document.body.appendChild(hrefLink);
+      hrefLink.click();
+      document.body.removeChild(hrefLink);
+    }
   },[])
 
   const onOpenWebXR = useCallback((url) =>{
@@ -195,28 +235,45 @@ const ImporterApp = () => {
     window.location.href=`${url}importer.html`;
   },[])
 
+  const ImageRequestLocal = useCallback((child,index,length) =>{
+    
+    let a = index;
+    setImageArray(imageArray => [...imageArray,child.src])
+    if(a === length - 1){
+      //setImageArray(imgArr);
+      setIsLoading(false)
+    }
+  },[])
+
   const onGetImageList = useCallback((json,token,fileKey) => {
     setIsLoading(true)
     var idNodes = [];
-    var imgArr = [];
+    //var imgArr = [];
     setImageArray([]);
     const firstNodeValue = Object.values(json.nodes)[0]
-    console.log(firstNodeValue)
     //# preview
     const firstNodeKey = Object.keys(json.nodes)[0]
-    idNodes.push(firstNodeKey); 
-    console.log(key)
-    for(var i =0;i< firstNodeValue.document.children.length;i++){
-        console.log(i)
+    idNodes.push(firstNodeKey);
+
+    if(token === 'local_server'){
+      for(var i =0;i< firstNodeValue.document.children.length;i++){
+        const child = firstNodeValue.document.children[i];
+        ImageRequestLocal(child,i,firstNodeValue.document.children.length);
+      }
+    }
+    else{
+      for(var i =0;i< firstNodeValue.document.children.length;i++){
         idNodes.push(firstNodeValue.document.children[i].id)
         if(i === firstNodeValue.document.children.length-1){
             console.log(idNodes);
             // # get image url
             for(var a = 0;a<idNodes.length;a++){
-                ImageRequest(fileKey,idNodes[a],1,a,idNodes.length,imgArr,token)
+              ImageRequestFigma(fileKey,idNodes[a],1,a,idNodes.length,token)
             }
         }
+      }       
     }
+
   },[])
 
   return (
@@ -249,30 +306,57 @@ const ImporterApp = () => {
                     </>
                     :
                     <>
-                    <MarginTopSix>
-                        <Para>Your Figma <CodeBtn>API Url</CodeBtn> is:</Para>
-                        <StrongText>{apiUrl}</StrongText>
-                        <Para>Your <CodeBtn>Figma Token</CodeBtn> is:</Para>
-                        <StrongText>{token}</StrongText>
-                        <Para>Your <CodeBtn>Frame Url</CodeBtn> is:</Para>
-                        <StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText>
-                        <Para>Your <CodeBtn>API Url</CodeBtn> is:</Para>
-                        <StrongText>{apiUrl}</StrongText>
-                        <Para>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</Para>
-                        <StrongText>{webUrl}</StrongText>
-                    </MarginTopSix>
+                      {token === 'local_server'?
+                      <>
+                      <MarginTopSix>
+                          <Para>Your <CodeBtn>Frame Url</CodeBtn> is:</Para>
+                          <StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText>
+                          <Para>Your <CodeBtn>API Url</CodeBtn> is:</Para>
+                          <StrongText>{apiUrl}</StrongText>
+                          <Para>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</Para>
+                          <StrongText>{webUrl}</StrongText>
+                      </MarginTopSix>
+                      <MarginTopSix>
+                          <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
+                          <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
+                          <GreenBtn onClick={()=>{onGoOrigSite(webRootURL)}}>Go Origin Site</GreenBtn> <br></br>
+                          <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
+                          {(jsonData)?
+                            <GreenBtn onClick={()=>{onGetImageList(jsonData,token,key)}}>Get Image</GreenBtn>
+                            :
+                            <></>
+                          }
+                        </MarginTopSix>
+                      </>
+                      :
+                      <>
+                        <MarginTopSix>
+                            <Para>Your Figma <CodeBtn>API Url</CodeBtn> is:</Para>
+                            <StrongText>{apiUrl}</StrongText>
+                            <Para>Your <CodeBtn>Figma Token</CodeBtn> is:</Para>
+                            <StrongText>{token}</StrongText>
+                            <Para>Your <CodeBtn>Frame Url</CodeBtn> is:</Para>
+                            <StrongText>{`https://www.figma.com/file/${key}/figma?node-id=${node}`}</StrongText>
+                            <Para>Your <CodeBtn>API Url</CodeBtn> is:</Para>
+                            <StrongText>{apiUrl}</StrongText>
+                            <Para>Your <CodeBtn>WebXR Website Url</CodeBtn> is:</Para>
+                            <StrongText>{webUrl}</StrongText>
+                        </MarginTopSix>
 
-                    <MarginTopSix>
-                      <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
-                      <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
-                      <GreenBtn onClick={()=>{onGoOrigSite(webRootURL)}}>Go Origin Site</GreenBtn> <br></br>
-                      <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
-                      {(jsonData)?
-                        <GreenBtn onClick={()=>{onGetImageList(jsonData,token,key)}}>Get Image</GreenBtn>
-                        :
-                        <></>
+                        <MarginTopSix>
+                          <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
+                          <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
+                          <GreenBtn onClick={()=>{onGoOrigSite(webRootURL)}}>Go Origin Site</GreenBtn> <br></br>
+                          <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
+                          {(jsonData)?
+                            <GreenBtn onClick={()=>{onGetImageList(jsonData,token,key)}}>Get Image</GreenBtn>
+                            :
+                            <></>
+                          }
+                        </MarginTopSix>
+                      </>
                       }
-                    </MarginTopSix>
+
                     </>
                   }
                 </DataInfo>
@@ -290,8 +374,8 @@ const ImporterApp = () => {
           {(imgArray.length != 0)?
           <ImageListContainer>
             {
-              imgArray.map((number) =>
-                <ImageInList src = {number}></ImageInList>
+              imgArray.map((imgSrc) =>
+                <ImageInList src = {imgSrc}></ImageInList>
               )
             }
           </ImageListContainer>
