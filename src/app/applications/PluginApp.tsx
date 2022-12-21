@@ -1,8 +1,9 @@
-import React, {useEffect,useState} from 'react'
+import React, {useEffect,useRef,useState} from 'react'
 import { IPluginApp } from '@CustomTypes';
 import {postData} from '@Utils/server'
-import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
+import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading,CornerSVG} from '@Styles/Plugin'
 import {webRootURL,nginxHostWebUrl,nginxUploadFolder} from '@Config'
+import DragCorner from '@Components/DragCorner';
 
 const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
   const [isLoading,setIsLoading] = useState(true);
@@ -42,7 +43,8 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             else if(platform === 'local_unity'){
               window.open(`${webRootURL}importer.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
             }
-            parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+            onCancel();
+            //parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
           },1000);setLoadingText('Finished!');}
           
           // ############### upload json data ###############
@@ -104,7 +106,8 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             window.open(`${webRootURL}importer.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
           }
           
-          parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+          onCancel();
+          //parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
         }
 
       }
@@ -115,6 +118,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
   const onCancel = () =>{
     parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
   }
+
 
   return (
     <>
@@ -140,6 +144,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
         <LoadingProgressBar style={{width:`${loadingProgress*100}%`}}></LoadingProgressBar>
       </LoadingContainer>
     </LoadingComponent>
+    <DragCorner minWidth={120} minHeight={120}></DragCorner>
     </>
   )
 }

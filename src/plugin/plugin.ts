@@ -4,6 +4,7 @@ import { sendMsg,rejectedMsg,convertFrameToChild,JSONMapPropsFromParent,exportCh
 const fileKey = figma.fileKey;
 const fileName = figma.root.name;
 
+
 figma.ui.onmessage = msg => {
   // ############### GLTF ###############
   if(envPlugin === 'gltf'){
@@ -101,6 +102,23 @@ figma.ui.onmessage = msg => {
     figma.closePlugin();
   }
 
+   // ############### resize ###############
+  if (msg.type === 'resize') {
+    if(msg.size.horizontal) vw = msg.size.w;
+    if(msg.size.vertical) vh = msg.size.h;
+    figma.ui.resize(vw,vh);      
+    figma.clientStorage.setAsync('size', {w:vw,h:vh}).catch(err=>{});
+  }
 };
 
-figma.showUI(__html__,{width:Number(process.env.WIDTH),height:Number(process.env.HEIGHT)});
+var vw = Number(process.env.WIDTH);
+var vh = Number(process.env.HEIGHT);
+
+figma.clientStorage.getAsync('size').then(size => {
+  if(size) {
+    vw = size.w;vh = size.h;
+    figma.ui.resize(size.w,size.h);
+  }
+}).catch(err=>{});
+
+figma.showUI(__html__,{width:vw,height:vh});

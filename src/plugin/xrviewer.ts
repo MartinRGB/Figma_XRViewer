@@ -59,6 +59,24 @@ figma.ui.onmessage = (msg) => {
   if(msg.type ==='cancel'){
       figma.closePlugin();
   }
+  
+   // ############### resize ###############
+   if (msg.type === 'resize') {
+    if(msg.size.horizontal) vw = msg.size.w;
+    if(msg.size.vertical) vh = msg.size.h;
+    figma.ui.resize(vw,vh);      
+    figma.clientStorage.setAsync('size', {w:vw,h:vh}).catch(err=>{});
+  }
 };
 
-figma.showUI(__html__,{width:1080,height:608});
+var vw = 1080;
+var vh = 608;
+
+figma.clientStorage.getAsync('size').then(size => {
+  if(size) {
+    vw = size.w;vh = size.h;
+    figma.ui.resize(size.w,size.h);
+  }
+}).catch(err=>{});
+
+figma.showUI(__html__,{width:vw,height:vh});

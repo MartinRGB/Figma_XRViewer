@@ -2,9 +2,9 @@ import React,{ useCallback,useEffect,useRef,useState } from 'react'
 import arrayBufferToString from '@Utils/gltf/arrayBufferToString'
 import useStore from '@Utils/gltf/store'
 import Result from '@Components/gltf/Result'
-import styled from 'styled-components';
 import { IGLTFViewerApp } from '@CustomTypes';
 import { Container,AlignContainer,AlignPara,CommentPara } from '@Styles/Plugin'
+import DragCorner from '@Components/DragCorner';
 
 const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild,width,height}:IGLTFViewerApp) => {
 
@@ -133,6 +133,8 @@ const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild,width,height}:IGLTFVi
       </AlignContainer>
 
         {buffer?<Result ref={resultRef} envBuild={envBuild} width={width} height={height}>{fileName}</Result>:<></>}
+
+      <DragCorner minWidth={400} minHeight={400} />
     </Container>
     
     

@@ -23,6 +23,7 @@ import { getProject,ISheetObject,types } from '@theatre/core'
 
 import { editable as e,SheetProvider } from '@theatre/r3f'
 import { AdaptiveDpr, AdaptiveEvents, Stage, useHelper } from '@react-three/drei'
+import DragCorner from '@Components/DragCorner';
 
 // todo
 // 2.computer data pass to XR Device 
@@ -422,6 +423,7 @@ const XRViewerApp = () => {
                 </Canvas>
           </CanvasContainer>
         </WebXRContainer>
+        <DragCorner minWidth={512} minHeight={512}/>
       </Suspense>
       </>
       }
