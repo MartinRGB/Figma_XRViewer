@@ -123,10 +123,10 @@ export default /* glsl */`
 	}
 
 	// ################## PCSS Shadow ##################
-	#define LIGHT_WORLD_SIZE 0.005
+	#define LIGHT_WORLD_SIZE 0.05
 	#define LIGHT_FRUSTUM_WIDTH 3.75
 	#define LIGHT_SIZE_UV (LIGHT_WORLD_SIZE / LIGHT_FRUSTUM_WIDTH)
-	#define NEAR_PLANE 0.75 // 9.5
+	#define NEAR_PLANE 0.1
 
 	#define NUM_SAMPLES 17
 	#define NUM_RINGS 11

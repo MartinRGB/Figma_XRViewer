@@ -293,15 +293,18 @@ const XRViewerApp = () => {
     console.log('token is: ' + token);
     // ## on saved static data(Download(Static))
     if(savedFigData != ''){
+      console.log('init with saved figma data')
       InitWithStaticData(savedFigData)
     }
     else{
       // ## load data with query string
       if(fileKey != null && nodeId != null){
+        console.log('init with query data')
         InitWithQueryData(token,fileKey,nodeId);
       }
       // ## empty data
       else{
+        console.log('init with empty data')
         InitWithEmptyData();
       }
     }
@@ -310,6 +313,7 @@ const XRViewerApp = () => {
     window.onmessage = (event) => {
       if(event.data.pluginMessage != undefined){
         const { type, value } = event.data.pluginMessage;
+        console.log('init with figma app data')
         InitWithFigmaData(type,value)
       }
     };
