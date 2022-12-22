@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { Canvas, invalidate,useFrame,useThree } from '@react-three/fiber'
 import { XRButton  } from '@react-three/xr'
 import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
-import {WebXRContainer,ImageInList,ImageListContainer,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
+import {WebXRContainer,ImageInList,ImageListContainer,ImageListContainer2ND,ImageListContainerBase,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
 import Spinner from '@Components/Spinner'
 import Orbit from '@Components/Orbit'
 import CombinedCamera from '@Components/CombinedCamera';
@@ -336,7 +336,7 @@ const XRViewerApp = () => {
         <WebXRContainer>
           <CanvasContainer ref={canvasContainerRef}>
                 <ImageListContainer ref={imgLayoutRef} >
-                {figData.map(({ src,type,index,name }) => (
+                    {figData.map(({ src,type,index,name }) => (
                       <ImageInList  key={type + '-' + index} 
                             src={src}
                             className={'img-imported'}
@@ -344,7 +344,7 @@ const XRViewerApp = () => {
                             // name={`#${index}-` + name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)}
                             name={name}
                             />
-                ))}
+                    ))}
                 </ImageListContainer>
                 <XRDivContainer>
                   {isFigma?
@@ -406,12 +406,12 @@ const XRViewerApp = () => {
                             let iterationIndex = (imgLayoutRef.current.children.length-1)-i;
                             //let iterationIndex = i;
                             if(i === e){
-                              imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgba(255, 105, 180, 0.15)'
-                              imgLayoutRef.current.children[iterationIndex].style.width = '100px'
-                              imgLayoutRef.current.children[iterationIndex].style.height = '100px'
+                              imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgb(64, 174, 255)'
+                              imgLayoutRef.current.children[iterationIndex].style.width = '60px'
+                              imgLayoutRef.current.children[iterationIndex].style.height = '60px'
                             }
                             else{
-                              if(imgLayoutRef.current.children[iterationIndex].style.backgroundColor === 'rgba(255, 105, 180, 0.15)'){
+                              if(imgLayoutRef.current.children[iterationIndex].style.backgroundColor === 'rgb(64, 174, 255)'){
                                 imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgba(40,43,47,0.8)'
                                 imgLayoutRef.current.children[iterationIndex].style.width = '60px'
                                 imgLayoutRef.current.children[iterationIndex].style.height = '60px'
@@ -423,7 +423,7 @@ const XRViewerApp = () => {
                 </Canvas>
           </CanvasContainer>
         </WebXRContainer>
-        <DragCorner minWidth={512} minHeight={512}/>
+        {isFigma && <DragCorner minWidth={512} minHeight={512}/>}
       </Suspense>
       </>
       }

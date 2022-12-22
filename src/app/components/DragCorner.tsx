@@ -9,6 +9,7 @@ const Corner = styled.div`
   height: 12px;
   width: 12px;
   cursor: nwse-resize;
+  z-index:9999;
 `
 
 const Bottom = styled.div`
@@ -18,6 +19,7 @@ const Bottom = styled.div`
   width: calc(100% - 12px);
   height: 4px;
   cursor: n-resize;
+  z-index:9999;
 `
 
 const Right = styled.div`
@@ -27,6 +29,7 @@ const Right = styled.div`
   height: calc(100% - 12px);
   width: 4px;
   cursor: e-resize;
+  z-index:9999;
 `
 
 interface DragCornerProps {

@@ -13,7 +13,7 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         height: 100vh;
     }
     .xr-button{
-        border-radius: 8px;
+       
         opacity: 1;
         user-select: auto;
         padding: 8px 12px 8px 12px;
@@ -21,20 +21,27 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         border-radius: 100px;
         line-height: 10px;
         font-size: 10px;
-
+        border-radius: 8px;
         box-shadow: 0 3px 4px -1px rgb(0 0 0 / 48%);
-        color: rgba(255,255,255,0.9);
-        background: rgba(29,53,59,0.7);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        margin:10px 5px;
+        // color: rgba(255,255,255,0.9);
+        // background: rgba(29,53,59,0.7);
+        // backdrop-filter: blur(14px);
+        // border-bottom: 1px solid rgba(255,255,255,0.08);
+        font-family: 'Inter', 'Helvetica', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        color:rgba(0,0,0,0.9);
+        background:white;
+        margin:6px 5px;
         z-index: 11;
         cursor: pointer;
     }
 
     .xr-button:hover{
-        background: linear-gradient(99deg, rgb(7, 136, 255) 0%, rgb(153, 0, 255) 100%);
-        border-bottom: 1px solid rgba(255,255,255,0.24);
+        // background: linear-gradient(99deg, rgb(7, 136, 255) 0%, rgb(153, 0, 255) 100%);
+        // border-bottom: 1px solid rgba(255,255,255,0.24);
+        color:rgba(255,255,255,0.9);
+        background:#40aeff;
     }
 
 `;
@@ -45,14 +52,22 @@ export const WebXRContainer = styled.div`
 `
 export const ImageListContainer = styled.div`
     // width: calc(100% - 40px);
-    width:calc(100% - 559px);
-    transform: translate(263px, 0px);
+    // width:calc(100% - 559px);
+    //width:calc(100% - 548px);
+    //transform: translate(263px, 0px);
     // padding: 10px;
-    padding: 10px 0px 10px 0px;
+    //padding: 10px 0px 10px 0px;
+    width: calc(100% - 700px);
+    transform: translate(-50%,0px);
+    left: 50%;
+    background: white;
+    // border-radius: 12px;
+    border-radius: 12px 12px 4px 4px;
+    padding: 10px 10px 10px 10px;
     gap: 1rem;
     overflow-x: auto;
     z-index: 100;
-    bottom: 10px;
+    bottom: 8px;
     position: absolute;
     display: flex;
     flex-flow: row;
@@ -62,7 +77,7 @@ export const ImageListContainer = styled.div`
         background-color: transparent;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #ffffff;
+        background-color: #40aeff;
         border-radius: 100px;
     }
     ::-webkit-scrollbar-track {
@@ -76,6 +91,9 @@ export const ImageInList = styled.img`
     padding:20px;
     transition:all 0.15s;
     scroll-snap-align: start;
+    // flex: 0 0 60px;
+    // width: 60px;
+    // height: 60px;
     flex: 0 0 60px;
     width: 60px;
     height: 60px;
@@ -101,23 +119,31 @@ export const TopFixedBtn = styled.div`
     opacity: 1;
     user-select: auto;
     padding: 8px 12px 8px 12px;
-    font-family: 'Inter', sans-serif;
-    border-radius: 100px;
+    // font-family: 'Inter', sans-serif;
+    // border-radius: 100px;
     line-height: 10px;
     font-size: 10px;
 
     box-shadow: 0 3px 4px -1px rgb(0 0 0 / 48%);
-    color: rgba(255,255,255,0.9);
-    background: rgba(29,53,59,0.7);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin:10px 5px;
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color:rgba(0,0,0,0.9);
+    background:white;
+
+    // color: rgba(255,255,255,0.9);
+    // background: rgba(29,53,59,0.7);
+    // backdrop-filter: blur(14px);
+    //border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin:8px 5px;
     z-index: 11;
     cursor: pointer;
 
     &:hover {
-        background: linear-gradient(99deg, rgb(7, 136, 255) 0%, rgb(153, 0, 255) 100%);
-        border-bottom: 1px solid rgba(255,255,255,0.24);
+        // background: linear-gradient(99deg, rgb(7, 136, 255) 0%, rgb(153, 0, 255) 100%);
+        // border-bottom: 1px solid rgba(255,255,255,0.24);
+        color:rgba(255,255,255,0.9);
+        background:#40aeff;
     }
 `
 
