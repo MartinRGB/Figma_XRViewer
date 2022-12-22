@@ -1,5 +1,9 @@
 import { nginxDirLink,nginxUploadFolder} from '@Config';
 
+export const sortDataInDescendingOrder = (data) =>{
+  return data.sort((a,b) => b.index - a.index)
+} 
+
 async function asyncGetBase64FromUrl (url,callback){
   const data = await(fetch(url));
   const blobData = await(data.blob());

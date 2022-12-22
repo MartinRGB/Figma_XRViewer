@@ -81,7 +81,7 @@ figma.ui.onmessage = msg => {
           (nodeOBJ,i) =>
           {
             imgArray.push(nodeOBJ)
-            //console.log('from figma: ' + `Succeed to get childNode ${i} image!`)
+            console.log('from figma: ' + `Succeed to get childNode ${i} image!`)
           },
           ()=>{
             sendMsg("finished_msg", [fileKey,fileName.replaceAll(' ','-'),nodeId,imgArray,{nodes:[{"document":jsonArr}]}]);

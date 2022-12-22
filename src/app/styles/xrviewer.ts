@@ -36,6 +36,7 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         background: linear-gradient(99deg, rgb(7, 136, 255) 0%, rgb(153, 0, 255) 100%);
         border-bottom: 1px solid rgba(255,255,255,0.24);
     }
+
 `;
 
 export const WebXRContainer = styled.div`

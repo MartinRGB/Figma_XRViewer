@@ -15,7 +15,7 @@ import {
 } from '@Utils/threeHelper'; 
 import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage'
 import {onDownloadHTML} from '@Utils/downloadHTML'
-import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON}  from '@Utils/queryData'
+import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON,sortDataInDescendingOrder}  from '@Utils/queryData'
 import {FigmaApi} from '@Utils/figmaAPI';
 import { webRootURL,webClientID,webSecrectID} from '@Config';
 
@@ -180,7 +180,7 @@ const XRViewerApp = () => {
     console.log('init with saved data')
     setIsFigma(false)
     setIsQuery(false);
-    setFigData(data)
+    setFigData(sortDataInDescendingOrder(data))
     setIsLoading(false);
   },[])
 
@@ -199,7 +199,7 @@ const XRViewerApp = () => {
         value.data[index].src = URL.createObjectURL(new Blob([value.data[index].imageData], { type: 'image/png' }));
         if(i === value.data.length - 1){
           setIsFigma(value.isFigma)
-          setFigData(value.data)
+          setFigData(sortDataInDescendingOrder(value.data))
           setIsLoading(false);
         }
       }
@@ -230,7 +230,7 @@ const XRViewerApp = () => {
 
         }
         if(i === arr.length - 1){
-          setFigData(arr);
+          setFigData(sortDataInDescendingOrder(arr));
           setIsLoading(false);
         }
       }
@@ -398,7 +398,7 @@ const XRViewerApp = () => {
                         isFigma={isFigma}
                         isQuery={isQuery}
                         loadingProgress={loadingProgress}
-                        figmaData={figData.reverse()}
+                        figmaData={figData}
                         finishedRenderingCallback={()=>{setIsRendered(true)}}
                         selectCallback={(e)=>{
                           
