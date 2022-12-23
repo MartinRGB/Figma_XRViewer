@@ -24,6 +24,8 @@ import { getProject,ISheetObject,types } from '@theatre/core'
 import { editable as e,SheetProvider } from '@theatre/r3f'
 import { AdaptiveDpr, AdaptiveEvents, Stage, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
+import styled from 'styled-components';
+import GalleryIcon from '@Components/GalleryIcon';
 
 // todo
 // 2.computer data pass to XR Device 
@@ -150,7 +152,6 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     </>
   )
 })
-
 
 const XRViewerApp = () => {
   const canvasContainerRef = useRef(null);
@@ -335,7 +336,7 @@ const XRViewerApp = () => {
       <Suspense fallback={<></>}>
         <WebXRContainer>
           <CanvasContainer ref={canvasContainerRef}>
-                <ImageListContainer style={{display:`${figData.length === 0?'none':'flex'}`}} ref={imgLayoutRef} >
+                <ImageListContainer ref={imgLayoutRef} style={{display:'none'}} >
                     {figData.map(({ src,type,index,name }) => (
                       <ImageInList  key={type + '-' + index} 
                             src={src}
@@ -343,9 +344,19 @@ const XRViewerApp = () => {
                             id={type + '-' + index}
                             // name={`#${index}-` + name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)}
                             name={name}
+                            style={{display:'none'}}
                             />
                     ))}
+
                 </ImageListContainer>
+                {figData.length != 0 &&<GalleryIcon onClick={()=>{
+                    if(imgLayoutRef.current.style.display === 'none'){
+                      imgLayoutRef.current.style.display = 'flex'
+                    }
+                    else{
+                      imgLayoutRef.current.style.display = 'none'
+                    }
+                }}/>}
                 <XRDivContainer>
                   {isFigma?
                   <>
@@ -406,15 +417,19 @@ const XRViewerApp = () => {
                             let iterationIndex = (imgLayoutRef.current.children.length-1)-i;
                             //let iterationIndex = i;
                             if(i === e){
-                              imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgb(64, 174, 255)'
-                              imgLayoutRef.current.children[iterationIndex].style.width = '60px'
-                              imgLayoutRef.current.children[iterationIndex].style.height = '60px'
+                              // imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgb(64, 174, 255)'
+                              // imgLayoutRef.current.children[iterationIndex].style.width = '60px'
+                              // imgLayoutRef.current.children[iterationIndex].style.height = '60px'
+                              imgLayoutRef.current.children[iterationIndex].style.display = 'initial'
                             }
                             else{
-                              if(imgLayoutRef.current.children[iterationIndex].style.backgroundColor === 'rgb(64, 174, 255)'){
-                                imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgba(40,43,47,0.8)'
-                                imgLayoutRef.current.children[iterationIndex].style.width = '60px'
-                                imgLayoutRef.current.children[iterationIndex].style.height = '60px'
+                              // if(imgLayoutRef.current.children[iterationIndex].style.backgroundColor === 'rgb(64, 174, 255)'){
+                              //   imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgba(40,43,47,0.8)'
+                              //   imgLayoutRef.current.children[iterationIndex].style.width = '60px'
+                              //   imgLayoutRef.current.children[iterationIndex].style.height = '60px'
+                              // }
+                              if(imgLayoutRef.current.children[iterationIndex].style.display === 'initial'){
+                                imgLayoutRef.current.children[iterationIndex].style.display = 'none'
                               }
                             }
                           }

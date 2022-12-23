@@ -25,6 +25,7 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         // box-shadow: 0 3px 4px -1px rgb(0 0 0 / 48%);
         border:1px solid #cacaca;
         filter:invert(1) hue-rotate(180deg) brightness(1.5);
+        user-select:none;
         // color: rgba(255,255,255,0.9);
         // background: rgba(29,53,59,0.7);
         // backdrop-filter: blur(14px);
@@ -59,53 +60,70 @@ export const ImageListContainer = styled.div`
     //transform: translate(263px, 0px);
     // padding: 10px;
     //padding: 10px 0px 10px 0px;
-    width: calc(100% - 700px);
-    height:90px;
-    transform: translate(-50%,0px);
-    left: 50%;
+    // width: calc(100% - 700px);
+    // height:90px;
+    // transform: translate(-50%,0px);
+    // left: 50%;
     background: white;
     // border-radius: 12px;
-    border-radius: 12px 12px 4px 4px;
-    padding: 10px 10px 10px 10px;
+    // border-radius: 12px 12px 4px 4px;
+    // padding: 10px 10px 10px 10px;
+    // width: 280px;
+    width: 262px;
+    z-index: 9999;
+    bottom: 17px;
+    right: 16px;
+    border-radius: 12px;
+    height: 200px;
+    // border-radius: 0px 0px 12px 12px;
     gap: 1rem;
     overflow-x: auto;
-    z-index: 100;
-    bottom: 8px;
+    //z-index: 100;
+    // bottom: 8px;
+    // right:8px;
     position: absolute;
-    display: flex;
+    // display: flex;
     flex-flow: row;
     align-items: baseline;
     filter: invert(1) hue-rotate(180deg) brightness(1.2);
     border:1px solid #cacaca;
-    ::-webkit-scrollbar {
-        height: 6px;
-        background-color: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: #40aeff;
-        border-radius: 100px;
-    }
-    ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
-        background-color: rgba(40,43,47,0.8);
-        border-radius: 100px;
-    }
+    // ::-webkit-scrollbar {
+    //     height: 6px;
+    //     background-color: transparent;
+    // }
+    // ::-webkit-scrollbar-thumb {
+    //     background-color: #40aeff;
+    //     border-radius: 100px;
+    // }
+    // ::-webkit-scrollbar-track {
+    //     box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+    //     // background-color: rgba(40,43,47,0.8);
+    //     background-color: black;
+    //     border-radius: 100px;
+    // }
 `
 
 export const ImageInList = styled.img`
-    padding:20px;
+    // padding:20px;
     transition:all 0.15s;
     scroll-snap-align: start;
     // flex: 0 0 60px;
     // width: 60px;
     // height: 60px;
-    flex: 0 0 60px;
-    width: 60px;
-    height: 60px;
-    border-radius: 5px;
+    // flex: 0 0 60px;
+    // width: 60px;
+    // height: 60px;
+    // border-radius: 5px;
+    //width: 100%;
+    width: calc(100% - 40px);
+    height: calc(100% - 80px);
+    padding-top: 40px;
+    padding-left:20px;
+    padding-right:20px;
     object-fit: contain;
-    padding: 12px;
-    box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+    user-select: none;
+    // padding: 12px;
+    // box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
     // background-color: rgba(40,43,47,0.8);
     background-color: rgba(0,0,0,1.0);
     filter: invert(1) hue-rotate(180deg);
@@ -140,7 +158,7 @@ export const TopFixedBtn = styled.div`
     font-weight: 400;
     color:rgba(0,0,0,0.9);
     background:white;
-
+    user-select:none;
     // color: rgba(255,255,255,0.9);
     // background: rgba(29,53,59,0.7);
     // backdrop-filter: blur(14px);

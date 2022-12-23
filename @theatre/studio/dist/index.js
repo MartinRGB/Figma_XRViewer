@@ -37854,7 +37854,7 @@ var init_EmptyState = __esm({
 });
 
 // studio/src/panels/DetailPanel/DetailPanel.tsx
-var import_react121, import_dataverse33, headerHeight, Container26, Title, Header2, Body, contextMenuShownContext, DetailPanel, DetailPanel_default, isDetailPanelHotspotActiveB, isDetailPanelHoveredB, shouldShowDetailD;
+var import_react121, import_dataverse33, headerHeight, Container26, BeforePadding, Title, Header2, Body, contextMenuShownContext, DetailPanel, DetailPanel_default, isDetailPanelHotspotActiveB, isDetailPanelHoveredB, shouldShowDetailD;
 var init_DetailPanel = __esm({
   "studio/src/panels/DetailPanel/DetailPanel.tsx"() {
     init_selectors();
@@ -37876,7 +37876,7 @@ var init_DetailPanel = __esm({
     Container26 = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
   // background-color: rgba(40, 43, 47, 0.8);
-  background-color: white;
+  //background-color: white;
   position: fixed;
   // right: 8px;
   // right:0px;
@@ -37884,17 +37884,21 @@ var init_DetailPanel = __esm({
   // top:0px;
   // Temporary, see comment about CSS grid in SingleRowPropEditor.
   width: 280px;
-  padding-top: 40px;
+  //padding-top: 40px;
   right: 8px;
   top: 8px;
   border-radius: 12px;
-  height: calc(100% - 57px);
-  border: 1px solid #cacaca;
+  // height: calc(100% - 57px);
+  // border: 1px solid #cacaca;
   // padding-bottom:20px;
   // height: fit-content;
   // height: 100vh;
   // z-index: ${panelZIndexes.propsPanel};
   z-index:-1;
+
+  height:calc(100% - 17px);
+  overflow-y: hidden;
+  overflow-x: hidden;
 
   // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
   // backdrop-filter: blur(14px);
@@ -37909,6 +37913,15 @@ var init_DetailPanel = __esm({
   // @supports not (backdrop-filter: blur()) {
   //   background: rgba(40, 43, 47, 0.95);
   // }
+`;
+    BeforePadding = styled_components_browser_esm_default.div`
+  height: 40px;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  border-top: 1px solid #cacaca;
+  border-left: 1px solid #cacaca;
+  border-right: 1px solid #cacaca;
+
 `;
     Title = styled_components_browser_esm_default.div`
   margin: 0 10px;
@@ -37926,12 +37939,14 @@ var init_DetailPanel = __esm({
   display: flex;
   align-items: center;
   // border-top: 1px solid #e6e6e6;
-  border-top: 1px solid #cacaca;
-  
+  //border-top: 1px solid #cacaca;
+  border: 1px solid #cacaca;
+  background: white;
+
 `;
     Body = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
-  max-height: calc(100vh - 100px);
+  // max-height: calc(100vh - 100px);
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -37943,6 +37958,31 @@ var init_DetailPanel = __esm({
 
   /* Set the font-size for input values in the detail panel */
   font-size: 12px;
+
+  border-bottom: 1px solid #cacaca;
+  border-left: 1px solid #cacaca;
+  border-right: 1px solid #cacaca;
+  border-radius: 0px 0px 12px 12px;
+  height: calc(100% - 76px);
+  background: white;
+  overflow-x: hidden;
+  overflow-y: overlay;
+
+  ::-webkit-scrollbar {
+      width: 2px;
+      background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      //background-color: #40aeff;
+      // background-color: rgb(0 0 0 / 80%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
+  ::-webkit-scrollbar-track {
+      //box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
 `;
     contextMenuShownContext = (0, import_react121.createContext)([false, () => () => {
     }]);
@@ -37976,7 +38016,7 @@ var init_DetailPanel = __esm({
             onMouseLeave: () => {
               isDetailPanelHoveredB.set(false);
             }
-          }, /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
+          }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
             title: `${obj.sheet.address.sheetId}: ${obj.sheet.address.sheetInstanceId} > ${obj.address.objectKey}`
           }, /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetId, " "), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Punctuation, null, "\xA0\u2192\xA0"), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.address.objectKey))), /* @__PURE__ */ import_react121.default.createElement(Body, null, /* @__PURE__ */ import_react121.default.createElement(ObjectDetails_default, {
             objects: [obj]
@@ -37986,7 +38026,7 @@ var init_DetailPanel = __esm({
         if (project) {
           return /* @__PURE__ */ import_react121.default.createElement(Container26, {
             pin: showDetailsPanel
-          }, /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
+          }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
             title: `${project.address.projectId}`
           }, /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, project.address.projectId, " "))), /* @__PURE__ */ import_react121.default.createElement(Body, null, /* @__PURE__ */ import_react121.default.createElement(ProjectDetails_default, {
             projects: [project]
@@ -38000,7 +38040,14 @@ var init_DetailPanel = __esm({
           onMouseLeave: () => {
             isDetailPanelHoveredB.set(false);
           }
-        }, /* @__PURE__ */ import_react121.default.createElement(EmptyState_default, null));
+        }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement("div", {
+          style: {
+            border: "1px solid #cacaca",
+            borderRadius: "0px 0px 12px 12px",
+            height: "calc(100% - 43px)",
+            background: "white"
+          }
+        }, /* @__PURE__ */ import_react121.default.createElement(EmptyState_default, null)));
       }, [showDetailsPanel]);
     };
     DetailPanel_default = () => {
@@ -45584,8 +45631,30 @@ var init_ProjectsList = __esm({
   margin: 0;
   padding: 0;
   //border-top:1px solid #e6e6e6;
-  border-top: 1px solid #cacaca;
+  //border-top: 1px solid #cacaca;
   // padding-right: 4px;
+  border: 1px solid #cacaca;
+  border-radius: 0px 0px 12px 12px;
+  height: calc(100% - 43px);
+  background: white;
+  overflow-x: hidden;
+  overflow-y: overlay;
+
+  ::-webkit-scrollbar {
+      width: 2px;
+      background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      //background-color: #40aeff;
+      //background-color: rgb(0 0 0 / 80%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
+  ::-webkit-scrollbar-track {
+      //box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
 `;
     ProjectsList = (props) => {
       return usePrism(() => {
@@ -45605,7 +45674,7 @@ var init_ProjectsList = __esm({
 });
 
 // studio/src/panels/OutlinePanel/OutlinePanel.tsx
-var import_react228, import_dataverse76, headerHeight2, Container51, OutlinePanel, OutlinePanel_default, isOutlinePanelHotspotActiveB, isOutlinePanelHoveredB, shouldShowOutlineD;
+var import_react228, import_dataverse76, headerHeight2, Container51, BeforePadding2, OutlinePanel, OutlinePanel_default, isOutlinePanelHotspotActiveB, isOutlinePanelHoveredB, shouldShowOutlineD;
 var init_OutlinePanel = __esm({
   "studio/src/panels/OutlinePanel/OutlinePanel.tsx"() {
     import_react228 = __toModule(require_react());
@@ -45620,7 +45689,7 @@ var init_OutlinePanel = __esm({
     headerHeight2 = `44px`;
     Container51 = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
-  background-color: white;
+  //background-color: white;
   position: absolute;
   // left: 8px;
   // z-index: ${panelZIndexes.outlinePanel};
@@ -45633,14 +45702,18 @@ var init_OutlinePanel = __esm({
 
   left: 8px;
   top: 8px;
-  height: calc(100% - 57px);
-  border-radius: 12px;
-  //border: 1px solid #e6e6e6;
-  border: 1px solid #cacaca;
-  overflow-y: scroll;
+  height:calc(100% - 17px);
+  border-radius:12px;
+  // height: calc(100% - 57px);
+  // border-radius: 12px;
+  // border: 1px solid #e6e6e6;
+  // border-top: 1px solid #cacaca;
+  // overflow-y: scroll;
+  // overflow-x: hidden;
+  overflow-y: hidden;
   overflow-x: hidden;
   padding: 0;
-  padding-top: 40px;
+  // padding-top: 40px;
   min-width:200px;
   user-select: none;
   z-index:-1;
@@ -45664,6 +45737,15 @@ var init_OutlinePanel = __esm({
     height: 20px;
   }
 `;
+    BeforePadding2 = styled_components_browser_esm_default.div`
+  height: 40px;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  border-top: 1px solid #cacaca;
+  border-left: 1px solid #cacaca;
+  border-right: 1px solid #cacaca;
+
+`;
     OutlinePanel = () => {
       var _a2;
       const pin = (_a2 = useVal(getStudio().atomP.ahistoric.pinOutline)) != null ? _a2 : true;
@@ -45686,7 +45768,7 @@ var init_OutlinePanel = __esm({
         onMouseLeave: () => {
           isOutlinePanelHoveredB.set(false);
         }
-      }, /* @__PURE__ */ import_react228.default.createElement(ProjectsList_default, null));
+      }, /* @__PURE__ */ import_react228.default.createElement(BeforePadding2, null), /* @__PURE__ */ import_react228.default.createElement(ProjectsList_default, null));
     };
     OutlinePanel_default = OutlinePanel;
     isOutlinePanelHotspotActiveB = new import_dataverse76.Box(false);
