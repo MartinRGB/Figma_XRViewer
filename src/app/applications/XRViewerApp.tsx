@@ -335,7 +335,7 @@ const XRViewerApp = () => {
       <Suspense fallback={<></>}>
         <WebXRContainer>
           <CanvasContainer ref={canvasContainerRef}>
-                <ImageListContainer ref={imgLayoutRef} >
+                <ImageListContainer style={{display:`${figData.length === 0?'none':'flex'}`}} ref={imgLayoutRef} >
                     {figData.map(({ src,type,index,name }) => (
                       <ImageInList  key={type + '-' + index} 
                             src={src}
