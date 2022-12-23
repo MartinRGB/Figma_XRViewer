@@ -31408,7 +31408,8 @@ var init_propNameTextCSS = __esm({
   font-family: 'Inter', 'Helvetica', sans-serif;
   font-size: 12px;
   font-weight:400;
-  color: rgba(0,0,0,0.5);
+  // color: rgba(0,0,0,0.5);
+  color:rgb(130 130 130);
 `;
   }
 });
@@ -32833,6 +32834,7 @@ var init_common = __esm({
   flex-grow: 1;
   overflow-y: scroll;
   padding: 0;
+  filter: invert(1) hue-rotate(180deg);
 `;
     titleBarHeight = 18;
     TitleBar = styled_components_browser_esm_default.div`
@@ -32855,6 +32857,8 @@ var init_common = __esm({
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  // border: 1px solid #e6e6e6;
+  // border-radius: 12px 12px 0 0;
 `;
     visibleSize = 100;
   }
@@ -34515,7 +34519,8 @@ var init_ContextMenu = __esm({
   z-index: 10000;
   // background: ${(0, import_transparentize.default)(0.2, "#111")};
   background: rgba(255,255,255,0.9);
-  box-shadow: 0px 2px 10px #0000002b;
+  // box-shadow: 0px 2px 10px #0000002b;
+  border:1px solid #c6c6c6;
   // backdrop-filter: blur(2px);
   color: white;
   list-style-type: none;
@@ -36425,8 +36430,8 @@ var init_PopoverArrow = __esm({
   line-height: 0;
 `;
     InnerTriangle = styled_components_browser_esm_default.path`
-  // fill: var(--popover-bg);
-  fill: white;
+  fill: var(--popover-bg);
+  // fill: white;
 `;
     InnerStroke = styled_components_browser_esm_default.path`
   fill: var(--popover-inner-stroke);
@@ -36471,8 +36476,9 @@ var init_BasicPopover = __esm({
     popoverBackgroundColor = curriedTransparentize(0.05, `#2a2a31`);
     Container20 = styled_components_browser_esm_default.div`
   position: absolute;
-  --popover-bg: ${popoverBackgroundColor};
-  --popover-inner-stroke: #505159;
+  //--popover-bg: ${popoverBackgroundColor};
+  --popover-bg:rgba(255,255,255,0.95);
+  --popover-inner-stroke: #cacaca; //505159
   --popover-outer-stroke: #111;
 
   background: var(--popover-bg);
@@ -36484,9 +36490,10 @@ var init_BasicPopover = __esm({
   ${pointerEventsAutoInNormalMode};
   border-radius: 3px;
   z-index: 10000;
+  
   border: 1px solid var(--popover-inner-stroke);
   // box-shadow: 0 0 0 1px var(--popover-outer-stroke), 0 6px 8px -4px black;
-  box-shadow: 0px 2px 10px #0000002b;
+  // box-shadow: 0px 2px 10px #0000002b;
   backdrop-filter: blur(8px);
 
   & a {
@@ -36575,7 +36582,8 @@ var init_RgbaPropEditor = __esm({
   height: 18px;
   aspect-ratio: 1;
   border-radius: 4px;
-  border: 1px solid #e6e6e6;
+  //border: 1px solid #e6e6e6;
+  border: 1px solid #cacaca;
 `;
     HexInput = styled_components_browser_esm_default(BasicStringInput_default)`
   flex: 1;
@@ -37462,7 +37470,8 @@ var init_BasicTooltip = __esm({
   max-width: 240px;
   pointer-events: none !important;
   --popover-outer-stroke: transparent;
-  --popover-inner-stroke: #bebebe2b;
+  // --popover-inner-stroke: #bebebe2b;
+  --popover-inner-stroke: #cacaca;
   // --popover-inner-stroke: #45464d;
 `;
     BasicTooltip_default = BasicTooltip;
@@ -37880,6 +37889,7 @@ var init_DetailPanel = __esm({
   top: 8px;
   border-radius: 12px;
   height: calc(100% - 57px);
+  border: 1px solid #cacaca;
   // padding-bottom:20px;
   // height: fit-content;
   // height: 100vh;
@@ -37915,7 +37925,8 @@ var init_DetailPanel = __esm({
   height: ${headerHeight};
   display: flex;
   align-items: center;
-  border-top: 1px solid #e6e6e6;
+  // border-top: 1px solid #e6e6e6;
+  border-top: 1px solid #cacaca;
   
 `;
     Body = styled_components_browser_esm_default.div`
@@ -37948,7 +37959,7 @@ var init_DetailPanel = __esm({
         };
       }, []);
       const [isContextMenuShown] = (0, import_react121.useContext)(contextMenuShownContext);
-      const showDetailsPanel = pin || hotspotActive || isContextMenuShown;
+      const showDetailsPanel = pin || isContextMenuShown;
       const [containerElt, setContainerElt] = (0, import_react121.useState)(null);
       usePresenceListenersOnRootElement(containerElt);
       return usePrism(() => {
@@ -40284,6 +40295,7 @@ var init_RightOverlay = __esm({
   z-index: ${() => zIndexes.rightOverlay};
   overflow: visible;
   pointer-events: none;
+  border-left: 1px solid #e6e6e6;
 `;
     RightOverlay = ({ layoutP }) => {
       return usePrism(() => {
@@ -40638,6 +40650,8 @@ var init_PanelWrapper = __esm({
   /* box-shadow: 1px 2px 10px -5px black; */
   overflow:hidden;
   border-radius:12px;
+  // border: 1px solid #e6e6e6;
+  border: 1px solid #cacaca;
   z-index: 1000;
 `;
     PanelWrapper = import_react158.default.forwardRef((props, ref) => {
@@ -40753,7 +40767,7 @@ var init_SequenceEditorPanel = __esm({
     Container40 = styled_components_browser_esm_default(PanelWrapper_default)`
   z-index: ${panelZIndexes.sequenceEditorPanel};
   // box-shadow: 2px 2px 0 rgb(0 0 0 / 11%);
-  box-shadow:0px 2px 10px #0000002b;
+  // box-shadow:0px 2px 10px #0000002b;
 `;
     LeftBackground = styled_components_browser_esm_default.div`
   //background-color: rgba(40, 43, 47, 0.99);
@@ -41721,7 +41735,8 @@ var init_EasingOption = __esm({
   // --popover-bg: black;
   --popover-bg: white;
   --popover-outer-stroke: transparent;
-  --popover-inner-stroke: transparent;
+  // --popover-inner-stroke: transparent;
+  --popover-inner-stroke: #cacaca;
   //box-shadow: none;
   box-shadow: 0px 2px 10px #0000002b;
 `;
@@ -45028,7 +45043,8 @@ var init_GraphEditor = __esm({
   position: absolute;
   right: 0;
   bottom: 0;
-  background: ${curriedTransparentize(0.03, "#1a1c1e")};
+  background: ${curriedTransparentize(0.03, "#fcfcfc")};
+  border-top: 1px solid #d8d8d8;
 `;
     SVGContainer = styled_components_browser_esm_default.svg`
   position: absolute;
@@ -45193,12 +45209,14 @@ var init_BaseItem = __esm({
 
   &:not(.not-selectable):not(.selected):active {
     //background: rgba(82, 88, 96, 0.9);
-    background: #e5f4ff;
+    //background: #e5f4ff;
+    background: #40aeff;
     //border-bottom: 1px solid rgba(255, 255, 255, 0.24);
   }
 
   &.selected {
-    background: #e5f4ff;
+    // background: #e5f4ff;
+    background: #40aeff;
     //background: rgba(30, 88, 102, 0.7);
     //border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
@@ -45565,7 +45583,8 @@ var init_ProjectsList = __esm({
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top:1px solid #e6e6e6;
+  //border-top:1px solid #e6e6e6;
+  border-top: 1px solid #cacaca;
   // padding-right: 4px;
 `;
     ProjectsList = (props) => {
@@ -45616,7 +45635,8 @@ var init_OutlinePanel = __esm({
   top: 8px;
   height: calc(100% - 57px);
   border-radius: 12px;
-
+  //border: 1px solid #e6e6e6;
+  border: 1px solid #cacaca;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0;
@@ -45659,7 +45679,7 @@ var init_OutlinePanel = __esm({
         };
       }, []);
       return /* @__PURE__ */ import_react228.default.createElement(Container51, {
-        pin: pin || show,
+        pin,
         onMouseEnter: () => {
           isOutlinePanelHoveredB.set(true);
         },
@@ -46125,7 +46145,8 @@ var init_MinimalTooltip = __esm({
     MinimalTooltip = styled_components_browser_esm_default(BasicTooltip_default)`
   padding: 6px;
   background:white;
-  border:none;
+  // border:none;
+  border: 1px solid #cacaca;
 `;
     MinimalTooltip_default = MinimalTooltip;
   }
@@ -46541,8 +46562,9 @@ var init_MoreMenu = __esm({
   align-items: stretch;
   justify-content: flex-start;
   //box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25), 0px 2px 6px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 2px 10px #0000002b;
-  backdrop-filter: blur(14px);
+  // box-shadow: 0px 2px 10px #0000002b;
+  // backdrop-filter: blur(14px);
+  border:1px solid #cacaca;
   pointer-events: auto;
   // makes the edges of the item highlights match the rounded corners
   overflow: hidden;
@@ -49396,7 +49418,7 @@ var init_UIRoot = __esm({
   z-index: 50;
   position: fixed;
   inset: 0;
-
+  filter: invert(1) hue-rotate(180deg) brightness(1.2); //
   &.invisible {
     pointer-events: none !important;
     opacity: 0;

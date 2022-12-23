@@ -8,7 +8,7 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         /* margin: 20px; */
         margin:0px !important;
         color: #ccc;
-        background-color: #121212;
+        background-color: #1d1e20;
         overflow: hidden;
         height: 100vh;
     }
@@ -19,10 +19,12 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         padding: 8px 12px 8px 12px;
         font-family: sans-serif;
         border-radius: 100px;
-        line-height: 10px;
+        line-height: 24px;
         font-size: 10px;
-        border-radius: 8px;
-        box-shadow: 0 3px 4px -1px rgb(0 0 0 / 48%);
+        border-radius: 12px;
+        // box-shadow: 0 3px 4px -1px rgb(0 0 0 / 48%);
+        border:1px solid #cacaca;
+        filter:invert(1) hue-rotate(180deg) brightness(1.5);
         // color: rgba(255,255,255,0.9);
         // background: rgba(29,53,59,0.7);
         // backdrop-filter: blur(14px);
@@ -32,7 +34,7 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         font-weight: 400;
         color:rgba(0,0,0,0.9);
         background:white;
-        margin:6px 5px;
+        margin:8px 5px;
         z-index: 11;
         cursor: pointer;
     }
@@ -58,6 +60,7 @@ export const ImageListContainer = styled.div`
     // padding: 10px;
     //padding: 10px 0px 10px 0px;
     width: calc(100% - 700px);
+    height:90px;
     transform: translate(-50%,0px);
     left: 50%;
     background: white;
@@ -72,6 +75,8 @@ export const ImageListContainer = styled.div`
     display: flex;
     flex-flow: row;
     align-items: baseline;
+    filter: invert(1) hue-rotate(180deg) brightness(1.2);
+    border:1px solid #cacaca;
     ::-webkit-scrollbar {
         height: 6px;
         background-color: transparent;
@@ -101,7 +106,9 @@ export const ImageInList = styled.img`
     object-fit: contain;
     padding: 12px;
     box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
-    background-color: rgba(40,43,47,0.8);
+    // background-color: rgba(40,43,47,0.8);
+    background-color: rgba(0,0,0,1.0);
+    filter: invert(1) hue-rotate(180deg);
 `
 
 export const XRDivContainer = styled.div`
@@ -115,16 +122,19 @@ export const XRDivContainer = styled.div`
 `
 
 export const TopFixedBtn = styled.div`
-    border-radius: 8px;
+    border-radius: 12px;
     opacity: 1;
     user-select: auto;
     padding: 8px 12px 8px 12px;
     // font-family: 'Inter', sans-serif;
     // border-radius: 100px;
-    line-height: 10px;
+    // line-height: 10px;
+    line-height: 24px;
     font-size: 10px;
 
-    box-shadow: 0 3px 4px -1px rgb(0 0 0 / 48%);
+    // box-shadow: 0 3px 4px -1px rgb(0 0 0 / 48%);
+    border:1px solid #cacaca;
+    filter:invert(1) hue-rotate(180deg) brightness(1.5);
     font-family: 'Inter', 'Helvetica', sans-serif;
     font-size: 12px;
     font-weight: 400;
