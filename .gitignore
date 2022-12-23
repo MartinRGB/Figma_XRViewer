@@ -2,6 +2,9 @@ node_modules
 dist
 settings.json
 
+!@theatre/core/dist
+!@theatre/studio/dist
+
 XRViewer_GLTF/*.html
 XRViewer_GLTF/*.js
 XRViewer_GLTF/*.zip
