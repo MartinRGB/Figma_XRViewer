@@ -33,7 +33,7 @@ export const XRViewerGlobalrtyle = createGlobalStyle`
         font-family: 'Inter', 'Helvetica', sans-serif;
         font-size: 12px;
         font-weight: 400;
-        color:rgba(255,255,255,0.9);
+        color:rgba(255,255,255,0.5);
         background:black;
         margin:8px 5px;
         z-index: 11;
@@ -81,7 +81,7 @@ export const TopFixedBtn = styled.div`
     font-family: 'Inter', 'Helvetica', sans-serif;
     font-size: 12px;
     font-weight: 400;
-    color:rgba(255,255,255,0.9);
+    color:rgba(255,255,255,0.5);
     background:black;
     user-select:none;
     // color: rgba(255,255,255,0.9);
