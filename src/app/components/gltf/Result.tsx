@@ -9,7 +9,7 @@ import useStore from '@Utils/gltf/store'
 import {onCreateImage,trimCanvas} from '@Utils/saveImage'; 
 import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber';
-import {postData} from '@Utils/server';
+import {postData} from '@Utils/uploadToServer';
 import { PerspectiveCamera } from '@react-three/drei'
 import {nginxAssetLink,nginxUploadFolder} from '@Config'
 import {LoadingContainer,LoadingComponent,Loading,FileNameHeading} from '@Styles/Plugin'

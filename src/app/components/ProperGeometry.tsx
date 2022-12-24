@@ -9,24 +9,25 @@ import { getProject, types } from '@theatre/core'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
-import { isDecoderFromLoacl } from '@Config';
+import { nginxDecoderPath, nginxTestPath } from '@Config';
 import { Select,TransformControls,AdaptiveEvents,AdaptiveDpr, Detailed  } from '@react-three/drei';
 import { TheatreSelectContext } from './TheatreSelectContext';
+import { testNginxServerExist } from '@Utils/nginxTest';
 
-let dracoloader;
-let ktx2Loader;
-if(isDecoderFromLoacl){
-  const decoderPath = `https://172.22.0.20:8222/service_1/decoder`
-  dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
-  ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
-  dracoloader.preload()
-}
-else{
-  const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
-  dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
-  ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
-  dracoloader.preload()
-}
+// let dracoloader;
+// let ktx2Loader;
+// if(isDecoderFromLoacl){
+//   const Local_Decoder_Path = `https://172.22.0.20:8222/service_1/decoder`
+//   dracoloader = new DRACOLoader().setDecoderPath(`${Local_Decoder_Path}/draco/gltf/`)
+//   ktx2Loader = new KTX2Loader().setTranscoderPath(`${Local_Decoder_Path}/basis/`)
+//   dracoloader.preload()
+// }
+// else{
+//   const Three_Decoder_Path = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
+//   dracoloader = new DRACOLoader().setDecoderPath(`${Three_Decoder_Path}/examples/js/libs/draco/gltf/`)
+//   ktx2Loader = new KTX2Loader().setTranscoderPath(`${Three_Decoder_Path}/examples/js/libs/basis/`)
+//   dracoloader.preload()
+// }
 
 
 const Model = (props) =>{
@@ -39,8 +40,10 @@ const Model = (props) =>{
   const {invalidate,scene,gl,camera} = useThree()
   const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
     console.log('finsihed model loading from:' + props.modelSrc)
-    loader.setDRACOLoader(dracoloader);
-    loader.setKTX2Loader(ktx2Loader);
+    // loader.setDRACOLoader(dracoloader);
+    // loader.setKTX2Loader(ktx2Loader);
+    loader.setDRACOLoader(props.dracoloader);
+    loader.setKTX2Loader(props.ktx2Loader);
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
 
@@ -502,13 +505,34 @@ const Screen = (props) =>{
 interface ProperScreenProps {
   figmaData:any;
   isQuery:boolean;
-  baseUnit:number;
   isFigma:boolean;
+  baseUnit:number;
   orbitRef:React.MutableRefObject<any>;
   selectCallback:(e:any) => void;
 }
 
 const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallback}:ProperScreenProps) =>{
+
+  const dracoloaderRef = useRef(null);
+  const ktx2LoaderRef = useRef(null);
+  
+  useEffect(()=>{
+    testNginxServerExist(
+    ()=>{
+      const DecoderPath = nginxDecoderPath;
+      dracoloaderRef.current = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+      ktx2LoaderRef.current = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+      dracoloaderRef.current.preload()
+      console.log('decoderPath is ' + DecoderPath);
+    },
+    ()=>{
+      const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
+      dracoloaderRef.current = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+      ktx2LoaderRef.current = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+      dracoloaderRef.current.preload()
+      console.log('decoderPath is ' + DecoderPath);
+    })
+  },[])
 
   return(
     <>
@@ -533,6 +557,8 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
             hasData={true}
             isFigma={isFigma}
             isQuery={isQuery}
+            dracoloader={dracoloaderRef.current}
+            ktx2Loader={ktx2LoaderRef.current}
             baseUnit={baseUnit}
             modelSrc={modelSrc}
             orbitRef={orbitRef}

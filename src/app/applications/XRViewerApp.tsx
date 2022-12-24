@@ -139,7 +139,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
             <>
               <SheetProvider sheet={helperSheet}>
                 <e.group theatreKey={' - Main Controller'} ref={groupRef} objRef={groupSheetObj}>
-                    <ProperGeometry selectCallback={(e)=>{selectCallback(e)}}figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
+                    <ProperGeometry selectCallback={(e)=>{selectCallback(e)}} figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
                 </e.group>
               </SheetProvider>
             </>
@@ -243,7 +243,6 @@ const XRViewerApp = () => {
       console.log('query - local server')
       console.log(fileKey)
       console.log(nodeId)
-      
       asyncFetchQueryLocalServerJSON(
         fileKey,nodeId,
         (str)=>{

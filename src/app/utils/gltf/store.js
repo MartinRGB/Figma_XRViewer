@@ -11,30 +11,57 @@ import parserBabel from 'prettier/parser-babel'
 import parserTS from 'prettier/parser-typescript'
 import { REVISION } from 'three'
 import { WebGLRenderer } from 'three'
-import { isDecoderFromLoacl } from '@Config';
+import { nginxDecoderPath } from '@Config';
+import {testNginxServerExist } from '@Utils/nginxTest'
 
 let gltfLoader,dracoloader,ktx2Loader;
 if (typeof window !== 'undefined') {
+  //todo
+  // if(isDecoderFromLoacl){
+  //   const decoderPath = `https://172.22.0.20:8222/service_1/decoder`
+  //   dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
+  //   ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
+  //   dracoloader.preload()
+  // }
+  // else{
+  //   const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
+  //   dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
+  //   ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
+  //   dracoloader.preload()
+  // }
 
-  if(isDecoderFromLoacl){
-    const decoderPath = `https://172.22.0.20:8222/service_1/decoder`
-    dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
-    ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
-    dracoloader.preload()
-  }
-  else{
-    const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
-    dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/js/libs/draco/gltf/`)
-    ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
-    dracoloader.preload()
-  }
+  // gltfLoader = new GLTFLoader()
+  //   .setCrossOrigin('anonymous')
+  //   .setDRACOLoader(dracoloader)
+  //   .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+  //   .setMeshoptDecoder(MeshoptDecoder)
 
+    testNginxServerExist(
+    ()=>{
+      const DecoderPath = nginxDecoderPath;
+      dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+      ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+      dracoloader.preload()
+      console.log('decoderPath is ' + DecoderPath);
+      gltfLoader = new GLTFLoader()
+      .setCrossOrigin('anonymous')
+      .setDRACOLoader(dracoloader)
+      .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+      .setMeshoptDecoder(MeshoptDecoder)
+    },
+    ()=>{
+      const DecoderPath = `https://unpkg.com/three@0.${REVISION}.x`;
+      dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+      ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+      dracoloader.preload()
+      console.log('decoderPath is ' + DecoderPath);
+      gltfLoader = new GLTFLoader()
+      .setCrossOrigin('anonymous')
+      .setDRACOLoader(dracoloader)
+      .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+      .setMeshoptDecoder(MeshoptDecoder)
+    })
 
-  gltfLoader = new GLTFLoader()
-    .setCrossOrigin('anonymous')
-    .setDRACOLoader(dracoloader)
-    .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
-    .setMeshoptDecoder(MeshoptDecoder)
 }
 
 const useStore = create((set, get) => ({

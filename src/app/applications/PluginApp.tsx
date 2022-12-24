@@ -1,7 +1,7 @@
 import React, {useEffect,useRef,useState} from 'react'
 import { IPluginApp } from '@CustomTypes';
-import {postData} from '@Utils/server'
-import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading,CornerSVG} from '@Styles/Plugin'
+import {postData} from '@Utils/uploadToServer'
+import {LoadingContainer,LoadingComponent,LoadingProgressBar,Loading} from '@Styles/Plugin'
 import {webRootURL,nginxHostWebUrl,nginxUploadFolder} from '@Config'
 import DragCorner from '@Components/DragCorner';
 
@@ -38,10 +38,10 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             //overwrite files to nginxHostWebUrl's folder
             //isLocal?webRootURL:nginxHostWebUrl
             if(platform === 'local_webxr'){
-              window.open(`${webRootURL}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+              window.open(`${nginxHostWebUrl}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
             }
             else if(platform === 'local_unity'){
-              window.open(`${webRootURL}importer.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+              window.open(`${nginxHostWebUrl}importer.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
             }
             onCancel();
             //parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
