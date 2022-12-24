@@ -361,9 +361,7 @@ const XRViewerApp = () => {
                             // name={`#${index}-` + name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)}
                             name={name}
                             style={{display:'none'}}
-                            />
-                      
-                      
+                            />                
                       </>
                     ))}
                 </ImageListContainer >

@@ -103,6 +103,19 @@ export const ImageListContainer = styled.div`
     //     background-color: black;
     //     border-radius: 100px;
     // }
+    ::before {       
+        content: ''; 
+        background-color: rgba(127,127,127,1.0);
+        background-image: linear-gradient(45deg,#b0b0b0 25%,transparent 25%),linear-gradient(-45deg,#b0b0b0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#b0b0b0 75%),linear-gradient(-45deg,transparent 75%,#b0b0b0 75%);
+        background-size: 20px 20px;
+        background-position: 0 0,0 10px,10px -10px,-10px 0px;
+        border-radius: 6px;
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        width: calc(100% - 16px);
+        height: calc(100% - 50px);
+    }
 `
 
 export const ImageInList = styled.img`
@@ -131,12 +144,12 @@ export const ImageInList = styled.img`
     // padding: 12px;
     // box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
     // background-color: rgba(40,43,47,0.8);
-    background-color: rgba(127,127,127,1.0);
     filter: invert(1) hue-rotate(180deg);
-    background-image: linear-gradient(45deg,#b0b0b0 25%,transparent 25%),linear-gradient(-45deg,#b0b0b0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#b0b0b0 75%),linear-gradient(-45deg,transparent 75%,#b0b0b0 75%);
-    background-size: 20px 20px;
-    background-position: 0 0,0 10px,10px -10px,-10px 0px;
-    border-radius: 6px;
+    // background-color: rgba(127,127,127,1.0);
+    // background-image: linear-gradient(45deg,#b0b0b0 25%,transparent 25%),linear-gradient(-45deg,#b0b0b0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#b0b0b0 75%),linear-gradient(-45deg,transparent 75%,#b0b0b0 75%);
+    // background-size: 20px 20px;
+    // background-position: 0 0,0 10px,10px -10px,-10px 0px;
+    // border-radius: 6px;
 `
 
 export const XRDivContainer = styled.div`
