@@ -153,10 +153,25 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
   )
 })
 
+const ImageName = styled.div`
+  position: absolute;
+  bottom: 23px;
+  right: 16px;
+  width: 255px;
+  color: white;
+  line-height: 32px;
+  font-family: 'Inter','Helvetica',sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 9999;
+  text-align: left;
+`
+
 const XRViewerApp = () => {
   const canvasContainerRef = useRef(null);
   const rendererRef = useRef(null);
   const imgLayoutRef = useRef(null);
+  const imgNameRef =  useRef(null);
 
   const [figData,setFigData] = useState([]);
   const [isFigma, setIsFigma] = useState(false);
@@ -338,6 +353,7 @@ const XRViewerApp = () => {
           <CanvasContainer ref={canvasContainerRef}>
                 <ImageListContainer ref={imgLayoutRef} style={{display:'none'}} >
                     {figData.map(({ src,type,index,name }) => (
+                      <>
                       <ImageInList  key={type + '-' + index} 
                             src={src}
                             className={'img-imported'}
@@ -346,15 +362,20 @@ const XRViewerApp = () => {
                             name={name}
                             style={{display:'none'}}
                             />
+                      
+                      
+                      </>
                     ))}
-
-                </ImageListContainer>
+                </ImageListContainer >
+                <ImageName ref={imgNameRef} style={{display:'none'}}>empty</ImageName>
                 {figData.length != 0 &&<GalleryIcon onClick={()=>{
                     if(imgLayoutRef.current.style.display === 'none'){
                       imgLayoutRef.current.style.display = 'flex'
+                      imgNameRef.current.style.display = 'flex'
                     }
                     else{
                       imgLayoutRef.current.style.display = 'none'
+                      imgNameRef.current.style.display = 'none'
                     }
                 }}/>}
                 <XRDivContainer>
@@ -421,6 +442,8 @@ const XRViewerApp = () => {
                               // imgLayoutRef.current.children[iterationIndex].style.width = '60px'
                               // imgLayoutRef.current.children[iterationIndex].style.height = '60px'
                               imgLayoutRef.current.children[iterationIndex].style.display = 'initial'
+                              //console.log(figData[iterationIndex-1])
+                              imgNameRef.current.innerHTML = figData[iterationIndex].name;
                             }
                             else{
                               // if(imgLayoutRef.current.children[iterationIndex].style.backgroundColor === 'rgb(64, 174, 255)'){

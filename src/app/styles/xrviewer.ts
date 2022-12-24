@@ -69,12 +69,14 @@ export const ImageListContainer = styled.div`
     // border-radius: 12px 12px 4px 4px;
     // padding: 10px 10px 10px 10px;
     // width: 280px;
-    width: 262px;
     z-index: 9999;
     bottom: 17px;
     right: 16px;
     border-radius: 12px;
-    height: 200px;
+    
+    width: 246px;
+    height: 184px;
+    padding:8px;
     // border-radius: 0px 0px 12px 12px;
     gap: 1rem;
     overflow-x: auto;
@@ -115,18 +117,26 @@ export const ImageInList = styled.img`
     // height: 60px;
     // border-radius: 5px;
     //width: 100%;
-    width: calc(100% - 40px);
-    height: calc(100% - 80px);
-    padding-top: 40px;
-    padding-left:20px;
-    padding-right:20px;
+    // width: calc(100% - 40px);
+    // height: calc(100% - 40px);
+    // padding-top: 40px;
+    // padding-bottom:40px;
+    // padding-left:20px;
+    // padding-right:20px;
     object-fit: contain;
     user-select: none;
+    width: calc(100% - 40px);
+    height: calc(100% - 77px);
+    padding: 20px;
     // padding: 12px;
     // box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
     // background-color: rgba(40,43,47,0.8);
-    background-color: rgba(0,0,0,1.0);
+    background-color: rgba(127,127,127,1.0);
     filter: invert(1) hue-rotate(180deg);
+    background-image: linear-gradient(45deg,#b0b0b0 25%,transparent 25%),linear-gradient(-45deg,#b0b0b0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#b0b0b0 75%),linear-gradient(-45deg,transparent 75%,#b0b0b0 75%);
+    background-size: 20px 20px;
+    background-position: 0 0,0 10px,10px -10px,-10px 0px;
+    border-radius: 6px;
 `
 
 export const XRDivContainer = styled.div`
