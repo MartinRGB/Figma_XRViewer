@@ -1,4 +1,4 @@
-import React,{useState,useRef,useEffect,useCallback} from 'react'
+import React,{useState,useRef,useEffect,useCallback, useContext} from 'react'
 import * as THREE from 'three'
 import { invalidate,useFrame,useLoader, useThree } from '@react-three/fiber'
 import { editable as e, SheetProvider} from '@theatre/r3f'
@@ -11,6 +11,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import { isDecoderFromLoacl } from '@Config';
 import { Select,TransformControls,AdaptiveEvents,AdaptiveDpr, Detailed  } from '@react-three/drei';
+import { TheatreSelectContext } from './TheatreSelectContext';
 
 let dracoloader;
 let ktx2Loader;
@@ -508,6 +509,7 @@ interface ProperScreenProps {
 }
 
 const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallback}:ProperScreenProps) =>{
+
   return(
     <>
     <SheetProvider sheet={getProject('XRViewer').sheet('Node Tree','Asset')}>
@@ -534,7 +536,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
             baseUnit={baseUnit}
             modelSrc={modelSrc}
             orbitRef={orbitRef}
-            selectCallback={(e)=>{selectCallback(e)}}
+            selectCallback={(e)=>{selectCallback(e);}}
           />
           :
           <Screen  
@@ -554,7 +556,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
             isQuery={isQuery}
             baseUnit={baseUnit}
             orbitRef={orbitRef}
-            selectCallback={(e)=>{selectCallback(e)}}
+            selectCallback={(e)=>{selectCallback(e);}}
             />
         ))}
       </>
@@ -565,7 +567,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
         (isQuery === true)?
         <></> 
         :
-        <Screen name={'Screen'} hasData={false} baseUnit={baseUnit} orbitRef={orbitRef} selectCallback={(e)=>{selectCallback(e)}}/>
+        <Screen name={'Screen'} hasData={false} baseUnit={baseUnit} orbitRef={orbitRef} selectCallback={(e)=>{selectCallback(e);}}/>
       }
       </>
     }

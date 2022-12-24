@@ -374,8 +374,8 @@ const ImporterApp = () => {
           {(imgArray.length != 0)?
           <ImageListContainer>
             {
-              imgArray.map((imgSrc) =>
-                <ImageInList src = {imgSrc}></ImageInList>
+              imgArray.map((imgSrc,index) =>
+                <ImageInList key={index} src = {imgSrc}></ImageInList>
               )
             }
           </ImageListContainer>

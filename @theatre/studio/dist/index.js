@@ -45970,7 +45970,7 @@ var init_ExtensionPaneWrapper = __esm({
   display: flex;
   flex-direction: column;
 
-  box-shadow: 0px 5px 12px -4px rgb(0 0 0 / 22%);
+  // box-shadow: 0px 5px 12px -4px rgb(0 0 0 / 22%);
   z-index: ${panelZIndexes.pluginPanes};
 `;
     Title2 = styled_components_browser_esm_default.div`

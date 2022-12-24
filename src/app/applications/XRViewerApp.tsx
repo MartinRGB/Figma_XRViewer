@@ -1,10 +1,10 @@
-import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense, useLayoutEffect} from 'react'
+import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense, useLayoutEffect, useContext} from 'react'
 
 import * as THREE from 'three'
 import { Canvas, invalidate,useFrame,useThree } from '@react-three/fiber'
 import { XRButton  } from '@react-three/xr'
 import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
-import {WebXRContainer,ImageInList,ImageListContainer,ImageListContainer2ND,ImageListContainerBase,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
+import {WebXRContainer,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
 import Spinner from '@Components/Spinner'
 import Orbit from '@Components/Orbit'
 import CombinedCamera from '@Components/CombinedCamera';
@@ -24,8 +24,7 @@ import { getProject,ISheetObject,types } from '@theatre/core'
 import { editable as e,SheetProvider } from '@theatre/r3f'
 import { AdaptiveDpr, AdaptiveEvents, Stage, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
-import styled from 'styled-components';
-import GalleryIcon from '@Components/GalleryIcon';
+import GalleryComponent from '../components/GalleryComponent';
 
 // todo
 // 2.computer data pass to XR Device 
@@ -43,7 +42,6 @@ const ViewerConfig ={
 }
 
 const helperSheet = getProject('XRViewer').sheet('Node Tree','Controller')
-const assetSheet = getProject('XRViewer').sheet('Node Tree','Asset')
 const sceneHelper = helperSheet.object(' - Helper Controller', {
   // cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),
@@ -152,32 +150,21 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
     </>
   )
 })
+const MemoOfRenderer = React.memo(Renderer);
 
-const ImageName = styled.div`
-  position: absolute;
-  bottom: 23px;
-  right: 16px;
-  width: 255px;
-  color: white;
-  line-height: 32px;
-  font-family: 'Inter','Helvetica',sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  z-index: 9999;
-  text-align: left;
-`
 
 const XRViewerApp = () => {
   const canvasContainerRef = useRef(null);
   const rendererRef = useRef(null);
   const imgLayoutRef = useRef(null);
-  const imgNameRef =  useRef(null);
+  const galleryCompRef = useRef();
 
   const [figData,setFigData] = useState([]);
   const [isFigma, setIsFigma] = useState(false);
   const [isQuery,setIsQuery] = useState(false);
   const [isLoading,setIsLoading] = useState(false);
   const [loadingProgress,setLoadingProgress] = useState(`0`);
+  const [isRendered,setIsRendered] = useState(false);
   
   const CreateImage = useCallback(({event,image,message,name}:CreateImageProps) => {
     onCreateImage(event,image,message,name)
@@ -337,8 +324,6 @@ const XRViewerApp = () => {
 
   }, []);
 
-  const [isRendered,setIsRendered] = useState(false);
-
   //todo error when in XRViewer Plugin,cannot load
   return (
     <>
@@ -351,31 +336,7 @@ const XRViewerApp = () => {
       <Suspense fallback={<></>}>
         <WebXRContainer>
           <CanvasContainer ref={canvasContainerRef}>
-                <ImageListContainer ref={imgLayoutRef} style={{display:'none'}} >
-                    {figData.map(({ src,type,index,name }) => (
-                      <>
-                      <ImageInList  key={type + '-' + index} 
-                            src={src}
-                            className={'img-imported'}
-                            id={type + '-' + index}
-                            // name={`#${index}-` + name.replace(/\//g,`_`).replace(/\ /g,`_`).substring(0,24)}
-                            name={name}
-                            style={{display:'none'}}
-                            />                
-                      </>
-                    ))}
-                </ImageListContainer >
-                <ImageName ref={imgNameRef} style={{display:'none'}}>empty</ImageName>
-                {figData.length != 0 &&<GalleryIcon onClick={()=>{
-                    if(imgLayoutRef.current.style.display === 'none'){
-                      imgLayoutRef.current.style.display = 'flex'
-                      imgNameRef.current.style.display = 'flex'
-                    }
-                    else{
-                      imgLayoutRef.current.style.display = 'none'
-                      imgNameRef.current.style.display = 'none'
-                    }
-                }}/>}
+                <GalleryComponent ref={galleryCompRef} figData={figData}></GalleryComponent>
                 <XRDivContainer>
                   {isFigma?
                   <>
@@ -422,7 +383,7 @@ const XRViewerApp = () => {
                     alpha: true,
                     logarithmicDepthBuffer:true,
                   }} >
-                      <Renderer 
+                      <MemoOfRenderer 
                         ref={rendererRef} 
                         containerRef={canvasContainerRef}
                         isFigma={isFigma}
@@ -430,31 +391,7 @@ const XRViewerApp = () => {
                         loadingProgress={loadingProgress}
                         figmaData={figData}
                         finishedRenderingCallback={()=>{setIsRendered(true)}}
-                        selectCallback={(e)=>{
-                          
-                          for(var i=0;i<imgLayoutRef.current.children.length;i++){
-                            let iterationIndex = (imgLayoutRef.current.children.length-1)-i;
-                            //let iterationIndex = i;
-                            if(i === e){
-                              // imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgb(64, 174, 255)'
-                              // imgLayoutRef.current.children[iterationIndex].style.width = '60px'
-                              // imgLayoutRef.current.children[iterationIndex].style.height = '60px'
-                              imgLayoutRef.current.children[iterationIndex].style.display = 'initial'
-                              //console.log(figData[iterationIndex-1])
-                              imgNameRef.current.innerHTML = figData[iterationIndex].name;
-                            }
-                            else{
-                              // if(imgLayoutRef.current.children[iterationIndex].style.backgroundColor === 'rgb(64, 174, 255)'){
-                              //   imgLayoutRef.current.children[iterationIndex].style.backgroundColor = 'rgba(40,43,47,0.8)'
-                              //   imgLayoutRef.current.children[iterationIndex].style.width = '60px'
-                              //   imgLayoutRef.current.children[iterationIndex].style.height = '60px'
-                              // }
-                              if(imgLayoutRef.current.children[iterationIndex].style.display === 'initial'){
-                                imgLayoutRef.current.children[iterationIndex].style.display = 'none'
-                              }
-                            }
-                          }
-                        }}
+                        selectCallback={(e)=>{galleryCompRef.current.setSelect(e)}}
                       />
                 </Canvas>
           </CanvasContainer>
