@@ -46273,9 +46273,8 @@ var init_ToolbarIconButton = __esm({
   width: 32px;
   height: 32px;
   outline: none;
-
   // color: #a8a8a9;
-
+  cursor:pointer;
   color:rgba(0, 0, 0, 0.5);
   background:white;
   // background: rgba(40, 43, 47, 0.8);

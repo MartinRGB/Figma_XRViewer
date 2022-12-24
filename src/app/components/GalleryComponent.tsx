@@ -48,8 +48,11 @@ export const ImageInList = styled.img<{isSelect:boolean}>`
 export const ImageName = styled.div<{isShow:boolean}>`
   position: absolute;
   bottom: 23px;
-  right: 16px;
-  width: 255px;
+  right: 60px;
+  width: 212px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: white;
   line-height: 32px;
   font-family: 'Inter','Helvetica',sans-serif;
@@ -58,7 +61,7 @@ export const ImageName = styled.div<{isShow:boolean}>`
   z-index: 9999;
   text-align: left;
   user-select:none;
-  display:${({isShow}) => (isShow ? 'flex' : 'none')};
+  display:${({isShow}) => (isShow ? 'initial' : 'none')};
 `
 
 const IconWrapper = styled.div`
