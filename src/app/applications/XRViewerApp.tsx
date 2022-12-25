@@ -22,7 +22,7 @@ import { webRootURL,webClientID,webSecrectID} from '@Config';
 import { getProject,ISheetObject,types } from '@theatre/core'
 
 import { editable as e,SheetProvider } from '@theatre/r3f'
-import { AdaptiveDpr, AdaptiveEvents, Stage, useHelper } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, GizmoHelper, GizmoViewport, Stage, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
 import GalleryComponent from '../components/GalleryComponent';
 import { searchElementByType } from '@Utils/functions';

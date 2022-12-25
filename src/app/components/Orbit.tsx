@@ -19,7 +19,7 @@ const Orbit = ({orbitRef,cameraSheetObj}:OrbitProps) =>{
     }
   },)
   return(
-    <>{(showOribt)?<OrbitControls ref={orbitRef}/>:<></>}</>
+    <>{(showOribt)?<OrbitControls makeDefault ref={orbitRef}/>:<></>}</>
   )
 }
 export default Orbit;

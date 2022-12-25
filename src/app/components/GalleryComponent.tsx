@@ -159,7 +159,8 @@ const GalleryComponent = forwardRef(({figData}:GalleryCompProps,ref) =>{
   }));
 
   useEffect(()=>{
-    setName((selectIndex != -1)?figData[figData.length - 1 - selectIndex].name:'empty')
+    console.log(figData)
+    if(figData.length != 0) setName((selectIndex != -1)?figData[figData.length - 1 - selectIndex].name:'empty')
   },[selectIndex])
 
   return(
