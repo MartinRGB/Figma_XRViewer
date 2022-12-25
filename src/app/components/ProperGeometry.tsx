@@ -13,11 +13,12 @@ import { nginxDecoderPath, nginxTestPath } from '@Config';
 import { Select,TransformControls,AdaptiveEvents,AdaptiveDpr, Detailed  } from '@react-three/drei';
 import { TheatreSelectContext } from './TheatreSelectContext';
 import { testNginxServerExist } from '@Utils/nginxTest';
+import {nginxDirLink} from '@Config'
 
 // let dracoloader;
 // let ktx2Loader;
 // if(isDecoderFromLoacl){
-//   const Local_Decoder_Path = `https://172.22.0.20:8222/service_1/decoder`
+//   const Local_Decoder_Path = `${nginxDirLink}/service_1/decoder`
 //   dracoloader = new DRACOLoader().setDecoderPath(`${Local_Decoder_Path}/draco/gltf/`)
 //   ktx2Loader = new KTX2Loader().setTranscoderPath(`${Local_Decoder_Path}/basis/`)
 //   dracoloader.preload()

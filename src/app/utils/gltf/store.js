@@ -13,12 +13,13 @@ import { REVISION } from 'three'
 import { WebGLRenderer } from 'three'
 import { nginxDecoderPath } from '@Config';
 import {testNginxServerExist } from '@Utils/nginxTest'
+import {nginxDirLink} from '@Config'
 
 let gltfLoader,dracoloader,ktx2Loader;
 if (typeof window !== 'undefined') {
   //todo
   // if(isDecoderFromLoacl){
-  //   const decoderPath = `https://172.22.0.20:8222/service_1/decoder`
+  //   const decoderPath = `${nginxDirLink}/service_1/decoder`
   //   dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
   //   ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
   //   dracoloader.preload()
