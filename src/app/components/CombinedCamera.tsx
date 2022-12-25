@@ -29,6 +29,7 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
     function updateSize() {
       setAspect(window.innerWidth/window.innerHeight)
       window.studio.transaction(({ set }) => {
+        console.log('set cam')
         set(cameraSheetObj.current.props.aspect, window.innerWidth/window.innerHeight) // New value is {x: 10, y: 0}
       })
     }

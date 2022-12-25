@@ -25,6 +25,7 @@ import { editable as e,SheetProvider } from '@theatre/r3f'
 import { AdaptiveDpr, AdaptiveEvents, Stage, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
 import GalleryComponent from '../components/GalleryComponent';
+import { searchElementByType } from '@Utils/functions';
 
 // todo
 // 2.computer data pass to XR Device 
@@ -80,6 +81,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
       scene.background = new THREE.Color(ViewerConfig.bgColor);
       return savedImage;
     },
+    getCameraSheetObj:() =>{return cameraSheetObj}
   }));
 
   
@@ -156,8 +158,9 @@ const MemoOfRenderer = React.memo(Renderer);
 const XRViewerApp = () => {
   const canvasContainerRef = useRef(null);
   const rendererRef = useRef(null);
-  const imgLayoutRef = useRef(null);
   const galleryCompRef = useRef();
+  const arBtnRef = useRef();
+  const vrBtnRef = useRef();
 
   const [figData,setFigData] = useState([]);
   const [isFigma, setIsFigma] = useState(false);
@@ -285,7 +288,7 @@ const XRViewerApp = () => {
     }
   },[])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const parsedUrl = new URL(window.location.href);
     const fileKey = parsedUrl.searchParams.get('query_key');
     const nodeId = parsedUrl.searchParams.get('query_node');
@@ -323,6 +326,18 @@ const XRViewerApp = () => {
 
   }, []);
 
+  const clickXRBtn = (e) =>{
+    if(e.target.innerHTML === 'Enter VR' || e.target.innerHTML === 'Enter AR'){
+      document.getElementById('theatrejs-studio-root').style.display='none';
+      document.getElementById('gallery-root').style.display='none';
+    }
+
+    if(e.target.innerHTML === 'Exit VR' || e.target.innerHTML === 'Exit AR'){
+      document.getElementById('theatrejs-studio-root').style.display='initial';
+      document.getElementById('gallery-root').style.display='initial';
+    }
+  }
+
   //todo error when in XRViewer Plugin,cannot load
   return (
     <>
@@ -351,19 +366,19 @@ const XRViewerApp = () => {
                       event:e,
                       isServe:true,
                       data:figData,
-                      imageLayout:imgLayoutRef.current
+                      imageLayout:galleryCompRef.current.getImgLayout()
                     })}}>Download(Serve)</TopFixedBtn>
                     <TopFixedBtn onClick={(e)=>{DownloadHTML({
                       event:e,
                       isServe:false,
                       data:figData, 
-                      imageLayout:imgLayoutRef.current
+                      imageLayout:galleryCompRef.current.getImgLayout()
                     })}}>Download(Static)</TopFixedBtn>
                   </>
                   :
                   <>
-                    <XRButton className="xr-button" mode={'AR'} />
-                    <XRButton className="xr-button" mode={'VR'} />
+                    <XRButton className="xr-button" onClick={(e)=>{clickXRBtn(e)}} mode={'AR'} />
+                    <XRButton className="xr-button" onClick={(e)=>{clickXRBtn(e)}} mode={'VR'} />
                   </>
                   }
                 </XRDivContainer>

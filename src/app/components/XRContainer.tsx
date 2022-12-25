@@ -18,6 +18,8 @@ const XRContainer = ({cameraSheetObj,children}:XRContainerProps) =>{
         player.visible = false;
         const mHelper =  searchElementByType(mArr,'type','CameraHelper')
         mHelper.visible = false;
+        // document.getElementById('theatrejs-studio-root').style.display='none';
+        // document.getElementById('gallery-root').style.display='none';
         const fovSqrtInPlayer = Math.sqrt(3);
         const pX = cameraSheetObj.current.value.position.x
         const pY = cameraSheetObj.current.value.position.y
@@ -39,7 +41,7 @@ const XRContainer = ({cameraSheetObj,children}:XRContainerProps) =>{
         player.children[0].position.y = 0;
         // player.matrixWorldNeedsUpdate = true;
         // invalidate();
-        console.log(player)
+        // console.log(player)
         setTimeout(()=>{player.visible = true;invalidate();},1);
       }
       else{

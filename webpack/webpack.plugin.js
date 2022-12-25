@@ -15,7 +15,10 @@ module.exports = (env, argv) => ({
     hot: true,
     open: true,
     https: true,
-    port:8886,    
+    port:8886, 
+    devMiddleware: {
+      index: 'gltf.html',
+    },
   }:
   {
     hot: true,

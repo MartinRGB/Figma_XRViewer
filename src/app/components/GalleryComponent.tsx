@@ -151,9 +151,11 @@ const GalleryComponent = forwardRef(({figData}:GalleryCompProps,ref) =>{
   const [isShow,setIsShow] = useState(false);
   const [selectIndex,setSelectIndex] = useState(-1);
   const [name,setName] = useState('empty');
+  const imgLayoutRef = useRef();
   
   useImperativeHandle(ref, () => ({
     setSelect: (e) => {setSelectIndex(e)},
+    getImgLayout: () =>{return imgLayoutRef.current}
   }));
 
   useEffect(()=>{
@@ -161,8 +163,8 @@ const GalleryComponent = forwardRef(({figData}:GalleryCompProps,ref) =>{
   },[selectIndex])
 
   return(
-    <>
-    <ImageListContainer isShow={isShow} >
+    <div id="gallery-root">
+    <ImageListContainer ref={imgLayoutRef} isShow={isShow} >
       {figData.map(({ src,type,index,name }) => (
           <ImageInList 
             key={type + '-' + index} 
@@ -175,7 +177,7 @@ const GalleryComponent = forwardRef(({figData}:GalleryCompProps,ref) =>{
     </ImageListContainer >
     <ImageName isShow={isShow}>{name}</ImageName>
     {figData.length != 0 &&<GalleryIcon onClick={()=>{setIsShow(!isShow)}}/>}
-    </>
+    </div>
   )
 })
 

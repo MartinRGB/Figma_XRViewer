@@ -1,6 +1,6 @@
 {
 	"name": "XRViewer",
-	"version": "0.2.16",
+	"version": "0.2.19",
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {

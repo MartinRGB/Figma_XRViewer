@@ -62,6 +62,7 @@ export const XRDivContainer = styled.div`
     margin: 0 auto;
     z-index: 10;
     display:flex;
+    z-index:10000;
 `
 
 export const TopFixedBtn = styled.div`

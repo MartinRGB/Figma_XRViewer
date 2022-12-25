@@ -48984,10 +48984,13 @@ var init_notify = __esm({
   display: flex;
   gap: 12px;
   ${pointerEventsAutoInNormalMode};
-  background-color: rgba(40, 43, 47, 0.8);
+  //background-color: rgba(40, 43, 47, 0.8);
   //background-color: white;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(14px);
+  //box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
+  //border:1px solid #cacaca;
+  background-color: black;
+  box-shadow: inset 0 0 0px 1px #4b4b4b;
+  //backdrop-filter: blur(14px);
 
   // @supports not (backdrop-filter: blur()) {
   //   background: rgba(40, 43, 47, 0.95);
@@ -48996,8 +48999,9 @@ var init_notify = __esm({
     NotificationTitle = styled_components_browser_esm_default.div`
   font-size: 14px;
   font-weight: bold;
-  // color: #fff;
-  color: rgba(0,0,0,0.9);
+  color:#888888;
+  //color: #fff;
+  // color: rgba(0,0,0,0.9);
 `;
     NotificationMain = styled_components_browser_esm_default.div`
   flex: 1;
@@ -49131,11 +49135,12 @@ var init_notify = __esm({
   ${pointerEventsAutoInNormalMode};
   // background-color: rgba(40, 43, 47, 0.8);
   backgrond-color:white;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
+  //box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
   // backdrop-filter: blur(14px);
-  border: none;
+  //border: none;
   padding: 12px;
-  color: #fff;
+  border: 1px solid #cacaca;
+  //color: #fff;
   overflow: hidden;
 
   ::before {
@@ -49173,8 +49178,25 @@ var init_notify = __esm({
     display: flex;
     flex-direction: column-reverse;
     gap: 8px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hiddien;
     height: 100%;
+    filter: invert(1) hue-rotate(180deg) brightness(1.25);
+    ::-webkit-scrollbar {
+      width: 2px;
+      background-color: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        //background-color: #40aeff;
+        // background-color: rgb(0 0 0 / 80%);
+        background-color: transparent;
+        border-radius: 100px;
+    }
+    ::-webkit-scrollbar-track {
+        //box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+        background-color: transparent;
+        border-radius: 100px;
+    }
   }
 `;
     EmptyState2 = styled_components_browser_esm_default.div`
