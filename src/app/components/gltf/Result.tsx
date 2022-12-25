@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber';
 import {postData} from '@Utils/uploadToServer';
 import { PerspectiveCamera } from '@react-three/drei'
-import {nginxAssetLink,nginxUploadFolder} from '@Config'
+import {nginxAssetFolderPath,nginxUploadFolder} from '@Config'
 import {LoadingContainer,LoadingComponent,Loading,FileNameHeading} from '@Styles/Plugin'
 
 
@@ -183,8 +183,8 @@ const Result = React.forwardRef((props,ref) =>{
   
       // ############## save to figma ##############
       
-      // console.log(nginxAssetLink+`/${fileKey}/Model/${fileName}`)
-      const inFigName = nginxAssetLink+`/${fileKey}/Model/${fileName.replaceAll(' ','%20').replaceAll('(','%28').replaceAll(')','%29')}`;
+      // console.log(nginxAssetFolderPath+`/${fileKey}/Model/${fileName}`)
+      const inFigName = nginxAssetFolderPath+`/${fileKey}/Model/${fileName.replaceAll(' ','%20').replaceAll('(','%28').replaceAll(')','%29')}`;
       //saveAs(image, `${fileName.split('.')[0]}.png`)
       onCreateImage(null,image,'save-canvas-image',inFigName) //`${fileName.split('.')[0]}.png`
 

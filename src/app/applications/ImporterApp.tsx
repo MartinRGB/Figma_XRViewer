@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useCallback} from 'react'
 import {FigmaApi} from '@Utils/figmaAPI';
 import Spinner from '@Components/Spinner';
-import { webRootURL,webClientID,webSecrectID, nginxUploadFolder,nginxDirLink } from '@Config';
+import { webRootURL,webClientID,webSecrectID, nginxAssetFolderPath } from '@Config';
 import { copyToClipboard } from '@Utils/functions'; 
 import styled,{ThemeProvider,createGlobalStyle} from 'styled-components';
 import {themes,CodeBtn, DataInfo, FlexLeftContainer, FlexRightContainer, GreenBtn, HorizontalFlexContainer, ImageInList, ImageListContainer, ImporterGlobalStyle, JSONTextArea, MarginTopSix, NormalTextArea, Para, StrongText, VerticalFlexContainer,}  from '@Styles/Importer'
@@ -79,7 +79,7 @@ const ImporterApp = () => {
         const _rendererUrlBase = webRootURL;
         const _rendererUrl = _rendererUrlBase + `?query_token=${queryToken}&query_key=${queryKey}&query_node=${queryNode}`
 
-        const _apiUrl = `${nginxDirLink}${nginxUploadFolder}/${queryKey}/${queryNode.replaceAll(':','%253A')}/data.json`
+        const _apiUrl = `${nginxAssetFolderPath}/${queryKey}/${queryNode.replaceAll(':','%253A')}/data.json`
 
         setIsLoading(false);
         setCurrentToken(queryToken)

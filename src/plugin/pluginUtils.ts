@@ -1,4 +1,4 @@
-import { nginxDirLink,nginxUploadFolder,figmaExportScale,figmaIsUseAbsoluteBounds } from "@Config";
+import { nginxAssetFolderPath,figmaExportScale,figmaIsUseAbsoluteBounds } from "@Config";
 
 export const sendMsg = (tp,val) => {
   figma.ui.postMessage({type: tp, value:val});
@@ -41,7 +41,7 @@ export const JSONMapPropsFromParent = (frame,key,node) =>{
 
   const fileKey = key;
   const nodeId = node.replaceAll(':','%3A');
-  const finalLink = nginxDirLink + nginxUploadFolder + '/' + fileKey +'/' + nodeId + '/'
+  const finalLink = nginxAssetFolderPath + '/' + fileKey +'/' + nodeId + '/'
 
   const isModel = (frame.name.includes('https://') && (frame.name.includes('.gltf') || frame.name.includes('.glb')));
   const obj = {}

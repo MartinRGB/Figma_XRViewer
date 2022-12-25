@@ -1,4 +1,4 @@
-import { nginxUploadPHPLink } from "@Config";
+import { nginxUploadPHPPath } from "@Config";
 
 export async function dataToPHPServer (link,blob,headers,endCallback) {
 
@@ -41,7 +41,7 @@ export async function postData (url,path,name,startCallback,middleCallback,endCa
     //console.log(nginxUploadFolder + path)
     // ########################### METHOD - QUERY DATA ###########################
     dataToPHPServer(
-      `${nginxUploadPHPLink}?fileDir=${path}&fileName=${name}`,
+      `${nginxUploadPHPPath}?fileDir=${path}&fileName=${name}`,
       blob,
       {},
       endCallback

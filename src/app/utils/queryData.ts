@@ -1,4 +1,4 @@
-import { nginxDirLink,nginxUploadFolder} from '@Config';
+import { nginxAssetFolderPath} from '@Config';
 
 export const sortDataInDescendingOrder = (data) =>{
   return data.sort((a,b) => b.index - a.index)
@@ -170,7 +170,7 @@ export async function asyncFetchQueryLocalServerJSON (fileKey,nodeId,progressCal
   var num = 0;
   const isContainFrame = false;
 
-  const _apiUrl = `${nginxDirLink}${nginxUploadFolder}/${fileKey}/${nodeId.replaceAll(':','%253A')}/data.json`
+  const _apiUrl = `${nginxAssetFolderPath}/${fileKey}/${nodeId.replaceAll(':','%253A')}/data.json`
 
   const data = await fetch(_apiUrl,)
   const json = await data.json();
