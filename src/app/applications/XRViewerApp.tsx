@@ -131,7 +131,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
             // is not in Figma
             <XRContainer cameraSheetObj={cameraSheetObj}>
               <SheetProvider sheet={helperSheet}>
-                <e.group theatreKey={' - Main Controller'} ref={groupRef} objRef={groupSheetObj}>
+                <e.group theatreKey={'- Main Controller'} ref={groupRef} objRef={groupSheetObj}>
                   <ProperGeometry selectCallback={(e)=>{selectCallback(e)}} figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
                 </e.group> 
               </SheetProvider>
@@ -140,7 +140,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
             // is in Figma
             <>
               <SheetProvider sheet={helperSheet}>
-                <e.group theatreKey={' - Main Controller'} ref={groupRef} objRef={groupSheetObj}>
+                <e.group theatreKey={'- Main Controller'} ref={groupRef} objRef={groupSheetObj}>
                     <ProperGeometry selectCallback={(e)=>{selectCallback(e)}} figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
                 </e.group>
               </SheetProvider>

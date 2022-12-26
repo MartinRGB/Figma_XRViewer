@@ -156,7 +156,7 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
     }
 
     <e.group
-      theatreKey=" - Camera Controller" 
+      theatreKey="- Camera Controller" 
       objRef={cameraSheetObj}
       additionalProps={{ 
         control: true,

@@ -527,7 +527,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
       console.log('decoderPath is ' + DecoderPath);
     },
     ()=>{
-      const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
+      const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
       dracoloaderRef.current = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
       ktx2LoaderRef.current = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
       dracoloaderRef.current.preload()

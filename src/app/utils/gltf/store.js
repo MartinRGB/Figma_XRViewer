@@ -51,7 +51,7 @@ if (typeof window !== 'undefined') {
       .setMeshoptDecoder(MeshoptDecoder)
     },
     ()=>{
-      const DecoderPath = `https://unpkg.com/three@0.${REVISION}.x`;
+      const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
       dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
       ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
       dracoloader.preload()

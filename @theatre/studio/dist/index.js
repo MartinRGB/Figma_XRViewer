@@ -31056,7 +31056,7 @@ var init_css = __esm({
   pointer-events: none;
 
   > div{
-    color:black;
+    color:white;
   }
 `;
     ProvideStyles = (props) => {
@@ -31408,7 +31408,6 @@ var init_propNameTextCSS = __esm({
   font-family: 'Inter', 'Helvetica', sans-serif;
   font-size: 12px;
   font-weight:400;
-  // color: rgba(0,0,0,0.5);
   color:rgb(130 130 130);
 `;
   }
@@ -31973,7 +31972,7 @@ var init_NextPrevKeyframeCursors = __esm({
     display: none;
     z-index: -1;
     // background: ${curriedTransparentize(0.2, "black")};
-    background: #e6e6e6;
+    background: #323232;
   }
 
   &:hover {
@@ -32628,7 +32627,7 @@ function drawGrid(opts) {
   createGrid(opts, (_posInUnitSpace, isFullSecond) => {
     const posInUnitSpace = snapToGrid(_posInUnitSpace);
     const posInClippedSpace = Math.floor(unitSpaceToClippedSpace(posInUnitSpace));
-    ctx3.strokeStyle = isFullSecond ? "rgba(230,230,230,0.4)" : "rgba(230,230,230,0.2)";
+    ctx3.strokeStyle = isFullSecond ? "rgba(225, 225, 225, 0.1)" : "rgba(255, 255, 255, 0.04)";
     ctx3.beginPath();
     ctx3.moveTo(posInClippedSpace, 0);
     ctx3.lineTo(posInClippedSpace, height2);
@@ -32734,7 +32733,7 @@ var init_DopeSheetBackground = __esm({
   z-index: ${() => zIndexes.rightBackground};
   overflow: hidden;
   //background: ${curriedTransparentize(0.01, curriedDarken(1 * 0.03, theme.panel.bg))};
-  background: rgba(255,255,255,0.99);
+  background: rgba(0,0,0,0.99);
   pointer-events: none;
 `;
     DopeSheetBackground = ({ layoutP }) => {
@@ -32834,7 +32833,6 @@ var init_common = __esm({
   flex-grow: 1;
   overflow-y: scroll;
   padding: 0;
-  filter: invert(1) hue-rotate(180deg);
 `;
     titleBarHeight = 18;
     TitleBar = styled_components_browser_esm_default.div`
@@ -32844,21 +32842,15 @@ var init_common = __esm({
   align-items: center;
   padding: 0 10px;
   position: relative;
-  //color: #adadadb3;
-  // border-bottom: 1px solid rgb(0 0 0 / 13%);
-  // background-color: #25272b;
-  // color: #717171b3;
-  color: rgba(0,0,0,0.9);
-  background-color: rgba(255,255,255,0.99);
-  border-right: 1px solid #252b3817;
-  border-bottom: 1px solid #252b3817;
+  color: white;
+  background-color: rgba(0,0,0,0.99);
+  border-right: 1px solid #4b4b4b;
+  border-bottom: 1px solid #4b4b4b;
   font-size: 10px;
   font-weight: 500;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  // border: 1px solid #e6e6e6;
-  // border-radius: 12px 12px 0 0;
 `;
     visibleSize = 100;
   }
@@ -33206,7 +33198,7 @@ var init_StampsGrid = __esm({
   pointer-events: none;
 `;
     stampsGridTheme = {
-      fullUnitStampColor: `#6a6a6a`,
+      fullUnitStampColor: `#bbbbbb`,
       stampFontSize: "10px",
       get subUnitStampColor() {
         return curriedDarken(0.2, stampsGridTheme.fullUnitStampColor);
@@ -34439,9 +34431,8 @@ var init_Item = __esm({
   font-size: 11px;
   font-weight: 400;
   position: relative;
-  // color: ${(props) => props.enabled ? "white" : "#8f8f8f"};
-  color: ${(props) => props.enabled ? "rgba(0,0,0,0.9)" : "#0000003b"};
-  cursor: ${(props) => props.enabled ? "normal" : "not-allowed"};
+  color: ${(props) => props.enabled ? "white" : "#ffffff3b"};
+  cursor: ${(props) => props.enabled ? "pointer" : "not-allowed"};
 
   &:after {
     position: absolute;
@@ -34450,7 +34441,7 @@ var init_Item = __esm({
     content: ' ';
     pointer-events: none;
     z-index: -1;
-    border-radius: 3px;
+    // border-radius: 3px;
   }
 
   &:hover:after {
@@ -34518,15 +34509,13 @@ var init_ContextMenu = __esm({
   min-width: ${minWidth}px;
   z-index: 10000;
   // background: ${(0, import_transparentize.default)(0.2, "#111")};
-  background: rgba(255,255,255,0.9);
-  // box-shadow: 0px 2px 10px #0000002b;
-  border:1px solid #c6c6c6;
-  // backdrop-filter: blur(2px);
+  // background: rgba(255,255,255,0.9);
+  background: black;
+  border:1px solid #4b4b4b;
   color: white;
   list-style-type: none;
   padding: 2px 0;
   margin: 0;
-  border-radius: 1px;
   cursor: default;
   ${pointerEventsAutoInNormalMode};
   border-radius: 3px;
@@ -34647,6 +34636,7 @@ var init_BasicCheckbox = __esm({
     init_styled_components_browser_esm();
     BasicCheckbox = styled_components_browser_esm_default.input.attrs({ type: "checkbox" })`
   outline: none;
+  cursor:pointer;
 `;
     BasicCheckbox_default = BasicCheckbox;
   }
@@ -34773,23 +34763,17 @@ var init_BasicNumberInput = __esm({
 
   &:hover{
     &:after {
-      // background-color: #10101042;
-      // border-color: #00000059;
-      border-color:#e6e6e6;
+      border-color:#4b4b4b;
     }
   }
   &.dragging{
     &:after {
-      // background-color: #10101042;
-      // border-color: #00000059;
       border-color:#40aeff;
     }
   }
 
   &.editingViaKeyboard {
     &:after {
-      // background-color: #10101042;
-      // border-color: #00000059;
       border-color:#40aeff;
     }
   }
@@ -34797,11 +34781,11 @@ var init_BasicNumberInput = __esm({
     Input2 = styled_components_browser_esm_default.input`
   background: transparent;
   border: 1px solid transparent;
-  // color: rgba(255, 255, 255, 0.9);
   padding: 1px 6px;
   font: inherit;
   outline: none;
   cursor: ew-resize;
+  color:white;
   text-align: left;
   width: 100%;
   height: calc(100% - 4px);
@@ -34816,7 +34800,7 @@ var init_BasicNumberInput = __esm({
   inset: 3px 2px 4px;
   transform: scale(var(--percentage), 1);
   transform-origin: top left;
-  background-color: #e6e6e6;
+  background-color: #323232;
   z-index: -1;
   border-radius: 2px;
   pointer-events: none;
@@ -35094,6 +35078,7 @@ var init_BasicSwitch = __esm({
   flex-grow: 1;
   color: #a7a7a7;
   border: 1px solid transparent;
+  cursor:pointer;
   box-sizing: border-box;
   border-right-width: 0px;
 
@@ -35108,14 +35093,11 @@ var init_BasicSwitch = __esm({
   }
 
   &&:hover {
-    // background-color: #464654;
-    color: rgba(0,0,0,0.9);
+    color: white;
   }
 
   &&[data-checked='true'] {
-    // color: white;
-    // background: #3f3f4c;
-    color: rgba(0,0,0,0.9);
+    color: white;
     font-weight:600;
   }
 `;
@@ -35178,14 +35160,13 @@ var init_BasicSelect = __esm({
   background-color: transparent;
   box-sizing: border-box;
   border: 1px solid transparent;
-  // color: rgba(255, 255, 255, 0.85);
-  color: rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 0.9);
+  cursor:pointer;
   padding: 1px 6px;
   font: inherit;
   outline: none;
   text-align: left;
   width: 100%;
-  // border-radius: 2px;
   /*
   looks like putting percentages in the height of a select box doesn't work in Firefox. Not sure why.
   So we're hard-coding the height to 26px, unlike all other inputs that use a relative height.
@@ -35198,10 +35179,9 @@ var init_BasicSelect = __esm({
   }
 
   &:hover{
-    border-color: #e6e6e6;
+    border-color: #4b4b4b;
   }
   &:focus {
-    // background-color: #10101042;
     border-color:#40aeff;
   }
 `;
@@ -35270,8 +35250,7 @@ var init_BasicStringInput = __esm({
     Input4 = styled_components_browser_esm_default.input.attrs({ type: "text" })`
   background: transparent;
   border: 1px solid transparent;
-  // color: rgba(255, 255, 255, 0.9);
-  color: rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 0.9);
   padding: 1px 6px;
   font: inherit;
   outline: none;
@@ -35279,23 +35258,18 @@ var init_BasicStringInput = __esm({
   text-align: left;
   width: 100%;
   height: calc(100% - 4px);
-  // border-radius: 2px;
-  // border: 1px solid transparent;
   box-sizing: border-box;
 
   &:hover {
-    // background-color: #10101042;
-    border-color: #e6e6e6;
+    border-color: #4b4b4b;
   }
 
   &:hover{
     cursor: text;
-    // background-color: #10101042;
-    border-color: #e6e6e6;
+    border-color: #4b4b4b;
   }
   &:focus {
     cursor: text;
-    // background-color: #10101042;
     border-color: #40aeff;
   }
 
@@ -36430,11 +36404,13 @@ var init_PopoverArrow = __esm({
   line-height: 0;
 `;
     InnerTriangle = styled_components_browser_esm_default.path`
-  fill: var(--popover-bg);
+  // fill: var(--popover-bg);
   // fill: white;
+  fill:black;
 `;
     InnerStroke = styled_components_browser_esm_default.path`
-  fill: var(--popover-inner-stroke);
+  // fill: var(--popover-inner-stroke);
+  fill:#4b4b4b;
 `;
     OuterStroke = styled_components_browser_esm_default.path`
   // fill: var(--popover-outer-stroke);
@@ -36477,11 +36453,11 @@ var init_BasicPopover = __esm({
     Container20 = styled_components_browser_esm_default.div`
   position: absolute;
   //--popover-bg: ${popoverBackgroundColor};
-  --popover-bg:rgba(255,255,255,0.95);
-  --popover-inner-stroke: #cacaca; //505159
-  --popover-outer-stroke: #111;
+  // --popover-bg:rgba(255,255,255,0.95);
+  // --popover-inner-stroke: #4b4b4b; //505159
+  // --popover-outer-stroke: #111;
 
-  background: var(--popover-bg);
+  background: rgba(0,0,0,0.99);
 
   color: white;
   padding: 0;
@@ -36491,10 +36467,8 @@ var init_BasicPopover = __esm({
   border-radius: 3px;
   z-index: 10000;
   
-  border: 1px solid var(--popover-inner-stroke);
-  // box-shadow: 0 0 0 1px var(--popover-outer-stroke), 0 6px 8px -4px black;
-  // box-shadow: 0px 2px 10px #0000002b;
-  backdrop-filter: blur(8px);
+  // border: 1px solid var(--popover-inner-stroke);
+  border: 1px solid #4b4b4b;
 
   & a {
     color: inherit;
@@ -36582,8 +36556,7 @@ var init_RgbaPropEditor = __esm({
   height: 18px;
   aspect-ratio: 1;
   border-radius: 4px;
-  //border: 1px solid #e6e6e6;
-  border: 1px solid #cacaca;
+  border: 1px solid #4b4b4b;
 `;
     HexInput = styled_components_browser_esm_default(BasicStringInput_default)`
   flex: 1;
@@ -37059,7 +37032,7 @@ var init_DetailCompoundPropEditor = __esm({
   font-family: 'Inter','Helvetica',sans-serif;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(0,0,0,0.9);
+  color: white;
 
   &:hover {
     opacity:0.6;
@@ -37157,7 +37130,7 @@ var init_SingleRowPropEditor = __esm({
   font-family: 'Inter','Helvetica',sans-serif;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(0,0,0,0.5);
+  color: rgba(255,255,255,0.5);
   
   
   &:hover {
@@ -37471,7 +37444,7 @@ var init_BasicTooltip = __esm({
   pointer-events: none !important;
   --popover-outer-stroke: transparent;
   // --popover-inner-stroke: #bebebe2b;
-  --popover-inner-stroke: #cacaca;
+  --popover-inner-stroke: #4b4b4b;
   // --popover-inner-stroke: #45464d;
 `;
     BasicTooltip_default = BasicTooltip;
@@ -37832,7 +37805,7 @@ var init_EmptyState = __esm({
   flex-direction: column;
   gap: 11px;
   // color: rgba(255, 255, 255, 0.9);
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 `;
     Icon2 = styled_components_browser_esm_default.div`
   color: rgba(145, 145, 145, 0.8);
@@ -37888,12 +37861,6 @@ var init_DetailPanel = __esm({
   right: 8px;
   top: 8px;
   border-radius: 12px;
-  // height: calc(100% - 57px);
-  // border: 1px solid #cacaca;
-  // padding-bottom:20px;
-  // height: fit-content;
-  // height: 100vh;
-  // z-index: ${panelZIndexes.propsPanel};
   z-index:-1;
 
   height:calc(100% - 17px);
@@ -37916,11 +37883,11 @@ var init_DetailPanel = __esm({
 `;
     BeforePadding = styled_components_browser_esm_default.div`
   height: 40px;
-  background: white;
+  background: black;
   border-radius: 12px 12px 0 0;
-  border-top: 1px solid #cacaca;
-  border-left: 1px solid #cacaca;
-  border-right: 1px solid #cacaca;
+  border-top: 1px solid #4b4b4b;
+  border-left: 1px solid #4b4b4b;
+  border-right: 1px solid #4b4b4b;
 
 `;
     Title = styled_components_browser_esm_default.div`
@@ -37938,10 +37905,8 @@ var init_DetailPanel = __esm({
   height: ${headerHeight};
   display: flex;
   align-items: center;
-  // border-top: 1px solid #e6e6e6;
-  //border-top: 1px solid #cacaca;
-  border: 1px solid #cacaca;
-  background: white;
+  border: 1px solid #4b4b4b;
+  background: black;
 
 `;
     Body = styled_components_browser_esm_default.div`
@@ -37959,12 +37924,12 @@ var init_DetailPanel = __esm({
   /* Set the font-size for input values in the detail panel */
   font-size: 12px;
 
-  border-bottom: 1px solid #cacaca;
-  border-left: 1px solid #cacaca;
-  border-right: 1px solid #cacaca;
+  border-bottom: 1px solid #4b4b4b;
+  border-left: 1px solid #4b4b4b;
+  border-right: 1px solid #4b4b4b;
   border-radius: 0px 0px 12px 12px;
   height: calc(100% - 76px);
-  background: white;
+  background: black;
   overflow-x: hidden;
   overflow-y: overlay;
 
@@ -38042,10 +38007,10 @@ var init_DetailPanel = __esm({
           }
         }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement("div", {
           style: {
-            border: "1px solid #cacaca",
+            border: "1px solid #4b4b4b",
             borderRadius: "0px 0px 12px 12px",
             height: "calc(100% - 43px)",
-            background: "white"
+            background: "black"
           }
         }, /* @__PURE__ */ import_react121.default.createElement(EmptyState_default, null)));
       }, [showDetailsPanel]);
@@ -38742,8 +38707,8 @@ var init_TopStrip = __esm({
     init_FocusRangeZone();
     topStripHeight = 18;
     topStripTheme = {
-      backgroundColor: `rgba(255,255,255,0.99)`,
-      borderColor: `#252b3817`
+      backgroundColor: `rgba(0,0,0,0.99)`,
+      borderColor: `rgba(225, 225, 225, 0.1)`
     };
     Container28 = styled_components_browser_esm_default.div`
   position: absolute;
@@ -38753,7 +38718,7 @@ var init_TopStrip = __esm({
   height: ${topStripHeight}px;
   box-sizing: border-box;
   background: ${topStripTheme.backgroundColor};
-  border-bottom: 1px solid ${topStripTheme.borderColor};
+  border-bottom: 1px solid #4b4b4b;
   ${pointerEventsAutoInNormalMode};
 `;
     TopStrip = ({
@@ -38984,11 +38949,11 @@ var init_LengthIndicator = __esm({
   align-items: center;
   cursor: ew-resize;
   color: #5d5d5d;
-  background-color: #191919;
+  background-color: #32353b;
 
   ${Strip}:hover &, ${Strip}.dragging & {
     color: white;
-    background-color: ${colors.stripActive};
+    background:#40aeff;
 
     & > svg:first-child {
       margin-right: -1px;
@@ -39099,7 +39064,8 @@ var init_FrameStamp = __esm({
   color: ${stampsGridTheme.fullUnitStampColor};
   text-align: center;
   transform: translateX(-50%);
-  background: ${topStripTheme.backgroundColor};
+  //background: ${topStripTheme.backgroundColor};
+  background:#32353b;
   padding: 1px 8px;
   font-variant-numeric: tabular-nums;
   pointer-events: none;
@@ -39242,7 +39208,7 @@ var init_HorizontalScrollbar = __esm({
   left: 4px;
   padding: 0 4px;
   transform: translateX(-50%);
-  background: #131d1f;
+  background: #32353b;
   border-radius: 4px;
   color: #fff;
   font-size: 10px;
@@ -40342,7 +40308,7 @@ var init_RightOverlay = __esm({
   z-index: ${() => zIndexes.rightOverlay};
   overflow: visible;
   pointer-events: none;
-  border-left: 1px solid #e6e6e6;
+  border-left: 1px solid #4b4b4b;
 `;
     RightOverlay = ({ layoutP }) => {
       return usePrism(() => {
@@ -40486,7 +40452,7 @@ var init_PanelResizeHandle = __esm({
   }
 
   opacity: 0;
-  background-color: #478698;
+  background-color: #40aeff;
 
   &.isHighlighted {
     opacity: 0.7;
@@ -40494,7 +40460,7 @@ var init_PanelResizeHandle = __esm({
 
   &.isDragging {
     opacity: 1;
-    /* background-color: ${curriedLighten(0.2, "#478698")}; */
+    /* background-color: ${curriedLighten(0.2, "#40aeff")}; */
   }
 
   &:hover {
@@ -40697,8 +40663,7 @@ var init_PanelWrapper = __esm({
   /* box-shadow: 1px 2px 10px -5px black; */
   overflow:hidden;
   border-radius:12px;
-  // border: 1px solid #e6e6e6;
-  border: 1px solid #cacaca;
+  border: 1px solid #4b4b4b;
   z-index: 1000;
 `;
     PanelWrapper = import_react158.default.forwardRef((props, ref) => {
@@ -40732,8 +40697,9 @@ var init_GraphEditorToggle = __esm({
     init_FrameStampPositionProvider();
     Container39 = styled_components_browser_esm_default.button`
   outline: none;
-  background-color: #1c1d21;
-  border: 1px solid #191919;
+  background-color: #32353b;
+  border: 1px solid #4b4b4b;
+  cursor:pointer;
   border-radius: 2px;
   display: flex;
   bottom: 14px;
@@ -40749,6 +40715,7 @@ var init_GraphEditorToggle = __esm({
 
   &:hover {
     color: white;
+    background-color: #40aeff;
   }
 
   & > svg {
@@ -40818,8 +40785,8 @@ var init_SequenceEditorPanel = __esm({
 `;
     LeftBackground = styled_components_browser_esm_default.div`
   //background-color: rgba(40, 43, 47, 0.99);
-  background-color: rgba(255, 255, 255, 0.99);
-  box-shadow:inset -1px 0px #252b3817;
+  background-color: rgba(0, 0, 0, 0.99);
+  box-shadow:inset -1px 0px rgba(225, 225, 225, 0.1);
   position: absolute;
   left: 0;
   top: 0;
@@ -41241,8 +41208,8 @@ var init_Row = __esm({
     box-sizing: border-box;
     //border-bottom: 1px solid #252b3869;
     // background: ${(props) => props.isEven ? "transparent" : "#6b8fb505"};
-    border-bottom:1px solid #252b3817;
-    background: ${(props) => props.isEven ? "transparent" : "rgb(0 0 0 / 3%)"};
+    border-bottom:1px solid rgba(225, 225, 225, 0.1);
+    background: ${(props) => props.isEven ? "transparent" : "rgb(255 255 255 / 3%)"};
   }
 `;
     RightRowChildren = styled_components_browser_esm_default.ul`
@@ -41355,7 +41322,7 @@ var init_useFreezableMemo = __esm({
 var COLOR_POPOVER_BACK, COLOR_BASE;
 var init_colors = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/colors.ts"() {
-    COLOR_POPOVER_BACK = "rgba(26, 28, 30, 0.97);";
+    COLOR_POPOVER_BACK = "rgba(0, 0, 0, 0.97);";
     COLOR_BASE = "#272B2F";
   }
 });
@@ -41757,7 +41724,7 @@ var init_EasingOption = __esm({
 
   transition: background-color 0.15s;
   // background-color: ${COLOR_BASE};
-  background-color: #2c2c2c;
+  background-color: #121212;
   border-radius: 2px;
   cursor: pointer;
   outline: none;
@@ -41783,9 +41750,9 @@ var init_EasingOption = __esm({
   --popover-bg: white;
   --popover-outer-stroke: transparent;
   // --popover-inner-stroke: transparent;
-  --popover-inner-stroke: #cacaca;
+  --popover-inner-stroke: #4b4b4b;
   //box-shadow: none;
-  box-shadow: 0px 2px 10px #0000002b;
+  //box-shadow: 0px 2px 10px #0000002b;
 `;
     EasingOption = import_react170.default.forwardRef((props, ref) => {
       const [tooltip, tooltipHostRef] = useTooltip({ enabled: true, verticalPlacement: props.tooltipPlacement, verticalGap: 0 }, () => /* @__PURE__ */ import_react170.default.createElement(EasingTooltip, {
@@ -42011,7 +41978,7 @@ var init_CurveEditorPopover = __esm({
     CurveEditorContainer = styled_components_browser_esm_default.div`
   grid-area: tween;
   // background: ${COLOR_BASE};
-  background: #2c2c2c;
+  background: #121212;
 `;
     NoResultsFoundContainer = styled_components_browser_esm_default.div`
   grid-column: 1 / 4;
@@ -43143,7 +43110,7 @@ var init_BasicKeyframedTrack = __esm({
       return /* @__PURE__ */ import_react183.default.createElement(Container44, {
         ref: containerRef,
         style: {
-          background: isOpen ? "#2c2c2c " : "unset"
+          background: isOpen ? "#121212 " : "unset"
         }
       }, keyframeEditors, snapTargets, /* @__PURE__ */ import_react183.default.createElement(import_react183.default.Fragment, null, additionalSnapTargets), contextMenu);
     });
@@ -43772,7 +43739,7 @@ function AggregatedKeyframeTrack_memo(props) {
   return /* @__PURE__ */ import_react192.default.createElement(AggregatedKeyframeTrackContainer, {
     ref: containerRef,
     style: {
-      background: isOpen ? "#2c2c2c " : "unset"
+      background: isOpen ? "#121212 " : "unset"
     }
   }, keyframeEditors, snapTargets, contextMenu);
 }
@@ -45090,8 +45057,8 @@ var init_GraphEditor = __esm({
   position: absolute;
   right: 0;
   bottom: 0;
-  background: ${curriedTransparentize(0.03, "#fcfcfc")};
-  border-top: 1px solid #d8d8d8;
+  background: ${curriedTransparentize(0.03, "#030303")};
+  border-top: 1px solid #4b4b4b;
 `;
     SVGContainer = styled_components_browser_esm_default.svg`
   position: absolute;
@@ -45218,11 +45185,7 @@ var init_BaseItem = __esm({
     BaseHeader2 = styled_components_browser_esm_default.div``;
     Header4 = styled_components_browser_esm_default(BaseHeader2)`
   position: relative;
-  // margin-top: 2px;
-  // margin-bottom: 2px;
   padding-left: calc(8px + var(--depth) * 16px);
-  // padding-left: 4px;
-  // padding-right: 8px;
   padding-right: 24px;
   width: 100%;
   gap: 4px;
@@ -45234,38 +45197,24 @@ var init_BaseItem = __esm({
   align-items: center;
   pointer-events: none;
   white-space: nowrap;
-  color: rgba(0, 0, 0, 0.9);
-  // border-radius: 2px;
-  // box-shadow: 0 3px 4px -1px rgba(0, 0, 0, 0.48);
-  // background: rgba(40, 43, 47, 0.65);
-  // backdrop-filter: blur(14px);
-  // border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: white;
   border: 1px solid transparent;
 
   &.descendant-is-selected {
-    // background: #e5f4ff;
     background: transparent;
   }
 
   ${pointerEventsAutoInNormalMode};
   &:not(.not-selectable):not(.selected):hover {
-    //background: rgba(59, 63, 69, 0.9);
     border: 1px solid #40aeff;
-    //border-bottom: 1px solid rgba(255, 255, 255, 0.24);
   }
 
   &:not(.not-selectable):not(.selected):active {
-    //background: rgba(82, 88, 96, 0.9);
-    //background: #e5f4ff;
     background: #40aeff;
-    //border-bottom: 1px solid rgba(255, 255, 255, 0.24);
   }
 
   &.selected {
-    // background: #e5f4ff;
     background: #40aeff;
-    //background: rgba(30, 88, 102, 0.7);
-    //border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   // Hit zone
@@ -45630,13 +45579,10 @@ var init_ProjectsList = __esm({
   list-style: none;
   margin: 0;
   padding: 0;
-  //border-top:1px solid #e6e6e6;
-  //border-top: 1px solid #cacaca;
-  // padding-right: 4px;
-  border: 1px solid #cacaca;
+  border: 1px solid #4b4b4b;
   border-radius: 0px 0px 12px 12px;
   height: calc(100% - 43px);
-  background: white;
+  background: black;
   overflow-x: hidden;
   overflow-y: overlay;
 
@@ -45704,12 +45650,6 @@ var init_OutlinePanel = __esm({
   top: 8px;
   height:calc(100% - 17px);
   border-radius:12px;
-  // height: calc(100% - 57px);
-  // border-radius: 12px;
-  // border: 1px solid #e6e6e6;
-  // border-top: 1px solid #cacaca;
-  // overflow-y: scroll;
-  // overflow-x: hidden;
   overflow-y: hidden;
   overflow-x: hidden;
   padding: 0;
@@ -45739,11 +45679,11 @@ var init_OutlinePanel = __esm({
 `;
     BeforePadding2 = styled_components_browser_esm_default.div`
   height: 40px;
-  background: white;
+  background: black;
   border-radius: 12px 12px 0 0;
-  border-top: 1px solid #cacaca;
-  border-left: 1px solid #cacaca;
-  border-right: 1px solid #cacaca;
+  border-top: 1px solid #4b4b4b;
+  border-left: 1px solid #4b4b4b;
+  border-right: 1px solid #4b4b4b;
 
 `;
     OutlinePanel = () => {
@@ -46226,9 +46166,9 @@ var init_MinimalTooltip = __esm({
     init_BasicTooltip();
     MinimalTooltip = styled_components_browser_esm_default(BasicTooltip_default)`
   padding: 6px;
-  background:white;
+  background:black;
   // border:none;
-  border: 1px solid #cacaca;
+  border: 1px solid #4b4b4b;
 `;
     MinimalTooltip_default = MinimalTooltip;
   }
@@ -46243,7 +46183,6 @@ var init_ToolbarSwitchSelectContainer = __esm({
     Container53 = styled_components_browser_esm_default(Group)`
   display: flex;
   height: fit-content;
-  // backdrop-filter: blur(14px);
   border-radius: 2px;
 `;
     ToolbarSwitchSelectContainer_default = Container53;
@@ -46273,41 +46212,28 @@ var init_ToolbarIconButton = __esm({
   width: 32px;
   height: 32px;
   outline: none;
-  // color: #a8a8a9;
   cursor:pointer;
-  color:rgba(0, 0, 0, 0.5);
-  background:white;
-  // background: rgba(40, 43, 47, 0.8);
-  // backdrop-filter: blur(14px);
+  color:rgba(255, 255, 255, 0.5);
+  background:black;
   border: none;
-  // border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  // border-bottom: 2px solid #40aeff;
-  // border-radius: 2px;
 
   svg {
     display: block;
   }
 
   &:hover {
-    //background: rgba(59, 63, 69, 0.8);
     color: rgba(255, 255, 255, 0.9);
     background:#40aeff;
-    //border-bottom: 2px solid rgba(255, 255, 255, 0.9);
   }
 
   &:active {
-    //background: rgba(82, 88, 96, 0.8);
     color: rgba(255, 255, 255, 0.9);
     background:#40aeff;
-    //border-bottom: 2px solid rgba(255, 255, 255, 0.9);
   }
 
   &.selected {
-    // color: rgba(255, 255, 255, 0.8);
-    // border-bottom: 1px solid rgba(255, 255, 255, 0.7);
     color: rgba(255, 255, 255, 0.9);
     background:#40aeff;
-    //border-bottom: 2px solid rgba(255, 255, 255, 0.9);
   }
 
   // Don't blur if in a button group, because it already blurs. We need to blur
@@ -46552,8 +46478,7 @@ var init_PinButton = __esm({
     import_react240 = __toModule(require_react());
     init_ToolbarIconButton();
     Container57 = styled_components_browser_esm_default(ToolbarIconButton_default)`
-  // color: ${({ pinned }) => pinned ? "rgba(255, 255, 255, 0.8)" : "#A8A8A9"};
-  color: ${({ pinned }) => pinned ? "rgba(0, 0, 0, 0.9)" : "rgba(0, 0, 0, 0.5)"};
+  color: ${({ pinned }) => pinned ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.5)"};
 
 `;
     PinButton = (0, import_react240.forwardRef)((_a2, ref) => {
@@ -46636,7 +46561,7 @@ var init_MoreMenu = __esm({
   width: 138px;
   border-radius: 2px;
   // background-color: rgba(42, 45, 50, 0.9);
-  background-color: white;
+  background-color: black;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -46645,7 +46570,7 @@ var init_MoreMenu = __esm({
   //box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25), 0px 2px 6px rgba(0, 0, 0, 0.15);
   // box-shadow: 0px 2px 10px #0000002b;
   // backdrop-filter: blur(14px);
-  border:1px solid #cacaca;
+  border:1px solid #4b4b4b;
   pointer-events: auto;
   // makes the edges of the item highlights match the rounded corners
   overflow: hidden;
@@ -46693,7 +46618,7 @@ var init_MoreMenu = __esm({
   &:hover {
     /* background-color: #398995; */
     // color: white !important;
-    color: rgba(0,0,0,0.5) !important;
+    color: rgba(255,255,255,0.5) !important;
     &:before {
       opacity: 1;
     }
@@ -46709,7 +46634,7 @@ var init_MoreMenu = __esm({
   align-items: stretch;
   gap: 8px;
   // color: rgba(255, 255, 255, 0.5);
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 `;
     VersionLabel = styled_components_browser_esm_default.div`
   font-weight: 600;
@@ -48984,24 +48909,13 @@ var init_notify = __esm({
   display: flex;
   gap: 12px;
   ${pointerEventsAutoInNormalMode};
-  //background-color: rgba(40, 43, 47, 0.8);
-  //background-color: white;
-  //box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
-  //border:1px solid #cacaca;
   background-color: black;
   box-shadow: inset 0 0 0px 1px #4b4b4b;
-  //backdrop-filter: blur(14px);
-
-  // @supports not (backdrop-filter: blur()) {
-  //   background: rgba(40, 43, 47, 0.95);
-  // }
 `;
     NotificationTitle = styled_components_browser_esm_default.div`
   font-size: 14px;
   font-weight: bold;
   color:#888888;
-  //color: #fff;
-  // color: rgba(0,0,0,0.9);
 `;
     NotificationMain = styled_components_browser_esm_default.div`
   flex: 1;
@@ -49139,7 +49053,7 @@ var init_notify = __esm({
   // backdrop-filter: blur(14px);
   //border: none;
   padding: 12px;
-  border: 1px solid #cacaca;
+  border: 1px solid #4b4b4b;
   //color: #fff;
   overflow: hidden;
 
@@ -49181,7 +49095,6 @@ var init_notify = __esm({
     overflow-y: scroll;
     overflow-x: hiddien;
     height: 100%;
-    filter: invert(1) hue-rotate(180deg) brightness(1.25);
     ::-webkit-scrollbar {
       width: 2px;
       background-color: transparent;
@@ -49206,8 +49119,7 @@ var init_notify = __esm({
   display: flex;
   flex-direction: column;
   gap: 12px;
-  // color: #b4b4b4;
-  color: rgba(0,0,0,0.5);
+  color: rgba(255,255,255,0.5);
   font-size: 12px;
   line-height: 1.4;
 `;
@@ -49521,7 +49433,6 @@ var init_UIRoot = __esm({
   z-index: 50;
   position: fixed;
   inset: 0;
-  filter: invert(1) hue-rotate(180deg) brightness(1.2); //
   &.invisible {
     pointer-events: none !important;
     opacity: 0;
