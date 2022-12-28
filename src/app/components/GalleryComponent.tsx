@@ -144,9 +144,10 @@ interface ConditionalImageProps {
 
 interface GalleryCompProps {
   figData:any[];
+  style:React.CSSProperties;
 }
 
-const GalleryComponent = forwardRef(({figData}:GalleryCompProps,ref) =>{
+const GalleryComponent = forwardRef(({figData,style}:GalleryCompProps,ref) =>{
 
   const [isShow,setIsShow] = useState(false);
   const [selectIndex,setSelectIndex] = useState(-1);
@@ -159,25 +160,24 @@ const GalleryComponent = forwardRef(({figData}:GalleryCompProps,ref) =>{
   }));
 
   useEffect(()=>{
-    console.log(figData)
     if(figData.length != 0) setName((selectIndex != -1)?figData[figData.length - 1 - selectIndex].name:'empty')
   },[selectIndex])
 
   return(
-    <div id="gallery-root">
-    <ImageListContainer ref={imgLayoutRef} isShow={isShow} >
-      {figData.map(({ src,type,index,name }) => (
-          <ImageInList 
-            key={type + '-' + index} 
-            src={src}
-            id={type + '-' + index}
-            name={name}
-            isSelect={selectIndex === index}
-          />    
-      ))}
-    </ImageListContainer >
-    <ImageName isShow={isShow}>{name}</ImageName>
-    {figData.length != 0 &&<GalleryIcon onClick={()=>{setIsShow(!isShow)}}/>}
+    <div id="gallery-root" style={{...style}}>
+      <ImageListContainer ref={imgLayoutRef} isShow={isShow} >
+        {figData.map(({ src,type,index,name }) => (
+            <ImageInList 
+              key={type + '-' + index} 
+              src={src}
+              id={type + '-' + index}
+              name={name}
+              isSelect={selectIndex === index}
+            />    
+        ))}
+      </ImageListContainer >
+      <ImageName isShow={isShow}>{name}</ImageName>
+      {figData.length != 0 &&<GalleryIcon onClick={()=>{setIsShow(!isShow)}}/>}
     </div>
   )
 })

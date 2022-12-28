@@ -265,6 +265,7 @@ var require_fast_deep_equal = __commonJS({
 // core/src/index.ts
 __export(exports, {
   getProject: () => getProject,
+  notify: () => notify,
   onChange: () => onChange,
   types: () => propTypes_exports,
   val: () => val6
@@ -274,6 +275,7 @@ __export(exports, {
 var coreExports_exports = {};
 __export(coreExports_exports, {
   getProject: () => getProject,
+  notify: () => notify,
   onChange: () => onChange,
   types: () => propTypes_exports,
   val: () => val6
@@ -2501,11 +2503,12 @@ var SheetObject = class {
       const tracksToProcessD = import_dataverse6.prism.memo("tracksToProcess", () => this.template.getArrayOfValidSequenceTracks(), []);
       const tracksToProcess = (0, import_dataverse6.val)(tracksToProcessD);
       const valsAtom = new import_dataverse6.Atom({});
+      const config = (0, import_dataverse6.val)(this.template.configPointer);
       import_dataverse6.prism.effect("processTracks", () => {
         const untaps = [];
         for (const { trackId, pathToProp } of tracksToProcess) {
           const derivation = this._trackIdToDerivation(trackId);
-          const propConfig = getPropConfigByPath(this.template.config, pathToProp);
+          const propConfig = getPropConfigByPath(config, pathToProp);
           const deserializeAndSanitize = propConfig.deserializeAndSanitize;
           const interpolate = propConfig.interpolate;
           const updateSequenceValueFromItsDerivation = () => {
@@ -2529,7 +2532,7 @@ var SheetObject = class {
             untap();
           }
         };
-      }, tracksToProcess);
+      }, [config, ...tracksToProcess]);
       return valsAtom.pointer;
     });
   }
@@ -3027,19 +3030,22 @@ var SheetObjectTemplate = class {
     this._config = new import_dataverse7.Atom(config);
     this.project = sheetTemplate.project;
   }
-  get config() {
+  get staticConfig() {
     return this._config.getState();
+  }
+  get configPointer() {
+    return this._config.pointer;
   }
   createInstance(sheet, nativeObject, config) {
     this._config.setState(config);
     return new SheetObject(sheet, this, nativeObject);
   }
-  overrideConfig(config) {
+  reconfigure(config) {
     this._config.setState(config);
   }
   getDefaultValues() {
     return this._cache.get("getDefaultValues()", () => (0, import_dataverse7.prism)(() => {
-      const config = (0, import_dataverse7.val)(this._config.pointer);
+      const config = (0, import_dataverse7.val)(this.configPointer);
       return getPropDefaultsOfSheetObject(config);
     }));
   }
@@ -3048,7 +3054,7 @@ var SheetObjectTemplate = class {
       var _a;
       const pointerToSheetState = this.sheetTemplate.project.pointers.historic.sheetsById[this.address.sheetId];
       const json = (_a = (0, import_dataverse7.val)(pointerToSheetState.staticOverrides.byObject[this.address.objectKey])) != null ? _a : {};
-      const config = (0, import_dataverse7.val)(this._config.pointer);
+      const config = (0, import_dataverse7.val)(this.configPointer);
       const deserialized = config.deserializeAndSanitize(json) || {};
       return deserialized;
     }));
@@ -3062,18 +3068,19 @@ var SheetObjectTemplate = class {
       const arrayOfIds = [];
       if (!trackIdByPropPath)
         return emptyArray;
+      const objectConfig = (0, import_dataverse7.val)(this.configPointer);
       const _entries = Object.entries(trackIdByPropPath);
       for (const [pathToPropInString, trackId] of _entries) {
         const pathToProp = parsePathToProp(pathToPropInString);
         if (!pathToProp)
           continue;
-        const propConfig = getPropConfigByPath(this.config, pathToProp);
+        const propConfig = getPropConfigByPath(objectConfig, pathToProp);
         const isSequencable = propConfig && isPropConfSequencable(propConfig);
         if (!isSequencable)
           continue;
         arrayOfIds.push({ pathToProp, trackId });
       }
-      const mapping = getOrderingOfPropTypeConfig(this.config);
+      const mapping = getOrderingOfPropTypeConfig(objectConfig);
       arrayOfIds.sort((a2, b2) => {
         const pathToPropA = a2.pathToProp;
         const pathToPropB = b2.pathToProp;
@@ -3338,6 +3345,53 @@ var DefaultPlaybackController = class {
 
 // core/src/sequences/playbackControllers/AudioPlaybackController.ts
 var import_dataverse9 = __toModule(require("@theatre/dataverse"));
+
+// shared/src/globalVariableNames.ts
+var studioBundle = "__TheatreJS_StudioBundle";
+var coreBundle = "__TheatreJS_CoreBundle";
+var notifications = "__TheatreJS_Notifications";
+
+// shared/src/notify.ts
+var createHandler = (type) => (...args) => {
+  var _a;
+  switch (type) {
+    case "success": {
+      logger_default.debug(args.slice(0, 2).join("\n"));
+      break;
+    }
+    case "info": {
+      logger_default.debug(args.slice(0, 2).join("\n"));
+      break;
+    }
+    case "warning": {
+      logger_default.warn(args.slice(0, 2).join("\n"));
+      break;
+    }
+    case "error": {
+    }
+  }
+  return typeof window !== "undefined" ? (_a = window[notifications]) == null ? void 0 : _a.notify[type](...args) : void 0;
+};
+var notify = {
+  warning: createHandler("warning"),
+  success: createHandler("success"),
+  info: createHandler("info"),
+  error: createHandler("error")
+};
+if (typeof window !== "undefined") {
+  window.addEventListener("error", (e2) => {
+    notify.error(`An error occurred`, `<pre>${e2.message}</pre>
+
+See **console** for details.`);
+  });
+  window.addEventListener("unhandledrejection", (e2) => {
+    notify.error(`An error occurred`, `<pre>${e2.reason}</pre>
+
+See **console** for details.`);
+  });
+}
+
+// core/src/sequences/playbackControllers/AudioPlaybackController.ts
 var AudioPlaybackController = class {
   constructor(_ticker, _decodedBuffer, _audioContext, _nodeDestination) {
     this._ticker = _ticker;
@@ -3356,7 +3410,62 @@ var AudioPlaybackController = class {
     this._mainGain.connect(this._nodeDestination);
   }
   playDynamicRange(rangeD) {
-    throw new Error("Method not implemented.");
+    const deferred = defer();
+    if (this._playing)
+      this.pause();
+    this._playing = true;
+    let stop = void 0;
+    const play = () => {
+      stop == null ? void 0 : stop();
+      stop = this._loopInRange(rangeD.getValue()).stop;
+    };
+    const untapFromRangeD = rangeD.changesWithoutValues().tap(play);
+    play();
+    this._stopPlayCallback = () => {
+      stop == null ? void 0 : stop();
+      untapFromRangeD();
+      deferred.resolve(false);
+    };
+    return deferred.promise;
+  }
+  _loopInRange(range) {
+    const rate = 1;
+    const ticker = this._ticker;
+    let startPos = this.getCurrentPosition();
+    const iterationLength = range[1] - range[0];
+    if (startPos < range[0] || startPos > range[1]) {
+      this._updatePositionInState(range[0]);
+    } else if (startPos === range[1]) {
+      this._updatePositionInState(range[0]);
+    }
+    startPos = this.getCurrentPosition();
+    const currentSource = this._audioContext.createBufferSource();
+    currentSource.buffer = this._decodedBuffer;
+    currentSource.connect(this._mainGain);
+    currentSource.playbackRate.value = rate;
+    currentSource.loop = true;
+    currentSource.loopStart = range[0];
+    currentSource.loopEnd = range[1];
+    const initialTickerTime = ticker.time;
+    let initialElapsedPos = startPos - range[0];
+    currentSource.start(0, startPos);
+    const tick = (currentTickerTime) => {
+      const elapsedTickerTime = Math.max(currentTickerTime - initialTickerTime, 0);
+      const elapsedTickerTimeInSeconds = elapsedTickerTime / 1e3;
+      const elapsedPos = elapsedTickerTimeInSeconds * rate + initialElapsedPos;
+      let currentIterationPos = elapsedPos / iterationLength % 1 * iterationLength;
+      this._updatePositionInState(currentIterationPos + range[0]);
+      requestNextTick();
+    };
+    const requestNextTick = () => ticker.onNextTick(tick);
+    ticker.onThisOrNextTick(tick);
+    const stop = () => {
+      currentSource.stop();
+      currentSource.disconnect();
+      ticker.offThisOrNextTick(tick);
+      ticker.offNextTick(tick);
+    };
+    return { stop };
   }
   get _playing() {
     return this._state.getState().playing;
@@ -3403,7 +3512,19 @@ var AudioPlaybackController = class {
     currentSource.connect(this._mainGain);
     currentSource.playbackRate.value = rate;
     if (iterationCount > 1e3) {
-      console.warn(`Audio-controlled sequences cannot have an iterationCount larger than 1000. It has been clamped to 1000.`);
+      notify.warning("Can't play sequences with audio more than 1000 times", `The sequence will still play, but only 1000 times. The \`iterationCount: ${iterationCount}\` provided to \`sequence.play()\`
+is too high for a sequence with audio.
+
+To fix this, either set \`iterationCount\` to a lower value, or remove the audio from the sequence.`, [
+        {
+          url: "https://www.theatrejs.com/docs/latest/manual/audio",
+          title: "Using Audio"
+        },
+        {
+          url: "https://www.theatrejs.com/docs/latest/api/core#sequence.attachaudio",
+          title: "Audio API"
+        }
+      ]);
       iterationCount = 1e3;
     }
     if (iterationCount > 1) {
@@ -3461,13 +3582,22 @@ var TheatreSequence = class {
       return priv.play(conf);
     } else {
       if (process.env.NODE_ENV !== "production") {
-        console.warn(`You seem to have called sequence.play() before the project has finished loading.
-This would **not** a problem in production when using '@theatre/core', since Theatre.js loads instantly in core mode. However, when using '@theatre/studio', it takes a few milliseconds for it to load your project's state, before which your sequences cannot start playing.
+        notify.warning("Sequence can't be played", `You seem to have called \`sequence.play()\` before the project has finished loading.
 
-To fix this, simply defer calling sequence.play() until after the project is loaded, like this:
+This would **not** a problem in production when using \`@theatre/core\`, since Theatre.js loads instantly in core mode. However, when using \`@theatre/studio\`, it takes a few milliseconds for it to load your project's state, before which your sequences cannot start playing.
+
+To fix this, simply defer calling \`sequence.play()\` until after the project is loaded, like this:
+
+\`\`\`
 project.ready.then(() => {
   sequence.play()
-})`);
+})
+\`\`\``, [
+          {
+            url: "https://www.theatrejs.com/docs/0.5/api/core#project.ready",
+            title: "Project.ready"
+          }
+        ]);
       }
       const d2 = defer();
       d2.resolve(true);
@@ -3704,7 +3834,18 @@ var Sequence = class {
         throw new InvalidArgumentError(`Argument conf.range[1] in sequence.play(conf) must be a number larger than zero. ${JSON.stringify(range[1])} given.`);
       }
       if (range[1] > sequenceDuration) {
-        console.warn(`Argument conf.range[1] in sequence.play(conf) cannot be longer than the duration of the sequence, which is ${sequenceDuration}s. ${JSON.stringify(range[1])} given.`);
+        notify.warning("Couldn't play sequence in given range", `Your animation will still play until the end of the sequence, however the argument \`conf.range[1]\` given in \`sequence.play(conf)\` (${JSON.stringify(range[1])}s) is longer than the duration of the sequence (${sequenceDuration}s).
+
+To fix this, either set \`conf.range[1]\` to be less the duration of the sequence, or adjust the sequence duration in the UI.`, [
+          {
+            url: "https://www.theatrejs.com/docs/latest/manual/sequences",
+            title: "Sequences"
+          },
+          {
+            url: "https://www.theatrejs.com/docs/latest/manual/sequences",
+            title: "Playback API"
+          }
+        ]);
         range[1] = sequenceDuration;
       }
       if (range[1] <= range[0]) {
@@ -4241,7 +4382,7 @@ var defaultNumberNudgeFn = ({
   magnitude
 }) => {
   const { range } = config;
-  if (range) {
+  if (range && !range.includes(Infinity) && !range.includes(-Infinity)) {
     return deltaFraction * (range[1] - range[0]) * magnitude * config.nudgeMultiplier;
   }
   return deltaX * magnitude * config.nudgeMultiplier;
@@ -4273,7 +4414,18 @@ function validateAndSanitiseSlashedPathOrThrow(unsanitisedPath, fnName) {
     throw new InvalidArgumentError(`The path in ${fnName}(${typeof unsanitisedPath === "string" ? `"${unsanitisedPath}"` : ""}) is invalid because ${validation}`);
   }
   if (unsanitisedPath !== sanitisedPath) {
-    logger_default.warn(`The path in ${fnName}("${unsanitisedPath}") was sanitised to "${sanitisedPath}".`);
+    notify.warning("Invalid path provided to object", `The path in \`${fnName}("${unsanitisedPath}")\` was sanitized to \`"${sanitisedPath}"\`.
+
+Please replace the path with the sanitized one, otherwise it will likely break in the future.`, [
+      {
+        url: "https://www.theatrejs.com/docs/latest/manual/objects#creating-sheet-objects",
+        title: "Sheet Objects"
+      },
+      {
+        url: "https://www.theatrejs.com/docs/latest/api/core#sheet.object",
+        title: "API"
+      }
+    ]);
   }
   return sanitisedPath;
 }
@@ -4288,7 +4440,7 @@ var TheatreSheet = class {
   constructor(sheet) {
     setPrivateAPI(this, sheet);
   }
-  object(key, config) {
+  object(key, config, opts) {
     const internal2 = privateAPI(this);
     const sanitizedPath = validateAndSanitiseSlashedPathOrThrow(key, `sheet.object`);
     const existingObject = internal2.getObject(sanitizedPath);
@@ -4298,9 +4450,18 @@ var TheatreSheet = class {
         const prevConfig = weakMapOfUnsanitizedProps.get(existingObject);
         if (prevConfig) {
           if (!(0, import_fast_deep_equal.default)(config, prevConfig)) {
-            throw new Error(`You seem to have called sheet.object("${key}", config) twice, with different values for \`config\`. This is disallowed because changing the config of an object on the fly would make it difficult to reason about.
+            if ((opts == null ? void 0 : opts.reconfigure) === true) {
+              const sanitizedConfig = compound(config);
+              existingObject.template.reconfigure(sanitizedConfig);
+              weakMapOfUnsanitizedProps.set(existingObject, config);
+              return existingObject.publicApi;
+            } else {
+              throw new Error(`You seem to have called sheet.object("${key}", config) twice, with different values for \`config\`. This is disallowed because changing the config of an object on the fly would make it difficult to reason about.
 
-You can fix this by either re-using the existing object, or calling sheet.object("${key}", config) with the same config.`);
+You can fix this by either re-using the existing object, or calling sheet.object("${key}", config) with the same config.
+
+If you mean to reconfigure the object's config, set \`{reconfigure: true}\` in sheet.object("${key}", config, {reconfigure: true})`);
+            }
           }
         }
       }
@@ -4322,6 +4483,19 @@ You can fix this by either re-using the existing object, or calling sheet.object
   }
   get address() {
     return __spreadValues({}, privateAPI(this).address);
+  }
+  detachObject(key) {
+    const internal2 = privateAPI(this);
+    const sanitizedPath = validateAndSanitiseSlashedPathOrThrow(key, `sheet.deleteObject("${key}")`);
+    const obj = internal2.getObject(sanitizedPath);
+    if (!obj) {
+      notify.warning(`Couldn't delete object "${sanitizedPath}"`, `There is no object with key "${sanitizedPath}".
+
+To fix this, make sure you are calling \`sheet.deleteObject("${sanitizedPath}")\` with the correct key.`);
+      console.warn(`Object key "${sanitizedPath}" does not exist.`);
+      return;
+    }
+    internal2.deleteObject(sanitizedPath);
   }
 };
 
@@ -4355,6 +4529,13 @@ var Sheet = class {
   }
   getObject(key) {
     return this._objects.getState()[key];
+  }
+  deleteObject(objectKey) {
+    this._objects.reduceState([], (state) => {
+      const newState = __spreadValues({}, state);
+      delete newState[objectKey];
+      return newState;
+    });
   }
   getSequence() {
     if (!this._sequence) {
@@ -4934,10 +5115,14 @@ var Project = class {
     } else {
       setTimeout(() => {
         if (!this._studio) {
-          throw new Error(`Argument config.state in Theatre.getProject("${id}", config) is empty. This is fine while you are using @theatre/core along with @theatre/studio. But since @theatre/studio is not loaded, the state of project "${id}" will be empty.
+          if (typeof window === "undefined") {
+            console.warn(`Argument config.state in Theatre.getProject("${id}", config) is empty. This is fine on SSR mode in development, but if you're creating a production bundle, make sure to set config.state, otherwise your project's state will be empty and nothing will animate. Learn more at https://www.theatrejs.com/docs/latest/manual/projects#state`);
+          } else {
+            throw new Error(`Argument config.state in Theatre.getProject("${id}", config) is empty. This is fine while you are using @theatre/core along with @theatre/studio. But since @theatre/studio is not loaded, the state of project "${id}" will be empty.
 
-To fix this, you need to add @theatre/studio into the bundle and export the project's state. Learn how to do that at https://docs.theatrejs.com/in-depth/#exporting
-If you are using a framework like Next.js, this error may be caused by running Theatre on the server side.`);
+To fix this, you need to add @theatre/studio into the bundle and export the project's state. Learn how to do that at https://www.theatrejs.com/docs/latest/manual/projects#state
+`);
+          }
         }
       }, 1e3);
     }
@@ -5070,7 +5255,7 @@ You can fix this by either calling Theatre.getProject() once per projectId, or c
 }
 var shallowValidateOnDiskState = (projectId, s2) => {
   if (Array.isArray(s2) || s2 == null || s2.definitionVersion !== globals_default.currentProjectStateDefinitionVersion) {
-    throw new InvalidArgumentError(`Error validating conf.state in Theatre.getProject(${JSON.stringify(projectId)}, conf). The state seems to be formatted in a way that is unreadable to Theatre.js. Read more at https://docs.theatrejs.com`);
+    throw new InvalidArgumentError(`Error validating conf.state in Theatre.getProject(${JSON.stringify(projectId)}, conf). The state seems to be formatted in a way that is unreadable to Theatre.js. Read more at https://www.theatrejs.com/docs/latest/manual/projects#state`);
   }
 };
 var deepValidateOnDiskState = (projectId, s2) => {
@@ -5106,10 +5291,6 @@ function val6(pointer3) {
   }
 }
 
-// shared/src/globalVariableNames.ts
-var studioBundle = "__TheatreJS_StudioBundle";
-var coreBundle = "__TheatreJS_CoreBundle";
-
 // core/src/CoreBundle.ts
 var CoreBundle = class {
   constructor() {
@@ -5119,7 +5300,7 @@ var CoreBundle = class {
     return "Theatre_CoreBundle";
   }
   get version() {
-    return "0.5.0";
+    return "0.5.1-rc.2";
   }
   getBitsForStudio(studio, callback) {
     if (this._studio) {

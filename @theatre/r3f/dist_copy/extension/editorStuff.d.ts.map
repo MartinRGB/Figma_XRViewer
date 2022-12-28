@@ -1,0 +1,1 @@
+{"version":3,"file":"editorStuff.d.ts","sourceRoot":"","sources":["../../src/extension/editorStuff.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,MAAM,EAAE,YAAY,EAAC,MAAM,eAAe,CAAA;AACvD,OAAO,EAAC,KAAK,EAAC,MAAM,eAAe,CAAA;AAOnC,QAAA,MAAM,uBAAuB;;;;;;;;;;;;;CA0D5B,CAAA;AAED,wBAAgB,cAAc,IAAI,MAAM,CAKvC;AAED,wBAAgB,oBAAoB,IAAI,YAAY,CAClD,OAAO,uBAAuB,CAC/B,GAAG,IAAI,CAMP"}

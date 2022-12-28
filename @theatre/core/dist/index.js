@@ -3975,7 +3975,9 @@ var propTypes_exports = {};
 __export(propTypes_exports, {
   boolean: () => boolean,
   compound: () => compound,
+  filesrc: () => filesrc,
   number: () => number,
+  numberLiteral: () => numberLiteral,
   rgba: () => rgba,
   string: () => string,
   stringLiteral: () => stringLiteral
@@ -4331,6 +4333,54 @@ var _ensureBoolean = (val7) => {
 };
 function leftInterpolate(left) {
   return left;
+}
+var filesrc = (defaultValue, opts = {}) => {
+  var _a;
+  if (process.env.NODE_ENV !== "production") {
+    validateCommonOpts("t.file(defaultValue, opts)", opts);
+    console.log(typeof defaultValue);
+    if (typeof defaultValue !== "object") {
+      throw new Error(`defaultValue in t.filesrc(defaultValue) must be a string. ${userReadableTypeOfValue_default(defaultValue)} given.`);
+    }
+  }
+  return {
+    type: "filesrc",
+    default: defaultValue,
+    valueType: null,
+    [propTypeSymbol]: "TheatrePropType",
+    label: opts.label,
+    interpolate: (_a = opts.interpolate) != null ? _a : leftInterpolate,
+    deserializeAndSanitize: _ensureFileSrc
+  };
+};
+function _ensureFileSrc(s2) {
+  if (s2 != null) {
+    return typeof s2 === "object" ? s2 : void 0;
+  } else {
+    return void 0;
+  }
+}
+function numberLiteral(defaultValue, valuesAndLabels, opts = {}) {
+  var _a, _b;
+  return {
+    type: "numberLiteral",
+    default: defaultValue,
+    valuesAndLabels: __spreadValues({}, valuesAndLabels),
+    [propTypeSymbol]: "TheatrePropType",
+    valueType: null,
+    as: (_a = opts.as) != null ? _a : "menu",
+    label: opts.label,
+    interpolate: (_b = opts.interpolate) != null ? _b : leftInterpolate,
+    deserializeAndSanitize(json) {
+      if (typeof json !== "number")
+        return void 0;
+      if (Object.prototype.hasOwnProperty.call(valuesAndLabels, json)) {
+        return json;
+      } else {
+        return void 0;
+      }
+    }
+  };
 }
 var string = (defaultValue, opts = {}) => {
   var _a;

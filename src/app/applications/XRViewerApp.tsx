@@ -17,7 +17,7 @@ import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage'
 import {onDownloadHTML} from '@Utils/downloadHTML'
 import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON,sortDataInDescendingOrder}  from '@Utils/queryData'
 import {FigmaApi} from '@Utils/figmaAPI';
-import { webRootURL,webClientID,webSecrectID} from '@Config';
+import { webRootURL,webClientID,webSecrectID, isTextureEditor} from '@Config';
 
 import { getProject,ISheetObject,types } from '@theatre/core'
 
@@ -42,7 +42,8 @@ const ViewerConfig ={
   savedImageQuality:2,
 }
 
-const helperSheet = getProject('XRViewer').sheet('Node Tree','Controller')
+const lightSheet = getProject('XRViewer').sheet('Node Tree','Light Controller')
+const helperSheet = getProject('XRViewer').sheet('Node Tree','Node Controller')
 const sceneHelper = helperSheet.object(' - Helper Controller', {
   // cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),
@@ -120,11 +121,37 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
   return(
     <> 
      <Stage shadows={false} preset="rembrandt" intensity={1} environment="sunset" adjustCamera={false}>
+
+          <SheetProvider sheet={lightSheet}>
+            <e.ambientLight 
+              theatreKey="Light - Ambient"
+              intensity={0}
+            />
+            <e.pointLight
+              theatreKey="Light - Point" 
+              intensity={0}
+              position={[100, -50, 0]}
+            />
+            <e.spotLight
+              theatreKey="Light - Spot"
+              castShadow
+              intensity={0}
+              angle={0.2}
+              penumbra={1}
+              position={[0, 0, 500]}
+              shadow-mapSize={[1024, 1024]}
+              shadow-bias={-0.0001}
+            />
+            <e.directionalLight 
+              theatreKey="Light - Directional" 
+              position={[0, 0, 100]}
+              intensity={0} 
+            />
+          </SheetProvider>
           <SheetProvider sheet={helperSheet}>
             <CombinedCamera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
           </SheetProvider>
           {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
-          <ambientLight />
           
           <Orbit orbitRef={orbitRef} cameraSheetObj={cameraSheetObj}></Orbit>
           {(isFigma === false)?
@@ -350,7 +377,7 @@ const XRViewerApp = () => {
       <Suspense fallback={<></>}>
         <WebXRContainer>
           <CanvasContainer ref={canvasContainerRef}>
-                <GalleryComponent ref={galleryCompRef} figData={figData}></GalleryComponent>
+                <GalleryComponent style={{display:`${!isTextureEditor?'initial':'none'}`}} ref={galleryCompRef} figData={figData}></GalleryComponent>
                 <XRDivContainer>
                   {isFigma?
                   <>
@@ -405,7 +432,12 @@ const XRViewerApp = () => {
                         loadingProgress={loadingProgress}
                         figmaData={figData}
                         finishedRenderingCallback={()=>{setIsRendered(true)}}
-                        selectCallback={(e)=>{galleryCompRef.current.setSelect(e)}}
+                        selectCallback={(e)=>{                          
+                            if(!isTextureEditor){
+                              galleryCompRef.current.setSelect(e)
+                            }
+                          }
+                        }
                       />
                 </Canvas>
           </CanvasContainer>

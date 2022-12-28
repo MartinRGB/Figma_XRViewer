@@ -9,18 +9,18 @@ var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a3, b3) => {
-  for (var prop in b3 || (b3 = {}))
-    if (__hasOwnProp.call(b3, prop))
-      __defNormalProp(a3, prop, b3[prop]);
+var __spreadValues = (a4, b4) => {
+  for (var prop in b4 || (b4 = {}))
+    if (__hasOwnProp.call(b4, prop))
+      __defNormalProp(a4, prop, b4[prop]);
   if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b3)) {
-      if (__propIsEnum.call(b3, prop))
-        __defNormalProp(a3, prop, b3[prop]);
+    for (var prop of __getOwnPropSymbols(b4)) {
+      if (__propIsEnum.call(b4, prop))
+        __defNormalProp(a4, prop, b4[prop]);
     }
-  return a3;
+  return a4;
 };
-var __spreadProps = (a3, b3) => __defProps(a3, __getOwnPropDescs(b3));
+var __spreadProps = (a4, b4) => __defProps(a4, __getOwnPropDescs(b4));
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __objRest = (source, exclude) => {
   var target = {};
@@ -76,7 +76,7 @@ var __async = (__this, __arguments, generator) => {
         reject(e2);
       }
     };
-    var step = (x3) => x3.done ? resolve(x3.value) : Promise.resolve(x3.value).then(fulfilled, rejected);
+    var step = (x4) => x4.done ? resolve(x4.value) : Promise.resolve(x4.value).then(fulfilled, rejected);
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
@@ -96,7 +96,7 @@ var init_getStudio = __esm({
 
 // shared/src/instanceTypes.ts
 function typeAsserter(t3) {
-  return (v3) => typeof v3 === "object" && !!v3 && v3.type === t3;
+  return (v5) => typeof v5 === "object" && !!v5 && v5.type === t3;
 }
 var isProject, isSheet, isSheetTemplate, isSheetObject, isSheetObjectTemplate, isProjectPublicAPI, isSheetPublicAPI, isSheetObjectPublicAPI;
 var init_instanceTypes = __esm({
@@ -125,18 +125,18 @@ var require_lcs = __commonJS({
     exports2.REMOVE = REMOVE = RIGHT = -1;
     exports2.ADD = ADD = DOWN = 1;
     exports2.EQUAL = SKIP = 0;
-    function compare(a3, b3) {
-      var cols = a3.length;
-      var rows = b3.length;
-      var prefix = findPrefix(a3, b3);
-      var suffix = prefix < cols && prefix < rows ? findSuffix(a3, b3, prefix) : 0;
+    function compare(a4, b4) {
+      var cols = a4.length;
+      var rows = b4.length;
+      var prefix = findPrefix(a4, b4);
+      var suffix = prefix < cols && prefix < rows ? findSuffix(a4, b4, prefix) : 0;
       var remove = suffix + prefix - 1;
       cols -= remove;
       rows -= remove;
       var matrix = createMatrix(cols, rows);
       for (var j3 = cols - 1; j3 >= 0; --j3) {
         for (var i3 = rows - 1; i3 >= 0; --i3) {
-          matrix[i3][j3] = backtrack(matrix, a3, b3, prefix, j3, i3);
+          matrix[i3][j3] = backtrack(matrix, a4, b4, prefix, j3, i3);
         }
       }
       return {
@@ -145,20 +145,20 @@ var require_lcs = __commonJS({
         suffix
       };
     }
-    function reduce(f2, r3, lcs) {
-      var i3, j3, k3, op;
-      var m2 = lcs.matrix;
-      var l3 = lcs.prefix;
-      for (i3 = 0; i3 < l3; ++i3) {
-        r3 = f2(r3, SKIP, i3, i3);
+    function reduce(f3, r3, lcs) {
+      var i3, j3, k4, op;
+      var m3 = lcs.matrix;
+      var l4 = lcs.prefix;
+      for (i3 = 0; i3 < l4; ++i3) {
+        r3 = f3(r3, SKIP, i3, i3);
       }
-      k3 = i3;
-      l3 = m2.length;
+      k4 = i3;
+      l4 = m3.length;
       i3 = 0;
       j3 = 0;
-      while (i3 < l3) {
-        op = m2[i3][j3].type;
-        r3 = f2(r3, op, i3 + k3, j3 + k3);
+      while (i3 < l4) {
+        op = m3[i3][j3].type;
+        r3 = f3(r3, op, i3 + k4, j3 + k4);
         switch (op) {
           case SKIP:
             ++i3;
@@ -172,34 +172,34 @@ var require_lcs = __commonJS({
             break;
         }
       }
-      i3 += k3;
-      j3 += k3;
-      l3 = lcs.suffix;
-      for (k3 = 0; k3 < l3; ++k3) {
-        r3 = f2(r3, SKIP, i3 + k3, j3 + k3);
+      i3 += k4;
+      j3 += k4;
+      l4 = lcs.suffix;
+      for (k4 = 0; k4 < l4; ++k4) {
+        r3 = f3(r3, SKIP, i3 + k4, j3 + k4);
       }
       return r3;
     }
-    function findPrefix(a3, b3) {
+    function findPrefix(a4, b4) {
       var i3 = 0;
-      var l3 = Math.min(a3.length, b3.length);
-      while (i3 < l3 && a3[i3] === b3[i3]) {
+      var l4 = Math.min(a4.length, b4.length);
+      while (i3 < l4 && a4[i3] === b4[i3]) {
         ++i3;
       }
       return i3;
     }
-    function findSuffix(a3, b3) {
-      var al = a3.length - 1;
-      var bl = b3.length - 1;
-      var l3 = Math.min(al, bl);
+    function findSuffix(a4, b4) {
+      var al = a4.length - 1;
+      var bl = b4.length - 1;
+      var l4 = Math.min(al, bl);
       var i3 = 0;
-      while (i3 < l3 && a3[al - i3] === b3[bl - i3]) {
+      while (i3 < l4 && a4[al - i3] === b4[bl - i3]) {
         ++i3;
       }
       return i3;
     }
-    function backtrack(matrix, a3, b3, start, j3, i3) {
-      if (a3[j3 + start] === b3[i3 + start]) {
+    function backtrack(matrix, a4, b4, start, j3, i3) {
+      if (a4[j3 + start] === b4[i3 + start]) {
         return { value: matrix[i3 + 1][j3 + 1].value, type: SKIP };
       }
       if (matrix[i3][j3 + 1].value < matrix[i3 + 1][j3].value) {
@@ -208,17 +208,17 @@ var require_lcs = __commonJS({
       return { value: matrix[i3 + 1][j3].value + 1, type: DOWN };
     }
     function createMatrix(cols, rows) {
-      var m2 = [], i3, j3, lastrow;
-      lastrow = m2[rows] = [];
+      var m3 = [], i3, j3, lastrow;
+      lastrow = m3[rows] = [];
       for (j3 = 0; j3 < cols; ++j3) {
         lastrow[j3] = { value: cols - j3, type: RIGHT };
       }
       for (i3 = 0; i3 < rows; ++i3) {
-        m2[i3] = [];
-        m2[i3][cols] = { value: rows - i3, type: DOWN };
+        m3[i3] = [];
+        m3[i3][cols] = { value: rows - i3, type: DOWN };
       }
-      m2[rows][cols] = { value: 0, type: SKIP };
-      return m2;
+      m3[rows][cols] = { value: 0, type: SKIP };
+      return m3;
     }
   }
 });
@@ -229,29 +229,29 @@ var require_array = __commonJS({
     exports2.cons = cons;
     exports2.tail = tail;
     exports2.map = map;
-    function cons(x3, a3) {
-      var l3 = a3.length;
-      var b3 = new Array(l3 + 1);
-      b3[0] = x3;
-      for (var i3 = 0; i3 < l3; ++i3) {
-        b3[i3 + 1] = a3[i3];
+    function cons(x4, a4) {
+      var l4 = a4.length;
+      var b4 = new Array(l4 + 1);
+      b4[0] = x4;
+      for (var i3 = 0; i3 < l4; ++i3) {
+        b4[i3 + 1] = a4[i3];
       }
-      return b3;
+      return b4;
     }
-    function tail(a3) {
-      var l3 = a3.length - 1;
-      var b3 = new Array(l3);
-      for (var i3 = 0; i3 < l3; ++i3) {
-        b3[i3] = a3[i3 + 1];
+    function tail(a4) {
+      var l4 = a4.length - 1;
+      var b4 = new Array(l4);
+      for (var i3 = 0; i3 < l4; ++i3) {
+        b4[i3] = a4[i3 + 1];
       }
-      return b3;
+      return b4;
     }
-    function map(f2, a3) {
-      var b3 = new Array(a3.length);
-      for (var i3 = 0; i3 < a3.length; ++i3) {
-        b3[i3] = f2(a3[i3]);
+    function map(f3, a4) {
+      var b4 = new Array(a4.length);
+      for (var i3 = 0; i3 < a4.length; ++i3) {
+        b4[i3] = f3(a4[i3]);
       }
-      return b3;
+      return b4;
     }
   }
 });
@@ -309,30 +309,30 @@ var require_jsonPointer = __commonJS({
     var escapeRx = /~/g;
     var encodedEscape = "~0";
     var encodedEscapeRx = /~0/g;
-    function find(x3, path, findContext, context3) {
+    function find(x4, path, findContext, context3) {
       if (typeof path !== "string") {
         return;
       }
       if (path === "") {
-        return { target: x3, key: void 0 };
+        return { target: x4, key: void 0 };
       }
       if (path === separator) {
-        return { target: x3, key: "" };
+        return { target: x4, key: "" };
       }
-      var parent = x3, key;
+      var parent = x4, key;
       var hasContext = context3 !== void 0;
       _parse(path, function(segment) {
-        if (x3 == null) {
+        if (x4 == null) {
           parent = null;
           return false;
         }
-        if (Array.isArray(x3)) {
-          key = hasContext ? findIndex2(findContext, parseArrayIndex(segment), x3, context3) : segment === "-" ? segment : parseArrayIndex(segment);
+        if (Array.isArray(x4)) {
+          key = hasContext ? findIndex2(findContext, parseArrayIndex(segment), x4, context3) : segment === "-" ? segment : parseArrayIndex(segment);
         } else {
           key = segment;
         }
-        parent = x3;
-        x3 = x3[key];
+        parent = x4;
+        x4 = x4[key];
       });
       return parent === null ? void 0 : { target: parent, key };
     }
@@ -347,8 +347,8 @@ var require_jsonPointer = __commonJS({
       _parse(path, segments.push.bind(segments));
       return segments;
     }
-    function contains2(a3, b3) {
-      return b3.indexOf(a3) === 0 && b3[a3.length] === separator;
+    function contains2(a4, b4) {
+      return b4.indexOf(a4) === 0 && b4[a4.length] === separator;
     }
     function decodeSegment(s3) {
       return s3.replace(encodedSeparatorRx, separator).replace(encodedEscapeRx, escapeChar);
@@ -386,29 +386,29 @@ var require_jsonPointer = __commonJS({
 var require_clone = __commonJS({
   "../node_modules/jiff/lib/clone.js"(exports2, module2) {
     module2.exports = clone;
-    function clone(x3) {
-      if (x3 == null || typeof x3 !== "object") {
-        return x3;
+    function clone(x4) {
+      if (x4 == null || typeof x4 !== "object") {
+        return x4;
       }
-      if (Array.isArray(x3)) {
-        return cloneArray(x3);
+      if (Array.isArray(x4)) {
+        return cloneArray(x4);
       }
-      return cloneObject(x3);
+      return cloneObject(x4);
     }
-    function cloneArray(x3) {
-      var l3 = x3.length;
-      var y3 = new Array(l3);
-      for (var i3 = 0; i3 < l3; ++i3) {
-        y3[i3] = clone(x3[i3]);
+    function cloneArray(x4) {
+      var l4 = x4.length;
+      var y3 = new Array(l4);
+      for (var i3 = 0; i3 < l4; ++i3) {
+        y3[i3] = clone(x4[i3]);
       }
       return y3;
     }
-    function cloneObject(x3) {
-      var keys3 = Object.keys(x3);
+    function cloneObject(x4) {
+      var keys3 = Object.keys(x4);
       var y3 = {};
-      for (var k3, i3 = 0, l3 = keys3.length; i3 < l3; ++i3) {
-        k3 = keys3[i3];
-        y3[k3] = clone(x3[k3]);
+      for (var k4, i3 = 0, l4 = keys3.length; i3 < l4; ++i3) {
+        k4 = keys3[i3];
+        y3[k4] = clone(x4[k4]);
       }
       return y3;
     }
@@ -419,41 +419,41 @@ var require_clone = __commonJS({
 var require_deepEquals = __commonJS({
   "../node_modules/jiff/lib/deepEquals.js"(exports2, module2) {
     module2.exports = deepEquals;
-    function deepEquals(a3, b3) {
-      if (a3 === b3) {
+    function deepEquals(a4, b4) {
+      if (a4 === b4) {
         return true;
       }
-      if (Array.isArray(a3) && Array.isArray(b3)) {
-        return compareArrays(a3, b3);
+      if (Array.isArray(a4) && Array.isArray(b4)) {
+        return compareArrays(a4, b4);
       }
-      if (typeof a3 === "object" && typeof b3 === "object") {
-        return compareObjects(a3, b3);
+      if (typeof a4 === "object" && typeof b4 === "object") {
+        return compareObjects(a4, b4);
       }
       return false;
     }
-    function compareArrays(a3, b3) {
-      if (a3.length !== b3.length) {
+    function compareArrays(a4, b4) {
+      if (a4.length !== b4.length) {
         return false;
       }
-      for (var i3 = 0; i3 < a3.length; ++i3) {
-        if (!deepEquals(a3[i3], b3[i3])) {
+      for (var i3 = 0; i3 < a4.length; ++i3) {
+        if (!deepEquals(a4[i3], b4[i3])) {
           return false;
         }
       }
       return true;
     }
-    function compareObjects(a3, b3) {
-      if (a3 === null && b3 !== null || a3 !== null && b3 === null) {
+    function compareObjects(a4, b4) {
+      if (a4 === null && b4 !== null || a4 !== null && b4 === null) {
         return false;
       }
-      var akeys = Object.keys(a3);
-      var bkeys = Object.keys(b3);
+      var akeys = Object.keys(a4);
+      var bkeys = Object.keys(b4);
       if (akeys.length !== bkeys.length) {
         return false;
       }
-      for (var i3 = 0, k3; i3 < akeys.length; ++i3) {
-        k3 = akeys[i3];
-        if (!(k3 in b3 && deepEquals(a3[k3], b3[k3]))) {
+      for (var i3 = 0, k4; i3 < akeys.length; ++i3) {
+        k4 = akeys[i3];
+        if (!(k4 in b4 && deepEquals(a4[k4], b4[k4]))) {
           return false;
         }
       }
@@ -466,13 +466,13 @@ var require_deepEquals = __commonJS({
 var require_commutePaths = __commonJS({
   "../node_modules/jiff/lib/commutePaths.js"(exports2, module2) {
     var jsonPointer = require_jsonPointer();
-    module2.exports = function commutePaths(a3, b3) {
-      var left = jsonPointer.parse(a3.path);
-      var right = jsonPointer.parse(b3.path);
+    module2.exports = function commutePaths(a4, b4) {
+      var left = jsonPointer.parse(a4.path);
+      var right = jsonPointer.parse(b4.path);
       var prefix = getCommonPathPrefix(left, right);
       var isArray2 = isArrayPath(left, right, prefix.length);
-      var ac = copyPatch(a3);
-      var bc = copyPatch(b3);
+      var ac = copyPatch(a4);
+      var bc = copyPatch(b4);
       if (prefix.length === 0 && !isArray2) {
         return [bc, ac];
       }
@@ -482,39 +482,39 @@ var require_commutePaths = __commonJS({
         return commuteTreePaths(ac, left, bc, right);
       }
     };
-    function commuteTreePaths(a3, left, b3, right) {
-      if (a3.path === b3.path) {
-        throw new TypeError("cannot commute " + a3.op + "," + b3.op + " with identical object paths");
+    function commuteTreePaths(a4, left, b4, right) {
+      if (a4.path === b4.path) {
+        throw new TypeError("cannot commute " + a4.op + "," + b4.op + " with identical object paths");
       }
-      return [b3, a3];
+      return [b4, a4];
     }
-    function commuteArrayPaths(a3, left, b3, right) {
+    function commuteArrayPaths(a4, left, b4, right) {
       if (left.length === right.length) {
-        return commuteArraySiblings(a3, left, b3, right);
+        return commuteArraySiblings(a4, left, b4, right);
       }
       if (left.length > right.length) {
-        left = commuteArrayAncestor(b3, right, a3, left, -1);
-        a3.path = jsonPointer.absolute(jsonPointer.join(left));
+        left = commuteArrayAncestor(b4, right, a4, left, -1);
+        a4.path = jsonPointer.absolute(jsonPointer.join(left));
       } else {
-        right = commuteArrayAncestor(a3, left, b3, right, 1);
-        b3.path = jsonPointer.absolute(jsonPointer.join(right));
+        right = commuteArrayAncestor(a4, left, b4, right, 1);
+        b4.path = jsonPointer.absolute(jsonPointer.join(right));
       }
-      return [b3, a3];
+      return [b4, a4];
     }
     function isArrayPath(left, right, index) {
       return jsonPointer.isValidArrayIndex(left[index]) && jsonPointer.isValidArrayIndex(right[index]);
     }
-    function commuteArraySiblings(l3, lpath, r3, rpath) {
+    function commuteArraySiblings(l4, lpath, r3, rpath) {
       var target = lpath.length - 1;
       var lindex = +lpath[target];
       var rindex = +rpath[target];
       var commuted;
       if (lindex < rindex) {
-        if (l3.op === "add" || l3.op === "copy") {
+        if (l4.op === "add" || l4.op === "copy") {
           commuted = rpath.slice();
           commuted[target] = Math.max(0, rindex - 1);
           r3.path = jsonPointer.absolute(jsonPointer.join(commuted));
-        } else if (l3.op === "remove") {
+        } else if (l4.op === "remove") {
           commuted = rpath.slice();
           commuted[target] = rindex + 1;
           r3.path = jsonPointer.absolute(jsonPointer.join(commuted));
@@ -522,15 +522,15 @@ var require_commutePaths = __commonJS({
       } else if (r3.op === "add" || r3.op === "copy") {
         commuted = lpath.slice();
         commuted[target] = lindex + 1;
-        l3.path = jsonPointer.absolute(jsonPointer.join(commuted));
+        l4.path = jsonPointer.absolute(jsonPointer.join(commuted));
       } else if (lindex > rindex && r3.op === "remove") {
         commuted = lpath.slice();
         commuted[target] = Math.max(0, lindex - 1);
-        l3.path = jsonPointer.absolute(jsonPointer.join(commuted));
+        l4.path = jsonPointer.absolute(jsonPointer.join(commuted));
       }
-      return [r3, l3];
+      return [r3, l4];
     }
-    function commuteArrayAncestor(l3, lpath, r3, rpath, direction) {
+    function commuteArrayAncestor(l4, lpath, r3, rpath, direction) {
       var target = lpath.length - 1;
       var lindex = +lpath[target];
       var rindex = +rpath[target];
@@ -538,34 +538,34 @@ var require_commutePaths = __commonJS({
       if (lindex > rindex) {
         return rc;
       }
-      if (l3.op === "add" || l3.op === "copy") {
+      if (l4.op === "add" || l4.op === "copy") {
         rc[target] = Math.max(0, rindex - direction);
-      } else if (l3.op === "remove") {
+      } else if (l4.op === "remove") {
         rc[target] = Math.max(0, rindex + direction);
       }
       return rc;
     }
-    function getCommonPathPrefix(p1, p2) {
+    function getCommonPathPrefix(p1, p22) {
       var p1l = p1.length;
-      var p2l = p2.length;
+      var p2l = p22.length;
       if (p1l === 0 || p2l === 0 || p1l < 2 && p2l < 2) {
         return [];
       }
-      var l3 = p1l === p2l ? p1l - 1 : Math.min(p1l, p2l);
+      var l4 = p1l === p2l ? p1l - 1 : Math.min(p1l, p2l);
       var i3 = 0;
-      while (i3 < l3 && p1[i3] === p2[i3]) {
+      while (i3 < l4 && p1[i3] === p22[i3]) {
         ++i3;
       }
       return p1.slice(0, i3);
     }
-    function copyPatch(p2) {
-      if (p2.op === "remove") {
-        return { op: p2.op, path: p2.path };
+    function copyPatch(p3) {
+      if (p3.op === "remove") {
+        return { op: p3.op, path: p3.path };
       }
-      if (p2.op === "copy" || p2.op === "move") {
-        return { op: p2.op, path: p2.path, from: p2.from };
+      if (p3.op === "copy" || p3.op === "move") {
+        return { op: p3.op, path: p3.path, from: p3.from };
       }
-      return { op: p2.op, path: p2.path, value: p2.value };
+      return { op: p3.op, path: p3.path, value: p3.value };
     }
   }
 });
@@ -664,8 +664,8 @@ var require_patches = __commonJS({
       inverse: notInvertible,
       commute: commuteAddOrCopy
     };
-    function applyTest(x3, test, options) {
-      var pointer2 = find(x3, test.path, options.findContext, test.context);
+    function applyTest(x4, test, options2) {
+      var pointer2 = find(x4, test.path, options2.findContext, test.context);
       var target = pointer2.target;
       var index, value;
       if (Array.isArray(target)) {
@@ -677,23 +677,23 @@ var require_patches = __commonJS({
       if (!deepEquals(value, test.value)) {
         throw new TestFailedError("test failed " + JSON.stringify(test));
       }
-      return x3;
+      return x4;
     }
     function invertTest(pr, test) {
       pr.push(test);
       return 1;
     }
-    function commuteTest(test, b3) {
-      if (test.path === b3.path && b3.op === "remove") {
+    function commuteTest(test, b4) {
+      if (test.path === b4.path && b4.op === "remove") {
         throw new TypeError("Can't commute test,remove -> remove,test for same path");
       }
-      if (b3.op === "test" || b3.op === "replace") {
-        return [b3, test];
+      if (b4.op === "test" || b4.op === "replace") {
+        return [b4, test];
       }
-      return commutePaths(test, b3);
+      return commutePaths(test, b4);
     }
-    function applyAdd(x3, change, options) {
-      var pointer2 = find(x3, change.path, options.findContext, change.context);
+    function applyAdd(x4, change, options2) {
+      var pointer2 = find(x4, change.path, options2.findContext, change.context);
       if (notFound(pointer2)) {
         throw new InvalidPatchOperationError("path does not exist " + change.path);
       }
@@ -705,7 +705,7 @@ var require_patches = __commonJS({
         return val59;
       }
       _add(pointer2, val59);
-      return x3;
+      return x4;
     }
     function _add(pointer2, value) {
       var target = pointer2.target;
@@ -735,14 +735,14 @@ var require_patches = __commonJS({
       pr.push({ op: "remove", path: add.path, context: context3 });
       return 1;
     }
-    function commuteAddOrCopy(add, b3) {
-      if (add.path === b3.path && b3.op === "remove") {
+    function commuteAddOrCopy(add, b4) {
+      if (add.path === b4.path && b4.op === "remove") {
         throw new TypeError("Can't commute add,remove -> remove,add for same path");
       }
-      return commutePaths(add, b3);
+      return commutePaths(add, b4);
     }
-    function applyReplace(x3, change, options) {
-      var pointer2 = find(x3, change.path, options.findContext, change.context);
+    function applyReplace(x4, change, options2) {
+      var pointer2 = find(x4, change.path, options2.findContext, change.context);
       if (notFound(pointer2) || missingValue(pointer2)) {
         throw new InvalidPatchOperationError("path does not exist " + change.path);
       }
@@ -759,7 +759,7 @@ var require_patches = __commonJS({
       } else {
         target[pointer2.key] = value;
       }
-      return x3;
+      return x4;
     }
     function invertReplace(pr, c3, i3, patch2) {
       var prev = patch2[i3 - 1];
@@ -777,22 +777,22 @@ var require_patches = __commonJS({
       pr.push({ op: "replace", path: prev.path, value: prev.value });
       return 2;
     }
-    function commuteReplace(replace, b3) {
-      if (replace.path === b3.path && b3.op === "remove") {
+    function commuteReplace(replace, b4) {
+      if (replace.path === b4.path && b4.op === "remove") {
         throw new TypeError("Can't commute replace,remove -> remove,replace for same path");
       }
-      if (b3.op === "test" || b3.op === "replace") {
-        return [b3, replace];
+      if (b4.op === "test" || b4.op === "replace") {
+        return [b4, replace];
       }
-      return commutePaths(replace, b3);
+      return commutePaths(replace, b4);
     }
-    function applyRemove(x3, change, options) {
-      var pointer2 = find(x3, change.path, options.findContext, change.context);
+    function applyRemove(x4, change, options2) {
+      var pointer2 = find(x4, change.path, options2.findContext, change.context);
       if (notFound(pointer2) || pointer2.target[pointer2.key] === void 0) {
         throw new InvalidPatchOperationError("path does not exist " + change.path);
       }
       _remove(pointer2);
-      return x3;
+      return x4;
     }
     function _remove(pointer2) {
       var target = pointer2.target;
@@ -823,20 +823,20 @@ var require_patches = __commonJS({
       pr.push({ op: "add", path: prev.path, value: prev.value, context: context3 });
       return 2;
     }
-    function commuteRemove(remove, b3) {
-      if (remove.path === b3.path && b3.op === "remove") {
-        return [b3, remove];
+    function commuteRemove(remove, b4) {
+      if (remove.path === b4.path && b4.op === "remove") {
+        return [b4, remove];
       }
-      return commutePaths(remove, b3);
+      return commutePaths(remove, b4);
     }
-    function applyMove(x3, change, options) {
+    function applyMove(x4, change, options2) {
       if (jsonPointer.contains(change.path, change.from)) {
         throw new InvalidPatchOperationError("move.from cannot be ancestor of move.path");
       }
-      var pto = find(x3, change.path, options.findContext, change.context);
-      var pfrom = find(x3, change.from, options.findContext, change.fromContext);
+      var pto = find(x4, change.path, options2.findContext, change.context);
+      var pfrom = find(x4, change.from, options2.findContext, change.fromContext);
       _add(pto, _remove(pfrom));
-      return x3;
+      return x4;
     }
     function invertMove(pr, c3) {
       pr.push({
@@ -848,15 +848,15 @@ var require_patches = __commonJS({
       });
       return 1;
     }
-    function commuteMove(move, b3) {
-      if (move.path === b3.path && b3.op === "remove") {
+    function commuteMove(move, b4) {
+      if (move.path === b4.path && b4.op === "remove") {
         throw new TypeError("Can't commute move,remove -> move,replace for same path");
       }
-      return commutePaths(move, b3);
+      return commutePaths(move, b4);
     }
-    function applyCopy(x3, change, options) {
-      var pto = find(x3, change.path, options.findContext, change.context);
-      var pfrom = find(x3, change.from, options.findContext, change.fromContext);
+    function applyCopy(x4, change, options2) {
+      var pto = find(x4, change.path, options2.findContext, change.context);
+      var pfrom = find(x4, change.from, options2.findContext, change.fromContext);
       if (notFound(pfrom) || missingValue(pfrom)) {
         throw new InvalidPatchOperationError("copy.from must exist");
       }
@@ -868,7 +868,7 @@ var require_patches = __commonJS({
         value = target[pfrom.key];
       }
       _add(pto, clone(value));
-      return x3;
+      return x4;
     }
     function notInvertible(_3, c3) {
       throw new PatchNotInvertibleError("cannot invert " + c3.op);
@@ -879,8 +879,8 @@ var require_patches = __commonJS({
     function missingValue(pointer2) {
       return pointer2.key !== void 0 && pointer2.target[pointer2.key] === void 0;
     }
-    function isValidObject(x3) {
-      return x3 !== null && typeof x3 === "object";
+    function isValidObject(x4) {
+      return x4 !== null && typeof x4 === "object";
     }
   }
 });
@@ -897,35 +897,35 @@ var require_jsonPatch = __commonJS({
     exports2.isValidObject = isValidObject;
     exports2.defaultHash = defaultHash;
     var defaultOptions = {};
-    function patch2(changes, x3, options) {
-      return patchInPlace(changes, clone(x3), options);
+    function patch2(changes, x4, options2) {
+      return patchInPlace(changes, clone(x4), options2);
     }
-    function patchInPlace(changes, x3, options) {
-      if (!options) {
-        options = defaultOptions;
+    function patchInPlace(changes, x4, options2) {
+      if (!options2) {
+        options2 = defaultOptions;
       }
       if (!Array.isArray(changes)) {
-        return x3;
+        return x4;
       }
-      var patch3, p2;
+      var patch3, p3;
       for (var i3 = 0; i3 < changes.length; ++i3) {
-        p2 = changes[i3];
-        patch3 = patches[p2.op];
+        p3 = changes[i3];
+        patch3 = patches[p3.op];
         if (patch3 === void 0) {
-          throw new InvalidPatchOperationError("invalid op " + JSON.stringify(p2));
+          throw new InvalidPatchOperationError("invalid op " + JSON.stringify(p3));
         }
-        x3 = patch3.apply(x3, p2, options);
+        x4 = patch3.apply(x4, p3, options2);
       }
-      return x3;
+      return x4;
     }
-    function defaultHash(x3) {
-      return isValidObject(x3) || isArray2(x3) ? JSON.stringify(x3) : x3;
+    function defaultHash(x4) {
+      return isValidObject(x4) || isArray2(x4) ? JSON.stringify(x4) : x4;
     }
-    function isValidObject(x3) {
-      return x3 !== null && Object.prototype.toString.call(x3) === "[object Object]";
+    function isValidObject(x4) {
+      return x4 !== null && Object.prototype.toString.call(x4) === "[object Object]";
     }
-    function isArray2(x3) {
-      return Object.prototype.toString.call(x3) === "[object Array]";
+    function isArray2(x4) {
+      return Object.prototype.toString.call(x4) === "[object Array]";
     }
   }
 });
@@ -934,11 +934,11 @@ var require_jsonPatch = __commonJS({
 var require_inverse = __commonJS({
   "../node_modules/jiff/lib/inverse.js"(exports2, module2) {
     var patches = require_patches();
-    module2.exports = function inverse(p2) {
+    module2.exports = function inverse(p3) {
       var pr = [];
       var i3, skip;
-      for (i3 = p2.length - 1; i3 >= 0; i3 -= skip) {
-        skip = invertOp(pr, p2[i3], i3, p2);
+      for (i3 = p3.length - 1; i3 >= 0; i3 -= skip) {
+        skip = invertOp(pr, p3[i3], i3, p3);
       }
       return pr;
     };
@@ -968,34 +968,34 @@ var require_jiff = __commonJS({
     exports2.PatchNotInvertibleError = require_PatchNotInvertibleError();
     var isValidObject = patch2.isValidObject;
     var defaultHash = patch2.defaultHash;
-    function diff(a3, b3, options) {
-      return appendChanges(a3, b3, "", initState(options, [])).patch;
+    function diff(a4, b4, options2) {
+      return appendChanges(a4, b4, "", initState(options2, [])).patch;
     }
-    function initState(options, patch3) {
-      if (typeof options === "object") {
+    function initState(options2, patch3) {
+      if (typeof options2 === "object") {
         return {
           patch: patch3,
-          hash: orElse(isFunction2, options.hash, defaultHash),
-          makeContext: orElse(isFunction2, options.makeContext, defaultContext),
-          invertible: !(options.invertible === false)
+          hash: orElse(isFunction2, options2.hash, defaultHash),
+          makeContext: orElse(isFunction2, options2.makeContext, defaultContext),
+          invertible: !(options2.invertible === false)
         };
       } else {
         return {
           patch: patch3,
-          hash: orElse(isFunction2, options, defaultHash),
+          hash: orElse(isFunction2, options2, defaultHash),
           makeContext: defaultContext,
           invertible: true
         };
       }
     }
-    function appendChanges(a3, b3, path, state) {
-      if (Array.isArray(a3) && Array.isArray(b3)) {
-        return appendArrayChanges(a3, b3, path, state);
+    function appendChanges(a4, b4, path, state) {
+      if (Array.isArray(a4) && Array.isArray(b4)) {
+        return appendArrayChanges(a4, b4, path, state);
       }
-      if (isValidObject(a3) && isValidObject(b3)) {
-        return appendObjectChanges(a3, b3, path, state);
+      if (isValidObject(a4) && isValidObject(b4)) {
+        return appendObjectChanges(a4, b4, path, state);
       }
-      return appendValueChanges(a3, b3, path, state);
+      return appendValueChanges(a4, b4, path, state);
     }
     function appendObjectChanges(o1, o22, path, state) {
       var keys3 = Object.keys(o22);
@@ -1014,11 +1014,11 @@ var require_jiff = __commonJS({
       for (i3 = keys3.length - 1; i3 >= 0; --i3) {
         key = keys3[i3];
         if (o22[key] === void 0) {
-          var p2 = path + "/" + encodeSegment(key);
+          var p3 = path + "/" + encodeSegment(key);
           if (state.invertible) {
-            patch3.push({ op: "test", path: p2, value: o1[key] });
+            patch3.push({ op: "test", path: p3, value: o1[key] });
           }
-          patch3.push({ op: "remove", path: p2 });
+          patch3.push({ op: "remove", path: p3 });
         }
       }
       return state;
@@ -1034,51 +1034,51 @@ var require_jiff = __commonJS({
       return lcs.reduce(function(state2, op, i3, j3) {
         var last2, context3;
         var patch3 = state2.patch;
-        var p2 = path + "/" + (j3 + offset);
+        var p3 = path + "/" + (j3 + offset);
         if (op === lcs.REMOVE) {
           last2 = patch3[patch3.length - 1];
           context3 = state2.makeContext(j3, a1);
           if (state2.invertible) {
-            patch3.push({ op: "test", path: p2, value: a1[j3], context: context3 });
+            patch3.push({ op: "test", path: p3, value: a1[j3], context: context3 });
           }
-          if (last2 !== void 0 && last2.op === "add" && last2.path === p2) {
+          if (last2 !== void 0 && last2.op === "add" && last2.path === p3) {
             last2.op = "replace";
             last2.context = context3;
           } else {
-            patch3.push({ op: "remove", path: p2, context: context3 });
+            patch3.push({ op: "remove", path: p3, context: context3 });
           }
           offset -= 1;
         } else if (op === lcs.ADD) {
           patch3.push({
             op: "add",
-            path: p2,
+            path: p3,
             value: a22[i3],
             context: state2.makeContext(j3, a1)
           });
           offset += 1;
         } else {
-          appendChanges(a1[j3], a22[i3], p2, state2);
+          appendChanges(a1[j3], a22[i3], p3, state2);
         }
         return state2;
       }, state, lcsMatrix);
     }
-    function appendValueChanges(a3, b3, path, state) {
-      if (a3 !== b3) {
+    function appendValueChanges(a4, b4, path, state) {
+      if (a4 !== b4) {
         if (state.invertible) {
-          state.patch.push({ op: "test", path, value: a3 });
+          state.patch.push({ op: "test", path, value: a4 });
         }
-        state.patch.push({ op: "replace", path, value: b3 });
+        state.patch.push({ op: "replace", path, value: b4 });
       }
       return state;
     }
-    function orElse(predicate, x3, y3) {
-      return predicate(x3) ? x3 : y3;
+    function orElse(predicate, x4, y3) {
+      return predicate(x4) ? x4 : y3;
     }
     function defaultContext() {
       return void 0;
     }
-    function isFunction2(x3) {
-      return typeof x3 === "function";
+    function isFunction2(x4) {
+      return typeof x4 === "function";
     }
   }
 });
@@ -1104,8 +1104,8 @@ var require_pluck = __commonJS({
 var require_toKeys = __commonJS({
   "../node_modules/json-touch-patch/lib/utils/toKeys.js"(exports2, module2) {
     "use strict";
-    function esc(m2) {
-      return m2 === "~0" ? "~" : "/";
+    function esc(m3) {
+      return m3 === "~0" ? "~" : "/";
     }
     function toKeys(path) {
       var keys3 = path.split("/");
@@ -1143,34 +1143,34 @@ var require_get = __commonJS({
 var require_deepEqual = __commonJS({
   "../node_modules/json-touch-patch/lib/utils/deepEqual.js"(exports2, module2) {
     "use strict";
-    function deepEqual(a3, b3) {
-      if (a3 === b3) {
+    function deepEqual(a4, b4) {
+      if (a4 === b4) {
         return true;
       }
-      if (!(a3 && b3) || typeof a3 !== "object" || typeof b3 !== "object") {
+      if (!(a4 && b4) || typeof a4 !== "object" || typeof b4 !== "object") {
         return false;
       }
-      if (a3.length !== b3.length) {
+      if (a4.length !== b4.length) {
         return false;
       }
-      if (Array.isArray(a3)) {
-        if (!Array.isArray(b3)) {
+      if (Array.isArray(a4)) {
+        if (!Array.isArray(b4)) {
           return false;
         }
-        for (var i3 = 0, imax = a3.length; i3 < imax; i3++) {
-          if (!deepEqual(a3[i3], b3[i3])) {
+        for (var i3 = 0, imax = a4.length; i3 < imax; i3++) {
+          if (!deepEqual(a4[i3], b4[i3])) {
             return false;
           }
         }
         return true;
       }
-      var aKeys = Object.keys(a3);
-      if (aKeys.length !== Object.keys(b3).length) {
+      var aKeys = Object.keys(a4);
+      if (aKeys.length !== Object.keys(b4).length) {
         return false;
       }
       for (var j3 = 0, jmax = aKeys.length; j3 < jmax; j3++) {
         var key = aKeys[j3];
-        if (!deepEqual(a3[key], b3[key])) {
+        if (!deepEqual(a4[key], b4[key])) {
           return false;
         }
       }
@@ -1368,9 +1368,9 @@ var require_test = __commonJS({
         return "[op:test] path not found: " + path;
       }
       if (!deepEqual(target[lastKey], expected)) {
-        var a3 = JSON.stringify(target[lastKey]);
-        var b3 = JSON.stringify(expected);
-        return "[op:test] not matched: " + a3 + " " + b3;
+        var a4 = JSON.stringify(target[lastKey]);
+        var b4 = JSON.stringify(expected);
+        return "[op:test] not matched: " + a4 + " " + b4;
       }
     }
     module2.exports = test;
@@ -1636,9 +1636,9 @@ var init_last = __esm({
 });
 
 // shared/src/_logger/logger.ts
-function lazy(f2) {
-  return function lazyLogIncluded(m2, lazyArg) {
-    return f2(m2, lazyArg());
+function lazy(f3) {
+  return function lazyLogIncluded(m3, lazyArg) {
+    return f3(m3, lazyArg());
   };
 }
 function getLogMeta(level) {
@@ -1705,7 +1705,7 @@ function configNamedToKeyed(namedFn, source) {
 }
 function createExtLogger(source) {
   const includes = __spreadValues(__spreadValues({}, this.includes), this.include(source));
-  const f2 = this.filtered;
+  const f3 = this.filtered;
   const named = this.named.bind(this, source);
   const ext = this.creatExt(source);
   const _HMM = shouldLog(includes, 524);
@@ -1721,19 +1721,19 @@ function createExtLogger(source) {
   const DEBUG_DEV = shouldLog(includes, 145);
   const _TRACE = shouldLog(includes, 73);
   const TRACE_DEV = shouldLog(includes, 81);
-  const _hmm = _HMM ? ext.error.bind(ext, LEVELS._hmm) : f2.bind(source, 524);
-  const _todo = _TODO ? ext.error.bind(ext, LEVELS._todo) : f2.bind(source, 522);
-  const _error = _ERROR ? ext.error.bind(ext, LEVELS._error) : f2.bind(source, 521);
-  const errorDev = ERROR_DEV ? ext.error.bind(ext, LEVELS.errorDev) : f2.bind(source, 529);
-  const errorPublic = ERROR_PUBLIC ? ext.error.bind(ext, LEVELS.errorPublic) : f2.bind(source, 545);
-  const _kapow = _KAPOW ? ext.warn.bind(ext, LEVELS._kapow) : f2.bind(source, 268);
-  const _warn = _WARN ? ext.warn.bind(ext, LEVELS._warn) : f2.bind(source, 265);
-  const warnDev = WARN_DEV ? ext.warn.bind(ext, LEVELS.warnDev) : f2.bind(source, 273);
-  const warnPublic = WARN_PUBLIC ? ext.warn.bind(ext, LEVELS.warnPublic) : f2.bind(source, 273);
-  const _debug = _DEBUG ? ext.debug.bind(ext, LEVELS._debug) : f2.bind(source, 137);
-  const debugDev = DEBUG_DEV ? ext.debug.bind(ext, LEVELS.debugDev) : f2.bind(source, 145);
-  const _trace = _TRACE ? ext.trace.bind(ext, LEVELS._trace) : f2.bind(source, 73);
-  const traceDev = TRACE_DEV ? ext.trace.bind(ext, LEVELS.traceDev) : f2.bind(source, 81);
+  const _hmm = _HMM ? ext.error.bind(ext, LEVELS._hmm) : f3.bind(source, 524);
+  const _todo = _TODO ? ext.error.bind(ext, LEVELS._todo) : f3.bind(source, 522);
+  const _error = _ERROR ? ext.error.bind(ext, LEVELS._error) : f3.bind(source, 521);
+  const errorDev = ERROR_DEV ? ext.error.bind(ext, LEVELS.errorDev) : f3.bind(source, 529);
+  const errorPublic = ERROR_PUBLIC ? ext.error.bind(ext, LEVELS.errorPublic) : f3.bind(source, 545);
+  const _kapow = _KAPOW ? ext.warn.bind(ext, LEVELS._kapow) : f3.bind(source, 268);
+  const _warn = _WARN ? ext.warn.bind(ext, LEVELS._warn) : f3.bind(source, 265);
+  const warnDev = WARN_DEV ? ext.warn.bind(ext, LEVELS.warnDev) : f3.bind(source, 273);
+  const warnPublic = WARN_PUBLIC ? ext.warn.bind(ext, LEVELS.warnPublic) : f3.bind(source, 273);
+  const _debug = _DEBUG ? ext.debug.bind(ext, LEVELS._debug) : f3.bind(source, 137);
+  const debugDev = DEBUG_DEV ? ext.debug.bind(ext, LEVELS.debugDev) : f3.bind(source, 145);
+  const _trace = _TRACE ? ext.trace.bind(ext, LEVELS._trace) : f3.bind(source, 73);
+  const traceDev = TRACE_DEV ? ext.trace.bind(ext, LEVELS.traceDev) : f3.bind(source, 81);
   const logger = {
     _hmm,
     _todo,
@@ -1820,10 +1820,10 @@ function createConsoleLoggerStyled(con, source) {
       styleArgs.push(this.style.css(keyStr));
     }
   }
-  const f2 = this.filtered;
+  const f3 = this.filtered;
   const named = this.named.bind(this, source);
   const prefixArr = [prefix, ...styleArgs];
-  return _createConsoleLogger(f2, source, includes, con, prefixArr, styledKapowPrefix(prefixArr), named);
+  return _createConsoleLogger(f3, source, includes, con, prefixArr, styledKapowPrefix(prefixArr), named);
 }
 function styledKapowPrefix(args) {
   const start = args.slice(0);
@@ -1841,12 +1841,12 @@ function createConsoleLoggerNoStyle(con, source) {
       prefix += `#${key}`;
     }
   }
-  const f2 = this.filtered;
+  const f3 = this.filtered;
   const named = this.named.bind(this, source);
   const prefixArr = [prefix];
-  return _createConsoleLogger(f2, source, includes, con, prefixArr, prefixArr, named);
+  return _createConsoleLogger(f3, source, includes, con, prefixArr, prefixArr, named);
 }
-function _createConsoleLogger(f2, source, includes, con, prefix, kapowPrefix, named) {
+function _createConsoleLogger(f3, source, includes, con, prefix, kapowPrefix, named) {
   const _HMM = shouldLog(includes, 524);
   const _TODO = shouldLog(includes, 522);
   const _ERROR = shouldLog(includes, 521);
@@ -1860,19 +1860,19 @@ function _createConsoleLogger(f2, source, includes, con, prefix, kapowPrefix, na
   const DEBUG_DEV = shouldLog(includes, 145);
   const _TRACE = shouldLog(includes, 73);
   const TRACE_DEV = shouldLog(includes, 81);
-  const _hmm = _HMM ? con.error.bind(con, ...prefix) : f2.bind(source, 524);
-  const _todo = _TODO ? con.error.bind(con, ...prefix) : f2.bind(source, 522);
-  const _error = _ERROR ? con.error.bind(con, ...prefix) : f2.bind(source, 521);
-  const errorDev = ERROR_DEV ? con.error.bind(con, ...prefix) : f2.bind(source, 529);
-  const errorPublic = ERROR_PUBLIC ? con.error.bind(con, ...prefix) : f2.bind(source, 545);
-  const _kapow = _KAPOW ? con.warn.bind(con, ...kapowPrefix) : f2.bind(source, 268);
-  const _warn = _WARN ? con.warn.bind(con, ...prefix) : f2.bind(source, 265);
-  const warnDev = WARN_DEV ? con.warn.bind(con, ...prefix) : f2.bind(source, 273);
-  const warnPublic = WARN_PUBLIC ? con.warn.bind(con, ...prefix) : f2.bind(source, 273);
-  const _debug = _DEBUG ? con.info.bind(con, ...prefix) : f2.bind(source, 137);
-  const debugDev = DEBUG_DEV ? con.info.bind(con, ...prefix) : f2.bind(source, 145);
-  const _trace = _TRACE ? con.debug.bind(con, ...prefix) : f2.bind(source, 73);
-  const traceDev = TRACE_DEV ? con.debug.bind(con, ...prefix) : f2.bind(source, 81);
+  const _hmm = _HMM ? con.error.bind(con, ...prefix) : f3.bind(source, 524);
+  const _todo = _TODO ? con.error.bind(con, ...prefix) : f3.bind(source, 522);
+  const _error = _ERROR ? con.error.bind(con, ...prefix) : f3.bind(source, 521);
+  const errorDev = ERROR_DEV ? con.error.bind(con, ...prefix) : f3.bind(source, 529);
+  const errorPublic = ERROR_PUBLIC ? con.error.bind(con, ...prefix) : f3.bind(source, 545);
+  const _kapow = _KAPOW ? con.warn.bind(con, ...kapowPrefix) : f3.bind(source, 268);
+  const _warn = _WARN ? con.warn.bind(con, ...prefix) : f3.bind(source, 265);
+  const warnDev = WARN_DEV ? con.warn.bind(con, ...prefix) : f3.bind(source, 273);
+  const warnPublic = WARN_PUBLIC ? con.warn.bind(con, ...prefix) : f3.bind(source, 273);
+  const _debug = _DEBUG ? con.info.bind(con, ...prefix) : f3.bind(source, 137);
+  const debugDev = DEBUG_DEV ? con.info.bind(con, ...prefix) : f3.bind(source, 145);
+  const _trace = _TRACE ? con.debug.bind(con, ...prefix) : f3.bind(source, 73);
+  const traceDev = TRACE_DEV ? con.debug.bind(con, ...prefix) : f3.bind(source, 81);
   const logger = {
     _hmm,
     _todo,
@@ -2074,11 +2074,11 @@ var init_logger2 = __esm({
 // shared/src/utils/memoizeFn.ts
 function memoizeFn(producer) {
   const cache3 = new WeakMap();
-  return (k3) => {
-    if (!cache3.has(k3)) {
-      cache3.set(k3, producer(k3));
+  return (k4) => {
+    if (!cache3.has(k4)) {
+      cache3.set(k4, producer(k4));
     }
-    return cache3.get(k3);
+    return cache3.get(k4);
   };
 }
 var init_memoizeFn = __esm({
@@ -2119,7 +2119,7 @@ var encodePathToProp, decodePathToProp;
 var init_addresses = __esm({
   "shared/src/utils/addresses.ts"() {
     init_memoizeFn();
-    encodePathToProp = memoizeFn((p2) => JSON.stringify(p2));
+    encodePathToProp = memoizeFn((p3) => JSON.stringify(p3));
     decodePathToProp = (s3) => JSON.parse(s3);
   }
 });
@@ -4897,17 +4897,17 @@ var init_now = __esm({
 });
 
 // ../node_modules/lodash-es/debounce.js
-function debounce(func, wait2, options) {
+function debounce(func, wait2, options2) {
   var lastArgs, lastThis, maxWait, result2, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
   if (typeof func != "function") {
     throw new TypeError(FUNC_ERROR_TEXT2);
   }
   wait2 = toNumber_default(wait2) || 0;
-  if (isObject_default(options)) {
-    leading = !!options.leading;
-    maxing = "maxWait" in options;
-    maxWait = maxing ? nativeMax2(toNumber_default(options.maxWait) || 0, wait2) : maxWait;
-    trailing = "trailing" in options ? !!options.trailing : trailing;
+  if (isObject_default(options2)) {
+    leading = !!options2.leading;
+    maxing = "maxWait" in options2;
+    maxWait = maxing ? nativeMax2(toNumber_default(options2.maxWait) || 0, wait2) : maxWait;
+    trailing = "trailing" in options2 ? !!options2.trailing : trailing;
   }
   function invokeFunc(time) {
     var args = lastArgs, thisArg = lastThis;
@@ -5600,10 +5600,10 @@ var init_ids = __esm({
 });
 
 // shared/src/utils/getDeep.ts
-function getDeep(v3, path) {
+function getDeep(v5, path) {
   if (path.length === 0)
-    return v3;
-  return get_default(v3, path);
+    return v5;
+  return get_default(v5, path);
 }
 var init_getDeep = __esm({
   "shared/src/utils/getDeep.ts"() {
@@ -5980,7 +5980,7 @@ var require_react_development = __commonJS({
                 var init = lazyComponent._init;
                 try {
                   return getComponentName(init(payload));
-                } catch (x3) {
+                } catch (x4) {
                   return null;
                 }
               }
@@ -6098,7 +6098,7 @@ var require_react_development = __commonJS({
           }
           return element;
         };
-        function createElement10(type, config, children) {
+        function createElement11(type, config, children) {
           var propName;
           var props = {};
           var key = null;
@@ -6215,7 +6215,7 @@ var require_react_development = __commonJS({
         }
         var SEPARATOR = ".";
         var SUBSEPARATOR = ":";
-        function escape(key) {
+        function escape2(key) {
           var escapeRegex = /[=:]/g;
           var escaperLookup = {
             "=": "=0",
@@ -6233,7 +6233,7 @@ var require_react_development = __commonJS({
         }
         function getElementKey(element, index) {
           if (typeof element === "object" && element !== null && element.key != null) {
-            return escape("" + element.key);
+            return escape2("" + element.key);
           }
           return index.toString(36);
         }
@@ -6656,7 +6656,7 @@ var require_react_development = __commonJS({
           var dispatcher = resolveDispatcher();
           return dispatcher.useRef(initialValue);
         }
-        function useEffect28(create, deps) {
+        function useEffect30(create, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useEffect(create, deps);
         }
@@ -6767,8 +6767,8 @@ var require_react_development = __commonJS({
             if (prefix === void 0) {
               try {
                 throw Error();
-              } catch (x3) {
-                var match = x3.stack.trim().match(/\n( *(at )?)/);
+              } catch (x4) {
+                var match = x4.stack.trim().match(/\n( *(at )?)/);
                 prefix = match && match[1] || "";
               }
             }
@@ -6814,23 +6814,23 @@ var require_react_development = __commonJS({
               if (typeof Reflect === "object" && Reflect.construct) {
                 try {
                   Reflect.construct(Fake, []);
-                } catch (x3) {
-                  control = x3;
+                } catch (x4) {
+                  control = x4;
                 }
                 Reflect.construct(fn2, [], Fake);
               } else {
                 try {
                   Fake.call();
-                } catch (x3) {
-                  control = x3;
+                } catch (x4) {
+                  control = x4;
                 }
                 fn2.call(Fake.prototype);
               }
             } else {
               try {
                 throw Error();
-              } catch (x3) {
-                control = x3;
+              } catch (x4) {
+                control = x4;
               }
               fn2();
             }
@@ -6922,7 +6922,7 @@ var require_react_development = __commonJS({
                 var init = lazyComponent._init;
                 try {
                   return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-                } catch (x3) {
+                } catch (x4) {
                 }
               }
             }
@@ -7146,7 +7146,7 @@ var require_react_development = __commonJS({
               error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
             }
           }
-          var element = createElement10.apply(this, arguments);
+          var element = createElement11.apply(this, arguments);
           if (element == null) {
             return element;
           }
@@ -7226,7 +7226,7 @@ var require_react_development = __commonJS({
         exports2.useCallback = useCallback24;
         exports2.useContext = useContext18;
         exports2.useDebugValue = useDebugValue4;
-        exports2.useEffect = useEffect28;
+        exports2.useEffect = useEffect30;
         exports2.useImperativeHandle = useImperativeHandle;
         exports2.useLayoutEffect = useLayoutEffect22;
         exports2.useMemo = useMemo49;
@@ -7452,9 +7452,9 @@ var require_scheduler_development = __commonJS({
             }
           }
         }
-        function compare(a3, b3) {
-          var diff = a3.sortIndex - b3.sortIndex;
-          return diff !== 0 ? diff : a3.id - b3.id;
+        function compare(a4, b4) {
+          var diff = a4.sortIndex - b4.sortIndex;
+          return diff !== 0 ? diff : a4.id - b4.id;
         }
         var ImmediatePriority = 1;
         var UserBlockingPriority = 2;
@@ -7625,11 +7625,11 @@ var require_scheduler_development = __commonJS({
             }
           };
         }
-        function unstable_scheduleCallback(priorityLevel, callback, options) {
+        function unstable_scheduleCallback(priorityLevel, callback, options2) {
           var currentTime = exports2.unstable_now();
           var startTime;
-          if (typeof options === "object" && options !== null) {
-            var delay = options.delay;
+          if (typeof options2 === "object" && options2 !== null) {
+            var delay = options2.delay;
             if (typeof delay === "number" && delay > 0) {
               startTime = currentTime + delay;
             } else {
@@ -8040,11 +8040,11 @@ var require_react_dom_development = __commonJS({
     if (true) {
       (function() {
         "use strict";
-        var React147 = require_react();
+        var React149 = require_react();
         var _assign = require_object_assign();
         var Scheduler = require_scheduler();
         var tracing = require_tracing();
-        var ReactSharedInternals = React147.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React149.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         function warn(format4) {
           {
             for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -8076,7 +8076,7 @@ var require_react_dom_development = __commonJS({
             Function.prototype.apply.call(console[level], console, argsWithFormat);
           }
         }
-        if (!React147) {
+        if (!React149) {
           {
             throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
           }
@@ -8088,7 +8088,7 @@ var require_react_dom_development = __commonJS({
         var HostPortal = 4;
         var HostComponent = 5;
         var HostText = 6;
-        var Fragment2 = 7;
+        var Fragment3 = 7;
         var Mode = 8;
         var ContextConsumer = 9;
         var ContextProvider = 10;
@@ -8689,8 +8689,8 @@ var require_react_dom_development = __commonJS({
             if (prefix === void 0) {
               try {
                 throw Error();
-              } catch (x3) {
-                var match = x3.stack.trim().match(/\n( *(at )?)/);
+              } catch (x4) {
+                var match = x4.stack.trim().match(/\n( *(at )?)/);
                 prefix = match && match[1] || "";
               }
             }
@@ -8736,23 +8736,23 @@ var require_react_dom_development = __commonJS({
               if (typeof Reflect === "object" && Reflect.construct) {
                 try {
                   Reflect.construct(Fake, []);
-                } catch (x3) {
-                  control = x3;
+                } catch (x4) {
+                  control = x4;
                 }
                 Reflect.construct(fn2, [], Fake);
               } else {
                 try {
                   Fake.call();
-                } catch (x3) {
-                  control = x3;
+                } catch (x4) {
+                  control = x4;
                 }
                 fn2.call(Fake.prototype);
               }
             } else {
               try {
                 throw Error();
-              } catch (x3) {
-                control = x3;
+              } catch (x4) {
+                control = x4;
               }
               fn2();
             }
@@ -8849,7 +8849,7 @@ var require_react_dom_development = __commonJS({
                 var init = lazyComponent._init;
                 try {
                   return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-                } catch (x3) {
+                } catch (x4) {
                 }
               }
             }
@@ -8891,8 +8891,8 @@ var require_react_dom_development = __commonJS({
               node = node.return;
             } while (node);
             return info;
-          } catch (x3) {
-            return "\nError generating stack: " + x3.message + "\n" + x3.stack;
+          } catch (x4) {
+            return "\nError generating stack: " + x4.message + "\n" + x4.stack;
           }
         }
         function getWrappedName(outerType, innerType, wrapperName) {
@@ -8951,7 +8951,7 @@ var require_react_dom_development = __commonJS({
                 var init = lazyComponent._init;
                 try {
                   return getComponentName(init(payload));
-                } catch (x3) {
+                } catch (x4) {
                   return null;
                 }
               }
@@ -9292,7 +9292,7 @@ var require_react_dom_development = __commonJS({
         var didWarnInvalidChild = false;
         function flattenChildren(children) {
           var content = "";
-          React147.Children.forEach(children, function(child) {
+          React149.Children.forEach(children, function(child) {
             if (child == null) {
               return;
             }
@@ -9303,7 +9303,7 @@ var require_react_dom_development = __commonJS({
         function validateProps(element, props) {
           {
             if (typeof props.children === "object" && props.children !== null) {
-              React147.Children.forEach(props.children, function(child) {
+              React149.Children.forEach(props.children, function(child) {
                 if (child == null) {
                   return;
                 }
@@ -9370,35 +9370,35 @@ var require_react_dom_development = __commonJS({
           }
         }
         function updateOptions(node, multiple, propValue, setDefaultSelected) {
-          var options2 = node.options;
+          var options3 = node.options;
           if (multiple) {
             var selectedValues = propValue;
             var selectedValue = {};
             for (var i3 = 0; i3 < selectedValues.length; i3++) {
               selectedValue["$" + selectedValues[i3]] = true;
             }
-            for (var _i = 0; _i < options2.length; _i++) {
-              var selected = selectedValue.hasOwnProperty("$" + options2[_i].value);
-              if (options2[_i].selected !== selected) {
-                options2[_i].selected = selected;
+            for (var _i = 0; _i < options3.length; _i++) {
+              var selected = selectedValue.hasOwnProperty("$" + options3[_i].value);
+              if (options3[_i].selected !== selected) {
+                options3[_i].selected = selected;
               }
               if (selected && setDefaultSelected) {
-                options2[_i].defaultSelected = true;
+                options3[_i].defaultSelected = true;
               }
             }
           } else {
             var _selectedValue = toString2(getToStringValue(propValue));
             var defaultSelected = null;
-            for (var _i2 = 0; _i2 < options2.length; _i2++) {
-              if (options2[_i2].value === _selectedValue) {
-                options2[_i2].selected = true;
+            for (var _i2 = 0; _i2 < options3.length; _i2++) {
+              if (options3[_i2].value === _selectedValue) {
+                options3[_i2].selected = true;
                 if (setDefaultSelected) {
-                  options2[_i2].defaultSelected = true;
+                  options3[_i2].defaultSelected = true;
                 }
                 return;
               }
-              if (defaultSelected === null && !options2[_i2].disabled) {
-                defaultSelected = options2[_i2];
+              if (defaultSelected === null && !options3[_i2].disabled) {
+                defaultSelected = options3[_i2];
               }
             }
             if (defaultSelected !== null) {
@@ -10760,8 +10760,8 @@ var require_react_dom_development = __commonJS({
         var batchedUpdatesImpl = function(fn2, bookkeeping) {
           return fn2(bookkeeping);
         };
-        var discreteUpdatesImpl = function(fn2, a3, b3, c3, d3) {
-          return fn2(a3, b3, c3, d3);
+        var discreteUpdatesImpl = function(fn2, a4, b4, c3, d3) {
+          return fn2(a4, b4, c3, d3);
         };
         var flushDiscreteUpdatesImpl = function() {
         };
@@ -10787,23 +10787,23 @@ var require_react_dom_development = __commonJS({
             finishEventHandler();
           }
         }
-        function batchedEventUpdates(fn2, a3, b3) {
+        function batchedEventUpdates(fn2, a4, b4) {
           if (isBatchingEventUpdates) {
-            return fn2(a3, b3);
+            return fn2(a4, b4);
           }
           isBatchingEventUpdates = true;
           try {
-            return batchedEventUpdatesImpl(fn2, a3, b3);
+            return batchedEventUpdatesImpl(fn2, a4, b4);
           } finally {
             isBatchingEventUpdates = false;
             finishEventHandler();
           }
         }
-        function discreteUpdates(fn2, a3, b3, c3, d3) {
+        function discreteUpdates(fn2, a4, b4, c3, d3) {
           var prevIsInsideEventHandler = isInsideEventHandler;
           isInsideEventHandler = true;
           try {
-            return discreteUpdatesImpl(fn2, a3, b3, c3, d3);
+            return discreteUpdatesImpl(fn2, a4, b4, c3, d3);
           } finally {
             isInsideEventHandler = prevIsInsideEventHandler;
             if (!isInsideEventHandler) {
@@ -10868,19 +10868,19 @@ var require_react_dom_development = __commonJS({
         var passiveBrowserEventsSupported = false;
         if (canUseDOM2) {
           try {
-            var options = {};
-            Object.defineProperty(options, "passive", {
+            var options2 = {};
+            Object.defineProperty(options2, "passive", {
               get: function() {
                 passiveBrowserEventsSupported = true;
               }
             });
-            window.addEventListener("test", options, options);
-            window.removeEventListener("test", options, options);
+            window.addEventListener("test", options2, options2);
+            window.removeEventListener("test", options2, options2);
           } catch (e2) {
             passiveBrowserEventsSupported = false;
           }
         }
-        function invokeGuardedCallbackProd(name, func, context3, a3, b3, c3, d3, e2, f2) {
+        function invokeGuardedCallbackProd(name, func, context3, a4, b4, c3, d3, e2, f3) {
           var funcArgs = Array.prototype.slice.call(arguments, 3);
           try {
             func.apply(context3, funcArgs);
@@ -10892,7 +10892,7 @@ var require_react_dom_development = __commonJS({
         {
           if (typeof window !== "undefined" && typeof window.dispatchEvent === "function" && typeof document !== "undefined" && typeof document.createEvent === "function") {
             var fakeNode = document.createElement("react");
-            invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name, func, context3, a3, b3, c3, d3, e2, f2) {
+            invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name, func, context3, a4, b4, c3, d3, e2, f3) {
               if (!(typeof document !== "undefined")) {
                 {
                   throw Error("The `document` global was defined when React was initialized, but is not defined anymore. This can happen in a test environment if a component schedules an update from an asynchronous callback, but the test has already finished running. To solve this, you can either unmount the component at the end of your test (and ensure that any asynchronous operations get canceled in `componentWillUnmount`), or you can change the test itself to be asynchronous.");
@@ -10969,12 +10969,12 @@ var require_react_dom_development = __commonJS({
             caughtError = error2;
           }
         };
-        function invokeGuardedCallback(name, func, context3, a3, b3, c3, d3, e2, f2) {
+        function invokeGuardedCallback(name, func, context3, a4, b4, c3, d3, e2, f3) {
           hasError = false;
           caughtError = null;
           invokeGuardedCallbackImpl$1.apply(reporter, arguments);
         }
-        function invokeGuardedCallbackAndCatchFirstError(name, func, context3, a3, b3, c3, d3, e2, f2) {
+        function invokeGuardedCallbackAndCatchFirstError(name, func, context3, a4, b4, c3, d3, e2, f3) {
           invokeGuardedCallback.apply(this, arguments);
           if (hasError) {
             var error2 = clearCaughtError();
@@ -11121,10 +11121,10 @@ var require_react_dom_development = __commonJS({
             }
             return fiber;
           }
-          var a3 = fiber;
-          var b3 = alternate;
+          var a4 = fiber;
+          var b4 = alternate;
           while (true) {
-            var parentA = a3.return;
+            var parentA = a4.return;
             if (parentA === null) {
               break;
             }
@@ -11132,7 +11132,7 @@ var require_react_dom_development = __commonJS({
             if (parentB === null) {
               var nextParent = parentA.return;
               if (nextParent !== null) {
-                a3 = b3 = nextParent;
+                a4 = b4 = nextParent;
                 continue;
               }
               break;
@@ -11140,11 +11140,11 @@ var require_react_dom_development = __commonJS({
             if (parentA.child === parentB.child) {
               var child = parentA.child;
               while (child) {
-                if (child === a3) {
+                if (child === a4) {
                   assertIsMounted(parentA);
                   return fiber;
                 }
-                if (child === b3) {
+                if (child === b4) {
                   assertIsMounted(parentA);
                   return alternate;
                 }
@@ -11156,23 +11156,23 @@ var require_react_dom_development = __commonJS({
                 }
               }
             }
-            if (a3.return !== b3.return) {
-              a3 = parentA;
-              b3 = parentB;
+            if (a4.return !== b4.return) {
+              a4 = parentA;
+              b4 = parentB;
             } else {
               var didFindChild = false;
               var _child = parentA.child;
               while (_child) {
-                if (_child === a3) {
+                if (_child === a4) {
                   didFindChild = true;
-                  a3 = parentA;
-                  b3 = parentB;
+                  a4 = parentA;
+                  b4 = parentB;
                   break;
                 }
-                if (_child === b3) {
+                if (_child === b4) {
                   didFindChild = true;
-                  b3 = parentA;
-                  a3 = parentB;
+                  b4 = parentA;
+                  a4 = parentB;
                   break;
                 }
                 _child = _child.sibling;
@@ -11180,16 +11180,16 @@ var require_react_dom_development = __commonJS({
               if (!didFindChild) {
                 _child = parentB.child;
                 while (_child) {
-                  if (_child === a3) {
+                  if (_child === a4) {
                     didFindChild = true;
-                    a3 = parentB;
-                    b3 = parentA;
+                    a4 = parentB;
+                    b4 = parentA;
                     break;
                   }
-                  if (_child === b3) {
+                  if (_child === b4) {
                     didFindChild = true;
-                    b3 = parentB;
-                    a3 = parentA;
+                    b4 = parentB;
+                    a4 = parentA;
                     break;
                   }
                   _child = _child.sibling;
@@ -11201,18 +11201,18 @@ var require_react_dom_development = __commonJS({
                 }
               }
             }
-            if (!(a3.alternate === b3)) {
+            if (!(a4.alternate === b4)) {
               {
                 throw Error("Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue.");
               }
             }
           }
-          if (!(a3.tag === HostRoot)) {
+          if (!(a4.tag === HostRoot)) {
             {
               throw Error("Unable to find node on an unmounted component.");
             }
           }
-          if (a3.stateNode.current === a3) {
+          if (a4.stateNode.current === a4) {
             return fiber;
           }
           return alternate;
@@ -12115,14 +12115,14 @@ var require_react_dom_development = __commonJS({
         function laneToIndex(lane) {
           return pickArbitraryLaneIndex(lane);
         }
-        function includesSomeLane(a3, b3) {
-          return (a3 & b3) !== NoLanes;
+        function includesSomeLane(a4, b4) {
+          return (a4 & b4) !== NoLanes;
         }
         function isSubsetOfLanes(set3, subset) {
           return (set3 & subset) === subset;
         }
-        function mergeLanes(a3, b3) {
-          return a3 | b3;
+        function mergeLanes(a4, b4) {
+          return a4 | b4;
         }
         function removeLanes(set3, subset) {
           return set3 & ~subset;
@@ -12130,8 +12130,8 @@ var require_react_dom_development = __commonJS({
         function laneToLanes(lane) {
           return lane;
         }
-        function higherPriorityLane(a3, b3) {
-          return a3 !== NoLane && a3 < b3 ? a3 : b3;
+        function higherPriorityLane(a4, b4) {
+          return a4 !== NoLane && a4 < b4 ? a4 : b4;
         }
         function createLaneMap(initial) {
           var laneMap = [];
@@ -13128,12 +13128,12 @@ var require_react_dom_development = __commonJS({
           }
           accumulateEnterLeaveTwoPhaseListeners(dispatchQueue, leave, enter, from, to);
         }
-        function is(x3, y3) {
-          return x3 === y3 && (x3 !== 0 || 1 / x3 === 1 / y3) || x3 !== x3 && y3 !== y3;
+        function is(x4, y3) {
+          return x4 === y3 && (x4 !== 0 || 1 / x4 === 1 / y3) || x4 !== x4 && y3 !== y3;
         }
         var objectIs = typeof Object.is === "function" ? Object.is : is;
         var hasOwnProperty$2 = Object.prototype.hasOwnProperty;
-        function shallowEqual2(objA, objB) {
+        function shallowEqual3(objA, objB) {
           if (objectIs(objA, objB)) {
             return true;
           }
@@ -13431,7 +13431,7 @@ var require_react_dom_development = __commonJS({
             return;
           }
           var currentSelection = getSelection$1(activeElement$1);
-          if (!lastSelection || !shallowEqual2(lastSelection, currentSelection)) {
+          if (!lastSelection || !shallowEqual3(lastSelection, currentSelection)) {
             lastSelection = currentSelection;
             var listeners = accumulateTwoPhaseListeners(activeElementInst$1, "onSelect");
             if (listeners.length > 0) {
@@ -14057,7 +14057,7 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function createElement10(type, props, rootContainerElement, parentNamespace) {
+        function createElement11(type, props, rootContainerElement, parentNamespace) {
           var isCustomComponentTag;
           var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
           var domElement;
@@ -14934,7 +14934,7 @@ var require_react_dom_development = __commonJS({
             }
             parentNamespace = hostContextDev.namespace;
           }
-          var domElement = createElement10(type, props, rootContainerInstance, parentNamespace);
+          var domElement = createElement11(type, props, rootContainerInstance, parentNamespace);
           precacheFiberNode(internalInstanceHandle, domElement);
           updateFiberProps(domElement, props);
           return domElement;
@@ -15712,9 +15712,9 @@ var require_react_dom_development = __commonJS({
           var priorityLevel = reactPriorityToSchedulerPriority(reactPriorityLevel);
           return Scheduler_runWithPriority(priorityLevel, fn2);
         }
-        function scheduleCallback(reactPriorityLevel, callback, options2) {
+        function scheduleCallback(reactPriorityLevel, callback, options3) {
           var priorityLevel = reactPriorityToSchedulerPriority(reactPriorityLevel);
-          return Scheduler_scheduleCallback(priorityLevel, callback, options2);
+          return Scheduler_scheduleCallback(priorityLevel, callback, options3);
         }
         function scheduleSyncCallback(callback) {
           if (syncQueue === null) {
@@ -16496,7 +16496,7 @@ var require_react_dom_development = __commonJS({
         }
         var fakeInternalInstance = {};
         var isArray2 = Array.isArray;
-        var emptyRefsObject = new React147.Component().refs;
+        var emptyRefsObject = new React149.Component().refs;
         var didWarnAboutStateAssignmentForComponent;
         var didWarnAboutUninitializedState;
         var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -16642,7 +16642,7 @@ var require_react_dom_development = __commonJS({
             return shouldUpdate;
           }
           if (ctor.prototype && ctor.prototype.isPureReactComponent) {
-            return !shallowEqual2(oldProps, newProps) || !shallowEqual2(oldState, newState);
+            return !shallowEqual3(oldProps, newProps) || !shallowEqual3(oldState, newState);
           }
           return true;
         }
@@ -17272,7 +17272,7 @@ var require_react_dom_development = __commonJS({
             }
           }
           function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-            if (current2 === null || current2.tag !== Fragment2) {
+            if (current2 === null || current2.tag !== Fragment3) {
               var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
               created.return = returnFiber;
               return created;
@@ -17640,7 +17640,7 @@ var require_react_dom_development = __commonJS({
             while (child !== null) {
               if (child.key === key) {
                 switch (child.tag) {
-                  case Fragment2: {
+                  case Fragment3: {
                     if (element.type === REACT_FRAGMENT_TYPE) {
                       deleteRemainingChildren(returnFiber, child.sibling);
                       var existing = useFiber(child, element.props.children);
@@ -19984,7 +19984,7 @@ var require_react_dom_development = __commonJS({
           if (!includesSomeLane(updateLanes, renderLanes2)) {
             var prevProps = currentChild.memoizedProps;
             var compare = Component.compare;
-            compare = compare !== null ? compare : shallowEqual2;
+            compare = compare !== null ? compare : shallowEqual3;
             if (compare(prevProps, nextProps) && current2.ref === workInProgress2.ref) {
               return bailoutOnAlreadyFinishedWork(current2, workInProgress2, renderLanes2);
             }
@@ -20006,7 +20006,7 @@ var require_react_dom_development = __commonJS({
                 var init = lazyComponent._init;
                 try {
                   outerMemoType = init(payload);
-                } catch (x3) {
+                } catch (x4) {
                   outerMemoType = null;
                 }
                 var outerPropTypes = outerMemoType && outerMemoType.propTypes;
@@ -20018,7 +20018,7 @@ var require_react_dom_development = __commonJS({
           }
           if (current2 !== null) {
             var prevProps = current2.memoizedProps;
-            if (shallowEqual2(prevProps, nextProps) && current2.ref === workInProgress2.ref && workInProgress2.type === current2.type) {
+            if (shallowEqual3(prevProps, nextProps) && current2.ref === workInProgress2.ref && workInProgress2.type === current2.type) {
               didReceiveUpdate = false;
               if (!includesSomeLane(renderLanes2, updateLanes)) {
                 workInProgress2.lanes = current2.lanes;
@@ -21244,7 +21244,7 @@ var require_react_dom_development = __commonJS({
               var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
               return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
             }
-            case Fragment2:
+            case Fragment3:
               return updateFragment(current2, workInProgress2, renderLanes2);
             case Mode:
               return updateMode(current2, workInProgress2, renderLanes2);
@@ -21411,7 +21411,7 @@ var require_react_dom_development = __commonJS({
             case SimpleMemoComponent:
             case FunctionComponent:
             case ForwardRef:
-            case Fragment2:
+            case Fragment3:
             case Mode:
             case Profiler:
             case ContextConsumer:
@@ -23266,11 +23266,11 @@ var require_react_dom_development = __commonJS({
           }
           flushSyncCallbackQueue();
         }
-        function batchedUpdates$1(fn2, a3) {
+        function batchedUpdates$1(fn2, a4) {
           var prevExecutionContext = executionContext;
           executionContext |= BatchedContext;
           try {
-            return fn2(a3);
+            return fn2(a4);
           } finally {
             executionContext = prevExecutionContext;
             if (executionContext === NoContext) {
@@ -23279,11 +23279,11 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function batchedEventUpdates$1(fn2, a3) {
+        function batchedEventUpdates$1(fn2, a4) {
           var prevExecutionContext = executionContext;
           executionContext |= EventContext;
           try {
-            return fn2(a3);
+            return fn2(a4);
           } finally {
             executionContext = prevExecutionContext;
             if (executionContext === NoContext) {
@@ -23292,12 +23292,12 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function discreteUpdates$1(fn2, a3, b3, c3, d3) {
+        function discreteUpdates$1(fn2, a4, b4, c3, d3) {
           var prevExecutionContext = executionContext;
           executionContext |= DiscreteEventContext;
           {
             try {
-              return runWithPriority$1(UserBlockingPriority$2, fn2.bind(null, a3, b3, c3, d3));
+              return runWithPriority$1(UserBlockingPriority$2, fn2.bind(null, a4, b4, c3, d3));
             } finally {
               executionContext = prevExecutionContext;
               if (executionContext === NoContext) {
@@ -23307,12 +23307,12 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function unbatchedUpdates(fn2, a3) {
+        function unbatchedUpdates(fn2, a4) {
           var prevExecutionContext = executionContext;
           executionContext &= ~BatchedContext;
           executionContext |= LegacyUnbatchedContext;
           try {
-            return fn2(a3);
+            return fn2(a4);
           } finally {
             executionContext = prevExecutionContext;
             if (executionContext === NoContext) {
@@ -23321,19 +23321,19 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function flushSync(fn2, a3) {
+        function flushSync(fn2, a4) {
           var prevExecutionContext = executionContext;
           if ((prevExecutionContext & (RenderContext | CommitContext)) !== NoContext) {
             {
               error("flushSync was called from inside a lifecycle method. React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.");
             }
-            return fn2(a3);
+            return fn2(a4);
           }
           executionContext |= BatchedContext;
           {
             try {
               if (fn2) {
-                return runWithPriority$1(ImmediatePriority$1, fn2.bind(null, a3));
+                return runWithPriority$1(ImmediatePriority$1, fn2.bind(null, a4));
               } else {
                 return void 0;
               }
@@ -25115,7 +25115,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           return fiber;
         }
         function createFiberFromFragment(elements, mode, lanes, key) {
-          var fiber = createFiber(Fragment2, elements, key, mode);
+          var fiber = createFiber(Fragment3, elements, key, mode);
           fiber.lanes = lanes;
           return fiber;
         }
@@ -25664,11 +25664,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             getCurrentFiber: getCurrentFiberForDevTools
           });
         }
-        function ReactDOMRoot(container, options2) {
-          this._internalRoot = createRootImpl(container, ConcurrentRoot, options2);
+        function ReactDOMRoot(container, options3) {
+          this._internalRoot = createRootImpl(container, ConcurrentRoot, options3);
         }
-        function ReactDOMBlockingRoot(container, tag, options2) {
-          this._internalRoot = createRootImpl(container, tag, options2);
+        function ReactDOMBlockingRoot(container, tag, options3) {
+          this._internalRoot = createRootImpl(container, tag, options3);
         }
         ReactDOMRoot.prototype.render = ReactDOMBlockingRoot.prototype.render = function(children) {
           var root4 = this._internalRoot;
@@ -25700,10 +25700,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             unmarkContainerAsRoot(container);
           });
         };
-        function createRootImpl(container, tag, options2) {
-          var hydrate2 = options2 != null && options2.hydrate === true;
-          var hydrationCallbacks = options2 != null && options2.hydrationOptions || null;
-          var mutableSources = options2 != null && options2.hydrationOptions != null && options2.hydrationOptions.mutableSources || null;
+        function createRootImpl(container, tag, options3) {
+          var hydrate2 = options3 != null && options3.hydrate === true;
+          var hydrationCallbacks = options3 != null && options3.hydrationOptions || null;
+          var mutableSources = options3 != null && options3.hydrationOptions != null && options3.hydrationOptions.mutableSources || null;
           var root4 = createContainer(container, tag, hydrate2);
           markContainerAsRoot(root4.current, container);
           var containerNodeType = container.nodeType;
@@ -25719,8 +25719,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           }
           return root4;
         }
-        function createLegacyRoot(container, options2) {
-          return new ReactDOMBlockingRoot(container, LegacyRoot, options2);
+        function createLegacyRoot(container, options3) {
+          return new ReactDOMBlockingRoot(container, LegacyRoot, options3);
         }
         function isValidContainer(node) {
           return !!(node && (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE || node.nodeType === COMMENT_NODE && node.nodeValue === " react-mount-point-unstable "));
@@ -25983,9 +25983,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         {
           if (!foundDevTools && canUseDOM2 && window.top === window.self) {
             if (navigator.userAgent.indexOf("Chrome") > -1 && navigator.userAgent.indexOf("Edge") === -1 || navigator.userAgent.indexOf("Firefox") > -1) {
-              var protocol = window.location.protocol;
-              if (/^(https?|file):$/.test(protocol)) {
-                console.info("%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools" + (protocol === "file:" ? "\nYou might need to use a local HTTP server (instead of file://): https://reactjs.org/link/react-devtools-faq" : ""), "font-weight:bold");
+              var protocol2 = window.location.protocol;
+              if (/^(https?|file):$/.test(protocol2)) {
+                console.info("%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools" + (protocol2 === "file:" ? "\nYou might need to use a local HTTP server (instead of file://): https://reactjs.org/link/react-devtools-faq" : ""), "font-weight:bold");
               }
             }
           }
@@ -26143,8 +26143,8 @@ var init_src = __esm({
     import_react = __toModule(require_react());
     import_react_dom = __toModule(require_react_dom());
     TRACE = false;
-    useVal = (p2, debugLabel) => {
-      return usePrism(() => (0, import_dataverse3.val)(p2), [p2], debugLabel);
+    useVal = (p3, debugLabel) => {
+      return usePrism(() => (0, import_dataverse3.val)(p3), [p3], debugLabel);
     };
     lastOrder = 0;
     queue = [];
@@ -26283,7 +26283,7 @@ var require_react_is_development = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element2 = REACT_ELEMENT_TYPE;
         var ForwardRef = REACT_FORWARD_REF_TYPE;
-        var Fragment2 = REACT_FRAGMENT_TYPE;
+        var Fragment3 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo = REACT_MEMO_TYPE;
         var Portal2 = REACT_PORTAL_TYPE;
@@ -26347,7 +26347,7 @@ var require_react_is_development = __commonJS({
         exports2.ContextProvider = ContextProvider;
         exports2.Element = Element2;
         exports2.ForwardRef = ForwardRef;
-        exports2.Fragment = Fragment2;
+        exports2.Fragment = Fragment3;
         exports2.Lazy = Lazy;
         exports2.Memo = Memo;
         exports2.Portal = Portal2;
@@ -26389,7 +26389,7 @@ var require_react_is = __commonJS({
 // ../node_modules/shallowequal/index.js
 var require_shallowequal = __commonJS({
   "../node_modules/shallowequal/index.js"(exports2, module2) {
-    module2.exports = function shallowEqual2(objA, objB, compare, compareContext) {
+    module2.exports = function shallowEqual3(objA, objB, compare, compareContext) {
       var ret = compare ? compare.call(compareContext, objA, objB) : void 0;
       if (ret !== void 0) {
         return !!ret;
@@ -26425,13 +26425,13 @@ var require_shallowequal = __commonJS({
 
 // ../node_modules/@emotion/stylis/dist/stylis.browser.esm.js
 function stylis_min(W3) {
-  function M3(d3, c3, e2, h3, a3) {
-    for (var m2 = 0, b3 = 0, v3 = 0, n3 = 0, q3, g3, x3 = 0, K2 = 0, k3, u3 = k3 = q3 = 0, l3 = 0, r3 = 0, I3 = 0, t3 = 0, B4 = e2.length, J2 = B4 - 1, y3, f2 = "", p2 = "", F4 = "", G4 = "", C; l3 < B4; ) {
-      g3 = e2.charCodeAt(l3);
-      l3 === J2 && b3 + n3 + v3 + m2 !== 0 && (b3 !== 0 && (g3 = b3 === 47 ? 10 : 47), n3 = v3 = m2 = 0, B4++, J2++);
-      if (b3 + n3 + v3 + m2 === 0) {
-        if (l3 === J2 && (0 < r3 && (f2 = f2.replace(N2, "")), 0 < f2.trim().length)) {
-          switch (g3) {
+  function M4(d3, c3, e2, h4, a4) {
+    for (var m3 = 0, b4 = 0, v5 = 0, n3 = 0, q3, g4, x4 = 0, K2 = 0, k4, u3 = k4 = q3 = 0, l4 = 0, r3 = 0, I4 = 0, t3 = 0, B4 = e2.length, J2 = B4 - 1, y3, f3 = "", p3 = "", F4 = "", G4 = "", C2; l4 < B4; ) {
+      g4 = e2.charCodeAt(l4);
+      l4 === J2 && b4 + n3 + v5 + m3 !== 0 && (b4 !== 0 && (g4 = b4 === 47 ? 10 : 47), n3 = v5 = m3 = 0, B4++, J2++);
+      if (b4 + n3 + v5 + m3 === 0) {
+        if (l4 === J2 && (0 < r3 && (f3 = f3.replace(N3, "")), 0 < f3.trim().length)) {
+          switch (g4) {
             case 32:
             case 9:
             case 59:
@@ -26439,67 +26439,67 @@ function stylis_min(W3) {
             case 10:
               break;
             default:
-              f2 += e2.charAt(l3);
+              f3 += e2.charAt(l4);
           }
-          g3 = 59;
+          g4 = 59;
         }
-        switch (g3) {
+        switch (g4) {
           case 123:
-            f2 = f2.trim();
-            q3 = f2.charCodeAt(0);
-            k3 = 1;
-            for (t3 = ++l3; l3 < B4; ) {
-              switch (g3 = e2.charCodeAt(l3)) {
+            f3 = f3.trim();
+            q3 = f3.charCodeAt(0);
+            k4 = 1;
+            for (t3 = ++l4; l4 < B4; ) {
+              switch (g4 = e2.charCodeAt(l4)) {
                 case 123:
-                  k3++;
+                  k4++;
                   break;
                 case 125:
-                  k3--;
+                  k4--;
                   break;
                 case 47:
-                  switch (g3 = e2.charCodeAt(l3 + 1)) {
+                  switch (g4 = e2.charCodeAt(l4 + 1)) {
                     case 42:
                     case 47:
                       a: {
-                        for (u3 = l3 + 1; u3 < J2; ++u3) {
+                        for (u3 = l4 + 1; u3 < J2; ++u3) {
                           switch (e2.charCodeAt(u3)) {
                             case 47:
-                              if (g3 === 42 && e2.charCodeAt(u3 - 1) === 42 && l3 + 2 !== u3) {
-                                l3 = u3 + 1;
+                              if (g4 === 42 && e2.charCodeAt(u3 - 1) === 42 && l4 + 2 !== u3) {
+                                l4 = u3 + 1;
                                 break a;
                               }
                               break;
                             case 10:
-                              if (g3 === 47) {
-                                l3 = u3 + 1;
+                              if (g4 === 47) {
+                                l4 = u3 + 1;
                                 break a;
                               }
                           }
                         }
-                        l3 = u3;
+                        l4 = u3;
                       }
                   }
                   break;
                 case 91:
-                  g3++;
+                  g4++;
                 case 40:
-                  g3++;
+                  g4++;
                 case 34:
                 case 39:
-                  for (; l3++ < J2 && e2.charCodeAt(l3) !== g3; ) {
+                  for (; l4++ < J2 && e2.charCodeAt(l4) !== g4; ) {
                   }
               }
-              if (k3 === 0)
+              if (k4 === 0)
                 break;
-              l3++;
+              l4++;
             }
-            k3 = e2.substring(t3, l3);
-            q3 === 0 && (q3 = (f2 = f2.replace(ca, "").trim()).charCodeAt(0));
+            k4 = e2.substring(t3, l4);
+            q3 === 0 && (q3 = (f3 = f3.replace(ca, "").trim()).charCodeAt(0));
             switch (q3) {
               case 64:
-                0 < r3 && (f2 = f2.replace(N2, ""));
-                g3 = f2.charCodeAt(1);
-                switch (g3) {
+                0 < r3 && (f3 = f3.replace(N3, ""));
+                g4 = f3.charCodeAt(1);
+                switch (g4) {
                   case 100:
                   case 109:
                   case 115:
@@ -26507,81 +26507,81 @@ function stylis_min(W3) {
                     r3 = c3;
                     break;
                   default:
-                    r3 = O3;
+                    r3 = O4;
                 }
-                k3 = M3(c3, r3, k3, g3, a3 + 1);
-                t3 = k3.length;
-                0 < A3 && (r3 = X3(O3, f2, I3), C = H3(3, k3, r3, c3, D3, z3, t3, g3, a3, h3), f2 = r3.join(""), C !== void 0 && (t3 = (k3 = C.trim()).length) === 0 && (g3 = 0, k3 = ""));
+                k4 = M4(c3, r3, k4, g4, a4 + 1);
+                t3 = k4.length;
+                0 < A3 && (r3 = X4(O4, f3, I4), C2 = H4(3, k4, r3, c3, D3, z3, t3, g4, a4, h4), f3 = r3.join(""), C2 !== void 0 && (t3 = (k4 = C2.trim()).length) === 0 && (g4 = 0, k4 = ""));
                 if (0 < t3)
-                  switch (g3) {
+                  switch (g4) {
                     case 115:
-                      f2 = f2.replace(da, ea);
+                      f3 = f3.replace(da, ea);
                     case 100:
                     case 109:
                     case 45:
-                      k3 = f2 + "{" + k3 + "}";
+                      k4 = f3 + "{" + k4 + "}";
                       break;
                     case 107:
-                      f2 = f2.replace(fa, "$1 $2");
-                      k3 = f2 + "{" + k3 + "}";
-                      k3 = w3 === 1 || w3 === 2 && L3("@" + k3, 3) ? "@-webkit-" + k3 + "@" + k3 : "@" + k3;
+                      f3 = f3.replace(fa, "$1 $2");
+                      k4 = f3 + "{" + k4 + "}";
+                      k4 = w4 === 1 || w4 === 2 && L3("@" + k4, 3) ? "@-webkit-" + k4 + "@" + k4 : "@" + k4;
                       break;
                     default:
-                      k3 = f2 + k3, h3 === 112 && (k3 = (p2 += k3, ""));
+                      k4 = f3 + k4, h4 === 112 && (k4 = (p3 += k4, ""));
                   }
                 else
-                  k3 = "";
+                  k4 = "";
                 break;
               default:
-                k3 = M3(c3, X3(c3, f2, I3), k3, h3, a3 + 1);
+                k4 = M4(c3, X4(c3, f3, I4), k4, h4, a4 + 1);
             }
-            F4 += k3;
-            k3 = I3 = r3 = u3 = q3 = 0;
-            f2 = "";
-            g3 = e2.charCodeAt(++l3);
+            F4 += k4;
+            k4 = I4 = r3 = u3 = q3 = 0;
+            f3 = "";
+            g4 = e2.charCodeAt(++l4);
             break;
           case 125:
           case 59:
-            f2 = (0 < r3 ? f2.replace(N2, "") : f2).trim();
-            if (1 < (t3 = f2.length))
-              switch (u3 === 0 && (q3 = f2.charCodeAt(0), q3 === 45 || 96 < q3 && 123 > q3) && (t3 = (f2 = f2.replace(" ", ":")).length), 0 < A3 && (C = H3(1, f2, c3, d3, D3, z3, p2.length, h3, a3, h3)) !== void 0 && (t3 = (f2 = C.trim()).length) === 0 && (f2 = "\0\0"), q3 = f2.charCodeAt(0), g3 = f2.charCodeAt(1), q3) {
+            f3 = (0 < r3 ? f3.replace(N3, "") : f3).trim();
+            if (1 < (t3 = f3.length))
+              switch (u3 === 0 && (q3 = f3.charCodeAt(0), q3 === 45 || 96 < q3 && 123 > q3) && (t3 = (f3 = f3.replace(" ", ":")).length), 0 < A3 && (C2 = H4(1, f3, c3, d3, D3, z3, p3.length, h4, a4, h4)) !== void 0 && (t3 = (f3 = C2.trim()).length) === 0 && (f3 = "\0\0"), q3 = f3.charCodeAt(0), g4 = f3.charCodeAt(1), q3) {
                 case 0:
                   break;
                 case 64:
-                  if (g3 === 105 || g3 === 99) {
-                    G4 += f2 + e2.charAt(l3);
+                  if (g4 === 105 || g4 === 99) {
+                    G4 += f3 + e2.charAt(l4);
                     break;
                   }
                 default:
-                  f2.charCodeAt(t3 - 1) !== 58 && (p2 += P3(f2, q3, g3, f2.charCodeAt(2)));
+                  f3.charCodeAt(t3 - 1) !== 58 && (p3 += P3(f3, q3, g4, f3.charCodeAt(2)));
               }
-            I3 = r3 = u3 = q3 = 0;
-            f2 = "";
-            g3 = e2.charCodeAt(++l3);
+            I4 = r3 = u3 = q3 = 0;
+            f3 = "";
+            g4 = e2.charCodeAt(++l4);
         }
       }
-      switch (g3) {
+      switch (g4) {
         case 13:
         case 10:
-          b3 === 47 ? b3 = 0 : 1 + q3 === 0 && h3 !== 107 && 0 < f2.length && (r3 = 1, f2 += "\0");
-          0 < A3 * Y3 && H3(0, f2, c3, d3, D3, z3, p2.length, h3, a3, h3);
+          b4 === 47 ? b4 = 0 : 1 + q3 === 0 && h4 !== 107 && 0 < f3.length && (r3 = 1, f3 += "\0");
+          0 < A3 * Y3 && H4(0, f3, c3, d3, D3, z3, p3.length, h4, a4, h4);
           z3 = 1;
           D3++;
           break;
         case 59:
         case 125:
-          if (b3 + n3 + v3 + m2 === 0) {
+          if (b4 + n3 + v5 + m3 === 0) {
             z3++;
             break;
           }
         default:
           z3++;
-          y3 = e2.charAt(l3);
-          switch (g3) {
+          y3 = e2.charAt(l4);
+          switch (g4) {
             case 9:
             case 32:
-              if (n3 + m2 + b3 === 0)
-                switch (x3) {
+              if (n3 + m3 + b4 === 0)
+                switch (x4) {
                   case 44:
                   case 58:
                   case 9:
@@ -26589,7 +26589,7 @@ function stylis_min(W3) {
                     y3 = "";
                     break;
                   default:
-                    g3 !== 32 && (y3 = " ");
+                    g4 !== 32 && (y3 = " ");
                 }
               break;
             case 0:
@@ -26602,120 +26602,120 @@ function stylis_min(W3) {
               y3 = "\\v";
               break;
             case 38:
-              n3 + b3 + m2 === 0 && (r3 = I3 = 1, y3 = "\f" + y3);
+              n3 + b4 + m3 === 0 && (r3 = I4 = 1, y3 = "\f" + y3);
               break;
             case 108:
-              if (n3 + b3 + m2 + E3 === 0 && 0 < u3)
-                switch (l3 - u3) {
+              if (n3 + b4 + m3 + E4 === 0 && 0 < u3)
+                switch (l4 - u3) {
                   case 2:
-                    x3 === 112 && e2.charCodeAt(l3 - 3) === 58 && (E3 = x3);
+                    x4 === 112 && e2.charCodeAt(l4 - 3) === 58 && (E4 = x4);
                   case 8:
-                    K2 === 111 && (E3 = K2);
+                    K2 === 111 && (E4 = K2);
                 }
               break;
             case 58:
-              n3 + b3 + m2 === 0 && (u3 = l3);
+              n3 + b4 + m3 === 0 && (u3 = l4);
               break;
             case 44:
-              b3 + v3 + n3 + m2 === 0 && (r3 = 1, y3 += "\r");
+              b4 + v5 + n3 + m3 === 0 && (r3 = 1, y3 += "\r");
               break;
             case 34:
             case 39:
-              b3 === 0 && (n3 = n3 === g3 ? 0 : n3 === 0 ? g3 : n3);
+              b4 === 0 && (n3 = n3 === g4 ? 0 : n3 === 0 ? g4 : n3);
               break;
             case 91:
-              n3 + b3 + v3 === 0 && m2++;
+              n3 + b4 + v5 === 0 && m3++;
               break;
             case 93:
-              n3 + b3 + v3 === 0 && m2--;
+              n3 + b4 + v5 === 0 && m3--;
               break;
             case 41:
-              n3 + b3 + m2 === 0 && v3--;
+              n3 + b4 + m3 === 0 && v5--;
               break;
             case 40:
-              if (n3 + b3 + m2 === 0) {
+              if (n3 + b4 + m3 === 0) {
                 if (q3 === 0)
-                  switch (2 * x3 + 3 * K2) {
+                  switch (2 * x4 + 3 * K2) {
                     case 533:
                       break;
                     default:
                       q3 = 1;
                   }
-                v3++;
+                v5++;
               }
               break;
             case 64:
-              b3 + v3 + n3 + m2 + u3 + k3 === 0 && (k3 = 1);
+              b4 + v5 + n3 + m3 + u3 + k4 === 0 && (k4 = 1);
               break;
             case 42:
             case 47:
-              if (!(0 < n3 + m2 + v3))
-                switch (b3) {
+              if (!(0 < n3 + m3 + v5))
+                switch (b4) {
                   case 0:
-                    switch (2 * g3 + 3 * e2.charCodeAt(l3 + 1)) {
+                    switch (2 * g4 + 3 * e2.charCodeAt(l4 + 1)) {
                       case 235:
-                        b3 = 47;
+                        b4 = 47;
                         break;
                       case 220:
-                        t3 = l3, b3 = 42;
+                        t3 = l4, b4 = 42;
                     }
                     break;
                   case 42:
-                    g3 === 47 && x3 === 42 && t3 + 2 !== l3 && (e2.charCodeAt(t3 + 2) === 33 && (p2 += e2.substring(t3, l3 + 1)), y3 = "", b3 = 0);
+                    g4 === 47 && x4 === 42 && t3 + 2 !== l4 && (e2.charCodeAt(t3 + 2) === 33 && (p3 += e2.substring(t3, l4 + 1)), y3 = "", b4 = 0);
                 }
           }
-          b3 === 0 && (f2 += y3);
+          b4 === 0 && (f3 += y3);
       }
-      K2 = x3;
-      x3 = g3;
-      l3++;
+      K2 = x4;
+      x4 = g4;
+      l4++;
     }
-    t3 = p2.length;
+    t3 = p3.length;
     if (0 < t3) {
       r3 = c3;
-      if (0 < A3 && (C = H3(2, p2, r3, d3, D3, z3, t3, h3, a3, h3), C !== void 0 && (p2 = C).length === 0))
-        return G4 + p2 + F4;
-      p2 = r3.join(",") + "{" + p2 + "}";
-      if (w3 * E3 !== 0) {
-        w3 !== 2 || L3(p2, 2) || (E3 = 0);
-        switch (E3) {
+      if (0 < A3 && (C2 = H4(2, p3, r3, d3, D3, z3, t3, h4, a4, h4), C2 !== void 0 && (p3 = C2).length === 0))
+        return G4 + p3 + F4;
+      p3 = r3.join(",") + "{" + p3 + "}";
+      if (w4 * E4 !== 0) {
+        w4 !== 2 || L3(p3, 2) || (E4 = 0);
+        switch (E4) {
           case 111:
-            p2 = p2.replace(ha, ":-moz-$1") + p2;
+            p3 = p3.replace(ha, ":-moz-$1") + p3;
             break;
           case 112:
-            p2 = p2.replace(Q3, "::-webkit-input-$1") + p2.replace(Q3, "::-moz-$1") + p2.replace(Q3, ":-ms-input-$1") + p2;
+            p3 = p3.replace(Q3, "::-webkit-input-$1") + p3.replace(Q3, "::-moz-$1") + p3.replace(Q3, ":-ms-input-$1") + p3;
         }
-        E3 = 0;
+        E4 = 0;
       }
     }
-    return G4 + p2 + F4;
+    return G4 + p3 + F4;
   }
-  function X3(d3, c3, e2) {
-    var h3 = c3.trim().split(ia);
-    c3 = h3;
-    var a3 = h3.length, m2 = d3.length;
-    switch (m2) {
+  function X4(d3, c3, e2) {
+    var h4 = c3.trim().split(ia);
+    c3 = h4;
+    var a4 = h4.length, m3 = d3.length;
+    switch (m3) {
       case 0:
       case 1:
-        var b3 = 0;
-        for (d3 = m2 === 0 ? "" : d3[0] + " "; b3 < a3; ++b3) {
-          c3[b3] = Z3(d3, c3[b3], e2).trim();
+        var b4 = 0;
+        for (d3 = m3 === 0 ? "" : d3[0] + " "; b4 < a4; ++b4) {
+          c3[b4] = Z3(d3, c3[b4], e2).trim();
         }
         break;
       default:
-        var v3 = b3 = 0;
-        for (c3 = []; b3 < a3; ++b3) {
-          for (var n3 = 0; n3 < m2; ++n3) {
-            c3[v3++] = Z3(d3[n3] + " ", h3[b3], e2).trim();
+        var v5 = b4 = 0;
+        for (c3 = []; b4 < a4; ++b4) {
+          for (var n3 = 0; n3 < m3; ++n3) {
+            c3[v5++] = Z3(d3[n3] + " ", h4[b4], e2).trim();
           }
         }
     }
     return c3;
   }
   function Z3(d3, c3, e2) {
-    var h3 = c3.charCodeAt(0);
-    33 > h3 && (h3 = (c3 = c3.trim()).charCodeAt(0));
-    switch (h3) {
+    var h4 = c3.charCodeAt(0);
+    33 > h4 && (h4 = (c3 = c3.trim()).charCodeAt(0));
+    switch (h4) {
       case 38:
         return c3.replace(F3, "$1" + d3.trim());
       case 58:
@@ -26726,188 +26726,188 @@ function stylis_min(W3) {
     }
     return d3 + c3;
   }
-  function P3(d3, c3, e2, h3) {
-    var a3 = d3 + ";", m2 = 2 * c3 + 3 * e2 + 4 * h3;
-    if (m2 === 944) {
-      d3 = a3.indexOf(":", 9) + 1;
-      var b3 = a3.substring(d3, a3.length - 1).trim();
-      b3 = a3.substring(0, d3).trim() + b3 + ";";
-      return w3 === 1 || w3 === 2 && L3(b3, 1) ? "-webkit-" + b3 + b3 : b3;
+  function P3(d3, c3, e2, h4) {
+    var a4 = d3 + ";", m3 = 2 * c3 + 3 * e2 + 4 * h4;
+    if (m3 === 944) {
+      d3 = a4.indexOf(":", 9) + 1;
+      var b4 = a4.substring(d3, a4.length - 1).trim();
+      b4 = a4.substring(0, d3).trim() + b4 + ";";
+      return w4 === 1 || w4 === 2 && L3(b4, 1) ? "-webkit-" + b4 + b4 : b4;
     }
-    if (w3 === 0 || w3 === 2 && !L3(a3, 1))
-      return a3;
-    switch (m2) {
+    if (w4 === 0 || w4 === 2 && !L3(a4, 1))
+      return a4;
+    switch (m3) {
       case 1015:
-        return a3.charCodeAt(10) === 97 ? "-webkit-" + a3 + a3 : a3;
+        return a4.charCodeAt(10) === 97 ? "-webkit-" + a4 + a4 : a4;
       case 951:
-        return a3.charCodeAt(3) === 116 ? "-webkit-" + a3 + a3 : a3;
+        return a4.charCodeAt(3) === 116 ? "-webkit-" + a4 + a4 : a4;
       case 963:
-        return a3.charCodeAt(5) === 110 ? "-webkit-" + a3 + a3 : a3;
+        return a4.charCodeAt(5) === 110 ? "-webkit-" + a4 + a4 : a4;
       case 1009:
-        if (a3.charCodeAt(4) !== 100)
+        if (a4.charCodeAt(4) !== 100)
           break;
       case 969:
       case 942:
-        return "-webkit-" + a3 + a3;
+        return "-webkit-" + a4 + a4;
       case 978:
-        return "-webkit-" + a3 + "-moz-" + a3 + a3;
+        return "-webkit-" + a4 + "-moz-" + a4 + a4;
       case 1019:
       case 983:
-        return "-webkit-" + a3 + "-moz-" + a3 + "-ms-" + a3 + a3;
+        return "-webkit-" + a4 + "-moz-" + a4 + "-ms-" + a4 + a4;
       case 883:
-        if (a3.charCodeAt(8) === 45)
-          return "-webkit-" + a3 + a3;
-        if (0 < a3.indexOf("image-set(", 11))
-          return a3.replace(ja, "$1-webkit-$2") + a3;
+        if (a4.charCodeAt(8) === 45)
+          return "-webkit-" + a4 + a4;
+        if (0 < a4.indexOf("image-set(", 11))
+          return a4.replace(ja, "$1-webkit-$2") + a4;
         break;
       case 932:
-        if (a3.charCodeAt(4) === 45)
-          switch (a3.charCodeAt(5)) {
+        if (a4.charCodeAt(4) === 45)
+          switch (a4.charCodeAt(5)) {
             case 103:
-              return "-webkit-box-" + a3.replace("-grow", "") + "-webkit-" + a3 + "-ms-" + a3.replace("grow", "positive") + a3;
+              return "-webkit-box-" + a4.replace("-grow", "") + "-webkit-" + a4 + "-ms-" + a4.replace("grow", "positive") + a4;
             case 115:
-              return "-webkit-" + a3 + "-ms-" + a3.replace("shrink", "negative") + a3;
+              return "-webkit-" + a4 + "-ms-" + a4.replace("shrink", "negative") + a4;
             case 98:
-              return "-webkit-" + a3 + "-ms-" + a3.replace("basis", "preferred-size") + a3;
+              return "-webkit-" + a4 + "-ms-" + a4.replace("basis", "preferred-size") + a4;
           }
-        return "-webkit-" + a3 + "-ms-" + a3 + a3;
+        return "-webkit-" + a4 + "-ms-" + a4 + a4;
       case 964:
-        return "-webkit-" + a3 + "-ms-flex-" + a3 + a3;
+        return "-webkit-" + a4 + "-ms-flex-" + a4 + a4;
       case 1023:
-        if (a3.charCodeAt(8) !== 99)
+        if (a4.charCodeAt(8) !== 99)
           break;
-        b3 = a3.substring(a3.indexOf(":", 15)).replace("flex-", "").replace("space-between", "justify");
-        return "-webkit-box-pack" + b3 + "-webkit-" + a3 + "-ms-flex-pack" + b3 + a3;
+        b4 = a4.substring(a4.indexOf(":", 15)).replace("flex-", "").replace("space-between", "justify");
+        return "-webkit-box-pack" + b4 + "-webkit-" + a4 + "-ms-flex-pack" + b4 + a4;
       case 1005:
-        return ka.test(a3) ? a3.replace(aa, ":-webkit-") + a3.replace(aa, ":-moz-") + a3 : a3;
+        return ka.test(a4) ? a4.replace(aa, ":-webkit-") + a4.replace(aa, ":-moz-") + a4 : a4;
       case 1e3:
-        b3 = a3.substring(13).trim();
-        c3 = b3.indexOf("-") + 1;
-        switch (b3.charCodeAt(0) + b3.charCodeAt(c3)) {
+        b4 = a4.substring(13).trim();
+        c3 = b4.indexOf("-") + 1;
+        switch (b4.charCodeAt(0) + b4.charCodeAt(c3)) {
           case 226:
-            b3 = a3.replace(G3, "tb");
+            b4 = a4.replace(G3, "tb");
             break;
           case 232:
-            b3 = a3.replace(G3, "tb-rl");
+            b4 = a4.replace(G3, "tb-rl");
             break;
           case 220:
-            b3 = a3.replace(G3, "lr");
+            b4 = a4.replace(G3, "lr");
             break;
           default:
-            return a3;
+            return a4;
         }
-        return "-webkit-" + a3 + "-ms-" + b3 + a3;
+        return "-webkit-" + a4 + "-ms-" + b4 + a4;
       case 1017:
-        if (a3.indexOf("sticky", 9) === -1)
+        if (a4.indexOf("sticky", 9) === -1)
           break;
       case 975:
-        c3 = (a3 = d3).length - 10;
-        b3 = (a3.charCodeAt(c3) === 33 ? a3.substring(0, c3) : a3).substring(d3.indexOf(":", 7) + 1).trim();
-        switch (m2 = b3.charCodeAt(0) + (b3.charCodeAt(7) | 0)) {
+        c3 = (a4 = d3).length - 10;
+        b4 = (a4.charCodeAt(c3) === 33 ? a4.substring(0, c3) : a4).substring(d3.indexOf(":", 7) + 1).trim();
+        switch (m3 = b4.charCodeAt(0) + (b4.charCodeAt(7) | 0)) {
           case 203:
-            if (111 > b3.charCodeAt(8))
+            if (111 > b4.charCodeAt(8))
               break;
           case 115:
-            a3 = a3.replace(b3, "-webkit-" + b3) + ";" + a3;
+            a4 = a4.replace(b4, "-webkit-" + b4) + ";" + a4;
             break;
           case 207:
           case 102:
-            a3 = a3.replace(b3, "-webkit-" + (102 < m2 ? "inline-" : "") + "box") + ";" + a3.replace(b3, "-webkit-" + b3) + ";" + a3.replace(b3, "-ms-" + b3 + "box") + ";" + a3;
+            a4 = a4.replace(b4, "-webkit-" + (102 < m3 ? "inline-" : "") + "box") + ";" + a4.replace(b4, "-webkit-" + b4) + ";" + a4.replace(b4, "-ms-" + b4 + "box") + ";" + a4;
         }
-        return a3 + ";";
+        return a4 + ";";
       case 938:
-        if (a3.charCodeAt(5) === 45)
-          switch (a3.charCodeAt(6)) {
+        if (a4.charCodeAt(5) === 45)
+          switch (a4.charCodeAt(6)) {
             case 105:
-              return b3 = a3.replace("-items", ""), "-webkit-" + a3 + "-webkit-box-" + b3 + "-ms-flex-" + b3 + a3;
+              return b4 = a4.replace("-items", ""), "-webkit-" + a4 + "-webkit-box-" + b4 + "-ms-flex-" + b4 + a4;
             case 115:
-              return "-webkit-" + a3 + "-ms-flex-item-" + a3.replace(ba, "") + a3;
+              return "-webkit-" + a4 + "-ms-flex-item-" + a4.replace(ba, "") + a4;
             default:
-              return "-webkit-" + a3 + "-ms-flex-line-pack" + a3.replace("align-content", "").replace(ba, "") + a3;
+              return "-webkit-" + a4 + "-ms-flex-line-pack" + a4.replace("align-content", "").replace(ba, "") + a4;
           }
         break;
       case 973:
       case 989:
-        if (a3.charCodeAt(3) !== 45 || a3.charCodeAt(4) === 122)
+        if (a4.charCodeAt(3) !== 45 || a4.charCodeAt(4) === 122)
           break;
       case 931:
       case 953:
         if (la.test(d3) === true)
-          return (b3 = d3.substring(d3.indexOf(":") + 1)).charCodeAt(0) === 115 ? P3(d3.replace("stretch", "fill-available"), c3, e2, h3).replace(":fill-available", ":stretch") : a3.replace(b3, "-webkit-" + b3) + a3.replace(b3, "-moz-" + b3.replace("fill-", "")) + a3;
+          return (b4 = d3.substring(d3.indexOf(":") + 1)).charCodeAt(0) === 115 ? P3(d3.replace("stretch", "fill-available"), c3, e2, h4).replace(":fill-available", ":stretch") : a4.replace(b4, "-webkit-" + b4) + a4.replace(b4, "-moz-" + b4.replace("fill-", "")) + a4;
         break;
       case 962:
-        if (a3 = "-webkit-" + a3 + (a3.charCodeAt(5) === 102 ? "-ms-" + a3 : "") + a3, e2 + h3 === 211 && a3.charCodeAt(13) === 105 && 0 < a3.indexOf("transform", 10))
-          return a3.substring(0, a3.indexOf(";", 27) + 1).replace(ma, "$1-webkit-$2") + a3;
+        if (a4 = "-webkit-" + a4 + (a4.charCodeAt(5) === 102 ? "-ms-" + a4 : "") + a4, e2 + h4 === 211 && a4.charCodeAt(13) === 105 && 0 < a4.indexOf("transform", 10))
+          return a4.substring(0, a4.indexOf(";", 27) + 1).replace(ma, "$1-webkit-$2") + a4;
     }
-    return a3;
+    return a4;
   }
   function L3(d3, c3) {
-    var e2 = d3.indexOf(c3 === 1 ? ":" : "{"), h3 = d3.substring(0, c3 !== 3 ? e2 : 10);
+    var e2 = d3.indexOf(c3 === 1 ? ":" : "{"), h4 = d3.substring(0, c3 !== 3 ? e2 : 10);
     e2 = d3.substring(e2 + 1, d3.length - 1);
-    return R3(c3 !== 2 ? h3 : h3.replace(na, "$1"), e2, c3);
+    return R4(c3 !== 2 ? h4 : h4.replace(na, "$1"), e2, c3);
   }
   function ea(d3, c3) {
     var e2 = P3(c3, c3.charCodeAt(0), c3.charCodeAt(1), c3.charCodeAt(2));
     return e2 !== c3 + ";" ? e2.replace(oa, " or ($1)").substring(4) : "(" + c3 + ")";
   }
-  function H3(d3, c3, e2, h3, a3, m2, b3, v3, n3, q3) {
-    for (var g3 = 0, x3 = c3, w4; g3 < A3; ++g3) {
-      switch (w4 = S3[g3].call(B3, d3, x3, e2, h3, a3, m2, b3, v3, n3, q3)) {
+  function H4(d3, c3, e2, h4, a4, m3, b4, v5, n3, q3) {
+    for (var g4 = 0, x4 = c3, w5; g4 < A3; ++g4) {
+      switch (w5 = S4[g4].call(B3, d3, x4, e2, h4, a4, m3, b4, v5, n3, q3)) {
         case void 0:
         case false:
         case true:
         case null:
           break;
         default:
-          x3 = w4;
+          x4 = w5;
       }
     }
-    if (x3 !== c3)
-      return x3;
+    if (x4 !== c3)
+      return x4;
   }
-  function T2(d3) {
+  function T3(d3) {
     switch (d3) {
       case void 0:
       case null:
-        A3 = S3.length = 0;
+        A3 = S4.length = 0;
         break;
       default:
         if (typeof d3 === "function")
-          S3[A3++] = d3;
+          S4[A3++] = d3;
         else if (typeof d3 === "object")
           for (var c3 = 0, e2 = d3.length; c3 < e2; ++c3) {
-            T2(d3[c3]);
+            T3(d3[c3]);
           }
         else
           Y3 = !!d3 | 0;
     }
-    return T2;
+    return T3;
   }
-  function U3(d3) {
+  function U4(d3) {
     d3 = d3.prefix;
-    d3 !== void 0 && (R3 = null, d3 ? typeof d3 !== "function" ? w3 = 1 : (w3 = 2, R3 = d3) : w3 = 0);
-    return U3;
+    d3 !== void 0 && (R4 = null, d3 ? typeof d3 !== "function" ? w4 = 1 : (w4 = 2, R4 = d3) : w4 = 0);
+    return U4;
   }
   function B3(d3, c3) {
     var e2 = d3;
     33 > e2.charCodeAt(0) && (e2 = e2.trim());
-    V3 = e2;
-    e2 = [V3];
+    V4 = e2;
+    e2 = [V4];
     if (0 < A3) {
-      var h3 = H3(-1, c3, e2, e2, D3, z3, 0, 0, 0, 0);
-      h3 !== void 0 && typeof h3 === "string" && (c3 = h3);
+      var h4 = H4(-1, c3, e2, e2, D3, z3, 0, 0, 0, 0);
+      h4 !== void 0 && typeof h4 === "string" && (c3 = h4);
     }
-    var a3 = M3(O3, e2, c3, 0, 0);
-    0 < A3 && (h3 = H3(-2, a3, e2, e2, D3, z3, a3.length, 0, 0, 0), h3 !== void 0 && (a3 = h3));
-    V3 = "";
-    E3 = 0;
+    var a4 = M4(O4, e2, c3, 0, 0);
+    0 < A3 && (h4 = H4(-2, a4, e2, e2, D3, z3, a4.length, 0, 0, 0), h4 !== void 0 && (a4 = h4));
+    V4 = "";
+    E4 = 0;
     z3 = D3 = 1;
-    return a3;
+    return a4;
   }
-  var ca = /^\0+/g, N2 = /[\0\r\f]/g, aa = /: */g, ka = /zoo|gra/, ma = /([,: ])(transform)/g, ia = /,\r+?/g, F3 = /([\t\r\n ])*\f?&/g, fa = /@(k\w+)\s*(\S*)\s*/, Q3 = /::(place)/g, ha = /:(read-only)/g, G3 = /[svh]\w+-[tblr]{2}/, da = /\(\s*(.*)\s*\)/g, oa = /([\s\S]*?);/g, ba = /-self|flex-/g, na = /[^]*?(:[rp][el]a[\w-]+)[^]*/, la = /stretch|:\s*\w+\-(?:conte|avail)/, ja = /([^-])(image-set\()/, z3 = 1, D3 = 1, E3 = 0, w3 = 1, O3 = [], S3 = [], A3 = 0, R3 = null, Y3 = 0, V3 = "";
-  B3.use = T2;
-  B3.set = U3;
-  W3 !== void 0 && U3(W3);
+  var ca = /^\0+/g, N3 = /[\0\r\f]/g, aa = /: */g, ka = /zoo|gra/, ma = /([,: ])(transform)/g, ia = /,\r+?/g, F3 = /([\t\r\n ])*\f?&/g, fa = /@(k\w+)\s*(\S*)\s*/, Q3 = /::(place)/g, ha = /:(read-only)/g, G3 = /[svh]\w+-[tblr]{2}/, da = /\(\s*(.*)\s*\)/g, oa = /([\s\S]*?);/g, ba = /-self|flex-/g, na = /[^]*?(:[rp][el]a[\w-]+)[^]*/, la = /stretch|:\s*\w+\-(?:conte|avail)/, ja = /([^-])(image-set\()/, z3 = 1, D3 = 1, E4 = 0, w4 = 1, O4 = [], S4 = [], A3 = 0, R4 = null, Y3 = 0, V4 = "";
+  B3.use = T3;
+  B3.set = U4;
+  W3 !== void 0 && U4(W3);
   return B3;
 }
 var stylis_browser_esm_default;
@@ -27099,7 +27099,7 @@ var require_react_is_development2 = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element2 = REACT_ELEMENT_TYPE;
         var ForwardRef = REACT_FORWARD_REF_TYPE;
-        var Fragment2 = REACT_FRAGMENT_TYPE;
+        var Fragment3 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo = REACT_MEMO_TYPE;
         var Portal2 = REACT_PORTAL_TYPE;
@@ -27158,7 +27158,7 @@ var require_react_is_development2 = __commonJS({
         exports2.ContextProvider = ContextProvider;
         exports2.Element = Element2;
         exports2.ForwardRef = ForwardRef;
-        exports2.Fragment = Fragment2;
+        exports2.Fragment = Fragment3;
         exports2.Lazy = Lazy;
         exports2.Memo = Memo;
         exports2.Portal = Portal2;
@@ -27332,7 +27332,7 @@ function re(e2) {
   return true;
 }
 function ce(e2) {
-  var t3, n3, r3, o3, s3 = e2 === void 0 ? E2 : e2, i3 = s3.options, a3 = i3 === void 0 ? E2 : i3, c3 = s3.plugins, u3 = c3 === void 0 ? w2 : c3, l3 = new stylis_browser_esm_default(a3), d3 = [], h3 = function(e3) {
+  var t3, n3, r3, o3, s3 = e2 === void 0 ? E2 : e2, i3 = s3.options, a4 = i3 === void 0 ? E2 : i3, c3 = s3.plugins, u3 = c3 === void 0 ? w2 : c3, l4 = new stylis_browser_esm_default(a4), d3 = [], h4 = function(e3) {
     function t4(t5) {
       if (t5)
         try {
@@ -27340,10 +27340,10 @@ function ce(e2) {
         } catch (e4) {
         }
     }
-    return function(n4, r4, o4, s4, i4, a4, c4, u4, l4, d4) {
+    return function(n4, r4, o4, s4, i4, a5, c4, u4, l5, d4) {
       switch (n4) {
         case 1:
-          if (l4 === 0 && r4.charCodeAt(0) === 64)
+          if (l5 === 0 && r4.charCodeAt(0) === 64)
             return e3(r4 + ";"), "";
           break;
         case 2:
@@ -27364,24 +27364,24 @@ function ce(e2) {
     };
   }(function(e3) {
     d3.push(e3);
-  }), f2 = function(e3, r4, s4) {
+  }), f3 = function(e3, r4, s4) {
     return r4 === 0 && ae.indexOf(s4[n3.length]) !== -1 || s4.match(o3) ? e3 : "." + t3;
   };
-  function m2(e3, s4, i4, a4) {
-    a4 === void 0 && (a4 = "&");
+  function m3(e3, s4, i4, a5) {
+    a5 === void 0 && (a5 = "&");
     var c4 = e3.replace(ie, ""), u4 = s4 && i4 ? i4 + " " + s4 + " { " + c4 + " }" : c4;
-    return t3 = a4, n3 = s4, r3 = new RegExp("\\" + n3 + "\\b", "g"), o3 = new RegExp("(\\" + n3 + "\\b){2,}"), l3(i4 || !s4 ? "" : s4, u4);
+    return t3 = a5, n3 = s4, r3 = new RegExp("\\" + n3 + "\\b", "g"), o3 = new RegExp("(\\" + n3 + "\\b){2,}"), l4(i4 || !s4 ? "" : s4, u4);
   }
-  return l3.use([].concat(u3, [function(e3, t4, o4) {
-    e3 === 2 && o4.length && o4[0].lastIndexOf(n3) > 0 && (o4[0] = o4[0].replace(r3, f2));
-  }, h3, function(e3) {
+  return l4.use([].concat(u3, [function(e3, t4, o4) {
+    e3 === 2 && o4.length && o4[0].lastIndexOf(n3) > 0 && (o4[0] = o4[0].replace(r3, f3));
+  }, h4, function(e3) {
     if (e3 === -2) {
       var t4 = d3;
       return d3 = [], t4;
     }
-  }])), m2.hash = u3.length ? u3.reduce(function(e3, t4) {
+  }])), m3.hash = u3.length ? u3.reduce(function(e3, t4) {
     return t4.name || j2(15), te(e3, t4.name);
-  }, 5381).toString() : "", m2;
+  }, 5381).toString() : "", m3;
 }
 function fe() {
   return (0, import_react2.useContext)(ue) || he;
@@ -27393,20 +27393,20 @@ function ye(e2) {
   var t3 = (0, import_react2.useState)(e2.stylisPlugins), n3 = t3[0], s3 = t3[1], c3 = fe(), u3 = (0, import_react2.useMemo)(function() {
     var t4 = c3;
     return e2.sheet ? t4 = e2.sheet : e2.target && (t4 = t4.reconstructWithOptions({ target: e2.target }, false)), e2.disableCSSOMInjection && (t4 = t4.reconstructWithOptions({ useCSSOMInjection: false })), t4;
-  }, [e2.disableCSSOMInjection, e2.sheet, e2.target]), l3 = (0, import_react2.useMemo)(function() {
+  }, [e2.disableCSSOMInjection, e2.sheet, e2.target]), l4 = (0, import_react2.useMemo)(function() {
     return ce({ options: { prefix: !e2.disableVendorPrefixes }, plugins: n3 });
   }, [e2.disableVendorPrefixes, n3]);
   return (0, import_react2.useEffect)(function() {
     (0, import_shallowequal.default)(n3, e2.stylisPlugins) || s3(e2.stylisPlugins);
-  }, [e2.stylisPlugins]), import_react2.default.createElement(ue.Provider, { value: u3 }, import_react2.default.createElement(de.Provider, { value: l3 }, true ? import_react2.default.Children.only(e2.children) : e2.children));
+  }, [e2.stylisPlugins]), import_react2.default.createElement(ue.Provider, { value: u3 }, import_react2.default.createElement(de.Provider, { value: l4 }, true ? import_react2.default.Children.only(e2.children) : e2.children));
 }
 function be(e2) {
   return ge.test(e2) ? e2.replace(Se, Ee).replace(we, "-ms-") : e2;
 }
 function Ne(e2, n3, r3, o3) {
   if (Array.isArray(e2)) {
-    for (var s3, i3 = [], a3 = 0, c3 = e2.length; a3 < c3; a3 += 1)
-      (s3 = Ne(e2[a3], n3, r3, o3)) !== "" && (Array.isArray(s3) ? i3.push.apply(i3, s3) : i3.push(s3));
+    for (var s3, i3 = [], a4 = 0, c3 = e2.length; a4 < c3; a4 += 1)
+      (s3 = Ne(e2[a4], n3, r3, o3)) !== "" && (Array.isArray(s3) ? i3.push.apply(i3, s3) : i3.push(s3));
     return i3;
   }
   if (_e(e2))
@@ -27414,12 +27414,12 @@ function Ne(e2, n3, r3, o3) {
   if (N(e2))
     return "." + e2.styledComponentId;
   if (b2(e2)) {
-    if (typeof (l3 = e2) != "function" || l3.prototype && l3.prototype.isReactComponent || !n3)
+    if (typeof (l4 = e2) != "function" || l4.prototype && l4.prototype.isReactComponent || !n3)
       return e2;
     var u3 = e2(n3);
     return (0, import_react_is.isElement)(u3) && console.warn(_2(e2) + " is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details."), Ne(u3, n3, r3, o3);
   }
-  var l3;
+  var l4;
   return e2 instanceof ve ? r3 ? (e2.inject(r3, o3), e2.getName(o3)) : e2 : S2(e2) ? function e3(t3, n4) {
     var r4, o4, s4 = [];
     for (var i4 in t3)
@@ -27448,28 +27448,28 @@ function Me(e2) {
   for (var o3 = 0, s3 = n3; o3 < s3.length; o3++) {
     var i3 = s3[o3];
     if (Ve(i3))
-      for (var a3 in i3)
-        Be(a3) && ze(e2, i3[a3], a3);
+      for (var a4 in i3)
+        Be(a4) && ze(e2, i3[a4], a4);
   }
   return e2;
 }
 function qe(e2, t3, n3) {
-  var o3 = N(e2), i3 = !ke(e2), a3 = t3.attrs, c3 = a3 === void 0 ? w2 : a3, d3 = t3.componentId, h3 = d3 === void 0 ? function(e3, t4) {
+  var o3 = N(e2), i3 = !ke(e2), a4 = t3.attrs, c3 = a4 === void 0 ? w2 : a4, d3 = t3.componentId, h4 = d3 === void 0 ? function(e3, t4) {
     var n4 = typeof e3 != "string" ? "sc" : Te(e3);
     Ye[n4] = (Ye[n4] || 0) + 1;
     var r3 = n4 + "-" + xe("5.3.5" + n4 + Ye[n4]);
     return t4 ? t4 + "-" + r3 : r3;
-  }(t3.displayName, t3.parentComponentId) : d3, p2 = t3.displayName, f2 = p2 === void 0 ? function(e3) {
+  }(t3.displayName, t3.parentComponentId) : d3, p3 = t3.displayName, f3 = p3 === void 0 ? function(e3) {
     return ke(e3) ? "styled." + e3 : "Styled(" + _2(e3) + ")";
-  }(e2) : p2, g3 = t3.displayName && t3.componentId ? Te(t3.displayName) + "-" + t3.componentId : t3.componentId || h3, S3 = o3 && e2.attrs ? Array.prototype.concat(e2.attrs, c3).filter(Boolean) : c3, A3 = t3.shouldForwardProp;
+  }(e2) : p3, g4 = t3.displayName && t3.componentId ? Te(t3.displayName) + "-" + t3.componentId : t3.componentId || h4, S4 = o3 && e2.attrs ? Array.prototype.concat(e2.attrs, c3).filter(Boolean) : c3, A3 = t3.shouldForwardProp;
   o3 && e2.shouldForwardProp && (A3 = t3.shouldForwardProp ? function(n4, r3, o4) {
     return e2.shouldForwardProp(n4, r3, o4) && t3.shouldForwardProp(n4, r3, o4);
   } : e2.shouldForwardProp);
-  var C, I3 = new se(n3, g3, o3 ? e2.componentStyle : void 0), P3 = I3.isStatic && c3.length === 0, O3 = function(e3, t4) {
+  var C2, I4 = new se(n3, g4, o3 ? e2.componentStyle : void 0), P3 = I4.isStatic && c3.length === 0, O4 = function(e3, t4) {
     return function(e4, t5, n4, r3) {
-      var o4 = e4.attrs, i4 = e4.componentStyle, a4 = e4.defaultProps, c4 = e4.foldedComponentIds, d4 = e4.shouldForwardProp, h4 = e4.styledComponentId, p3 = e4.target;
-      (0, import_react2.useDebugValue)(h4);
-      var f3 = function(e5, t6, n5) {
+      var o4 = e4.attrs, i4 = e4.componentStyle, a5 = e4.defaultProps, c4 = e4.foldedComponentIds, d4 = e4.shouldForwardProp, h5 = e4.styledComponentId, p4 = e4.target;
+      (0, import_react2.useDebugValue)(h5);
+      var f4 = function(e5, t6, n5) {
         e5 === void 0 && (e5 = E2);
         var r4 = v2({}, t6, { theme: e5 }), o5 = {};
         return n5.forEach(function(e6) {
@@ -27477,16 +27477,16 @@ function qe(e2, t3, n3) {
           for (t7 in b2(i5) && (i5 = i5(r4)), i5)
             r4[t7] = o5[t7] = t7 === "className" ? (n6 = o5[t7], s3 = i5[t7], n6 && s3 ? n6 + " " + s3 : n6 || s3) : i5[t7];
         }), [r4, o5];
-      }(Re(t5, (0, import_react2.useContext)(Ge), a4) || E2, t5, o4), y3 = f3[0], g4 = f3[1], S4 = function(e5, t6, n5, r4) {
+      }(Re(t5, (0, import_react2.useContext)(Ge), a5) || E2, t5, o4), y3 = f4[0], g5 = f4[1], S5 = function(e5, t6, n5, r4) {
         var o5 = fe(), s3 = me(), i5 = t6 ? e5.generateAndInjectStyles(E2, o5, s3) : e5.generateAndInjectStyles(n5, o5, s3);
         return (0, import_react2.useDebugValue)(i5), !t6 && r4 && r4(i5), i5;
-      }(i4, r3, y3, true ? e4.warnTooManyClasses : void 0), w3 = n4, _3 = g4.$as || t5.$as || g4.as || t5.as || p3, N2 = ke(_3), A4 = g4 !== t5 ? v2({}, t5, {}, g4) : t5, C2 = {};
-      for (var I4 in A4)
-        I4[0] !== "$" && I4 !== "as" && (I4 === "forwardedAs" ? C2.as = A4[I4] : (d4 ? d4(I4, import_is_prop_valid.default, _3) : !N2 || (0, import_is_prop_valid.default)(I4)) && (C2[I4] = A4[I4]));
-      return t5.style && g4.style !== t5.style && (C2.style = v2({}, t5.style, {}, g4.style)), C2.className = Array.prototype.concat(c4, h4, S4 !== h4 ? S4 : null, t5.className, g4.className).filter(Boolean).join(" "), C2.ref = w3, (0, import_react2.createElement)(_3, C2);
-    }(C, e3, t4, P3);
+      }(i4, r3, y3, true ? e4.warnTooManyClasses : void 0), w4 = n4, _3 = g5.$as || t5.$as || g5.as || t5.as || p4, N3 = ke(_3), A4 = g5 !== t5 ? v2({}, t5, {}, g5) : t5, C3 = {};
+      for (var I5 in A4)
+        I5[0] !== "$" && I5 !== "as" && (I5 === "forwardedAs" ? C3.as = A4[I5] : (d4 ? d4(I5, import_is_prop_valid.default, _3) : !N3 || (0, import_is_prop_valid.default)(I5)) && (C3[I5] = A4[I5]));
+      return t5.style && g5.style !== t5.style && (C3.style = v2({}, t5.style, {}, g5.style)), C3.className = Array.prototype.concat(c4, h5, S5 !== h5 ? S5 : null, t5.className, g5.className).filter(Boolean).join(" "), C3.ref = w4, (0, import_react2.createElement)(_3, C3);
+    }(C2, e3, t4, P3);
   };
-  return O3.displayName = f2, (C = import_react2.default.forwardRef(O3)).attrs = S3, C.componentStyle = I3, C.displayName = f2, C.shouldForwardProp = A3, C.foldedComponentIds = o3 ? Array.prototype.concat(e2.foldedComponentIds, e2.styledComponentId) : w2, C.styledComponentId = g3, C.target = o3 ? e2.target : e2, C.withComponent = function(e3) {
+  return O4.displayName = f3, (C2 = import_react2.default.forwardRef(O4)).attrs = S4, C2.componentStyle = I4, C2.displayName = f3, C2.shouldForwardProp = A3, C2.foldedComponentIds = o3 ? Array.prototype.concat(e2.foldedComponentIds, e2.styledComponentId) : w2, C2.styledComponentId = g4, C2.target = o3 ? e2.target : e2, C2.withComponent = function(e3) {
     var r3 = t3.componentId, o4 = function(e4, t4) {
       if (e4 == null)
         return {};
@@ -27495,12 +27495,12 @@ function qe(e2, t3, n3) {
         n4 = s4[r4], t4.indexOf(n4) >= 0 || (o5[n4] = e4[n4]);
       return o5;
     }(t3, ["componentId"]), s3 = r3 && r3 + "-" + (ke(e3) ? e3 : Te(_2(e3)));
-    return qe(e3, v2({}, o4, { attrs: S3, componentId: s3 }), n3);
-  }, Object.defineProperty(C, "defaultProps", { get: function() {
+    return qe(e3, v2({}, o4, { attrs: S4, componentId: s3 }), n3);
+  }, Object.defineProperty(C2, "defaultProps", { get: function() {
     return this._foldedDefaultProps;
   }, set: function(t4) {
     this._foldedDefaultProps = o3 ? Me({}, e2.defaultProps, t4) : t4;
-  } }), Oe(f2, g3), C.warnTooManyClasses = function(e3, t4) {
+  } }), Oe(f3, g4), C2.warnTooManyClasses = function(e3, t4) {
     var n4 = {}, r3 = false;
     return function(o4) {
       if (!r3 && (n4[o4] = true, Object.keys(n4).length >= 200)) {
@@ -27508,34 +27508,34 @@ function qe(e2, t3, n3) {
         console.warn("Over 200 classes were generated for component " + e3 + s3 + ".\nConsider using the attrs method, together with a style object for frequently changed styles.\nExample:\n  const Component = styled.div.attrs(props => ({\n    style: {\n      background: props.background,\n    },\n  }))`width: 100%;`\n\n  <Component />"), r3 = true, n4 = {};
       }
     };
-  }(f2, g3), C.toString = function() {
-    return "." + C.styledComponentId;
-  }, i3 && (0, import_hoist_non_react_statics.default)(C, e2, { attrs: true, componentStyle: true, displayName: true, foldedComponentIds: true, shouldForwardProp: true, styledComponentId: true, target: true, withComponent: true }), C;
+  }(f3, g4), C2.toString = function() {
+    return "." + C2.styledComponentId;
+  }, i3 && (0, import_hoist_non_react_statics.default)(C2, e2, { attrs: true, componentStyle: true, displayName: true, foldedComponentIds: true, shouldForwardProp: true, styledComponentId: true, target: true, withComponent: true }), C2;
 }
 function We(e2) {
   for (var t3 = arguments.length, n3 = new Array(t3 > 1 ? t3 - 1 : 0), o3 = 1; o3 < t3; o3++)
     n3[o3 - 1] = arguments[o3];
-  var i3 = Ce.apply(void 0, [e2].concat(n3)), a3 = "sc-global-" + xe(JSON.stringify(i3)), u3 = new $e(i3, a3);
-  function l3(e3) {
-    var t4 = fe(), n4 = me(), o4 = (0, import_react2.useContext)(Ge), l4 = (0, import_react2.useRef)(t4.allocateGSInstance(a3)).current;
-    return import_react2.default.Children.count(e3.children) && console.warn("The global style component " + a3 + " was given child JSX. createGlobalStyle does not render children."), i3.some(function(e4) {
+  var i3 = Ce.apply(void 0, [e2].concat(n3)), a4 = "sc-global-" + xe(JSON.stringify(i3)), u3 = new $e(i3, a4);
+  function l4(e3) {
+    var t4 = fe(), n4 = me(), o4 = (0, import_react2.useContext)(Ge), l5 = (0, import_react2.useRef)(t4.allocateGSInstance(a4)).current;
+    return import_react2.default.Children.count(e3.children) && console.warn("The global style component " + a4 + " was given child JSX. createGlobalStyle does not render children."), i3.some(function(e4) {
       return typeof e4 == "string" && e4.indexOf("@import") !== -1;
-    }) && console.warn("Please do not use @import CSS syntax in createGlobalStyle at this time, as the CSSOM APIs we use in production do not handle it well. Instead, we recommend using a library such as react-helmet to inject a typical <link> meta tag to the stylesheet, or simply embedding it manually in your index.html <head> section for a simpler app."), t4.server && h3(l4, e3, t4, o4, n4), (0, import_react2.useLayoutEffect)(function() {
+    }) && console.warn("Please do not use @import CSS syntax in createGlobalStyle at this time, as the CSSOM APIs we use in production do not handle it well. Instead, we recommend using a library such as react-helmet to inject a typical <link> meta tag to the stylesheet, or simply embedding it manually in your index.html <head> section for a simpler app."), t4.server && h4(l5, e3, t4, o4, n4), (0, import_react2.useLayoutEffect)(function() {
       if (!t4.server)
-        return h3(l4, e3, t4, o4, n4), function() {
-          return u3.removeStyles(l4, t4);
+        return h4(l5, e3, t4, o4, n4), function() {
+          return u3.removeStyles(l5, t4);
         };
-    }, [l4, e3, t4, o4, n4]), null;
+    }, [l5, e3, t4, o4, n4]), null;
   }
-  function h3(e3, t4, n4, r3, o4) {
+  function h4(e3, t4, n4, r3, o4) {
     if (u3.isStatic)
       u3.renderStyles(e3, O2, n4, o4);
     else {
-      var s3 = v2({}, t4, { theme: Re(t4, r3, l3.defaultProps) });
+      var s3 = v2({}, t4, { theme: Re(t4, r3, l4.defaultProps) });
       u3.renderStyles(e3, s3, n4, o4);
     }
   }
-  return Oe(a3), import_react2.default.memo(l3);
+  return Oe(a4), import_react2.default.memo(l4);
 }
 var import_react_is, import_react2, import_shallowequal, import_is_prop_valid, import_hoist_non_react_statics, g2, S2, w2, E2, A2, I2, P2, O2, R2, T, x2, k2, V2, B2, z2, M2, G2, L2, F2, Y2, q2, H2, $, W2, U2, J, X2, Z2, K, Q2, te, ne, oe, se, ie, ae, ue, le, de, he, pe, ve, ge, Se, we, Ee, _e, Ae, Ie, Pe, Oe, Re, De, je, xe, Ve, Be, Ge, Le, Ye, He, $e, Je, styled_components_browser_esm_default;
 var init_styled_components_browser_esm = __esm({
@@ -27579,8 +27579,8 @@ var init_styled_components_browser_esm = __esm({
           for (var s3 = r3; s3 < o3; s3++)
             this.groupSizes[s3] = 0;
         }
-        for (var i3 = this.indexOfGroup(e3 + 1), a3 = 0, c3 = t4.length; a3 < c3; a3++)
-          this.tag.insertRule(i3, t4[a3]) && (this.groupSizes[e3]++, i3++);
+        for (var i3 = this.indexOfGroup(e3 + 1), a4 = 0, c3 = t4.length; a4 < c3; a4++)
+          this.tag.insertRule(i3, t4[a4]) && (this.groupSizes[e3]++, i3++);
       }, t3.clearGroup = function(e3) {
         if (e3 < this.length) {
           var t4 = this.groupSizes[e3], n3 = this.indexOfGroup(e3), r3 = n3 + t4;
@@ -27624,10 +27624,10 @@ var init_styled_components_browser_esm = __esm({
       for (var n3 = (t3.textContent || "").split("/*!sc*/\n"), r3 = [], o3 = 0, s3 = n3.length; o3 < s3; o3++) {
         var i3 = n3[o3].trim();
         if (i3) {
-          var a3 = i3.match(L2);
-          if (a3) {
-            var c3 = 0 | parseInt(a3[1], 10), u3 = a3[2];
-            c3 !== 0 && (M2(u3, c3), F2(e2, u3, a3[3]), e2.getTag().insertRules(c3, r3)), r3.length = 0;
+          var a4 = i3.match(L2);
+          if (a4) {
+            var c3 = 0 | parseInt(a4[1], 10), u3 = a4[2];
+            c3 !== 0 && (M2(u3, c3), F2(e2, u3, a4[3]), e2.getTag().insertRules(c3, r3)), r3.length = 0;
           } else
             r3.push(i3);
         }
@@ -27751,12 +27751,12 @@ var init_styled_components_browser_esm = __esm({
           for (var t4 = e3.getTag(), n3 = t4.length, r3 = "", o3 = 0; o3 < n3; o3++) {
             var s3 = z2(o3);
             if (s3 !== void 0) {
-              var i3 = e3.names.get(s3), a3 = t4.getGroup(o3);
-              if (i3 && a3 && i3.size) {
+              var i3 = e3.names.get(s3), a4 = t4.getGroup(o3);
+              if (i3 && a4 && i3.size) {
                 var c3 = A2 + ".g" + o3 + '[id="' + s3 + '"]', u3 = "";
                 i3 !== void 0 && i3.forEach(function(e4) {
                   e4.length > 0 && (u3 += e4 + ",");
-                }), r3 += "" + a3 + c3 + '{content:"' + u3 + '"}/*!sc*/\n';
+                }), r3 += "" + a4 + c3 + '{content:"' + u3 + '"}/*!sc*/\n';
               }
             }
           }
@@ -27789,28 +27789,28 @@ var init_styled_components_browser_esm = __esm({
           else {
             var s3 = Ne(this.rules, e3, t3, n3).join(""), i3 = ee(te(this.baseHash, s3) >>> 0);
             if (!t3.hasNameForId(r3, i3)) {
-              var a3 = n3(s3, "." + i3, void 0, r3);
-              t3.insertRules(r3, i3, a3);
+              var a4 = n3(s3, "." + i3, void 0, r3);
+              t3.insertRules(r3, i3, a4);
             }
             o3.push(i3), this.staticRulesId = i3;
           }
         else {
-          for (var c3 = this.rules.length, u3 = te(this.baseHash, n3.hash), l3 = "", d3 = 0; d3 < c3; d3++) {
-            var h3 = this.rules[d3];
-            if (typeof h3 == "string")
-              l3 += h3, u3 = te(u3, h3 + d3);
-            else if (h3) {
-              var p2 = Ne(h3, e3, t3, n3), f2 = Array.isArray(p2) ? p2.join("") : p2;
-              u3 = te(u3, f2 + d3), l3 += f2;
+          for (var c3 = this.rules.length, u3 = te(this.baseHash, n3.hash), l4 = "", d3 = 0; d3 < c3; d3++) {
+            var h4 = this.rules[d3];
+            if (typeof h4 == "string")
+              l4 += h4, u3 = te(u3, h4 + d3);
+            else if (h4) {
+              var p3 = Ne(h4, e3, t3, n3), f3 = Array.isArray(p3) ? p3.join("") : p3;
+              u3 = te(u3, f3 + d3), l4 += f3;
             }
           }
-          if (l3) {
-            var m2 = ee(u3 >>> 0);
-            if (!t3.hasNameForId(r3, m2)) {
-              var y3 = n3(l3, "." + m2, void 0, r3);
-              t3.insertRules(r3, m2, y3);
+          if (l4) {
+            var m3 = ee(u3 >>> 0);
+            if (!t3.hasNameForId(r3, m3)) {
+              var y3 = n3(l4, "." + m3, void 0, r3);
+              t3.insertRules(r3, m3, y3);
             }
-            o3.push(m2);
+            o3.push(m3);
           }
         }
         return o3.join(" ");
@@ -27986,7 +27986,7 @@ var init_PointerEventsHandler = __esm({
           const lock = { className, cursor };
           setLocks((s3) => [...s3, lock]);
           const unlock = () => {
-            setLocks((s3) => s3.filter((l3) => l3 !== lock));
+            setLocks((s3) => s3.filter((l4) => l4 !== lock));
           };
           return unlock;
         };
@@ -28151,9 +28151,9 @@ function useRefAndState(initialValue) {
       get current() {
         return current;
       },
-      set current(v3) {
-        current = v3;
-        setState(v3);
+      set current(v5) {
+        current = v5;
+        setState(v5);
       }
     };
   }, []);
@@ -28408,9 +28408,10 @@ var init_useValToAtom = __esm({
 });
 
 // shared/src/utils/mutableSetDeep.ts
-function mutableSetDeep(obj, getPath, val59) {
-  const path = (0, import_dataverse5.getPointerParts)(getPath((0, import_dataverse5.pointer)({ root: {}, path: [] }))).path;
-  set_default(obj, path, val59);
+function mutableSetDeep(obj, getPointer, val59) {
+  const rootPointer = (0, import_dataverse5.pointer)({ root: {}, path: [] });
+  const deepPointer = getPointer(rootPointer);
+  set_default(obj, (0, import_dataverse5.getPointerParts)(deepPointer).path, val59);
 }
 var import_dataverse5;
 var init_mutableSetDeep = __esm({
@@ -28426,8 +28427,8 @@ var init_DopeSnap = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/DopeSnap.tsx"() {
     POSITION_SNAP_ATTR = "data-pos";
     DopeSnap = {
-      checkIfMouseEventSnapToPos(event, options) {
-        const snapTarget = event.composedPath().find((el) => el instanceof Element && el !== (options == null ? void 0 : options.ignore) && el.hasAttribute(POSITION_SNAP_ATTR));
+      checkIfMouseEventSnapToPos(event, options2) {
+        const snapTarget = event.composedPath().find((el) => el instanceof Element && el !== (options2 == null ? void 0 : options2.ignore) && el.hasAttribute(POSITION_SNAP_ATTR));
         if (snapTarget) {
           const snapPos = parseFloat(snapTarget.getAttribute(POSITION_SNAP_ATTR));
           if (isFinite(snapPos)) {
@@ -28736,10 +28737,10 @@ var init_DopeSheetSelectionView = __esm({
   border: 1px dashed rgba(255, 255, 255, 0.4);
   box-sizing: border-box;
 `;
-    sortBounds = (b3) => {
+    sortBounds = (b4) => {
       return {
-        h: [...b3.h].sort((a3, b4) => a3 - b4),
-        v: [...b3.v].sort((a3, b4) => a3 - b4)
+        h: [...b4.h].sort((a4, b5) => a4 - b5),
+        v: [...b4.v].sort((a4, b5) => a4 - b5)
       };
     };
     SelectionRectangle = ({ state, layoutP }) => {
@@ -28765,17 +28766,6 @@ var init_DopeSheetSelectionView = __esm({
       }, [layoutP, atom]);
     };
     DopeSheetSelectionView_default = DopeSheetSelectionView;
-  }
-});
-
-// shared/src/utils/index.ts
-var voidFn, emptyObject, emptyArray;
-var init_utils = __esm({
-  "shared/src/utils/index.ts"() {
-    voidFn = () => {
-    };
-    emptyObject = {};
-    emptyArray = [];
   }
 });
 
@@ -28848,9 +28838,9 @@ var init_valToAtom = __esm({
   "shared/src/utils/valToAtom.ts"() {
     import_dataverse9 = __toModule(require("@theatre/dataverse"));
     valToAtom = (key, vals) => {
-      const a3 = import_dataverse9.prism.memo(key, () => new import_dataverse9.Atom(vals), []);
-      a3.setState(vals);
-      return a3;
+      const a4 = import_dataverse9.prism.memo(key, () => new import_dataverse9.Atom(vals), []);
+      a4.setState(vals);
+      return a4;
     };
   }
 });
@@ -28888,12 +28878,12 @@ var init_assertThisInitialized = __esm({
 });
 
 // ../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
-function _setPrototypeOf(o3, p2) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o4, p3) {
-    o4.__proto__ = p3;
+function _setPrototypeOf(o3, p3) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o4, p4) {
+    o4.__proto__ = p4;
     return o4;
   };
-  return _setPrototypeOf(o3, p2);
+  return _setPrototypeOf(o3, p3);
 }
 var init_setPrototypeOf = __esm({
   "../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js"() {
@@ -28960,9 +28950,9 @@ function _construct(Parent, args, Class) {
     _construct = Reflect.construct;
   } else {
     _construct = function _construct2(Parent2, args2, Class2) {
-      var a3 = [null];
-      a3.push.apply(a3, args2);
-      var Constructor = Function.bind.apply(Parent2, a3);
+      var a4 = [null];
+      a4.push.apply(a4, args2);
+      var Constructor = Function.bind.apply(Parent2, a4);
       var instance = new Constructor();
       if (Class2)
         _setPrototypeOf(instance, Class2.prototype);
@@ -29027,16 +29017,16 @@ function format() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  var a3 = args[0];
-  var b3 = [];
+  var a4 = args[0];
+  var b4 = [];
   var c3;
   for (c3 = 1; c3 < args.length; c3 += 1) {
-    b3.push(args[c3]);
+    b4.push(args[c3]);
   }
-  b3.forEach(function(d3) {
-    a3 = a3.replace(/%[a-z]/, d3);
+  b4.forEach(function(d3) {
+    a4 = a4.replace(/%[a-z]/, d3);
   });
-  return a3;
+  return a4;
 }
 function capitalizeString(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -29326,14 +29316,14 @@ function toColorString(color2) {
     return hsl(color2);
   throw new PolishedError(8);
 }
-function curried(f2, length, acc) {
+function curried(f3, length, acc) {
   return function fn2() {
     var combined = acc.concat(Array.prototype.slice.call(arguments));
-    return combined.length >= length ? f2.apply(this, combined) : curried(f2, length, combined);
+    return combined.length >= length ? f3.apply(this, combined) : curried(f3, length, combined);
   };
 }
-function curry(f2) {
-  return curried(f2, f2.length, []);
+function curry(f3) {
+  return curried(f3, f3.length, []);
 }
 function guard(lowerBoundary, upperBoundary, value) {
   return Math.max(lowerBoundary, Math.min(upperBoundary, value));
@@ -30156,9 +30146,9 @@ var init_useToken = __esm({
 });
 
 // ../node_modules/reakit-system/es/useProps.js
-function useProps(name, options, htmlProps) {
-  if (options === void 0) {
-    options = {};
+function useProps(name, options2, htmlProps) {
+  if (options2 === void 0) {
+    options2 = {};
   }
   if (htmlProps === void 0) {
     htmlProps = {};
@@ -30167,7 +30157,7 @@ function useProps(name, options, htmlProps) {
   (0, import_react17.useDebugValue)(hookName);
   var useHook = useToken(hookName);
   if (useHook) {
-    return useHook(options, htmlProps);
+    return useHook(options2, htmlProps);
   }
   return htmlProps;
 }
@@ -30180,9 +30170,9 @@ var init_useProps = __esm({
 });
 
 // ../node_modules/reakit-system/es/useOptions.js
-function useOptions(name, options, htmlProps) {
-  if (options === void 0) {
-    options = {};
+function useOptions(name, options2, htmlProps) {
+  if (options2 === void 0) {
+    options2 = {};
   }
   if (htmlProps === void 0) {
     htmlProps = {};
@@ -30191,9 +30181,9 @@ function useOptions(name, options, htmlProps) {
   (0, import_react18.useDebugValue)(hookName);
   var useHook = useToken(hookName);
   if (useHook) {
-    return _objectSpread22(_objectSpread22({}, options), useHook(options, htmlProps));
+    return _objectSpread22(_objectSpread22({}, options2), useHook(options2, htmlProps));
   }
-  return options;
+  return options2;
 }
 var import_react18;
 var init_useOptions = __esm({
@@ -30217,17 +30207,17 @@ var init_toArray = __esm({
 });
 
 // ../node_modules/reakit-system/es/createHook.js
-function createHook(options) {
+function createHook(options2) {
   var _options$useState, _composedHooks$;
-  var composedHooks = toArray(options.compose);
+  var composedHooks = toArray(options2.compose);
   var __useOptions = function __useOptions2(hookOptions, htmlProps) {
-    if (options.useOptions) {
-      hookOptions = options.useOptions(hookOptions, htmlProps);
+    if (options2.useOptions) {
+      hookOptions = options2.useOptions(hookOptions, htmlProps);
     }
-    if (options.name) {
-      hookOptions = useOptions(options.name, hookOptions, htmlProps);
+    if (options2.name) {
+      hookOptions = useOptions(options2.name, hookOptions, htmlProps);
     }
-    if (options.compose) {
+    if (options2.compose) {
       for (var _iterator = _createForOfIteratorHelperLoose(composedHooks), _step; !(_step = _iterator()).done; ) {
         var hook = _step.value;
         hookOptions = hook.__useOptions(hookOptions, htmlProps);
@@ -30248,18 +30238,18 @@ function createHook(options) {
     if (!unstable_ignoreUseOptions) {
       hookOptions = __useOptions(hookOptions, htmlProps);
     }
-    if (options.useProps) {
-      htmlProps = options.useProps(hookOptions, htmlProps);
+    if (options2.useProps) {
+      htmlProps = options2.useProps(hookOptions, htmlProps);
     }
-    if (options.name) {
-      htmlProps = useProps(options.name, hookOptions, htmlProps);
+    if (options2.name) {
+      htmlProps = useProps(options2.name, hookOptions, htmlProps);
     }
-    if (options.compose) {
-      if (options.useComposeOptions) {
-        hookOptions = options.useComposeOptions(hookOptions, htmlProps);
+    if (options2.compose) {
+      if (options2.useComposeOptions) {
+        hookOptions = options2.useComposeOptions(hookOptions, htmlProps);
       }
-      if (options.useComposeProps) {
-        htmlProps = options.useComposeProps(hookOptions, htmlProps);
+      if (options2.useComposeProps) {
+        htmlProps = options2.useComposeProps(hookOptions, htmlProps);
       } else {
         for (var _iterator2 = _createForOfIteratorHelperLoose(composedHooks), _step2; !(_step2 = _iterator2()).done; ) {
           var hook = _step2.value;
@@ -30281,11 +30271,11 @@ function createHook(options) {
     keys3.push.apply(keys3, hook.__keys || []);
     return keys3;
   }, []);
-  useHook.__keys = [].concat(composedKeys, ((_options$useState = options.useState) === null || _options$useState === void 0 ? void 0 : _options$useState.__keys) || [], options.keys || []);
-  useHook.unstable_propsAreEqual = options.propsAreEqual || ((_composedHooks$ = composedHooks[0]) === null || _composedHooks$ === void 0 ? void 0 : _composedHooks$.unstable_propsAreEqual) || shallowEqual;
-  if (options.name) {
+  useHook.__keys = [].concat(composedKeys, ((_options$useState = options2.useState) === null || _options$useState === void 0 ? void 0 : _options$useState.__keys) || [], options2.keys || []);
+  useHook.unstable_propsAreEqual = options2.propsAreEqual || ((_composedHooks$ = composedHooks[0]) === null || _composedHooks$ === void 0 ? void 0 : _composedHooks$.unstable_propsAreEqual) || shallowEqual;
+  if (options2.name) {
     Object.defineProperty(useHook, "name", {
-      value: "use" + options.name
+      value: "use" + options2.name
     });
   }
   return useHook;
@@ -30384,7 +30374,7 @@ function warning(condition) {
     (_console = console).warn.apply(_console, warns.slice(0, -1));
     try {
       throw Error(warns.join(""));
-    } catch (x3) {
+    } catch (x4) {
     }
   }
 }
@@ -30672,23 +30662,23 @@ var init_Tabbable = __esm({
       name: "Tabbable",
       compose: useRole,
       keys: TABBABLE_KEYS,
-      useOptions: function useOptions2(options, _ref) {
+      useOptions: function useOptions2(options2, _ref) {
         var disabled = _ref.disabled;
         return _objectSpread2({
           disabled
-        }, options);
+        }, options2);
       },
-      useProps: function useProps2(options, _ref2) {
+      useProps: function useProps2(options2, _ref2) {
         var htmlRef = _ref2.ref, htmlTabIndex = _ref2.tabIndex, htmlOnClickCapture = _ref2.onClickCapture, htmlOnMouseDownCapture = _ref2.onMouseDownCapture, htmlOnMouseDown = _ref2.onMouseDown, htmlOnKeyPressCapture = _ref2.onKeyPressCapture, htmlStyle = _ref2.style, htmlProps = _objectWithoutPropertiesLoose(_ref2, ["ref", "tabIndex", "onClickCapture", "onMouseDownCapture", "onMouseDown", "onKeyPressCapture", "style"]);
         var ref = (0, import_react25.useRef)(null);
         var onClickCaptureRef = useLiveRef(htmlOnClickCapture);
         var onMouseDownCaptureRef = useLiveRef(htmlOnMouseDownCapture);
         var onMouseDownRef = useLiveRef(htmlOnMouseDown);
         var onKeyPressCaptureRef = useLiveRef(htmlOnKeyPressCapture);
-        var trulyDisabled = !!options.disabled && !options.focusable;
+        var trulyDisabled = !!options2.disabled && !options2.focusable;
         var _React$useState = (0, import_react25.useState)(true), nativeTabbable = _React$useState[0], setNativeTabbable = _React$useState[1];
         var _React$useState2 = (0, import_react25.useState)(true), supportsDisabled = _React$useState2[0], setSupportsDisabled = _React$useState2[1];
-        var style = options.disabled ? _objectSpread2({
+        var style = options2.disabled ? _objectSpread2({
           pointerEvents: "none"
         }, htmlStyle) : htmlStyle;
         useIsomorphicEffect(function() {
@@ -30704,9 +30694,9 @@ var init_Tabbable = __esm({
             setSupportsDisabled(false);
           }
         }, []);
-        var onClickCapture = useDisableEvent(onClickCaptureRef, options.disabled);
-        var onMouseDownCapture = useDisableEvent(onMouseDownCaptureRef, options.disabled);
-        var onKeyPressCapture = useDisableEvent(onKeyPressCaptureRef, options.disabled);
+        var onClickCapture = useDisableEvent(onClickCaptureRef, options2.disabled);
+        var onMouseDownCapture = useDisableEvent(onMouseDownCaptureRef, options2.disabled);
+        var onKeyPressCapture = useDisableEvent(onKeyPressCaptureRef, options2.disabled);
         var onMouseDown = (0, import_react25.useCallback)(function(event) {
           var _onMouseDownRef$curre;
           (_onMouseDownRef$curre = onMouseDownRef.current) === null || _onMouseDownRef$curre === void 0 ? void 0 : _onMouseDownRef$curre.call(onMouseDownRef, event);
@@ -30737,7 +30727,7 @@ var init_Tabbable = __esm({
           style,
           tabIndex: getTabIndex(trulyDisabled, nativeTabbable, supportsDisabled, htmlTabIndex),
           disabled: trulyDisabled && supportsDisabled ? true : void 0,
-          "aria-disabled": options.disabled ? true : void 0,
+          "aria-disabled": options2.disabled ? true : void 0,
           onClickCapture,
           onMouseDownCapture,
           onMouseDown,
@@ -30777,13 +30767,13 @@ var init_Clickable = __esm({
       compose: useTabbable,
       keys: CLICKABLE_KEYS,
       useOptions: function useOptions3(_ref) {
-        var _ref$unstable_clickOn = _ref.unstable_clickOnEnter, unstable_clickOnEnter = _ref$unstable_clickOn === void 0 ? true : _ref$unstable_clickOn, _ref$unstable_clickOn2 = _ref.unstable_clickOnSpace, unstable_clickOnSpace = _ref$unstable_clickOn2 === void 0 ? true : _ref$unstable_clickOn2, options = _objectWithoutPropertiesLoose(_ref, ["unstable_clickOnEnter", "unstable_clickOnSpace"]);
+        var _ref$unstable_clickOn = _ref.unstable_clickOnEnter, unstable_clickOnEnter = _ref$unstable_clickOn === void 0 ? true : _ref$unstable_clickOn, _ref$unstable_clickOn2 = _ref.unstable_clickOnSpace, unstable_clickOnSpace = _ref$unstable_clickOn2 === void 0 ? true : _ref$unstable_clickOn2, options2 = _objectWithoutPropertiesLoose(_ref, ["unstable_clickOnEnter", "unstable_clickOnSpace"]);
         return _objectSpread2({
           unstable_clickOnEnter,
           unstable_clickOnSpace
-        }, options);
+        }, options2);
       },
-      useProps: function useProps3(options, _ref2) {
+      useProps: function useProps3(options2, _ref2) {
         var htmlOnKeyDown = _ref2.onKeyDown, htmlOnKeyUp = _ref2.onKeyUp, htmlProps = _objectWithoutPropertiesLoose(_ref2, ["onKeyDown", "onKeyUp"]);
         var _React$useState = (0, import_react26.useState)(false), active = _React$useState[0], setActive = _React$useState[1];
         var onKeyDownRef = useLiveRef(htmlOnKeyDown);
@@ -30793,14 +30783,14 @@ var init_Clickable = __esm({
           (_onKeyDownRef$current = onKeyDownRef.current) === null || _onKeyDownRef$current === void 0 ? void 0 : _onKeyDownRef$current.call(onKeyDownRef, event);
           if (event.defaultPrevented)
             return;
-          if (options.disabled)
+          if (options2.disabled)
             return;
           if (event.metaKey)
             return;
           if (!isSelfTarget(event))
             return;
-          var isEnter = options.unstable_clickOnEnter && event.key === "Enter";
-          var isSpace = options.unstable_clickOnSpace && event.key === " ";
+          var isEnter = options2.unstable_clickOnEnter && event.key === "Enter";
+          var isSpace = options2.unstable_clickOnSpace && event.key === " ";
           if (isEnter || isSpace) {
             if (isNativeClick(event))
               return;
@@ -30811,22 +30801,22 @@ var init_Clickable = __esm({
               setActive(true);
             }
           }
-        }, [options.disabled, options.unstable_clickOnEnter, options.unstable_clickOnSpace]);
+        }, [options2.disabled, options2.unstable_clickOnEnter, options2.unstable_clickOnSpace]);
         var onKeyUp = (0, import_react26.useCallback)(function(event) {
           var _onKeyUpRef$current;
           (_onKeyUpRef$current = onKeyUpRef.current) === null || _onKeyUpRef$current === void 0 ? void 0 : _onKeyUpRef$current.call(onKeyUpRef, event);
           if (event.defaultPrevented)
             return;
-          if (options.disabled)
+          if (options2.disabled)
             return;
           if (event.metaKey)
             return;
-          var isSpace = options.unstable_clickOnSpace && event.key === " ";
+          var isSpace = options2.unstable_clickOnSpace && event.key === " ";
           if (active && isSpace) {
             setActive(false);
             event.currentTarget.click();
           }
-        }, [options.disabled, options.unstable_clickOnSpace, active]);
+        }, [options2.disabled, options2.unstable_clickOnSpace, active]);
         return _objectSpread2({
           "data-active": active || void 0,
           onKeyDown,
@@ -31064,6 +31054,10 @@ var init_css = __esm({
   bottom: 0px;
   left: 0px;
   pointer-events: none;
+
+  > div{
+    color:white;
+  }
 `;
     ProvideStyles = (props) => {
       return /* @__PURE__ */ import_react30.default.createElement(ye, {
@@ -31177,9 +31171,9 @@ var init_iconBase = __esm({
       __assign = Object.assign || function(t3) {
         for (var s3, i3 = 1, n3 = arguments.length; i3 < n3; i3++) {
           s3 = arguments[i3];
-          for (var p2 in s3)
-            if (Object.prototype.hasOwnProperty.call(s3, p2))
-              t3[p2] = s3[p2];
+          for (var p3 in s3)
+            if (Object.prototype.hasOwnProperty.call(s3, p3))
+              t3[p3] = s3[p3];
         }
         return t3;
       };
@@ -31187,13 +31181,13 @@ var init_iconBase = __esm({
     };
     __rest = function(s3, e2) {
       var t3 = {};
-      for (var p2 in s3)
-        if (Object.prototype.hasOwnProperty.call(s3, p2) && e2.indexOf(p2) < 0)
-          t3[p2] = s3[p2];
+      for (var p3 in s3)
+        if (Object.prototype.hasOwnProperty.call(s3, p3) && e2.indexOf(p3) < 0)
+          t3[p3] = s3[p3];
       if (s3 != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i3 = 0, p2 = Object.getOwnPropertySymbols(s3); i3 < p2.length; i3++) {
-          if (e2.indexOf(p2[i3]) < 0 && Object.prototype.propertyIsEnumerable.call(s3, p2[i3]))
-            t3[p2[i3]] = s3[p2[i3]];
+        for (var i3 = 0, p3 = Object.getOwnPropertySymbols(s3); i3 < p3.length; i3++) {
+          if (e2.indexOf(p3[i3]) < 0 && Object.prototype.propertyIsEnumerable.call(s3, p3[i3]))
+            t3[p3[i3]] = s3[p3[i3]];
         }
       return t3;
     };
@@ -31407,21 +31401,25 @@ var init_propNameTextCSS = __esm({
   "studio/src/propEditors/utils/propNameTextCSS.tsx"() {
     init_styled_components_browser_esm();
     propNameTextCSS = Ce`
-  font-weight: 300;
-  font-size: 11px;
-  color: ${(props) => props.isHighlighted === "self" ? "#CCC" : "#919191"};
-  text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.3);
+  // font-weight: 300;
+  // font-size: 11px;
+  // color: ${(props) => props.isHighlighted === "self" ? "#CCC" : "#919191"};
+  // text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.3);
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  font-size: 12px;
+  font-weight:400;
+  color:rgb(130 130 130);
 `;
   }
 });
 
 // shared/src/utils/pointerDeep.ts
 function pointerDeep(base, toAppend) {
-  let p2 = base;
-  for (const k3 of toAppend) {
-    p2 = p2[k3];
+  let p3 = base;
+  for (const k4 of toAppend) {
+    p3 = p3[k4];
   }
-  return p2;
+  return p3;
 }
 var init_pointerDeep = __esm({
   "shared/src/utils/pointerDeep.ts"() {
@@ -31666,22 +31664,22 @@ function compoundHasSimpleDescendantsImpl(conf) {
   }
   return false;
 }
-function* iteratePropType(conf, pathUpToThisPoint) {
+function* iteratePropType(conf, pathPrefix) {
   if (conf.type === "compound") {
     for (const key in conf.props) {
       yield* iteratePropType(conf.props[key], [
-        ...pathUpToThisPoint,
+        ...pathPrefix,
         key
       ]);
     }
   } else if (conf.type === "enum") {
     throw new Error(`Not implemented yet`);
   } else {
-    return yield { path: pathUpToThisPoint, conf };
+    return yield { path: pathPrefix, conf };
   }
 }
 var compoundPropSequenceabilityCache;
-var init_utils2 = __esm({
+var init_utils = __esm({
   "shared/src/propTypes/utils.ts"() {
     compoundPropSequenceabilityCache = new WeakMap();
   }
@@ -31801,7 +31799,7 @@ var init_selectClosestHTMLAncestor = __esm({
 });
 
 // studio/src/uiComponents/usePresence.tsx
-function createPresenceContext(options) {
+function createPresenceContext(options2) {
   const currentUserHoverItemB = new import_dataverse13.Box(void 0);
   const currentUserHoverFlagItemsAtom = new import_dataverse14.Atom({});
   const relationsAtom = new import_dataverse14.Atom({});
@@ -31824,7 +31822,7 @@ function createPresenceContext(options) {
       };
     },
     usePresenceFlag(itemKey) {
-      if (!options.enabled)
+      if (!options2.enabled)
         return void 0;
       const focusD = (0, import_react36.useMemo)(() => {
         if (!itemKey)
@@ -31973,7 +31971,8 @@ var init_NextPrevKeyframeCursors = __esm({
     content: ' ';
     display: none;
     z-index: -1;
-    background: ${curriedTransparentize(0.2, "black")};
+    // background: ${curriedTransparentize(0.2, "black")};
+    background: #323232;
   }
 
   &:hover {
@@ -32008,11 +32007,12 @@ var init_NextPrevKeyframeCursors = __esm({
 `;
     nextPrevCursorsTheme = {
       offColor: "#555",
-      onColor: "#e0c917"
+      onColor: "#40aeff"
     };
     CurButton = styled_components_browser_esm_default(Button2)`
   &:hover {
-    color: #e0c917;
+    // color: #e0c917;
+    color:#40aeff;
   }
 
   color: ${(props) => props.presence === PresenceFlag.Primary ? "white" : props.isOn ? nextPrevCursorsTheme.onColor : nextPrevCursorsTheme.offColor};
@@ -32120,12 +32120,12 @@ function createDerivation(pointerToProp, obj, propConfig) {
     const editPropValue = import_dataverse15.prism.memo("editPropValue", () => {
       let currentScrub = null;
       return {
-        temporarilySetValue(v3) {
+        temporarilySetValue(v5) {
           if (!currentScrub) {
             currentScrub = getStudio().scrub();
           }
           currentScrub.capture((api) => {
-            api.set(pointerToProp, v3);
+            api.set(pointerToProp, v5);
           });
         },
         discardTemporaryValue() {
@@ -32134,16 +32134,16 @@ function createDerivation(pointerToProp, obj, propConfig) {
             currentScrub = null;
           }
         },
-        permanentlySetValue(v3) {
+        permanentlySetValue(v5) {
           if (currentScrub) {
             currentScrub.capture((api) => {
-              api.set(pointerToProp, v3);
+              api.set(pointerToProp, v5);
             });
             currentScrub.commit();
             currentScrub = null;
           } else {
             getStudio().transaction((api) => {
-              api.set(pointerToProp, v3);
+              api.set(pointerToProp, v5);
             });
           }
         }
@@ -32303,7 +32303,7 @@ var init_useEditingToolsForSimpleProp = __esm({
     init_getStudio();
     init_getDeep();
     init_src();
-    init_utils2();
+    init_utils();
     init_DefaultValueIndicator();
     init_getNearbyKeyframesOfTrack();
     init_NextPrevKeyframeCursors();
@@ -32355,7 +32355,7 @@ var init_PrimitivePropRow = __esm({
   color: ${(props) => props.isSelected ? graphEditorColors[props.graphEditorColor].iconColor : nextPrevCursorsTheme.offColor};
 
   &:not([disabled]):hover {
-    color: white;
+    color: grey; //white
   }
 `;
     GraphIcon = () => /* @__PURE__ */ import_react43.default.createElement("svg", {
@@ -32627,7 +32627,7 @@ function drawGrid(opts) {
   createGrid(opts, (_posInUnitSpace, isFullSecond) => {
     const posInUnitSpace = snapToGrid(_posInUnitSpace);
     const posInClippedSpace = Math.floor(unitSpaceToClippedSpace(posInUnitSpace));
-    ctx3.strokeStyle = isFullSecond ? "rgba(225, 225, 225, 0.04)" : "rgba(255, 255, 255, 0.01)";
+    ctx3.strokeStyle = isFullSecond ? "rgba(225, 225, 225, 0.1)" : "rgba(255, 255, 255, 0.04)";
     ctx3.beginPath();
     ctx3.moveTo(posInClippedSpace, 0);
     ctx3.lineTo(posInClippedSpace, height2);
@@ -32689,10 +32689,10 @@ var init_FrameGrid = __esm({
             fps: sequence.subUnitsPerUnit,
             snapToGrid: (n3) => sequence.closestGridPosition(n3)
           };
-        }).tapImmediate(studioTicker_default, (p2) => {
+        }).tapImmediate(studioTicker_default, (p3) => {
           ctx3.save();
           ctx3.scale(ratio, ratio);
-          drawGrid(p2);
+          drawGrid(p3);
           ctx3.restore();
         });
         return () => {
@@ -32732,7 +32732,8 @@ var init_DopeSheetBackground = __esm({
   bottom: 0;
   z-index: ${() => zIndexes.rightBackground};
   overflow: hidden;
-  background: ${curriedTransparentize(0.01, curriedDarken(1 * 0.03, theme.panel.bg))};
+  //background: ${curriedTransparentize(0.01, curriedDarken(1 * 0.03, theme.panel.bg))};
+  background: rgba(0,0,0,0.99);
   pointer-events: none;
 `;
     DopeSheetBackground = ({ layoutP }) => {
@@ -32786,8 +32787,8 @@ var init_DopeSheet = __esm({
 
 // shared/src/utils/subPrism.ts
 function subPrism(key, fn2, deps) {
-  const m2 = import_dataverse20.prism.memo(key, () => (0, import_dataverse20.prism)(fn2), deps);
-  return m2.getValue();
+  const m3 = import_dataverse20.prism.memo(key, () => (0, import_dataverse20.prism)(fn2), deps);
+  return m3.getValue();
 }
 var import_dataverse20;
 var init_subPrism = __esm({
@@ -32797,7 +32798,7 @@ var init_subPrism = __esm({
 });
 
 // studio/src/panels/BasePanel/common.tsx
-var panelZIndexes, propsEditorBackground, TitleBar_Piece, TitleBar_Punctuation, F22, titleBarHeight, TitleBar;
+var panelZIndexes, propsEditorBackground, TitleBar_Piece, TitleBar_Punctuation, F22, titleBarHeight, TitleBar, visibleSize;
 var init_common = __esm({
   "studio/src/panels/BasePanel/common.tsx"() {
     init_css();
@@ -32841,15 +32842,17 @@ var init_common = __esm({
   align-items: center;
   padding: 0 10px;
   position: relative;
-  color: #adadadb3;
-  border-bottom: 1px solid rgb(0 0 0 / 13%);
-  background-color: #25272b;
+  color: white;
+  background-color: rgba(0,0,0,0.99);
+  border-right: 1px solid #4b4b4b;
+  border-bottom: 1px solid #4b4b4b;
   font-size: 10px;
   font-weight: 500;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
+    visibleSize = 100;
   }
 });
 
@@ -32896,6 +32899,7 @@ var init_tree = __esm({
       function addObject(sheetObject, arrayOfChildren, level, shouldRender) {
         var _a3;
         const trackSetups = (0, import_dataverse21.val)(sheetObject.template.getMapOfValidSequenceTracks_forStudio());
+        const objectConfig = (0, import_dataverse21.val)(sheetObject.template.configPointer);
         if (Object.keys(trackSetups).length === 0)
           return;
         const isCollapsedP2 = collapsableItemSetP.byId[createStudioSheetItemKey.forSheetObject(sheetObject)].isCollapsed;
@@ -32918,7 +32922,7 @@ var init_tree = __esm({
           nSoFar += 1;
           topSoFar += row.nodeHeight;
         }
-        addProps(sheetObject, trackSetups, [], sheetObject.template.config, row.children, level + 1, shouldRender && !isCollapsed2);
+        addProps(sheetObject, trackSetups, [], objectConfig, row.children, level + 1, shouldRender && !isCollapsed2);
         row.heightIncludingChildren = topSoFar - row.top;
       }
       function addProps(sheetObject, trackSetups, pathSoFar, parentPropConfig, arrayOfChildren, level, shouldRender) {
@@ -32985,7 +32989,6 @@ var init_tree = __esm({
         nSoFar += 1;
         topSoFar += row.nodeHeight;
       }
-      console.log("tree :)", tree);
       return tree;
     };
   }
@@ -33175,8 +33178,8 @@ function drawStamps(opts) {
   });
   fullSecondStampsContainer.innerHTML = innerHTML;
 }
-function createStampClass(pos, x3, type) {
-  return `<span class="${type}" style="transform: translate3d(${x3.toFixed(1)}px, -50%, 0);">${pos}</span>`;
+function createStampClass(pos, x4, type) {
+  return `<span class="${type}" style="transform: translate3d(${x4.toFixed(1)}px, -50%, 0);">${pos}</span>`;
 }
 var import_dataverse23, import_react55, Container9, stampsGridTheme, TheStamps, FullSecondStampsContainer, StampsGrid, StampsGrid_default;
 var init_StampsGrid = __esm({
@@ -33195,7 +33198,7 @@ var init_StampsGrid = __esm({
   pointer-events: none;
 `;
     stampsGridTheme = {
-      fullUnitStampColor: `#6a6a6a`,
+      fullUnitStampColor: `#bbbbbb`,
       stampFontSize: "10px",
       get subUnitStampColor() {
         return curriedDarken(0.2, stampsGridTheme.fullUnitStampColor);
@@ -33435,9 +33438,9 @@ var init_FrameStampPositionProvider = __esm({
           }
         }
         const { clientX, clientY } = mousePos;
-        const { screenX: x3, screenY: y3, width: rightWidth, height: height2 } = rightDims;
-        if (inRange_default(clientX, x3, x3 + rightWidth) && inRange_default(clientY, y3 + 16, y3 + height2)) {
-          const posInRightDims = clientX - x3;
+        const { screenX: x4, screenY: y3, width: rightWidth, height: height2 } = rightDims;
+        if (inRange_default(clientX, x4, x4 + rightWidth) && inRange_default(clientY, y3 + 16, y3 + height2)) {
+          const posInRightDims = clientX - x4;
           const posInUnitSpace = clippedSpaceToUnitSpace(posInRightDims);
           return [posInUnitSpace, 3];
         } else {
@@ -33716,14 +33719,14 @@ var require_curry = __commonJS({
     "use strict";
     exports2.__esModule = true;
     exports2["default"] = curry2;
-    function curried2(f2, length, acc) {
+    function curried2(f3, length, acc) {
       return function fn2() {
         var combined = acc.concat(Array.prototype.slice.call(arguments));
-        return combined.length >= length ? f2.apply(this, combined) : curried2(f2, length, combined);
+        return combined.length >= length ? f3.apply(this, combined) : curried2(f3, length, combined);
       };
     }
-    function curry2(f2) {
-      return curried2(f2, f2.length, []);
+    function curry2(f3) {
+      return curried2(f3, f3.length, []);
     }
     module2.exports = exports2.default;
   }
@@ -34011,9 +34014,9 @@ var require_errors = __commonJS({
         _construct2 = Reflect.construct;
       } else {
         _construct2 = function _construct3(Parent2, args2, Class2) {
-          var a3 = [null];
-          a3.push.apply(a3, args2);
-          var Constructor = Function.bind.apply(Parent2, a3);
+          var a4 = [null];
+          a4.push.apply(a4, args2);
+          var Constructor = Function.bind.apply(Parent2, a4);
           var instance = new Constructor();
           if (Class2)
             _setPrototypeOf2(instance, Class2.prototype);
@@ -34040,12 +34043,12 @@ var require_errors = __commonJS({
     function _isNativeFunction2(fn2) {
       return Function.toString.call(fn2).indexOf("[native code]") !== -1;
     }
-    function _setPrototypeOf2(o3, p2) {
-      _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf3(o4, p3) {
-        o4.__proto__ = p3;
+    function _setPrototypeOf2(o3, p3) {
+      _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf3(o4, p4) {
+        o4.__proto__ = p4;
         return o4;
       };
-      return _setPrototypeOf2(o3, p2);
+      return _setPrototypeOf2(o3, p3);
     }
     function _getPrototypeOf2(o3) {
       _getPrototypeOf2 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf3(o4) {
@@ -34137,16 +34140,16 @@ var require_errors = __commonJS({
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
-      var a3 = args[0];
-      var b3 = [];
+      var a4 = args[0];
+      var b4 = [];
       var c3;
       for (c3 = 1; c3 < args.length; c3 += 1) {
-        b3.push(args[c3]);
+        b4.push(args[c3]);
       }
-      b3.forEach(function(d3) {
-        a3 = a3.replace(/%[a-z]/, d3);
+      b4.forEach(function(d3) {
+        a4 = a4.replace(/%[a-z]/, d3);
       });
-      return a3;
+      return a4;
     }
     var PolishedError2 = /* @__PURE__ */ function(_Error) {
       _inheritsLoose2(PolishedError3, _Error);
@@ -34428,8 +34431,8 @@ var init_Item = __esm({
   font-size: 11px;
   font-weight: 400;
   position: relative;
-  color: ${(props) => props.enabled ? "white" : "#8f8f8f"};
-  cursor: ${(props) => props.enabled ? "normal" : "not-allowed"};
+  color: ${(props) => props.enabled ? "white" : "#ffffff3b"};
+  cursor: ${(props) => props.enabled ? "pointer" : "not-allowed"};
 
   &:after {
     position: absolute;
@@ -34438,12 +34441,18 @@ var init_Item = __esm({
     content: ' ';
     pointer-events: none;
     z-index: -1;
-    border-radius: 3px;
+    // border-radius: 3px;
   }
 
   &:hover:after {
-    background-color: ${(props) => props.enabled ? "rgba(63, 174, 191, 0.75)" : "initial"};
+    background-color: ${(props) => props.enabled ? "#40aeff" : "initial"};
   }
+
+  &:hover{
+    color:${(props) => props.enabled ? "white" : "#00000017"};
+  }
+  
+  
 `;
     ItemLabel = styled_components_browser_esm_default.span``;
     Item = (props) => {
@@ -34499,13 +34508,14 @@ var init_ContextMenu = __esm({
   position: absolute;
   min-width: ${minWidth}px;
   z-index: 10000;
-  background: ${(0, import_transparentize.default)(0.2, "#111")};
-  backdrop-filter: blur(2px);
+  // background: ${(0, import_transparentize.default)(0.2, "#111")};
+  // background: rgba(255,255,255,0.9);
+  background: black;
+  border:1px solid #4b4b4b;
   color: white;
   list-style-type: none;
   padding: 2px 0;
   margin: 0;
-  border-radius: 1px;
   cursor: default;
   ${pointerEventsAutoInNormalMode};
   border-radius: 3px;
@@ -34513,7 +34523,8 @@ var init_ContextMenu = __esm({
     MenuTitle = styled_components_browser_esm_default.div`
   padding: 4px 10px;
   border-bottom: 1px solid #6262626d;
-  color: #adadadb3;
+  // color: #adadadb3;
+  color: #717171b3;
   font-size: 11px;
   font-weight: 500;
 `;
@@ -34618,42 +34629,6 @@ var init_useRequestContextMenu = __esm({
   }
 });
 
-// studio/src/propEditors/utils/getPropTypeByPointer.tsx
-function getPropTypeByPointer(pointerToProp, obj) {
-  const rootConf = obj.template.config;
-  const p2 = (0, import_dataverse27.getPointerParts)(pointerToProp).path;
-  let conf = rootConf;
-  while (p2.length !== 0) {
-    const key = p2.shift();
-    if (typeof key === "string") {
-      if (conf.type === "compound") {
-        conf = conf.props[key];
-        if (!conf) {
-          throw new Error(`getPropTypeConfigByPath() is called with an invalid path.`);
-        }
-      } else if (conf.type === "enum") {
-        conf = conf.cases[key];
-        if (!conf) {
-          throw new Error(`getPropTypeConfigByPath() is called with an invalid path.`);
-        }
-      } else {
-        throw new Error(`getPropTypeConfigByPath() is called with an invalid path.`);
-      }
-    } else if (typeof key === "number") {
-      throw new Error(`Number indexes are not implemented yet. @todo`);
-    } else {
-      throw new Error(`getPropTypeConfigByPath() is called with an invalid path.`);
-    }
-  }
-  return conf;
-}
-var import_dataverse27;
-var init_getPropTypeByPointer = __esm({
-  "studio/src/propEditors/utils/getPropTypeByPointer.tsx"() {
-    import_dataverse27 = __toModule(require("@theatre/dataverse"));
-  }
-});
-
 // studio/src/uiComponents/form/BasicCheckbox.tsx
 var BasicCheckbox, BasicCheckbox_default;
 var init_BasicCheckbox = __esm({
@@ -34661,6 +34636,7 @@ var init_BasicCheckbox = __esm({
     init_styled_components_browser_esm();
     BasicCheckbox = styled_components_browser_esm_default.input.attrs({ type: "checkbox" })`
   outline: none;
+  cursor:pointer;
 `;
     BasicCheckbox_default = BasicCheckbox;
   }
@@ -34749,15 +34725,16 @@ var init_useOnClickOutside = __esm({
 });
 
 // studio/src/uiComponents/form/BasicNumberInput.tsx
-function format2(v3) {
-  return isNaN(v3) ? "NaN" : isInteger_default(v3) ? v3.toFixed(0) : round_default(v3, 3).toString();
+function format2(v5) {
+  return isNaN(v5) ? "NaN" : isInteger_default(v5) ? v5.toFixed(0) : round_default(v5, 3).toString();
 }
-var import_react74, import_react75, Container10, Input2, FillIndicator, DragWrap, alwaysValid, BasicNumberInput, BasicNumberInput_default;
+var import_react74, import_react75, import_react76, Container10, Input2, FillIndicator, DragWrap, alwaysValid, BasicNumberInput, BasicNumberInput_default;
 var init_BasicNumberInput = __esm({
   "studio/src/uiComponents/form/BasicNumberInput.tsx"() {
     init_lodash();
     import_react74 = __toModule(require_react());
     import_react75 = __toModule(require_react());
+    import_react76 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_react_merge_refs_esm();
     init_useRefAndState();
@@ -34784,23 +34761,31 @@ var init_BasicNumberInput = __esm({
     border-radius: 1px;
   }
 
-  &:hover,
-  &.dragging,
+  &:hover{
+    &:after {
+      border-color:#4b4b4b;
+    }
+  }
+  &.dragging{
+    &:after {
+      border-color:#40aeff;
+    }
+  }
+
   &.editingViaKeyboard {
     &:after {
-      background-color: #10101042;
-      border-color: #00000059;
+      border-color:#40aeff;
     }
   }
 `;
     Input2 = styled_components_browser_esm_default.input`
   background: transparent;
   border: 1px solid transparent;
-  color: rgba(255, 255, 255, 0.9);
   padding: 1px 6px;
   font: inherit;
   outline: none;
   cursor: ew-resize;
+  color:white;
   text-align: left;
   width: 100%;
   height: calc(100% - 4px);
@@ -34815,31 +34800,31 @@ var init_BasicNumberInput = __esm({
   inset: 3px 2px 4px;
   transform: scale(var(--percentage), 1);
   transform-origin: top left;
-  background-color: #2d5561;
+  background-color: #323232;
   z-index: -1;
   border-radius: 2px;
   pointer-events: none;
 
   ${Container10}.dragging &, ${Container10}.noFocus:hover & {
-    background-color: #338198;
+    background-color: #40aeff;
   }
 `;
     DragWrap = styled_components_browser_esm_default.div`
   display: contents;
 `;
-    alwaysValid = (v3) => true;
+    alwaysValid = (v5) => true;
     BasicNumberInput = (propsA) => {
       var _a2;
       const [stateRef] = useRefAndState({ mode: "noFocus" });
       const isValid = (_a2 = propsA.isValid) != null ? _a2 : alwaysValid;
-      const propsRef = (0, import_react75.useRef)(propsA);
+      const propsRef = (0, import_react76.useRef)(propsA);
       propsRef.current = propsA;
-      const inputRef = (0, import_react75.useRef)(null);
+      const inputRef = (0, import_react76.useRef)(null);
       useOnClickOutside(inputRef.current, () => {
         inputRef.current.blur();
       }, stateRef.current.mode === "editingViaKeyboard");
-      const bodyCursorBeforeDrag = (0, import_react75.useRef)(null);
-      const callbacks = (0, import_react75.useMemo)(() => {
+      const bodyCursorBeforeDrag = (0, import_react76.useRef)(null);
+      const callbacks = (0, import_react76.useMemo)(() => {
         const inputChange = (e2) => {
           const target = e2.target;
           const { value: value2 } = target;
@@ -34959,6 +34944,11 @@ var init_BasicNumberInput = __esm({
           onFocus
         };
       }, []);
+      (0, import_react74.useEffect)(() => {
+        return () => {
+          callbacks.onBlur();
+        };
+      }, []);
       let value = stateRef.current.mode !== "editingViaKeyboard" ? format2(propsA.value) : stateRef.current.currentEditedValueInString;
       if (typeof value === "number" && isNaN(value)) {
         value = "NaN";
@@ -34966,7 +34956,7 @@ var init_BasicNumberInput = __esm({
       const _refs = [inputRef];
       if (propsA.inputRef)
         _refs.push(propsA.inputRef);
-      const theInput = /* @__PURE__ */ import_react75.default.createElement(Input2, {
+      const theInput = /* @__PURE__ */ import_react76.default.createElement(Input2, {
         key: "input",
         type: "text",
         onChange: callbacks.inputChange,
@@ -34987,12 +34977,12 @@ var init_BasicNumberInput = __esm({
       });
       const { range } = propsA;
       const num = parseFloat(value);
-      const fillIndicator = range ? /* @__PURE__ */ import_react75.default.createElement(FillIndicator, {
+      const fillIndicator = range ? /* @__PURE__ */ import_react76.default.createElement(FillIndicator, {
         style: {
           "--percentage": clamp_default((num - range[0]) / (range[1] - range[0]), 0, 1)
         }
       }) : null;
-      const [dragNode, setDragNode] = (0, import_react74.useState)(null);
+      const [dragNode, setDragNode] = (0, import_react75.useState)(null);
       useDrag(dragNode, {
         debugName: "form/BasicNumberInput",
         onDragStart: callbacks.transitionToDraggingMode,
@@ -35000,9 +34990,9 @@ var init_BasicNumberInput = __esm({
         shouldPointerLock: true,
         disabled: stateRef.current.mode === "editingViaKeyboard"
       });
-      return /* @__PURE__ */ import_react75.default.createElement(Container10, {
+      return /* @__PURE__ */ import_react76.default.createElement(Container10, {
         className: propsA.className + " " + stateRef.current.mode
-      }, /* @__PURE__ */ import_react75.default.createElement(DragWrap, {
+      }, /* @__PURE__ */ import_react76.default.createElement(DragWrap, {
         ref: setDragNode
       }, theInput), fillIndicator);
     };
@@ -35017,10 +35007,10 @@ function NumberPropEditor({
   value,
   autoFocus
 }) {
-  const nudge3 = (0, import_react76.useCallback)((params) => {
+  const nudge3 = (0, import_react77.useCallback)((params) => {
     return propConfig.nudgeFn(__spreadProps(__spreadValues({}, params), { config: propConfig }));
   }, [propConfig]);
-  return /* @__PURE__ */ import_react76.default.createElement(BasicNumberInput_default, {
+  return /* @__PURE__ */ import_react77.default.createElement(BasicNumberInput_default, {
     value,
     temporarilySetValue: editingTools.temporarilySetValue,
     discardTemporaryValue: editingTools.discardTemporaryValue,
@@ -35030,11 +35020,11 @@ function NumberPropEditor({
     autoFocus
   });
 }
-var import_react76, NumberPropEditor_default;
+var import_react77, NumberPropEditor_default;
 var init_NumberPropEditor = __esm({
   "studio/src/propEditors/simpleEditors/NumberPropEditor.tsx"() {
     init_BasicNumberInput();
-    import_react76 = __toModule(require_react());
+    import_react77 = __toModule(require_react());
     NumberPropEditor_default = NumberPropEditor;
   }
 });
@@ -35043,18 +35033,18 @@ var init_NumberPropEditor = __esm({
 function BasicSwitch({
   value,
   onChange,
-  options,
+  options: options2,
   autoFocus
 }) {
-  const _onChange = (0, import_react77.useCallback)((el) => {
+  const _onChange = (0, import_react78.useCallback)((el) => {
     onChange(String(el.target.value));
   }, [onChange]);
-  return /* @__PURE__ */ import_react77.default.createElement(Container11, {
+  return /* @__PURE__ */ import_react78.default.createElement(Container11, {
     role: "radiogroup"
-  }, Object.keys(options).map((key, i3) => /* @__PURE__ */ import_react77.default.createElement(Label, {
+  }, Object.keys(options2).map((key, i3) => /* @__PURE__ */ import_react78.default.createElement(Label, {
     key: "label-" + i3,
     "data-checked": value === key
-  }, options[key], /* @__PURE__ */ import_react77.default.createElement(Input3, {
+  }, options2[key], /* @__PURE__ */ import_react78.default.createElement(Input3, {
     type: "radio",
     checked: value === key,
     value: key,
@@ -35063,11 +35053,11 @@ function BasicSwitch({
     autoFocus
   }))));
 }
-var import_react77, Container11, Label, Input3, BasicSwitch_default;
+var import_react78, Container11, Label, Input3, BasicSwitch_default;
 var init_BasicSwitch = __esm({
   "studio/src/uiComponents/form/BasicSwitch.tsx"() {
     init_polished_esm();
-    import_react77 = __toModule(require_react());
+    import_react78 = __toModule(require_react());
     init_styled_components_browser_esm();
     Container11 = styled_components_browser_esm_default.form`
   display: flex;
@@ -35088,6 +35078,7 @@ var init_BasicSwitch = __esm({
   flex-grow: 1;
   color: #a7a7a7;
   border: 1px solid transparent;
+  cursor:pointer;
   box-sizing: border-box;
   border-right-width: 0px;
 
@@ -35096,18 +35087,18 @@ var init_BasicSwitch = __esm({
   }
 
   ${Container11}:hover > & {
-    border-color: #1c2123;
+    // border-color: #1c2123;
     /* background-color: #373748; */
     /* color: ${curriedDarken(0.1, "white")}; */
   }
 
   &&:hover {
-    background-color: #464654;
+    color: white;
   }
 
   &&[data-checked='true'] {
     color: white;
-    background: #3f3f4c;
+    font-weight:600;
   }
 `;
     Input3 = styled_components_browser_esm_default.input`
@@ -35125,27 +35116,27 @@ var init_BasicSwitch = __esm({
 function BasicSelect({
   value,
   onChange,
-  options,
+  options: options2,
   className,
   autoFocus
 }) {
-  const _onChange = (0, import_react78.useCallback)((el) => {
+  const _onChange = (0, import_react79.useCallback)((el) => {
     onChange(String(el.target.value));
   }, [onChange]);
-  return /* @__PURE__ */ import_react78.default.createElement(Container12, null, /* @__PURE__ */ import_react78.default.createElement(Select, {
+  return /* @__PURE__ */ import_react79.default.createElement(Container12, null, /* @__PURE__ */ import_react79.default.createElement(Select, {
     className,
     value,
     onChange: _onChange,
     autoFocus
-  }, Object.keys(options).map((key, i3) => /* @__PURE__ */ import_react78.default.createElement("option", {
+  }, Object.keys(options2).map((key, i3) => /* @__PURE__ */ import_react79.default.createElement(Option, {
     key: "option-" + i3,
     value: key
-  }, options[key]))), /* @__PURE__ */ import_react78.default.createElement(IconContainer, null, /* @__PURE__ */ import_react78.default.createElement(CgSelect, null)));
+  }, options2[key]))), /* @__PURE__ */ import_react79.default.createElement(IconContainer, null, /* @__PURE__ */ import_react79.default.createElement(CgSelect, null)));
 }
-var import_react78, Container12, IconContainer, Select, BasicSelect_default;
+var import_react79, Container12, IconContainer, Select, Option, BasicSelect_default;
 var init_BasicSelect = __esm({
   "studio/src/uiComponents/form/BasicSelect.tsx"() {
-    import_react78 = __toModule(require_react());
+    import_react79 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_all();
     Container12 = styled_components_browser_esm_default.div`
@@ -35169,13 +35160,13 @@ var init_BasicSelect = __esm({
   background-color: transparent;
   box-sizing: border-box;
   border: 1px solid transparent;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
+  cursor:pointer;
   padding: 1px 6px;
   font: inherit;
   outline: none;
   text-align: left;
   width: 100%;
-  border-radius: 2px;
   /*
   looks like putting percentages in the height of a select box doesn't work in Firefox. Not sure why.
   So we're hard-coding the height to 26px, unlike all other inputs that use a relative height.
@@ -35187,11 +35178,25 @@ var init_BasicSelect = __esm({
     text-indent: -2px;
   }
 
-  &:hover,
-  &:focus {
-    background-color: #10101042;
-    border-color: #00000059;
+  &:hover{
+    border-color: #4b4b4b;
   }
+  &:focus {
+    border-color:#40aeff;
+  }
+`;
+    Option = styled_components_browser_esm_default.option`
+  border: none;
+  border-radius:0px;
+  min-width: 100%;
+  background-color: #1e1e1e;
+  box-shadow: 0 5px 17px rgba(0, 0, 0, 0.2),
+  0 2px 7px rgba(0, 0, 0, 0.15), inset 0 0 0 0.5px #000000,
+  0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+  overflow-y: auto;
+  font-family:'Inter', 'Helvetica', sans-serif;
 `;
     BasicSelect_default = BasicSelect;
   }
@@ -35204,25 +35209,25 @@ function StringLiteralPropEditor({
   value,
   autoFocus
 }) {
-  const onChange = (0, import_react79.useCallback)((val59) => {
+  const onChange = (0, import_react80.useCallback)((val59) => {
     editingTools.permanentlySetValue(val59);
   }, [propConfig, editingTools]);
-  return propConfig.as === "menu" ? /* @__PURE__ */ import_react79.default.createElement(BasicSelect_default, {
+  return propConfig.as === "menu" ? /* @__PURE__ */ import_react80.default.createElement(BasicSelect_default, {
     value,
     onChange,
     options: propConfig.valuesAndLabels,
     autoFocus
-  }) : /* @__PURE__ */ import_react79.default.createElement(BasicSwitch_default, {
+  }) : /* @__PURE__ */ import_react80.default.createElement(BasicSwitch_default, {
     value,
     onChange,
     options: propConfig.valuesAndLabels,
     autoFocus
   });
 }
-var import_react79, StringLiteralPropEditor_default;
+var import_react80, StringLiteralPropEditor_default;
 var init_StringLiteralPropEditor = __esm({
   "studio/src/propEditors/simpleEditors/StringLiteralPropEditor.tsx"() {
-    import_react79 = __toModule(require_react());
+    import_react80 = __toModule(require_react());
     init_BasicSwitch();
     init_BasicSelect();
     StringLiteralPropEditor_default = StringLiteralPropEditor;
@@ -35230,14 +35235,15 @@ var init_StringLiteralPropEditor = __esm({
 });
 
 // studio/src/uiComponents/form/BasicStringInput.tsx
-function format3(v3) {
-  return v3;
+function format3(v5) {
+  return v5;
 }
-var import_react80, Input4, alwaysValid2, BasicStringInput, BasicStringInput_default;
+var import_react81, import_react82, Input4, alwaysValid2, BasicStringInput, BasicStringInput_default;
 var init_BasicStringInput = __esm({
   "studio/src/uiComponents/form/BasicStringInput.tsx"() {
     init_styled_components_browser_esm();
-    import_react80 = __toModule(require_react());
+    import_react81 = __toModule(require_react());
+    import_react82 = __toModule(require_react());
     init_react_merge_refs_esm();
     init_useRefAndState();
     init_useOnClickOutside();
@@ -35252,38 +35258,37 @@ var init_BasicStringInput = __esm({
   text-align: left;
   width: 100%;
   height: calc(100% - 4px);
-  border-radius: 2px;
-  border: 1px solid transparent;
   box-sizing: border-box;
 
   &:hover {
-    background-color: #10101042;
-    border-color: #00000059;
+    border-color: #4b4b4b;
   }
 
-  &:hover,
+  &:hover{
+    cursor: text;
+    border-color: #4b4b4b;
+  }
   &:focus {
     cursor: text;
-    background-color: #10101042;
-    border-color: #00000059;
+    border-color: #40aeff;
   }
 
   &.invalid {
     border-color: red;
   }
 `;
-    alwaysValid2 = (v3) => true;
+    alwaysValid2 = (v5) => true;
     BasicStringInput = (props) => {
       var _a2, _b;
       const [stateRef] = useRefAndState({ mode: "noFocus" });
       const isValid = (_a2 = props.isValid) != null ? _a2 : alwaysValid2;
-      const propsRef = (0, import_react80.useRef)(props);
+      const propsRef = (0, import_react82.useRef)(props);
       propsRef.current = props;
-      const inputRef = (0, import_react80.useRef)(null);
+      const inputRef = (0, import_react82.useRef)(null);
       useOnClickOutside(inputRef.current, () => {
         inputRef.current.blur();
       }, stateRef.current.mode === "editingViaKeyboard");
-      const callbacks = (0, import_react80.useMemo)(() => {
+      const callbacks = (0, import_react82.useMemo)(() => {
         const inputChange = (e2) => {
           const target = e2.target;
           const { value: value2 } = target;
@@ -35359,11 +35364,16 @@ var init_BasicStringInput = __esm({
           onFocus
         };
       }, []);
+      (0, import_react81.useEffect)(() => {
+        return () => {
+          callbacks.onBlur();
+        };
+      }, []);
       let value = stateRef.current.mode !== "editingViaKeyboard" ? format3(props.value) : stateRef.current.currentEditedValueInString;
       const _refs = [inputRef];
       if (props.inputRef)
         _refs.push(props.inputRef);
-      const theInput = /* @__PURE__ */ import_react80.default.createElement(Input4, {
+      const theInput = /* @__PURE__ */ import_react82.default.createElement(Input4, {
         key: "input",
         type: "text",
         className: `${(_b = props.className) != null ? _b : ""} ${!isValid(value) ? "invalid" : ""}`,
@@ -35395,7 +35405,7 @@ function StringPropEditor({
   value,
   autoFocus
 }) {
-  return /* @__PURE__ */ import_react81.default.createElement(BasicStringInput_default, {
+  return /* @__PURE__ */ import_react83.default.createElement(BasicStringInput_default, {
     value,
     temporarilySetValue: editingTools.temporarilySetValue,
     discardTemporaryValue: editingTools.discardTemporaryValue,
@@ -35403,10 +35413,10 @@ function StringPropEditor({
     autoFocus
   });
 }
-var import_react81, StringPropEditor_default;
+var import_react83, StringPropEditor_default;
 var init_StringPropEditor = __esm({
   "studio/src/propEditors/simpleEditors/StringPropEditor.tsx"() {
-    import_react81 = __toModule(require_react());
+    import_react83 = __toModule(require_react());
     init_BasicStringInput();
     StringPropEditor_default = StringPropEditor;
   }
@@ -35468,17 +35478,17 @@ var init_color = __esm({
 
 // studio/src/uiComponents/colorPicker/hooks/useEventCallback.ts
 function useEventCallback(handler) {
-  const callbackRef = (0, import_react82.useRef)(handler);
-  const fn2 = (0, import_react82.useRef)((value) => {
+  const callbackRef = (0, import_react84.useRef)(handler);
+  const fn2 = (0, import_react84.useRef)((value) => {
     callbackRef.current && callbackRef.current(value);
   });
   callbackRef.current = handler;
   return fn2.current;
 }
-var import_react82;
+var import_react84;
 var init_useEventCallback = __esm({
   "studio/src/uiComponents/colorPicker/hooks/useEventCallback.ts"() {
-    import_react82 = __toModule(require_react());
+    import_react84 = __toModule(require_react());
   }
 });
 
@@ -35493,29 +35503,29 @@ var init_clamp2 = __esm({
 });
 
 // studio/src/uiComponents/colorPicker/components/EditingProvider.tsx
-var import_react83, editingContext, EditingProvider, useEditing;
+var import_react85, editingContext, EditingProvider, useEditing;
 var init_EditingProvider = __esm({
   "studio/src/uiComponents/colorPicker/components/EditingProvider.tsx"() {
-    import_react83 = __toModule(require_react());
-    editingContext = (0, import_react83.createContext)(void 0);
+    import_react85 = __toModule(require_react());
+    editingContext = (0, import_react85.createContext)(void 0);
     EditingProvider = ({ children }) => {
-      const [editing, setEditing] = (0, import_react83.useState)(false);
-      return /* @__PURE__ */ import_react83.default.createElement(editingContext.Provider, {
+      const [editing, setEditing] = (0, import_react85.useState)(false);
+      return /* @__PURE__ */ import_react85.default.createElement(editingContext.Provider, {
         value: {
           editing,
           setEditing
         }
       }, children);
     };
-    useEditing = () => (0, import_react83.useContext)(editingContext);
+    useEditing = () => (0, import_react85.useContext)(editingContext);
   }
 });
 
 // studio/src/uiComponents/colorPicker/components/common/Interactive.tsx
-var import_react84, isTouch, getTouchPoint, getParentWindow, getRelativePosition, preventDefaultMove, isInvalid, Container13, InteractiveBase, Interactive;
+var import_react86, isTouch, getTouchPoint, getParentWindow, getRelativePosition, preventDefaultMove, isInvalid, Container13, InteractiveBase, Interactive;
 var init_Interactive = __esm({
   "studio/src/uiComponents/colorPicker/components/common/Interactive.tsx"() {
-    import_react84 = __toModule(require_react());
+    import_react86 = __toModule(require_react());
     init_useEventCallback();
     init_clamp2();
     init_styled_components_browser_esm();
@@ -35558,13 +35568,13 @@ var init_Interactive = __esm({
 `;
     InteractiveBase = (_a2) => {
       var _b = _a2, { onMove, onKey } = _b, rest = __objRest(_b, ["onMove", "onKey"]);
-      const container = (0, import_react84.useRef)(null);
+      const container = (0, import_react86.useRef)(null);
       const onMoveCallback = useEventCallback(onMove);
       const onKeyCallback = useEventCallback(onKey);
-      const touchId = (0, import_react84.useRef)(null);
-      const hasTouch = (0, import_react84.useRef)(false);
+      const touchId = (0, import_react86.useRef)(null);
+      const hasTouch = (0, import_react86.useRef)(false);
       const { setEditing } = useEditing();
-      const [handleMoveStart, handleKeyDown, toggleDocumentEvents] = (0, import_react84.useMemo)(() => {
+      const [handleMoveStart, handleKeyDown, toggleDocumentEvents] = (0, import_react86.useMemo)(() => {
         const handleMoveStart2 = ({
           nativeEvent
         }) => {
@@ -35619,8 +35629,8 @@ var init_Interactive = __esm({
         }
         return [handleMoveStart2, handleKeyDown2, toggleDocumentEvents2];
       }, [onKeyCallback, onMoveCallback]);
-      (0, import_react84.useEffect)(() => toggleDocumentEvents, [toggleDocumentEvents]);
-      return /* @__PURE__ */ import_react84.default.createElement(Container13, __spreadProps(__spreadValues({}, rest), {
+      (0, import_react86.useEffect)(() => toggleDocumentEvents, [toggleDocumentEvents]);
+      return /* @__PURE__ */ import_react86.default.createElement(Container13, __spreadProps(__spreadValues({}, rest), {
         onTouchStart: handleMoveStart,
         onMouseDown: handleMoveStart,
         ref: container,
@@ -35629,15 +35639,15 @@ var init_Interactive = __esm({
         role: "slider"
       }));
     };
-    Interactive = import_react84.default.memo(InteractiveBase);
+    Interactive = import_react86.default.memo(InteractiveBase);
   }
 });
 
 // studio/src/uiComponents/colorPicker/components/common/Pointer.tsx
-var import_react85, StyledInteractive, Container14, Fill, Pointer;
+var import_react87, StyledInteractive, Container14, Fill, Pointer;
 var init_Pointer = __esm({
   "studio/src/uiComponents/colorPicker/components/common/Pointer.tsx"() {
-    import_react85 = __toModule(require_react());
+    import_react87 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Interactive();
     StyledInteractive = styled_components_browser_esm_default(Interactive)``;
@@ -35677,10 +35687,10 @@ var init_Pointer = __esm({
         top: `${top * 100}%`,
         left: `${left * 100}%`
       };
-      return /* @__PURE__ */ import_react85.default.createElement(Container14, {
+      return /* @__PURE__ */ import_react87.default.createElement(Container14, {
         style,
         className
-      }, /* @__PURE__ */ import_react85.default.createElement(Fill, {
+      }, /* @__PURE__ */ import_react87.default.createElement(Fill, {
         style: { backgroundColor: color2 }
       }));
     };
@@ -35707,54 +35717,54 @@ var init_convert = __esm({
       turn: 360,
       rad: 360 / (Math.PI * 2)
     };
-    hsvaToHsla = ({ h: h3, s: s3, v: v3, a: a3 }) => {
-      const hh = (200 - s3) * v3 / 100;
+    hsvaToHsla = ({ h: h4, s: s3, v: v5, a: a4 }) => {
+      const hh = (200 - s3) * v5 / 100;
       return {
-        h: round2(h3),
-        s: round2(hh > 0 && hh < 200 ? s3 * v3 / 100 / (hh <= 100 ? hh : 200 - hh) * 100 : 0),
+        h: round2(h4),
+        s: round2(hh > 0 && hh < 200 ? s3 * v5 / 100 / (hh <= 100 ? hh : 200 - hh) * 100 : 0),
         l: round2(hh / 2),
-        a: round2(a3, 2)
+        a: round2(a4, 2)
       };
     };
     hsvaToHslString = (hsva) => {
-      const { h: h3, s: s3, l: l3 } = hsvaToHsla(hsva);
-      return `hsl(${h3}, ${s3}%, ${l3}%)`;
+      const { h: h4, s: s3, l: l4 } = hsvaToHsla(hsva);
+      return `hsl(${h4}, ${s3}%, ${l4}%)`;
     };
     hsvaToHslaString = (hsva) => {
-      const { h: h3, s: s3, l: l3, a: a3 } = hsvaToHsla(hsva);
-      return `hsla(${h3}, ${s3}%, ${l3}%, ${a3})`;
+      const { h: h4, s: s3, l: l4, a: a4 } = hsvaToHsla(hsva);
+      return `hsla(${h4}, ${s3}%, ${l4}%, ${a4})`;
     };
-    hsvaToRgba = ({ h: h3, s: s3, v: v3, a: a3 }) => {
-      h3 = h3 / 360 * 6;
+    hsvaToRgba = ({ h: h4, s: s3, v: v5, a: a4 }) => {
+      h4 = h4 / 360 * 6;
       s3 = s3 / 100;
-      v3 = v3 / 100;
-      const hh = Math.floor(h3), b3 = v3 * (1 - s3), c3 = v3 * (1 - (h3 - hh) * s3), d3 = v3 * (1 - (1 - h3 + hh) * s3), module2 = hh % 6;
+      v5 = v5 / 100;
+      const hh = Math.floor(h4), b4 = v5 * (1 - s3), c3 = v5 * (1 - (h4 - hh) * s3), d3 = v5 * (1 - (1 - h4 + hh) * s3), module2 = hh % 6;
       return {
-        r: round2([v3, c3, b3, b3, d3, v3][module2] * 255),
-        g: round2([d3, v3, v3, c3, b3, b3][module2] * 255),
-        b: round2([b3, b3, d3, v3, v3, c3][module2] * 255),
-        a: round2(a3, 2)
+        r: round2([v5, c3, b4, b4, d3, v5][module2] * 255),
+        g: round2([d3, v5, v5, c3, b4, b4][module2] * 255),
+        b: round2([b4, b4, d3, v5, v5, c3][module2] * 255),
+        a: round2(a4, 2)
       };
     };
-    rgbaToHsva = ({ r: r3, g: g3, b: b3, a: a3 }) => {
-      const max = Math.max(r3, g3, b3);
-      const delta = max - Math.min(r3, g3, b3);
-      const hh = delta ? max === r3 ? (g3 - b3) / delta : max === g3 ? 2 + (b3 - r3) / delta : 4 + (r3 - g3) / delta : 0;
+    rgbaToHsva = ({ r: r3, g: g4, b: b4, a: a4 }) => {
+      const max = Math.max(r3, g4, b4);
+      const delta = max - Math.min(r3, g4, b4);
+      const hh = delta ? max === r3 ? (g4 - b4) / delta : max === g4 ? 2 + (b4 - r3) / delta : 4 + (r3 - g4) / delta : 0;
       return {
         h: round2(60 * (hh < 0 ? hh + 6 : hh)),
         s: round2(max ? delta / max * 100 : 0),
         v: round2(max / 255 * 100),
-        a: a3
+        a: a4
       };
     };
   }
 });
 
 // studio/src/uiComponents/colorPicker/components/common/Hue.tsx
-var import_react86, Container15, StyledPointer, HueBase, Hue;
+var import_react88, Container15, StyledPointer, HueBase, Hue;
 var init_Hue = __esm({
   "studio/src/uiComponents/colorPicker/components/common/Hue.tsx"() {
-    import_react86 = __toModule(require_react());
+    import_react88 = __toModule(require_react());
     init_Interactive();
     init_Pointer();
     init_convert();
@@ -35789,27 +35799,27 @@ var init_Hue = __esm({
           h: clamp2(hue + offset.left * 360, 0, 360)
         });
       };
-      return /* @__PURE__ */ import_react86.default.createElement(Container15, {
+      return /* @__PURE__ */ import_react88.default.createElement(Container15, {
         className
-      }, /* @__PURE__ */ import_react86.default.createElement(Interactive, {
+      }, /* @__PURE__ */ import_react88.default.createElement(Interactive, {
         onMove: handleMove,
         onKey: handleKey,
         "aria-label": "Hue",
         "aria-valuetext": round2(hue)
-      }, /* @__PURE__ */ import_react86.default.createElement(StyledPointer, {
+      }, /* @__PURE__ */ import_react88.default.createElement(StyledPointer, {
         left: hue / 360,
         color: hsvaToHslString({ h: hue, s: 100, v: 100, a: 1 })
       })));
     };
-    Hue = import_react86.default.memo(HueBase);
+    Hue = import_react88.default.memo(HueBase);
   }
 });
 
 // studio/src/uiComponents/colorPicker/components/common/Saturation.tsx
-var import_react87, Container16, StyledPointer2, SaturationBase, Saturation;
+var import_react89, Container16, StyledPointer2, SaturationBase, Saturation;
 var init_Saturation = __esm({
   "studio/src/uiComponents/colorPicker/components/common/Saturation.tsx"() {
-    import_react87 = __toModule(require_react());
+    import_react89 = __toModule(require_react());
     init_Interactive();
     init_Pointer();
     init_convert();
@@ -35847,28 +35857,28 @@ var init_Saturation = __esm({
       const containerStyle = {
         backgroundColor: hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })
       };
-      return /* @__PURE__ */ import_react87.default.createElement(Container16, {
+      return /* @__PURE__ */ import_react89.default.createElement(Container16, {
         style: containerStyle
-      }, /* @__PURE__ */ import_react87.default.createElement(Interactive, {
+      }, /* @__PURE__ */ import_react89.default.createElement(Interactive, {
         onMove: handleMove,
         onKey: handleKey,
         "aria-label": "Color",
         "aria-valuetext": `Saturation ${round2(hsva.s)}%, Brightness ${round2(hsva.v)}%`
-      }, /* @__PURE__ */ import_react87.default.createElement(StyledPointer2, {
+      }, /* @__PURE__ */ import_react89.default.createElement(StyledPointer2, {
         top: 1 - hsva.v / 100,
         left: hsva.s / 100,
         color: hsvaToHslString(hsva)
       })));
     };
-    Saturation = import_react87.default.memo(SaturationBase);
+    Saturation = import_react89.default.memo(SaturationBase);
   }
 });
 
 // studio/src/uiComponents/colorPicker/components/common/Alpha.tsx
-var import_react88, Container17, Gradient, StyledPointer3, Alpha;
+var import_react90, Container17, Gradient, StyledPointer3, Alpha;
 var init_Alpha = __esm({
   "studio/src/uiComponents/colorPicker/components/common/Alpha.tsx"() {
-    import_react88 = __toModule(require_react());
+    import_react90 = __toModule(require_react());
     init_Interactive();
     init_Pointer();
     init_convert();
@@ -35914,17 +35924,17 @@ var init_Alpha = __esm({
       };
       const colorFrom = hsvaToHslaString(Object.assign({}, hsva, { a: 0 }));
       const colorTo = hsvaToHslaString(Object.assign({}, hsva, { a: 1 }));
-      return /* @__PURE__ */ import_react88.default.createElement(Container17, {
+      return /* @__PURE__ */ import_react90.default.createElement(Container17, {
         className
-      }, /* @__PURE__ */ import_react88.default.createElement(Gradient, {
+      }, /* @__PURE__ */ import_react90.default.createElement(Gradient, {
         colorFrom,
         colorTo
-      }), /* @__PURE__ */ import_react88.default.createElement(Interactive, {
+      }), /* @__PURE__ */ import_react90.default.createElement(Interactive, {
         onMove: handleMove,
         onKey: handleKey,
         "aria-label": "Alpha",
         "aria-valuetext": `${round2(hsva.a * 100)}%`
-      }, /* @__PURE__ */ import_react88.default.createElement(StyledPointer3, {
+      }, /* @__PURE__ */ import_react90.default.createElement(StyledPointer3, {
         left: hsva.a,
         color: hsvaToHslaString(hsva)
       })));
@@ -35951,19 +35961,19 @@ var init_compare = __esm({
 // studio/src/uiComponents/colorPicker/hooks/useColorManipulation.ts
 function useColorManipulation(colorModel2, color2, onTemporarilyChange, onPermanentlyChange) {
   const { editing } = useEditing();
-  const [editingValue, setEditingValue] = (0, import_react89.useState)(color2);
+  const [editingValue, setEditingValue] = (0, import_react91.useState)(color2);
   const onTemporarilyChangeCallback = useEventCallback(onTemporarilyChange);
   const onPermanentlyChangeCallback = useEventCallback(onPermanentlyChange);
   let value = editing ? editingValue : color2;
-  const [hsva, updateHsva] = (0, import_react89.useState)(() => colorModel2.toHsva(value));
-  const tempCache = (0, import_react89.useRef)({ color: value, hsva });
-  const permCache = (0, import_react89.useRef)({ color: value, hsva });
-  (0, import_react89.useEffect)(() => {
+  const [hsva, updateHsva] = (0, import_react91.useState)(() => colorModel2.toHsva(value));
+  const tempCache = (0, import_react91.useRef)({ color: value, hsva });
+  const permCache = (0, import_react91.useRef)({ color: value, hsva });
+  (0, import_react91.useEffect)(() => {
     if (editing) {
       setEditingValue(tempCache.current.color);
     }
   }, [editing]);
-  (0, import_react89.useEffect)(() => {
+  (0, import_react91.useEffect)(() => {
     let newColor = colorModel2.fromHsva(hsva);
     if (editing) {
       if (!equalColorObjects(hsva, tempCache.current.hsva) && !colorModel2.equal(newColor, tempCache.current.color)) {
@@ -35985,7 +35995,7 @@ function useColorManipulation(colorModel2, color2, onTemporarilyChange, onPerman
     onTemporarilyChangeCallback,
     onPermanentlyChangeCallback
   ]);
-  (0, import_react89.useEffect)(() => {
+  (0, import_react91.useEffect)(() => {
     if (!editing) {
       if (!colorModel2.equal(value, permCache.current.color)) {
         const newHsva = colorModel2.toHsva(value);
@@ -35994,15 +36004,15 @@ function useColorManipulation(colorModel2, color2, onTemporarilyChange, onPerman
       }
     }
   }, [editing, value, colorModel2]);
-  const handleChange = (0, import_react89.useCallback)((params) => {
+  const handleChange = (0, import_react91.useCallback)((params) => {
     updateHsva((current) => Object.assign({}, current, params));
   }, []);
   return [hsva, handleChange];
 }
-var import_react89;
+var import_react91;
 var init_useColorManipulation = __esm({
   "studio/src/uiComponents/colorPicker/hooks/useColorManipulation.ts"() {
-    import_react89 = __toModule(require_react());
+    import_react91 = __toModule(require_react());
     init_compare();
     init_useEventCallback();
     init_EditingProvider();
@@ -36010,10 +36020,10 @@ var init_useColorManipulation = __esm({
 });
 
 // studio/src/uiComponents/colorPicker/components/common/AlphaColorPicker.tsx
-var import_react90, Container18, AlphaColorPicker;
+var import_react92, Container18, AlphaColorPicker;
 var init_AlphaColorPicker = __esm({
   "studio/src/uiComponents/colorPicker/components/common/AlphaColorPicker.tsx"() {
-    import_react90 = __toModule(require_react());
+    import_react92 = __toModule(require_react());
     init_Hue();
     init_Saturation();
     init_Alpha();
@@ -36046,18 +36056,18 @@ var init_AlphaColorPicker = __esm({
         "discardTemporaryValue"
       ]);
       const [tempHsva, updateHsva] = useColorManipulation(colorModel2, color2, temporarilySetValue, permanentlySetValue);
-      (0, import_react90.useEffect)(() => {
+      (0, import_react92.useEffect)(() => {
         return () => {
           discardTemporaryValue();
         };
       }, []);
-      return /* @__PURE__ */ import_react90.default.createElement(Container18, __spreadValues({}, rest), /* @__PURE__ */ import_react90.default.createElement(Saturation, {
+      return /* @__PURE__ */ import_react92.default.createElement(Container18, __spreadValues({}, rest), /* @__PURE__ */ import_react92.default.createElement(Saturation, {
         hsva: tempHsva,
         onChange: updateHsva
-      }), /* @__PURE__ */ import_react90.default.createElement(Hue, {
+      }), /* @__PURE__ */ import_react92.default.createElement(Hue, {
         hue: tempHsva.h,
         onChange: updateHsva
-      }), /* @__PURE__ */ import_react90.default.createElement(Alpha, {
+      }), /* @__PURE__ */ import_react92.default.createElement(Alpha, {
         hsva: tempHsva,
         onChange: updateHsva
       }));
@@ -36066,10 +36076,10 @@ var init_AlphaColorPicker = __esm({
 });
 
 // studio/src/uiComponents/colorPicker/components/RgbaColorPicker.tsx
-var import_react91, normalizeRgba, denormalizeRgba, colorModel, RgbaColorPicker;
+var import_react93, normalizeRgba, denormalizeRgba, colorModel, RgbaColorPicker;
 var init_RgbaColorPicker = __esm({
   "studio/src/uiComponents/colorPicker/components/RgbaColorPicker.tsx"() {
-    import_react91 = __toModule(require_react());
+    import_react93 = __toModule(require_react());
     init_AlphaColorPicker();
     init_compare();
     init_convert();
@@ -36096,7 +36106,7 @@ var init_RgbaColorPicker = __esm({
       fromHsva: (hsva) => normalizeRgba(hsvaToRgba(hsva)),
       equal: equalColorObjects
     };
-    RgbaColorPicker = (props) => /* @__PURE__ */ import_react91.default.createElement(EditingProvider, null, /* @__PURE__ */ import_react91.default.createElement(AlphaColorPicker, __spreadProps(__spreadValues({}, props), {
+    RgbaColorPicker = (props) => /* @__PURE__ */ import_react93.default.createElement(EditingProvider, null, /* @__PURE__ */ import_react93.default.createElement(AlphaColorPicker, __spreadProps(__spreadValues({}, props), {
       permanentlySetValue: (newColor) => {
         props.permanentlySetValue(newColor);
       },
@@ -36113,11 +36123,11 @@ var init_colorPicker = __esm({
 });
 
 // studio/src/uiComponents/Popover/ArrowContext.tsx
-var import_react92, ArrowContext, ArrowContext_default;
+var import_react94, ArrowContext, ArrowContext_default;
 var init_ArrowContext = __esm({
   "studio/src/uiComponents/Popover/ArrowContext.tsx"() {
-    import_react92 = __toModule(require_react());
-    ArrowContext = (0, import_react92.createContext)({});
+    import_react94 = __toModule(require_react());
+    ArrowContext = (0, import_react94.createContext)({});
     ArrowContext_default = ArrowContext;
   }
 });
@@ -36141,11 +36151,11 @@ var init_onPointerOutside = __esm({
 });
 
 // studio/src/uiComponents/Popover/TooltipWrapper.tsx
-var import_react93, import_react94, minimumDistanceOfArrowToEdgeOfPopover, TooltipWrapper, TooltipWrapper_default;
+var import_react95, import_react96, minimumDistanceOfArrowToEdgeOfPopover, TooltipWrapper, TooltipWrapper_default;
 var init_TooltipWrapper = __esm({
   "studio/src/uiComponents/Popover/TooltipWrapper.tsx"() {
-    import_react93 = __toModule(require_react());
-    import_react94 = __toModule(require_react());
+    import_react95 = __toModule(require_react());
+    import_react96 = __toModule(require_react());
     init_useWindowSize();
     init_useBoundingClientRect();
     init_ArrowContext();
@@ -36164,8 +36174,8 @@ var init_TooltipWrapper = __esm({
       const containerRect = useBoundingClientRect(container);
       const targetRect = useBoundingClientRect(props.target);
       const windowSize = useWindowSize_default();
-      const [arrowContextValue, setArrowContextValue] = (0, import_react94.useState)({});
-      (0, import_react94.useLayoutEffect)(() => {
+      const [arrowContextValue, setArrowContextValue] = (0, import_react96.useState)({});
+      (0, import_react96.useLayoutEffect)(() => {
         var _a3, _b2, _c;
         if (!containerRect || !container || !targetRect)
           return;
@@ -36241,9 +36251,9 @@ var init_TooltipWrapper = __esm({
         props.onPointerOutside
       ]);
       useOnClickOutside([container, (_a2 = props.target) != null ? _a2 : null], (_b = props.onClickOutside) != null ? _b : noop_default2);
-      return /* @__PURE__ */ import_react93.default.createElement(ArrowContext_default.Provider, {
+      return /* @__PURE__ */ import_react95.default.createElement(ArrowContext_default.Provider, {
         value: arrowContextValue
-      }, (0, import_react94.cloneElement)(originalElement, { ref, style }));
+      }, (0, import_react96.cloneElement)(originalElement, { ref, style }));
     };
     TooltipWrapper_default = TooltipWrapper;
   }
@@ -36257,12 +36267,12 @@ function usePopover(opts, render) {
   const [stateRef, state] = useRefAndState({
     isOpen: false
   });
-  const optsRef = (0, import_react95.useRef)(opts);
-  const close = (0, import_react95.useCallback)((reason) => {
+  const optsRef = (0, import_react97.useRef)(opts);
+  const close = (0, import_react97.useCallback)((reason) => {
     _debug(`closing due to "${reason}"`);
     stateRef.current = { isOpen: false };
   }, []);
-  const open = (0, import_react95.useCallback)((e2, target) => {
+  const open = (0, import_react97.useCallback)((e2, target) => {
     var _a2;
     const opts2 = typeof optsRef.current === "function" ? optsRef.current() : optsRef.current;
     function onClickOutside() {
@@ -36290,7 +36300,7 @@ function usePopover(opts, render) {
       }
     };
   }, []);
-  const toggle = (0, import_react95.useCallback)((...args) => {
+  const toggle = (0, import_react97.useCallback)((...args) => {
     if (stateRef.current.isOpen) {
       close("toggled");
     } else {
@@ -36301,40 +36311,40 @@ function usePopover(opts, render) {
     _debug,
     state
   });
-  const [, addContextMenu] = (0, import_react95.useContext)(contextMenuShownContext);
-  (0, import_react95.useEffect)(() => {
+  const [, addContextMenu] = (0, import_react97.useContext)(contextMenuShownContext);
+  (0, import_react97.useEffect)(() => {
     let removeContextMenu;
     if (state.isOpen) {
       removeContextMenu = addContextMenu();
     }
     return () => removeContextMenu == null ? void 0 : removeContextMenu();
   }, [state.isOpen]);
-  const portalLayer = (0, import_react95.useContext)(PortalContext);
-  const node = state.isOpen ? (0, import_react_dom6.createPortal)(/* @__PURE__ */ import_react95.default.createElement(PopoverAutoCloseLock.Provider, {
+  const portalLayer = (0, import_react97.useContext)(PortalContext);
+  const node = state.isOpen ? (0, import_react_dom6.createPortal)(/* @__PURE__ */ import_react97.default.createElement(PopoverAutoCloseLock.Provider, {
     value: lock.childPopoverLock
-  }, /* @__PURE__ */ import_react95.default.createElement(TooltipWrapper_default, {
+  }, /* @__PURE__ */ import_react97.default.createElement(TooltipWrapper_default, {
     children: render,
     target: state.target,
     onClickOutside: state.onClickOutside,
     onPointerOutside: state.onPointerOutside,
     constraints: state.opts.constraints,
     verticalGap: state.opts.verticalGap
-  })), portalLayer) : /* @__PURE__ */ import_react95.default.createElement(import_react95.default.Fragment, null);
+  })), portalLayer) : /* @__PURE__ */ import_react97.default.createElement(import_react97.default.Fragment, null);
   return { node, open, close, toggle, isOpen: state.isOpen };
 }
-function useAutoCloseLockState(options) {
-  const parentLock = (0, import_react95.useContext)(PopoverAutoCloseLock);
-  (0, import_react95.useEffect)(() => {
-    if (options.state.isOpen) {
+function useAutoCloseLockState(options2) {
+  const parentLock = (0, import_react97.useContext)(PopoverAutoCloseLock);
+  (0, import_react97.useEffect)(() => {
+    if (options2.state.isOpen) {
       const focused = parentLock.takeFocus();
-      options._debug("take focus");
+      options2._debug("take focus");
       return () => {
-        options._debug("release focus");
+        options2._debug("release focus");
         focused.releaseFocus();
       };
     }
-  }, [options.state.isOpen]);
-  const childHasFocusRef = (0, import_react95.useRef)(false);
+  }, [options2.state.isOpen]);
+  const childHasFocusRef = (0, import_react97.useRef)(false);
   return {
     childHasFocusRef,
     childPopoverLock: {
@@ -36349,17 +36359,17 @@ function useAutoCloseLockState(options) {
     }
   };
 }
-var import_react95, import_react_dom6, PopoverAutoCloseLock;
+var import_react97, import_react_dom6, PopoverAutoCloseLock;
 var init_usePopover = __esm({
   "studio/src/uiComponents/Popover/usePopover.tsx"() {
     init_PointerCapturing();
     init_useRefAndState();
-    import_react95 = __toModule(require_react());
+    import_react97 = __toModule(require_react());
     import_react_dom6 = __toModule(require_react_dom());
     init_es2();
     init_TooltipWrapper();
     init_DetailPanel();
-    PopoverAutoCloseLock = import_react95.default.createContext({
+    PopoverAutoCloseLock = import_react97.default.createContext({
       takeFocus() {
         return {
           releaseFocus() {
@@ -36371,10 +36381,10 @@ var init_usePopover = __esm({
 });
 
 // studio/src/uiComponents/Popover/PopoverArrow.tsx
-var import_react96, Container19, Adjust, InnerTriangle, InnerStroke, OuterStroke, PopoverArrow, PopoverArrow_default;
+var import_react98, Container19, Adjust, InnerTriangle, InnerStroke, OuterStroke, PopoverArrow, PopoverArrow_default;
 var init_PopoverArrow = __esm({
   "studio/src/uiComponents/Popover/PopoverArrow.tsx"() {
-    import_react96 = __toModule(require_react());
+    import_react98 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_ArrowContext();
     Container19 = styled_components_browser_esm_default.div`
@@ -36394,31 +36404,35 @@ var init_PopoverArrow = __esm({
   line-height: 0;
 `;
     InnerTriangle = styled_components_browser_esm_default.path`
-  fill: var(--popover-bg);
+  // fill: var(--popover-bg);
+  // fill: white;
+  fill:black;
 `;
     InnerStroke = styled_components_browser_esm_default.path`
-  fill: var(--popover-inner-stroke);
+  // fill: var(--popover-inner-stroke);
+  fill:#4b4b4b;
 `;
     OuterStroke = styled_components_browser_esm_default.path`
-  fill: var(--popover-outer-stroke);
+  // fill: var(--popover-outer-stroke);
+  fill:transparent;
 `;
-    PopoverArrow = (0, import_react96.forwardRef)(({ className }, ref) => {
-      const arrowStyle = (0, import_react96.useContext)(ArrowContext_default);
-      return /* @__PURE__ */ import_react96.default.createElement(Container19, {
+    PopoverArrow = (0, import_react98.forwardRef)(({ className }, ref) => {
+      const arrowStyle = (0, import_react98.useContext)(ArrowContext_default);
+      return /* @__PURE__ */ import_react98.default.createElement(Container19, {
         className,
         ref,
         style: __spreadValues({}, arrowStyle)
-      }, /* @__PURE__ */ import_react96.default.createElement(Adjust, null, /* @__PURE__ */ import_react96.default.createElement("svg", {
+      }, /* @__PURE__ */ import_react98.default.createElement(Adjust, null, /* @__PURE__ */ import_react98.default.createElement("svg", {
         width: "12",
         height: "8",
         viewBox: "0 0 12 8",
         fill: "none",
         xmlns: "http://www.w3.org/2000/svg"
-      }, /* @__PURE__ */ import_react96.default.createElement(OuterStroke, {
+      }, /* @__PURE__ */ import_react98.default.createElement(OuterStroke, {
         d: "M6 0L0 6H12L6 0Z"
-      }), /* @__PURE__ */ import_react96.default.createElement(InnerStroke, {
+      }), /* @__PURE__ */ import_react98.default.createElement(InnerStroke, {
         d: "M6 1.5L0 7.5H12L6 1.5Z"
-      }), /* @__PURE__ */ import_react96.default.createElement(InnerTriangle, {
+      }), /* @__PURE__ */ import_react98.default.createElement(InnerTriangle, {
         d: "M6 3L0 9H12L6 3Z"
       }))));
     });
@@ -36427,22 +36441,23 @@ var init_PopoverArrow = __esm({
 });
 
 // studio/src/uiComponents/Popover/BasicPopover.tsx
-var import_react97, popoverBackgroundColor, Container20, BasicPopover, BasicPopover_default;
+var import_react99, popoverBackgroundColor, Container20, BasicPopover, BasicPopover_default;
 var init_BasicPopover = __esm({
   "studio/src/uiComponents/Popover/BasicPopover.tsx"() {
     init_css();
     init_polished_esm();
-    import_react97 = __toModule(require_react());
+    import_react99 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_PopoverArrow();
     popoverBackgroundColor = curriedTransparentize(0.05, `#2a2a31`);
     Container20 = styled_components_browser_esm_default.div`
   position: absolute;
-  --popover-bg: ${popoverBackgroundColor};
-  --popover-inner-stroke: #505159;
-  --popover-outer-stroke: #111;
+  //--popover-bg: ${popoverBackgroundColor};
+  // --popover-bg:rgba(255,255,255,0.95);
+  // --popover-inner-stroke: #4b4b4b; //505159
+  // --popover-outer-stroke: #111;
 
-  background: var(--popover-bg);
+  background: rgba(0,0,0,0.99);
 
   color: white;
   padding: 0;
@@ -36451,23 +36466,23 @@ var init_BasicPopover = __esm({
   ${pointerEventsAutoInNormalMode};
   border-radius: 3px;
   z-index: 10000;
-  border: 1px solid var(--popover-inner-stroke);
-  box-shadow: 0 0 0 1px var(--popover-outer-stroke), 0 6px 8px -4px black;
-  backdrop-filter: blur(8px);
+  
+  // border: 1px solid var(--popover-inner-stroke);
+  border: 1px solid #4b4b4b;
 
   & a {
     color: inherit;
   }
 `;
-    BasicPopover = import_react97.default.forwardRef(({
+    BasicPopover = import_react99.default.forwardRef(({
       children,
       className,
       showPopoverEdgeTriangle = true
     }, ref) => {
-      return /* @__PURE__ */ import_react97.default.createElement(Container20, {
+      return /* @__PURE__ */ import_react99.default.createElement(Container20, {
         className,
         ref
-      }, showPopoverEdgeTriangle ? /* @__PURE__ */ import_react97.default.createElement(PopoverArrow_default, null) : void 0, children);
+      }, showPopoverEdgeTriangle ? /* @__PURE__ */ import_react99.default.createElement(PopoverArrow_default, null) : void 0, children);
     });
     BasicPopover_default = BasicPopover;
   }
@@ -36479,12 +36494,12 @@ function RgbaPropEditor({
   value,
   autoFocus
 }) {
-  const containerRef = (0, import_react98.useRef)(null);
-  const onChange = (0, import_react98.useCallback)((color2) => {
+  const containerRef = (0, import_react100.useRef)(null);
+  const onChange = (0, import_react100.useCallback)((color2) => {
     const rgba2 = decorateRgba(parseRgbaFromHex(color2));
     editingTools.permanentlySetValue(rgba2);
   }, [editingTools]);
-  const popover = usePopover({ debugName: "RgbaPropEditor" }, () => /* @__PURE__ */ import_react98.default.createElement(RgbaPopover, null, /* @__PURE__ */ import_react98.default.createElement(RgbaColorPicker, {
+  const popover = usePopover({ debugName: "RgbaPropEditor" }, () => /* @__PURE__ */ import_react100.default.createElement(RgbaPopover, null, /* @__PURE__ */ import_react100.default.createElement(RgbaColorPicker, {
     color: {
       r: value.r,
       g: value.g,
@@ -36501,27 +36516,27 @@ function RgbaPropEditor({
     },
     discardTemporaryValue: editingTools.discardTemporaryValue
   })));
-  return /* @__PURE__ */ import_react98.default.createElement(import_react98.default.Fragment, null, /* @__PURE__ */ import_react98.default.createElement(RowContainer, null, /* @__PURE__ */ import_react98.default.createElement(ColorPreviewPuck, {
+  return /* @__PURE__ */ import_react100.default.createElement(import_react100.default.Fragment, null, /* @__PURE__ */ import_react100.default.createElement(RowContainer, null, /* @__PURE__ */ import_react100.default.createElement(ColorPreviewPuck, {
     rgbaColor: value,
     ref: containerRef,
     onClick: (e2) => {
       popover.toggle(e2, containerRef.current);
     }
-  }), /* @__PURE__ */ import_react98.default.createElement(HexInput, {
+  }), /* @__PURE__ */ import_react100.default.createElement(HexInput, {
     value: rgba2hex(value, { removeAlphaIfOpaque: true }),
     temporarilySetValue: noop3,
     discardTemporaryValue: noop3,
     permanentlySetValue: onChange,
-    isValid: (v3) => !!v3.match(validHexRegExp),
+    isValid: (v5) => !!v5.match(validHexRegExp),
     autoFocus
   })), popover.node);
 }
-var import_react98, RowContainer, ColorPreviewPuck, HexInput, noop3, RgbaPopover, RgbaPropEditor_default;
+var import_react100, RowContainer, ColorPreviewPuck, HexInput, noop3, RgbaPopover, RgbaPropEditor_default;
 var init_RgbaPropEditor = __esm({
   "studio/src/propEditors/simpleEditors/RgbaPropEditor.tsx"() {
     init_color();
     init_color();
-    import_react98 = __toModule(require_react());
+    import_react100 = __toModule(require_react());
     init_colorPicker();
     init_styled_components_browser_esm();
     init_usePopover();
@@ -36540,7 +36555,8 @@ var init_RgbaPropEditor = __esm({
     }))`
   height: 18px;
   aspect-ratio: 1;
-  border-radius: 99999px;
+  border-radius: 4px;
+  border: 1px solid #4b4b4b;
 `;
     HexInput = styled_components_browser_esm_default(BasicStringInput_default)`
   flex: 1;
@@ -36602,20 +36618,20 @@ function useEditingToolsForCompoundProp(pointerToProp, obj, propConfig) {
         type: "AllStatic",
         beingScrubbed: false,
         contextMenuItems: [],
-        controlIndicators: /* @__PURE__ */ import_react100.default.createElement(DefaultValueIndicator_default, {
+        controlIndicators: /* @__PURE__ */ import_react102.default.createElement(DefaultValueIndicator_default, {
           hasStaticOverride: false
         })
       };
     }
-    const pathToProp = (0, import_dataverse28.getPointerParts)(pointerToProp).path;
-    const someDescendantsBeingScrubbed = !!(0, import_dataverse28.val)(get_default(getStudio().atomP.ephemeral.projects.stateByProjectId[obj.address.projectId].stateBySheetId[obj.address.sheetId].stateByObjectKey[obj.address.objectKey].valuesBeingScrubbed, (0, import_dataverse28.getPointerParts)(pointerToProp).path));
+    const pathToProp = (0, import_dataverse27.getPointerParts)(pointerToProp).path;
+    const someDescendantsBeingScrubbed = !!(0, import_dataverse27.val)(get_default(getStudio().atomP.ephemeral.projects.stateByProjectId[obj.address.projectId].stateBySheetId[obj.address.sheetId].stateByObjectKey[obj.address.objectKey].valuesBeingScrubbed, (0, import_dataverse27.getPointerParts)(pointerToProp).path));
     const contextMenuItems = [];
     const common = {
       beingScrubbed: someDescendantsBeingScrubbed,
       contextMenuItems,
-      controlIndicators: /* @__PURE__ */ import_react100.default.createElement(import_react100.default.Fragment, null)
+      controlIndicators: /* @__PURE__ */ import_react102.default.createElement(import_react102.default.Fragment, null)
     };
-    const validSequencedTracks = (0, import_dataverse28.val)(obj.template.getMapOfValidSequenceTracks_forStudio());
+    const validSequencedTracks = (0, import_dataverse27.val)(obj.template.getMapOfValidSequenceTracks_forStudio());
     const possibleSequenceTrackIds = getDeep(validSequencedTracks, pathToProp);
     const hasOneOrMoreSequencedTracks = possibleSequenceTrackIds !== void 0 && Object.keys(possibleSequenceTrackIds).length !== 0;
     const listOfDescendantTrackIds = [];
@@ -36676,7 +36692,7 @@ function useEditingToolsForCompoundProp(pointerToProp, obj, propConfig) {
       });
     }
     if (hasOneOrMoreSequencedTracks) {
-      const controlIndicators = import_dataverse28.prism.memo(`controlIndicators`, () => /* @__PURE__ */ import_react100.default.createElement(ControlIndicators, __spreadValues({}, {
+      const controlIndicators = import_dataverse27.prism.memo(`controlIndicators`, () => /* @__PURE__ */ import_react102.default.createElement(ControlIndicators, __spreadValues({}, {
         pointerToProp,
         obj,
         possibleSequenceTrackIds,
@@ -36690,7 +36706,7 @@ function useEditingToolsForCompoundProp(pointerToProp, obj, propConfig) {
     } else {
       return __spreadProps(__spreadValues({}, common), {
         type: "AllStatic",
-        controlIndicators: /* @__PURE__ */ import_react100.default.createElement(DefaultValueIndicator_default, {
+        controlIndicators: /* @__PURE__ */ import_react102.default.createElement(DefaultValueIndicator_default, {
           hasStaticOverride: false
         })
       });
@@ -36704,11 +36720,11 @@ function ControlIndicators({
   listOfDescendantTrackIds
 }) {
   return usePrism(() => {
-    const pathToProp = (0, import_dataverse28.getPointerParts)(pointerToProp).path;
-    const sequencePosition = (0, import_dataverse28.val)(obj.sheet.getSequence().positionDerivation);
+    const pathToProp = (0, import_dataverse27.getPointerParts)(pointerToProp).path;
+    const sequencePosition = (0, import_dataverse27.val)(obj.sheet.getSequence().positionDerivation);
     const nearbyKeyframesInEachTrack = listOfDescendantTrackIds.map((trackId) => ({
       trackId,
-      track: (0, import_dataverse28.val)(obj.template.project.pointers.historic.sheetsById[obj.address.sheetId].sequence.tracksByObject[obj.address.objectKey].trackData[trackId])
+      track: (0, import_dataverse27.val)(obj.template.project.pointers.historic.sheetsById[obj.address.sheetId].sequence.tracksByObject[obj.address.objectKey].trackData[trackId])
     })).filter(({ track }) => !!track).map((s3) => __spreadProps(__spreadValues({}, s3), {
       nearbies: getNearbyKeyframesOfTrack(obj, { id: s3.trackId, data: s3.track, sheetObject: obj }, sequencePosition)
     }));
@@ -36743,11 +36759,11 @@ function ControlIndicators({
         });
       } else if (hasCur) {
         getStudio().transaction((api) => {
-          api.set(pointerToProp, (0, import_dataverse28.val)(pointerToProp));
+          api.set(pointerToProp, (0, import_dataverse27.val)(pointerToProp));
         });
       } else {
         getStudio().transaction((api) => {
-          api.set(pointerToProp, (0, import_dataverse28.val)(pointerToProp));
+          api.set(pointerToProp, (0, import_dataverse27.val)(pointerToProp));
         });
       }
     };
@@ -36775,20 +36791,20 @@ function ControlIndicators({
         }
       } : void 0
     };
-    return /* @__PURE__ */ import_react100.default.createElement(NextPrevKeyframeCursors_default, __spreadValues({}, pr));
+    return /* @__PURE__ */ import_react102.default.createElement(NextPrevKeyframeCursors_default, __spreadValues({}, pr));
   }, [pointerToProp, obj, possibleSequenceTrackIds, listOfDescendantTrackIds]);
 }
-var import_dataverse28, import_react100;
+var import_dataverse27, import_react102;
 var init_useEditingToolsForCompoundProp = __esm({
   "studio/src/propEditors/useEditingToolsForCompoundProp.tsx"() {
     init_getStudio();
     init_getDeep();
     init_src();
-    import_dataverse28 = __toModule(require("@theatre/dataverse"));
+    import_dataverse27 = __toModule(require("@theatre/dataverse"));
     init_get();
-    import_react100 = __toModule(require_react());
+    import_react102 = __toModule(require_react());
     init_DefaultValueIndicator();
-    init_utils2();
+    init_utils();
     init_ids();
     init_pointerDeep();
     init_NextPrevKeyframeCursors();
@@ -36861,7 +36877,7 @@ var init_invariant = __esm({
 
 // studio/src/utils/derive-utils.tsx
 function deriveAllD(obj) {
-  return (0, import_dataverse29.prism)(() => {
+  return (0, import_dataverse28.prism)(() => {
     if (Array.isArray(obj)) {
       const values = new Array(obj.length);
       for (let i3 = 0; i3 < obj.length; i3++) {
@@ -36870,15 +36886,15 @@ function deriveAllD(obj) {
       return values;
     } else {
       const values = {};
-      for (const k3 in obj) {
-        values[k3] = (0, import_dataverse29.val)(obj[k3]);
+      for (const k4 in obj) {
+        values[k4] = (0, import_dataverse28.val)(obj[k4]);
       }
       return values;
     }
   });
 }
 function deriver(Component) {
-  const finalComp = import_react102.default.memo(import_react102.default.forwardRef(function deriverRender(props, ref) {
+  const finalComp = import_react104.default.memo(import_react104.default.forwardRef(function deriverRender(props, ref) {
     let observableArr = [];
     const observables = {};
     const normalProps = {
@@ -36886,28 +36902,28 @@ function deriver(Component) {
     };
     for (const key in props) {
       const value = props[key];
-      if ((0, import_dataverse29.isDerivation)(value)) {
+      if ((0, import_dataverse28.isDerivation)(value)) {
         observableArr.push(value);
         observables[key] = value;
       } else {
         normalProps[key] = value;
       }
     }
-    const initialCount = (0, import_react102.useRef)(observableArr.length);
+    const initialCount = (0, import_react104.useRef)(observableArr.length);
     invariant(initialCount.current === observableArr.length, `expect same number of observable props on every invocation of deriver wrapped component.`, { initial: initialCount.current, count: observableArr.length });
-    const allD = (0, import_react102.useMemo)(() => deriveAllD(observables), observableArr);
+    const allD = (0, import_react104.useMemo)(() => deriveAllD(observables), observableArr);
     const observedPropState = useDerivation(allD);
-    return observedPropState && import_react102.default.createElement(Component, __spreadValues(__spreadValues({}, normalProps), observedPropState));
+    return observedPropState && import_react104.default.createElement(Component, __spreadValues(__spreadValues({}, normalProps), observedPropState));
   }));
   finalComp.displayName = `deriver(${Component.displayName})`;
   return finalComp;
 }
-var import_dataverse29, import_react102;
+var import_dataverse28, import_react104;
 var init_derive_utils = __esm({
   "studio/src/utils/derive-utils.tsx"() {
-    import_dataverse29 = __toModule(require("@theatre/dataverse"));
+    import_dataverse28 = __toModule(require("@theatre/dataverse"));
     init_src();
-    import_react102 = __toModule(require_react());
+    import_react104 = __toModule(require_react());
     init_invariant();
   }
 });
@@ -36931,7 +36947,7 @@ function DetailCompoundPropEditor({
   visualIndentation
 }) {
   var _a2;
-  const propName = (_a2 = propConfig.label) != null ? _a2 : last_default((0, import_dataverse30.getPointerParts)(pointerToProp).path);
+  const propName = (_a2 = propConfig.label) != null ? _a2 : last_default((0, import_dataverse29.getPointerParts)(pointerToProp).path);
   const allSubs = Object.entries(propConfig.props);
   const compositeSubs = allSubs.filter(([_3, conf]) => isPropConfigComposite(conf));
   const nonCompositeSubs = allSubs.filter(([_3, conf]) => !isPropConfigComposite(conf));
@@ -36941,21 +36957,21 @@ function DetailCompoundPropEditor({
     menuItems: tools.contextMenuItems
   });
   const lastSubPropIsComposite = compositeSubs.length > 0;
-  const isPropHighlightedD = (0, import_react103.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
-    pathToProp: (0, import_dataverse30.getPointerParts)(pointerToProp).path
+  const isPropHighlightedD = (0, import_react105.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
+    pathToProp: (0, import_dataverse29.getPointerParts)(pointerToProp).path
   })), [pointerToProp]);
-  return /* @__PURE__ */ import_react103.default.createElement(Container21, null, contextMenu, /* @__PURE__ */ import_react103.default.createElement(Header, {
+  return /* @__PURE__ */ import_react105.default.createElement(Container21, null, contextMenu, /* @__PURE__ */ import_react105.default.createElement(Header, {
     isHighlighted: isPropHighlightedD,
     style: { "--depth": visualIndentation - 1 }
-  }, /* @__PURE__ */ import_react103.default.createElement(Padding, null, tools.controlIndicators, /* @__PURE__ */ import_react103.default.createElement(PropName, {
+  }, /* @__PURE__ */ import_react105.default.createElement(Padding, null, tools.controlIndicators, /* @__PURE__ */ import_react105.default.createElement(PropName, {
     isHighlighted: isPropHighlightedD,
     ref: propNameContainerRef
-  }, propName || "Props"))), /* @__PURE__ */ import_react103.default.createElement(SubProps, {
+  }, propName || "Props"))), /* @__PURE__ */ import_react105.default.createElement(SubProps, {
     style: { "--depth": visualIndentation },
     depth: visualIndentation,
     lastSubIsComposite: lastSubPropIsComposite
   }, [...nonCompositeSubs, ...compositeSubs].map(([subPropKey, subPropConfig]) => {
-    return /* @__PURE__ */ import_react103.default.createElement(DeterminePropEditorForDetail_default, {
+    return /* @__PURE__ */ import_react105.default.createElement(DeterminePropEditorForDetail_default, {
       key: "prop-" + subPropKey,
       propConfig: subPropConfig,
       pointerToProp: pointerToProp[subPropKey],
@@ -36964,17 +36980,15 @@ function DetailCompoundPropEditor({
     });
   })));
 }
-var import_dataverse30, import_react103, Container21, Header, Padding, PropName, color, SubProps, DetailCompoundPropEditor_default;
+var import_dataverse29, import_react105, Container21, Header, Padding, PropName, color, SubProps, DetailCompoundPropEditor_default;
 var init_DetailCompoundPropEditor = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail/DetailCompoundPropEditor.tsx"() {
-    init_utils2();
-    import_dataverse30 = __toModule(require("@theatre/dataverse"));
+    init_utils();
+    import_dataverse29 = __toModule(require("@theatre/dataverse"));
     init_last();
     init_polished_esm();
-    import_react103 = __toModule(require_react());
+    import_react105 = __toModule(require_react());
     init_styled_components_browser_esm();
-    init_rowIndentationFormulaCSS();
-    init_propNameTextCSS();
     init_css();
     init_useRefAndState();
     init_DeterminePropEditorForDetail();
@@ -36997,9 +37011,11 @@ var init_DetailCompoundPropEditor = __esm({
   /* background-color: ${getDetailRowHighlightBackground}; */
 `);
     Padding = styled_components_browser_esm_default.div`
-  padding-left: ${rowIndentationFormulaCSS};
+  
   display: flex;
   align-items: center;
+  margin-left: 12px;
+  
 `;
     PropName = deriver(styled_components_browser_esm_default.div`
   margin-left: 4px;
@@ -37008,18 +37024,28 @@ var init_DetailCompoundPropEditor = __esm({
   display: flex;
   align-items: center;
   user-select: none;
+  cursor:pointer;
+  // &:hover {
+  //   color: white;
+  // }
+
+  font-family: 'Inter','Helvetica',sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+
   &:hover {
-    color: white;
+    opacity:0.6;
   }
 
-  ${() => propNameTextCSS};
+  
 `);
     color = curriedTransparentize(0.05, `#282b2f`);
     SubProps = styled_components_browser_esm_default.div`
   /* background: ${({ depth }) => curriedDarken(depth * 0.03, color)}; */
   /* padding: ${(props) => props.lastSubIsComposite ? 0 : "4px"} 0; */
 `;
-    DetailCompoundPropEditor_default = import_react103.default.memo(DetailCompoundPropEditor);
+    DetailCompoundPropEditor_default = import_react105.default.memo(DetailCompoundPropEditor);
   }
 });
 
@@ -37032,30 +37058,29 @@ function SingleRowPropEditor({
   isPropHighlightedD
 }) {
   var _a2;
-  const label = (_a2 = propConfig.label) != null ? _a2 : last_default((0, import_dataverse31.getPointerParts)(pointerToProp).path);
+  const label = (_a2 = propConfig.label) != null ? _a2 : last_default((0, import_dataverse30.getPointerParts)(pointerToProp).path);
   const [propNameContainerRef, propNameContainer] = useRefAndState(null);
   const [contextMenu] = useContextMenu(propNameContainer, {
     menuItems: editingTools.contextMenuItems
   });
-  return /* @__PURE__ */ import_react104.default.createElement(Container22, {
+  return /* @__PURE__ */ import_react106.default.createElement(Container22, {
     isHighlighted: isPropHighlightedD
-  }, contextMenu, /* @__PURE__ */ import_react104.default.createElement(Left2, null, /* @__PURE__ */ import_react104.default.createElement(ControlsContainer, null, editingTools.controlIndicators), /* @__PURE__ */ import_react104.default.createElement(PropNameContainer, {
+  }, contextMenu, /* @__PURE__ */ import_react106.default.createElement(Left2, null, /* @__PURE__ */ import_react106.default.createElement(ControlsContainer, null, editingTools.controlIndicators), /* @__PURE__ */ import_react106.default.createElement(PropNameContainer, {
     isHighlighted: isPropHighlightedD,
     ref: propNameContainerRef,
-    title: ["obj", "props", ...(0, import_dataverse31.getPointerParts)(pointerToProp).path].join(".")
-  }, label)), /* @__PURE__ */ import_react104.default.createElement(InputContainer, null, children));
+    title: ["obj", "props", ...(0, import_dataverse30.getPointerParts)(pointerToProp).path].join(".")
+  }, label)), /* @__PURE__ */ import_react106.default.createElement(InputContainer, null, children));
 }
-var import_dataverse31, import_react104, Container22, Left2, PropNameContainer, ControlsContainer, InputContainer;
+var import_dataverse30, import_react106, Container22, Left2, PropNameContainer, ControlsContainer, InputContainer;
 var init_SingleRowPropEditor = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail/SingleRowPropEditor.tsx"() {
-    import_dataverse31 = __toModule(require("@theatre/dataverse"));
+    import_dataverse30 = __toModule(require("@theatre/dataverse"));
     init_useContextMenu();
     init_useRefAndState();
     init_lodash();
-    import_react104 = __toModule(require_react());
+    import_react106 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_css();
-    init_propNameTextCSS();
     init_derive_utils();
     init_rowIndentationFormulaCSS();
     init_getDetailRowHighlightBackground();
@@ -37080,7 +37105,7 @@ var init_SingleRowPropEditor = __esm({
 `);
     Left2 = styled_components_browser_esm_default.div`
   box-sizing: border-box;
-  padding-left: ${rowIndentationFormulaCSS};
+  // padding-left: ${rowIndentationFormulaCSS};
   padding-right: 4px;
   display: flex;
   flex-direction: row;
@@ -37100,18 +37125,28 @@ var init_SingleRowPropEditor = __esm({
   display: flex;
   align-items: center;
   user-select: none;
-  cursor: default;
-
-  ${propNameTextCSS};
+  // cursor: default;
+  cursor: pointer;
+  font-family: 'Inter','Helvetica',sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  
+  
   &:hover {
-    color: white;
+    opacity:0.6;
   }
+  
+  // &:hover {
+  //   color: white;
+  // }
 `);
     ControlsContainer = styled_components_browser_esm_default.div`
   flex-basis: 8px;
   flex: 0 0;
   display: flex;
   align-items: center;
+  margin-left: 12px;
 `;
     InputContainer = styled_components_browser_esm_default.div`
   display: flex;
@@ -37135,60 +37170,57 @@ function DetailSimplePropEditor({
   SimpleEditorComponent: EditorComponent
 }) {
   const editingTools = useEditingToolsForSimplePropInDetailsPanel(pointerToProp, obj, propConfig);
-  const isPropHighlightedD = (0, import_react105.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
-    pathToProp: (0, import_dataverse32.getPointerParts)(pointerToProp).path
+  const isPropHighlightedD = (0, import_react107.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
+    pathToProp: (0, import_dataverse31.getPointerParts)(pointerToProp).path
   })), [pointerToProp]);
-  return /* @__PURE__ */ import_react105.default.createElement(SingleRowPropEditor, __spreadValues({}, {
+  return /* @__PURE__ */ import_react107.default.createElement(SingleRowPropEditor, __spreadValues({}, {
     editingTools,
     propConfig,
     pointerToProp,
     isPropHighlightedD
-  }), /* @__PURE__ */ import_react105.default.createElement(EditorComponent, {
+  }), /* @__PURE__ */ import_react107.default.createElement(EditorComponent, {
     editingTools,
     propConfig,
     value: editingTools.value
   }));
 }
-var import_react105, import_dataverse32, DetailSimplePropEditor_default;
+var import_react107, import_dataverse31, DetailSimplePropEditor_default;
 var init_DetailSimplePropEditor = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail/DetailSimplePropEditor.tsx"() {
-    import_react105 = __toModule(require_react());
+    import_react107 = __toModule(require_react());
     init_useEditingToolsForSimpleProp();
     init_SingleRowPropEditor();
-    import_dataverse32 = __toModule(require("@theatre/dataverse"));
+    import_dataverse31 = __toModule(require("@theatre/dataverse"));
     init_whatPropIsHighlighted();
-    DetailSimplePropEditor_default = import_react105.default.memo(DetailSimplePropEditor);
+    DetailSimplePropEditor_default = import_react107.default.memo(DetailSimplePropEditor);
   }
 });
 
 // studio/src/panels/DetailPanel/DeterminePropEditorForDetail.tsx
-var import_react106, DeterminePropEditorForDetail, DeterminePropEditorForDetail_default;
+var import_react108, DeterminePropEditorForDetail, DeterminePropEditorForDetail_default;
 var init_DeterminePropEditorForDetail = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail.tsx"() {
-    import_react106 = __toModule(require_react());
-    init_getPropTypeByPointer();
+    import_react108 = __toModule(require_react());
     init_simplePropEditorByPropType();
     init_DetailCompoundPropEditor();
     init_DetailSimplePropEditor();
-    DeterminePropEditorForDetail = (p2) => {
-      var _a2;
-      const propConfig = (_a2 = p2.propConfig) != null ? _a2 : getPropTypeByPointer(p2.pointerToProp, p2.obj);
+    DeterminePropEditorForDetail = ({ propConfig, visualIndentation, pointerToProp, obj }) => {
       if (propConfig.type === "compound") {
-        return /* @__PURE__ */ import_react106.default.createElement(DetailCompoundPropEditor_default, {
-          obj: p2.obj,
-          visualIndentation: p2.visualIndentation,
-          pointerToProp: p2.pointerToProp,
+        return /* @__PURE__ */ import_react108.default.createElement(DetailCompoundPropEditor_default, {
+          obj,
+          visualIndentation,
+          pointerToProp,
           propConfig
         });
       } else if (propConfig.type === "enum") {
-        return /* @__PURE__ */ import_react106.default.createElement(import_react106.default.Fragment, null);
+        return /* @__PURE__ */ import_react108.default.createElement(import_react108.default.Fragment, null);
       } else {
         const PropEditor = simplePropEditorByPropType[propConfig.type];
-        return /* @__PURE__ */ import_react106.default.createElement(DetailSimplePropEditor_default, {
+        return /* @__PURE__ */ import_react108.default.createElement(DetailSimplePropEditor_default, {
           SimpleEditorComponent: PropEditor,
-          obj: p2.obj,
-          visualIndentation: p2.visualIndentation,
-          pointerToProp: p2.pointerToProp,
+          obj,
+          visualIndentation,
+          pointerToProp,
           propConfig
         });
       }
@@ -37198,19 +37230,21 @@ var init_DeterminePropEditorForDetail = __esm({
 });
 
 // studio/src/panels/DetailPanel/ObjectDetails.tsx
-var import_react107, ObjectDetails, ObjectDetails_default;
+var import_react109, ObjectDetails, ObjectDetails_default;
 var init_ObjectDetails = __esm({
   "studio/src/panels/DetailPanel/ObjectDetails.tsx"() {
-    import_react107 = __toModule(require_react());
+    import_react109 = __toModule(require_react());
     init_DeterminePropEditorForDetail();
+    init_src();
     ObjectDetails = ({ objects }) => {
       const obj = objects[0];
-      const key = (0, import_react107.useMemo)(() => JSON.stringify(obj.address), [obj]);
-      return /* @__PURE__ */ import_react107.default.createElement(DeterminePropEditorForDetail_default, {
+      const key = (0, import_react109.useMemo)(() => JSON.stringify(obj.address), [obj]);
+      const config = useVal(obj.template.configPointer);
+      return /* @__PURE__ */ import_react109.default.createElement(DeterminePropEditorForDetail_default, {
         key,
         obj,
         pointerToProp: obj.propsP,
-        propConfig: obj.template.config,
+        propConfig: config,
         visualIndentation: 1
       });
     };
@@ -37227,9 +37261,14 @@ var init_DetailPanelButton = __esm({
   text-align: center;
   padding: 8px;
   border-radius: 2px;
-  border: 1px solid #627b7b87;
-  background-color: #4b787d3d;
-  color: #eaeaea;
+  // border: 1px solid #627b7b87;
+  // background-color: #4b787d3d;
+  // color: #eaeaea;
+  border: 1px solid transparent;
+  background-color: #40aeff;
+  color: #ffffff;
+  border-radius:8px;
+
   font-weight: 400;
   display: block;
   appearance: none;
@@ -37238,8 +37277,8 @@ var init_DetailPanelButton = __esm({
   opacity: ${(props) => props.disabled ? 0.4 : 1};
 
   &:hover {
-    background-color: #7dc1c878;
-    border-color: #9ebcbf;
+    background-color: #007be5;
+    border-color: #007be5;
   }
 `;
     DetailPanelButton_default = DetailPanelButton;
@@ -37288,22 +37327,22 @@ var init_generateDiskStateRevision = __esm({
 });
 
 // studio/src/uiComponents/Popover/TooltipContext.tsx
-var import_dataverse33, import_react108, ctx, lastTooltipId, useTooltipOpenState, TooltipContext, TooltipContext_default;
+var import_dataverse32, import_react111, ctx, lastTooltipId, useTooltipOpenState, TooltipContext, TooltipContext_default;
 var init_TooltipContext = __esm({
   "studio/src/uiComponents/Popover/TooltipContext.tsx"() {
-    import_dataverse33 = __toModule(require("@theatre/dataverse"));
+    import_dataverse32 = __toModule(require("@theatre/dataverse"));
     init_useRefAndState();
-    import_react108 = __toModule(require_react());
-    ctx = (0, import_react108.createContext)(null);
+    import_react111 = __toModule(require_react());
+    ctx = (0, import_react111.createContext)(null);
     lastTooltipId = 0;
     useTooltipOpenState = () => {
-      const id = (0, import_react108.useMemo)(() => lastTooltipId++, []);
-      const { cur, set: set2 } = (0, import_react108.useContext)(ctx);
+      const id = (0, import_react111.useMemo)(() => lastTooltipId++, []);
+      const { cur, set: set2 } = (0, import_react111.useContext)(ctx);
       const [isOpenRef, isOpen] = useRefAndState(false);
-      const setIsOpen = (0, import_react108.useCallback)((shouldOpen, delay) => {
+      const setIsOpen = (0, import_react111.useCallback)((shouldOpen, delay) => {
         set2(shouldOpen ? id : -1, delay);
       }, []);
-      (0, import_react108.useEffect)(() => {
+      (0, import_react111.useEffect)(() => {
         return cur.changesWithoutValues().tap(() => {
           const flag = cur.getValue() === id;
           if (isOpenRef.current !== flag)
@@ -37313,9 +37352,9 @@ var init_TooltipContext = __esm({
       return [isOpen, setIsOpen];
     };
     TooltipContext = ({ children }) => {
-      const currentTooltipId = (0, import_react108.useMemo)(() => new import_dataverse33.Box(-1), []);
+      const currentTooltipId = (0, import_react111.useMemo)(() => new import_dataverse32.Box(-1), []);
       const cur = currentTooltipId.derivation;
-      const set2 = (0, import_react108.useMemo)(() => {
+      const set2 = (0, import_react111.useMemo)(() => {
         let lastTimeout = void 0;
         return (id, delay) => {
           const overridingPreviousTimeout = lastTimeout !== void 0;
@@ -37333,7 +37372,7 @@ var init_TooltipContext = __esm({
           }
         };
       }, []);
-      return /* @__PURE__ */ import_react108.default.createElement(ctx.Provider, {
+      return /* @__PURE__ */ import_react111.default.createElement(ctx.Provider, {
         value: { cur, set: set2 }
       }, children);
     };
@@ -37346,7 +37385,7 @@ function useTooltip(opts, render) {
   const enabled = opts.enabled !== false;
   const [isOpen, setIsOpen] = useTooltipOpenState();
   const [targetRef, targetNode] = useRefAndState(null);
-  (0, import_react110.useEffect)(() => {
+  (0, import_react113.useEffect)(() => {
     if (!enabled) {
       return;
     }
@@ -37368,23 +37407,23 @@ function useTooltip(opts, render) {
       target.removeEventListener("mouseleave", onMouseLeave);
     };
   }, [targetRef, enabled, opts.enterDelay, opts.exitDelay]);
-  const portalLayer = (0, import_react109.useContext)(PortalContext);
-  const node = enabled && isOpen && targetNode ? (0, import_react_dom7.createPortal)(/* @__PURE__ */ import_react111.default.createElement(TooltipWrapper_default, {
+  const portalLayer = (0, import_react112.useContext)(PortalContext);
+  const node = enabled && isOpen && targetNode ? (0, import_react_dom7.createPortal)(/* @__PURE__ */ import_react114.default.createElement(TooltipWrapper_default, {
     children: render,
     target: targetNode,
     onClickOutside: noop_default2,
     verticalPlacement: opts.verticalPlacement,
     verticalGap: opts.verticalGap
-  }), portalLayer) : /* @__PURE__ */ import_react111.default.createElement(import_react111.default.Fragment, null);
+  }), portalLayer) : /* @__PURE__ */ import_react114.default.createElement(import_react114.default.Fragment, null);
   return [node, targetRef, isOpen];
 }
-var import_react109, import_react110, import_react111, import_react_dom7;
+var import_react112, import_react113, import_react114, import_react_dom7;
 var init_useTooltip = __esm({
   "studio/src/uiComponents/Popover/useTooltip.tsx"() {
     init_useRefAndState();
-    import_react109 = __toModule(require_react());
-    import_react110 = __toModule(require_react());
-    import_react111 = __toModule(require_react());
+    import_react112 = __toModule(require_react());
+    import_react113 = __toModule(require_react());
+    import_react114 = __toModule(require_react());
     init_TooltipWrapper();
     import_react_dom7 = __toModule(require_react_dom());
     init_TooltipContext();
@@ -37404,19 +37443,21 @@ var init_BasicTooltip = __esm({
   max-width: 240px;
   pointer-events: none !important;
   --popover-outer-stroke: transparent;
-  --popover-inner-stroke: #45464d;
+  // --popover-inner-stroke: #bebebe2b;
+  --popover-inner-stroke: #4b4b4b;
+  // --popover-inner-stroke: #45464d;
 `;
     BasicTooltip_default = BasicTooltip;
   }
 });
 
 // studio/src/panels/DetailPanel/ProjectDetails/StateConflictRow.tsx
-var import_react113, Container23, Message, ChooseStateRow, StateConflictRow, InConflict, StateConflictRow_default;
+var import_react116, Container23, Message, ChooseStateRow, StateConflictRow, InConflict, StateConflictRow_default;
 var init_StateConflictRow = __esm({
   "studio/src/panels/DetailPanel/ProjectDetails/StateConflictRow.tsx"() {
     init_src();
     init_getStudio();
-    import_react113 = __toModule(require_react());
+    import_react116 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_generateDiskStateRevision();
     init_useTooltip();
@@ -37452,7 +37493,7 @@ var init_StateConflictRow = __esm({
       if (!loadingState)
         return null;
       if (loadingState.type === "browserStateIsNotBasedOnDiskState") {
-        return /* @__PURE__ */ import_react113.default.createElement(InConflict, {
+        return /* @__PURE__ */ import_react116.default.createElement(InConflict, {
           loadingState,
           projectId
         });
@@ -37484,15 +37525,15 @@ var init_StateConflictRow = __esm({
           };
         });
       };
-      const [browserStateNode, browserStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react113.default.createElement(BasicTooltip_default, null, "The browser's state will override the disk state."));
-      const [diskStateNode, diskStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react113.default.createElement(BasicTooltip_default, null, "The disk's state will override the browser's state."));
-      return /* @__PURE__ */ import_react113.default.createElement(Container23, null, /* @__PURE__ */ import_react113.default.createElement(Message, null, "Browser state is not based on disk state.", " ", /* @__PURE__ */ import_react113.default.createElement("a", {
-        href: "https://docs.theatrejs.com/in-depth/#exporting",
+      const [browserStateNode, browserStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react116.default.createElement(BasicTooltip_default, null, "The browser's state will override the disk state."));
+      const [diskStateNode, diskStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react116.default.createElement(BasicTooltip_default, null, "The disk's state will override the browser's state."));
+      return /* @__PURE__ */ import_react116.default.createElement(Container23, null, /* @__PURE__ */ import_react116.default.createElement(Message, null, "Browser state is not based on disk state.", " ", /* @__PURE__ */ import_react116.default.createElement("a", {
+        href: "https://www.theatrejs.com/docs/latest/manual/projects#state",
         target: "_blank"
-      }, "Learn more.")), /* @__PURE__ */ import_react113.default.createElement(ChooseStateRow, null, browserStateNode, /* @__PURE__ */ import_react113.default.createElement(DetailPanelButton_default, {
+      }, "Learn more.")), /* @__PURE__ */ import_react116.default.createElement(ChooseStateRow, null, browserStateNode, /* @__PURE__ */ import_react116.default.createElement(DetailPanelButton_default, {
         onClick: useBrowserState,
         ref: browserStateRef
-      }, "Use browser's state"), diskStateNode, /* @__PURE__ */ import_react113.default.createElement(DetailPanelButton_default, {
+      }, "Use browser's state"), diskStateNode, /* @__PURE__ */ import_react116.default.createElement(DetailPanelButton_default, {
         onClick: useOnDiskState,
         ref: diskStateRef
       }, "Use disk state")));
@@ -37502,13 +37543,13 @@ var init_StateConflictRow = __esm({
 });
 
 // studio/src/panels/DetailPanel/ProjectDetails.tsx
-var import_react114, Container24, TheExportRow, ExportTooltip, ProjectDetails, ProjectDetails_default;
+var import_react117, Container24, TheExportRow, ExportTooltip, ProjectDetails, ProjectDetails_default;
 var init_ProjectDetails = __esm({
   "studio/src/panels/DetailPanel/ProjectDetails.tsx"() {
     init_getStudio();
     init_BasicPopover();
     init_usePopover();
-    import_react114 = __toModule(require_react());
+    import_react117 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DetailPanelButton();
     init_StateConflictRow();
@@ -37528,20 +37569,20 @@ var init_ProjectDetails = __esm({
       const projectId = project.address.projectId;
       const slugifiedProjectId = projectId.replace(/[^\w\d'_\-]+/g, " ").trim();
       const suggestedFileName = `${slugifiedProjectId}.theatre-project-state.json`;
-      const [downloaded, setDownloaded] = (0, import_react114.useState)(false);
-      const exportProject = (0, import_react114.useCallback)(() => {
+      const [downloaded, setDownloaded] = (0, import_react117.useState)(false);
+      const exportProject = (0, import_react117.useCallback)(() => {
         const str = JSON.stringify(getStudio().createContentOfSaveFile(project.address.projectId), null, 2);
         const file = new File([str], suggestedFileName, {
           type: "application/json"
         });
         const objUrl = URL.createObjectURL(file);
-        const a3 = Object.assign(document.createElement("a"), {
+        const a4 = Object.assign(document.createElement("a"), {
           href: objUrl,
           target: "_blank",
           rel: "noopener"
         });
-        a3.setAttribute("download", suggestedFileName);
-        a3.click();
+        a4.setAttribute("download", suggestedFileName);
+        a4.click();
         setDownloaded(true);
         setTimeout(() => {
           setDownloaded(false);
@@ -37549,14 +37590,14 @@ var init_ProjectDetails = __esm({
         setTimeout(() => {
           URL.revokeObjectURL(objUrl);
         }, 4e4);
-      }, []);
-      const exportTooltip = usePopover({ debugName: "ProjectDetails", pointerDistanceThreshold: 50 }, () => /* @__PURE__ */ import_react114.default.createElement(ExportTooltip, null, "This will create a JSON file with the state of your project. You can commit this file to your git repo and include it in your production bundle.", /* @__PURE__ */ import_react114.default.createElement("a", {
-        href: "https://docs.theatrejs.com/in-depth/#exporting",
+      }, [project, suggestedFileName]);
+      const exportTooltip = usePopover({ debugName: "ProjectDetails", pointerDistanceThreshold: 50 }, () => /* @__PURE__ */ import_react117.default.createElement(ExportTooltip, null, "This will create a JSON file with the state of your project. You can commit this file to your git repo and include it in your production bundle.", /* @__PURE__ */ import_react117.default.createElement("a", {
+        href: "https://www.theatrejs.com/docs/latest/manual/projects#state",
         target: "_blank"
       }, "Here is a quick guide on how to export to production.")));
-      return /* @__PURE__ */ import_react114.default.createElement(import_react114.default.Fragment, null, exportTooltip.node, /* @__PURE__ */ import_react114.default.createElement(Container24, null, /* @__PURE__ */ import_react114.default.createElement(StateConflictRow_default, {
+      return /* @__PURE__ */ import_react117.default.createElement(import_react117.default.Fragment, null, exportTooltip.node, /* @__PURE__ */ import_react117.default.createElement(Container24, null, /* @__PURE__ */ import_react117.default.createElement(StateConflictRow_default, {
         projectId
-      }), /* @__PURE__ */ import_react114.default.createElement(TheExportRow, null, /* @__PURE__ */ import_react114.default.createElement(DetailPanelButton_default, {
+      }), /* @__PURE__ */ import_react117.default.createElement(TheExportRow, null, /* @__PURE__ */ import_react117.default.createElement(DetailPanelButton_default, {
         onMouseEnter: (e2) => exportTooltip.open(e2, e2.target),
         onClick: !downloaded ? exportProject : void 0,
         disabled: downloaded
@@ -37568,8 +37609,8 @@ var init_ProjectDetails = __esm({
 
 // studio/src/uiComponents/useHotspot.ts
 function useHotspot(spot) {
-  const [active, setActive] = (0, import_react115.useState)(false);
-  (0, import_react115.useEffect)(() => {
+  const [active, setActive] = (0, import_react118.useState)(false);
+  (0, import_react118.useEffect)(() => {
     const hoverListener = (e2) => {
       const threshold = active ? 200 : 50;
       const topBuffer = 56;
@@ -37593,10 +37634,10 @@ function useHotspot(spot) {
   }, [active]);
   return active;
 }
-var import_react115;
+var import_react118;
 var init_useHotspot = __esm({
   "studio/src/uiComponents/useHotspot.ts"() {
-    import_react115 = __toModule(require_react());
+    import_react118 = __toModule(require_react());
   }
 });
 
@@ -37713,6 +37754,27 @@ var init_Package = __esm({
   }
 });
 
+// studio/src/uiComponents/icons/Bell.tsx
+function Bell(props) {
+  return /* @__PURE__ */ React63.createElement("svg", __spreadValues({
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), /* @__PURE__ */ React63.createElement("path", {
+    d: "M8 1.57c-.416 0-.752.36-.752.804v.482c-1.715.372-3.006 1.994-3.006 3.938v.473c0 1.18-.407 2.32-1.14 3.205l-.173.208a.85.85 0 00-.125.864.75.75 0 00.686.475h9.019a.752.752 0 00.686-.475.845.845 0 00-.125-.864l-.174-.208a5.026 5.026 0 01-1.139-3.205v-.473c0-1.944-1.291-3.566-3.006-3.938v-.482c0-.445-.336-.804-.752-.804zm1.063 12.39c.282-.301.44-.71.44-1.138H6.496c0 .428.158.837.44 1.138.281.302.664.47 1.063.47.4 0 .783-.168 1.064-.47z",
+    fill: "currentColor"
+  }));
+}
+var React63, Bell_default;
+var init_Bell = __esm({
+  "studio/src/uiComponents/icons/Bell.tsx"() {
+    React63 = __toModule(require_react());
+    Bell_default = Bell;
+  }
+});
+
 // studio/src/uiComponents/icons/index.ts
 var init_icons = __esm({
   "studio/src/uiComponents/icons/index.ts"() {
@@ -37721,14 +37783,15 @@ var init_icons = __esm({
     init_Details();
     init_Ellipsis();
     init_Package();
+    init_Bell();
   }
 });
 
 // studio/src/panels/DetailPanel/EmptyState.tsx
-var import_react116, Container25, Message2, Icon2, LinkToDoc, EmptyState, EmptyState_default;
+var import_react119, Container25, Message2, Icon2, LinkToDoc, EmptyState, EmptyState_default;
 var init_EmptyState = __esm({
   "studio/src/panels/DetailPanel/EmptyState.tsx"() {
-    import_react116 = __toModule(require_react());
+    import_react119 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_icons();
     Container25 = styled_components_browser_esm_default.div`
@@ -37741,7 +37804,8 @@ var init_EmptyState = __esm({
   display: flex;
   flex-direction: column;
   gap: 11px;
-  color: rgba(255, 255, 255, 0.9);
+  // color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.5);
 `;
     Icon2 = styled_components_browser_esm_default.div`
   color: rgba(145, 145, 145, 0.8);
@@ -37753,8 +37817,8 @@ var init_EmptyState = __esm({
   text-underline-offset: 3px;
 `;
     EmptyState = () => {
-      return /* @__PURE__ */ import_react116.default.createElement(Container25, null, /* @__PURE__ */ import_react116.default.createElement(Message2, null, /* @__PURE__ */ import_react116.default.createElement(Icon2, null, /* @__PURE__ */ import_react116.default.createElement(Outline_default, null)), /* @__PURE__ */ import_react116.default.createElement("div", null, "Please select an object from the ", /* @__PURE__ */ import_react116.default.createElement("u", null, "Outline Menu"), " to see its properties.")), /* @__PURE__ */ import_react116.default.createElement(LinkToDoc, {
-        href: "https://docs.theatrejs.com/in-depth/#objects",
+      return /* @__PURE__ */ import_react119.default.createElement(Container25, null, /* @__PURE__ */ import_react119.default.createElement(Message2, null, /* @__PURE__ */ import_react119.default.createElement(Icon2, null, /* @__PURE__ */ import_react119.default.createElement(Outline_default, null)), /* @__PURE__ */ import_react119.default.createElement("div", null, "Please select an object from the ", /* @__PURE__ */ import_react119.default.createElement("u", null, "Outline Menu"), " to see its properties.")), /* @__PURE__ */ import_react119.default.createElement(LinkToDoc, {
+        href: "https://www.theatrejs.com/docs/latest/manual/objects",
         target: "_blank"
       }, "Learn more about Objects"));
     };
@@ -37763,12 +37827,12 @@ var init_EmptyState = __esm({
 });
 
 // studio/src/panels/DetailPanel/DetailPanel.tsx
-var import_react118, import_dataverse34, headerHeight, Container26, Title, Header2, Body, contextMenuShownContext, DetailPanel, DetailPanel_default, isDetailPanelHotspotActiveB, isDetailPanelHoveredB, shouldShowDetailD;
+var import_react121, import_dataverse33, headerHeight, Container26, BeforePadding, Title, Header2, Body, contextMenuShownContext, DetailPanel, DetailPanel_default, isDetailPanelHotspotActiveB, isDetailPanelHoveredB, shouldShowDetailD;
 var init_DetailPanel = __esm({
   "studio/src/panels/DetailPanel/DetailPanel.tsx"() {
     init_selectors();
     init_src();
-    import_react118 = __toModule(require_react());
+    import_react121 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_instanceTypes();
     init_common();
@@ -37777,25 +37841,35 @@ var init_DetailPanel = __esm({
     init_ProjectDetails();
     init_getStudio();
     init_useHotspot();
-    import_dataverse34 = __toModule(require("@theatre/dataverse"));
+    import_dataverse33 = __toModule(require("@theatre/dataverse"));
     init_EmptyState();
     init_useLockSet();
     init_usePresence();
     headerHeight = `32px`;
     Container26 = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
-  background-color: rgba(40, 43, 47, 0.8);
+  // background-color: rgba(40, 43, 47, 0.8);
+  //background-color: white;
   position: fixed;
-  right: 8px;
-  top: 50px;
+  // right: 8px;
+  // right:0px;
+  // top: 50px;
+  // top:0px;
   // Temporary, see comment about CSS grid in SingleRowPropEditor.
   width: 280px;
-  height: fit-content;
-  z-index: ${panelZIndexes.propsPanel};
+  //padding-top: 40px;
+  right: 8px;
+  top: 8px;
+  border-radius: 12px;
+  z-index:-1;
 
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(14px);
-  border-radius: 2px;
+  height:calc(100% - 17px);
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
+  // backdrop-filter: blur(14px);
+  // border-radius: 2px;
 
   display: ${({ pin }) => pin ? "block" : "none"};
 
@@ -37803,9 +37877,18 @@ var init_DetailPanel = __esm({
     display: block;
   }
 
-  @supports not (backdrop-filter: blur()) {
-    background: rgba(40, 43, 47, 0.95);
-  }
+  // @supports not (backdrop-filter: blur()) {
+  //   background: rgba(40, 43, 47, 0.95);
+  // }
+`;
+    BeforePadding = styled_components_browser_esm_default.div`
+  height: 40px;
+  background: black;
+  border-radius: 12px 12px 0 0;
+  border-top: 1px solid #4b4b4b;
+  border-left: 1px solid #4b4b4b;
+  border-right: 1px solid #4b4b4b;
+
 `;
     Title = styled_components_browser_esm_default.div`
   margin: 0 10px;
@@ -37822,10 +37905,13 @@ var init_DetailPanel = __esm({
   height: ${headerHeight};
   display: flex;
   align-items: center;
+  border: 1px solid #4b4b4b;
+  background: black;
+
 `;
     Body = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
-  max-height: calc(100vh - 100px);
+  // max-height: calc(100vh - 100px);
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -37837,30 +37923,55 @@ var init_DetailPanel = __esm({
 
   /* Set the font-size for input values in the detail panel */
   font-size: 12px;
+
+  border-bottom: 1px solid #4b4b4b;
+  border-left: 1px solid #4b4b4b;
+  border-right: 1px solid #4b4b4b;
+  border-radius: 0px 0px 12px 12px;
+  height: calc(100% - 76px);
+  background: black;
+  overflow-x: hidden;
+  overflow-y: overlay;
+
+  ::-webkit-scrollbar {
+      width: 2px;
+      background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      //background-color: #40aeff;
+      // background-color: rgb(0 0 0 / 80%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
+  ::-webkit-scrollbar-track {
+      //box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
 `;
-    contextMenuShownContext = (0, import_react118.createContext)([false, () => () => {
+    contextMenuShownContext = (0, import_react121.createContext)([false, () => () => {
     }]);
     DetailPanel = (props) => {
       const pin = useVal(getStudio().atomP.ahistoric.pinDetails) !== false;
       const hotspotActive = useHotspot("right");
-      (0, import_react118.useLayoutEffect)(() => {
+      (0, import_react121.useLayoutEffect)(() => {
         isDetailPanelHotspotActiveB.set(hotspotActive);
       }, [hotspotActive]);
-      (0, import_react118.useEffect)(() => {
+      (0, import_react121.useEffect)(() => {
         return () => {
           isDetailPanelHoveredB.set(false);
           isDetailPanelHotspotActiveB.set(false);
         };
       }, []);
-      const [isContextMenuShown] = (0, import_react118.useContext)(contextMenuShownContext);
-      const showDetailsPanel = pin || hotspotActive || isContextMenuShown;
-      const [containerElt, setContainerElt] = (0, import_react118.useState)(null);
+      const [isContextMenuShown] = (0, import_react121.useContext)(contextMenuShownContext);
+      const showDetailsPanel = pin || isContextMenuShown;
+      const [containerElt, setContainerElt] = (0, import_react121.useState)(null);
       usePresenceListenersOnRootElement(containerElt);
       return usePrism(() => {
         const selection = getOutlineSelection();
         const obj = selection.find(isSheetObject);
         if (obj) {
-          return /* @__PURE__ */ import_react118.default.createElement(Container26, {
+          return /* @__PURE__ */ import_react121.default.createElement(Container26, {
             "data-testid": "DetailPanel-Object",
             pin: showDetailsPanel,
             ref: setContainerElt,
@@ -37870,23 +37981,23 @@ var init_DetailPanel = __esm({
             onMouseLeave: () => {
               isDetailPanelHoveredB.set(false);
             }
-          }, /* @__PURE__ */ import_react118.default.createElement(Header2, null, /* @__PURE__ */ import_react118.default.createElement(Title, {
+          }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
             title: `${obj.sheet.address.sheetId}: ${obj.sheet.address.sheetInstanceId} > ${obj.address.objectKey}`
-          }, /* @__PURE__ */ import_react118.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetId, " "), /* @__PURE__ */ import_react118.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react118.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react118.default.createElement(TitleBar_Punctuation, null, "\xA0\u2192\xA0"), /* @__PURE__ */ import_react118.default.createElement(TitleBar_Piece, null, obj.address.objectKey))), /* @__PURE__ */ import_react118.default.createElement(Body, null, /* @__PURE__ */ import_react118.default.createElement(ObjectDetails_default, {
+          }, /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetId, " "), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Punctuation, null, "\xA0\u2192\xA0"), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.address.objectKey))), /* @__PURE__ */ import_react121.default.createElement(Body, null, /* @__PURE__ */ import_react121.default.createElement(ObjectDetails_default, {
             objects: [obj]
           })));
         }
         const project = selection.find(isProject);
         if (project) {
-          return /* @__PURE__ */ import_react118.default.createElement(Container26, {
+          return /* @__PURE__ */ import_react121.default.createElement(Container26, {
             pin: showDetailsPanel
-          }, /* @__PURE__ */ import_react118.default.createElement(Header2, null, /* @__PURE__ */ import_react118.default.createElement(Title, {
+          }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
             title: `${project.address.projectId}`
-          }, /* @__PURE__ */ import_react118.default.createElement(TitleBar_Piece, null, project.address.projectId, " "))), /* @__PURE__ */ import_react118.default.createElement(Body, null, /* @__PURE__ */ import_react118.default.createElement(ProjectDetails_default, {
+          }, /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, project.address.projectId, " "))), /* @__PURE__ */ import_react121.default.createElement(Body, null, /* @__PURE__ */ import_react121.default.createElement(ProjectDetails_default, {
             projects: [project]
           })));
         }
-        return /* @__PURE__ */ import_react118.default.createElement(Container26, {
+        return /* @__PURE__ */ import_react121.default.createElement(Container26, {
           pin: showDetailsPanel,
           onMouseEnter: () => {
             isDetailPanelHoveredB.set(true);
@@ -37894,20 +38005,27 @@ var init_DetailPanel = __esm({
           onMouseLeave: () => {
             isDetailPanelHoveredB.set(false);
           }
-        }, /* @__PURE__ */ import_react118.default.createElement(EmptyState_default, null));
+        }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement("div", {
+          style: {
+            border: "1px solid #4b4b4b",
+            borderRadius: "0px 0px 12px 12px",
+            height: "calc(100% - 43px)",
+            background: "black"
+          }
+        }, /* @__PURE__ */ import_react121.default.createElement(EmptyState_default, null)));
       }, [showDetailsPanel]);
     };
     DetailPanel_default = () => {
       const lockSet = useLockSet();
-      return /* @__PURE__ */ import_react118.default.createElement(contextMenuShownContext.Provider, {
+      return /* @__PURE__ */ import_react121.default.createElement(contextMenuShownContext.Provider, {
         value: lockSet
-      }, /* @__PURE__ */ import_react118.default.createElement(DetailPanel, null));
+      }, /* @__PURE__ */ import_react121.default.createElement(DetailPanel, null));
     };
-    isDetailPanelHotspotActiveB = new import_dataverse34.Box(false);
-    isDetailPanelHoveredB = new import_dataverse34.Box(false);
-    shouldShowDetailD = (0, import_dataverse34.prism)(() => {
-      const isHovered = (0, import_dataverse34.val)(isDetailPanelHoveredB.derivation);
-      const isHotspotActive = (0, import_dataverse34.val)(isDetailPanelHotspotActiveB.derivation);
+    isDetailPanelHotspotActiveB = new import_dataverse33.Box(false);
+    isDetailPanelHoveredB = new import_dataverse33.Box(false);
+    shouldShowDetailD = (0, import_dataverse33.prism)(() => {
+      const isHovered = (0, import_dataverse33.val)(isDetailPanelHoveredB.derivation);
+      const isHotspotActive = (0, import_dataverse33.val)(isDetailPanelHotspotActiveB.derivation);
       return isHovered || isHotspotActive;
     });
   }
@@ -37916,8 +38034,8 @@ var init_DetailPanel = __esm({
 // studio/src/uiComponents/simpleContextMenu/useContextMenu.tsx
 function useContextMenu(target, opts) {
   const [status, close] = useRequestContextMenu_default(target, opts);
-  const [, addContextMenu] = (0, import_react119.useContext)(contextMenuShownContext);
-  (0, import_react119.useEffect)(() => {
+  const [, addContextMenu] = (0, import_react122.useContext)(contextMenuShownContext);
+  (0, import_react122.useEffect)(() => {
     var _a2;
     let removeContextMenu;
     if (status.isOpen) {
@@ -37926,7 +38044,7 @@ function useContextMenu(target, opts) {
     }
     return () => removeContextMenu == null ? void 0 : removeContextMenu();
   }, [status.isOpen, opts.onOpen]);
-  const node = !status.isOpen ? emptyNode : /* @__PURE__ */ import_react119.default.createElement(ContextMenu_default, {
+  const node = !status.isOpen ? emptyNode : /* @__PURE__ */ import_react122.default.createElement(ContextMenu_default, {
     items: opts.menuItems,
     displayName: opts.displayName,
     clickPoint: status.event,
@@ -37934,14 +38052,14 @@ function useContextMenu(target, opts) {
   });
   return [node, close, status.isOpen];
 }
-var import_react119, emptyNode;
+var import_react122, emptyNode;
 var init_useContextMenu = __esm({
   "studio/src/uiComponents/simpleContextMenu/useContextMenu.tsx"() {
-    import_react119 = __toModule(require_react());
+    import_react122 = __toModule(require_react());
     init_ContextMenu();
     init_useRequestContextMenu();
     init_DetailPanel();
-    emptyNode = /* @__PURE__ */ import_react119.default.createElement(import_react119.default.Fragment, null);
+    emptyNode = /* @__PURE__ */ import_react122.default.createElement(import_react122.default.Fragment, null);
   }
 });
 
@@ -37960,10 +38078,10 @@ function clampRange(range, referenceRange) {
   }
   return [start + overflow, end + overflow];
 }
-var import_dataverse35, import_react121, focusRangeStripTheme, stripWidth, RangeStrip, FocusRangeStrip, FocusRangeStrip_default;
+var import_dataverse34, import_react124, focusRangeStripTheme, stripWidth, RangeStrip, FocusRangeStrip, FocusRangeStrip_default;
 var init_FocusRangeStrip = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeStrip.tsx"() {
-    import_dataverse35 = __toModule(require("@theatre/dataverse"));
+    import_dataverse34 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_css();
     init_getStudio();
@@ -37971,7 +38089,7 @@ var init_FocusRangeStrip = __esm({
     init_useContextMenu();
     init_useDrag();
     init_useRefAndState();
-    import_react121 = __toModule(require_react());
+    import_react124 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     focusRangeStripTheme = {
@@ -38031,15 +38149,15 @@ var init_FocusRangeStrip = __esm({
   }
 `;
     FocusRangeStrip = ({ layoutP }) => {
-      const existingRangeD = (0, import_react121.useMemo)(() => (0, import_dataverse35.prism)(() => {
-        const { projectId, sheetId } = (0, import_dataverse35.val)(layoutP.sheet).address;
-        const existingRange = (0, import_dataverse35.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
+      const existingRangeD = (0, import_react124.useMemo)(() => (0, import_dataverse34.prism)(() => {
+        const { projectId, sheetId } = (0, import_dataverse34.val)(layoutP.sheet).address;
+        const existingRange = (0, import_dataverse34.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange;
       }), [layoutP]);
       const [rangeStripRef, rangeStripNode] = useRefAndState(null);
       const [contextMenu] = useContextMenu(rangeStripNode, {
         menuItems: () => {
-          const sheet2 = (0, import_dataverse35.val)(layoutP.sheet);
+          const sheet2 = (0, import_dataverse34.val)(layoutP.sheet);
           const existingRange = existingRangeD.getValue();
           return [
             {
@@ -38068,7 +38186,7 @@ var init_FocusRangeStrip = __esm({
       });
       const scaledSpaceToUnitSpace = useVal(layoutP.scaledSpace.toUnitSpace);
       const sheet = useVal(layoutP.sheet);
-      const gestureHandlers = (0, import_react121.useMemo)(() => {
+      const gestureHandlers = (0, import_react124.useMemo)(() => {
         let newStartPosition, newEndPosition;
         return {
           debugName: "FocusRangeStrip",
@@ -38080,7 +38198,7 @@ var init_FocusRangeStrip = __esm({
             const startPosBeforeDrag = existingRange.range.start;
             const endPosBeforeDrag = existingRange.range.end;
             let dragHappened = false;
-            const sequence = (0, import_dataverse35.val)(layoutP.sheet).getSequence();
+            const sequence = (0, import_dataverse34.val)(layoutP.sheet).getSequence();
             return {
               onDrag(dx) {
                 existingRange = existingRangeD.getValue();
@@ -38128,14 +38246,14 @@ var init_FocusRangeStrip = __esm({
       return usePrism(() => {
         const existingRange = existingRangeD.getValue();
         const range = (existingRange == null ? void 0 : existingRange.range) || { start: 0, end: 0 };
-        let startX = (0, import_dataverse35.val)(layoutP.clippedSpace.fromUnitSpace)(range.start);
-        let endX = (0, import_dataverse35.val)(layoutP.clippedSpace.fromUnitSpace)(range.end);
+        let startX = (0, import_dataverse34.val)(layoutP.clippedSpace.fromUnitSpace)(range.start);
+        let endX = (0, import_dataverse34.val)(layoutP.clippedSpace.fromUnitSpace)(range.end);
         let scaleX, translateX;
         if (startX < 0) {
           startX = 0;
         }
-        if (endX > (0, import_dataverse35.val)(layoutP.clippedSpace.width)) {
-          endX = (0, import_dataverse35.val)(layoutP.clippedSpace.width);
+        if (endX > (0, import_dataverse34.val)(layoutP.clippedSpace.width)) {
+          endX = (0, import_dataverse34.val)(layoutP.clippedSpace.width);
         }
         if (startX > endX) {
           translateX = 0;
@@ -38145,8 +38263,8 @@ var init_FocusRangeStrip = __esm({
           scaleX = (endX - startX) / stripWidth;
         }
         if (!existingRange)
-          return /* @__PURE__ */ import_react121.default.createElement(import_react121.default.Fragment, null);
-        return /* @__PURE__ */ import_react121.default.createElement(import_react121.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react121.default.createElement(RangeStrip, {
+          return /* @__PURE__ */ import_react124.default.createElement(import_react124.default.Fragment, null);
+        return /* @__PURE__ */ import_react124.default.createElement(import_react124.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react124.default.createElement(RangeStrip, {
           id: "range-strip",
           enabled: existingRange.enabled,
           className: `${isDragging ? "dragging" : ""} ${existingRange.enabled ? "enabled" : ""}`,
@@ -38162,17 +38280,17 @@ var init_FocusRangeStrip = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeThumb.tsx
-var import_dataverse36, import_react123, TheDiv, ColoredMargin, OuterColoredMargin, FocusRangeThumb, FocusRangeThumb_default;
+var import_dataverse35, import_react126, TheDiv, ColoredMargin, OuterColoredMargin, FocusRangeThumb, FocusRangeThumb_default;
 var init_FocusRangeThumb = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeThumb.tsx"() {
-    import_dataverse36 = __toModule(require("@theatre/dataverse"));
+    import_dataverse35 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
     init_TopStrip();
     init_PointerEventsHandler();
     init_useDrag();
     init_useRefAndState();
-    import_react123 = __toModule(require_react());
+    import_react126 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_FocusRangeStrip();
@@ -38276,18 +38394,18 @@ var init_FocusRangeThumb = __esm({
     FocusRangeThumb = ({ layoutP, thumbType }) => {
       var _a2;
       const [hitZoneRef, hitZoneNode] = useRefAndState(null);
-      const existingRangeD = (0, import_react123.useMemo)(() => (0, import_dataverse36.prism)(() => {
-        const { projectId, sheetId } = (0, import_dataverse36.val)(layoutP.sheet).address;
-        const existingRange2 = (0, import_dataverse36.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
+      const existingRangeD = (0, import_react126.useMemo)(() => (0, import_dataverse35.prism)(() => {
+        const { projectId, sheetId } = (0, import_dataverse35.val)(layoutP.sheet).address;
+        const existingRange2 = (0, import_dataverse35.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange2;
       }), [layoutP]);
-      const gestureHandlers = (0, import_react123.useMemo)(() => {
+      const gestureHandlers = (0, import_react126.useMemo)(() => {
         return {
           debugName: "FocusRangeThumb",
           onDragStart() {
             let tempTransaction;
             let range;
-            const sheet = (0, import_dataverse36.val)(layoutP.sheet);
+            const sheet = (0, import_dataverse35.val)(layoutP.sheet);
             const sequence = sheet.getSequence();
             const defaultRange = { start: 0, end: sequence.length };
             let existingRange2 = existingRangeD.getValue() || {
@@ -38296,7 +38414,7 @@ var init_FocusRangeThumb = __esm({
             };
             const focusRangeEnabled = existingRange2.enabled;
             const posBeforeDrag = existingRange2.range[thumbType];
-            const scaledSpaceToUnitSpace = (0, import_dataverse36.val)(layoutP.scaledSpace.toUnitSpace);
+            const scaledSpaceToUnitSpace = (0, import_dataverse35.val)(layoutP.scaledSpace.toUnitSpace);
             const minFocusRangeStripWidth = scaledSpaceToUnitSpace(focusRangeStripTheme.rangeStripMinWidth);
             return {
               onDrag(dx, _3, event) {
@@ -38349,11 +38467,11 @@ var init_FocusRangeThumb = __esm({
           return null;
         const { enabled } = existingRange2;
         const position2 = existingRange2.range[thumbType];
-        let posInClippedSpace = (0, import_dataverse36.val)(layoutP.clippedSpace.fromUnitSpace)(position2);
-        if (posInClippedSpace < 0 || (0, import_dataverse36.val)(layoutP.clippedSpace.width) < posInClippedSpace) {
+        let posInClippedSpace = (0, import_dataverse35.val)(layoutP.clippedSpace.fromUnitSpace)(position2);
+        if (posInClippedSpace < 0 || (0, import_dataverse35.val)(layoutP.clippedSpace.width) < posInClippedSpace) {
           posInClippedSpace = -1e4;
         }
-        return /* @__PURE__ */ import_react123.default.createElement(TheDiv, __spreadProps(__spreadValues(__spreadValues({
+        return /* @__PURE__ */ import_react126.default.createElement(TheDiv, __spreadProps(__spreadValues(__spreadValues({
           ref: hitZoneRef
         }, DopeSnap_default.includePositionSnapAttrs(position2)), includeLockFrameStampAttrs(position2)), {
           className: `${isDragging && "dragging"} ${enabled && "enabled"}`,
@@ -38362,20 +38480,20 @@ var init_FocusRangeThumb = __esm({
           style: {
             transform: `translate3d(${posInClippedSpace}px, 0, 0)`
           }
-        }), /* @__PURE__ */ import_react123.default.createElement(ColoredMargin, {
+        }), /* @__PURE__ */ import_react126.default.createElement(ColoredMargin, {
           type: thumbType,
           enabled
-        }), /* @__PURE__ */ import_react123.default.createElement(OuterColoredMargin, {
+        }), /* @__PURE__ */ import_react126.default.createElement(OuterColoredMargin, {
           type: thumbType
-        }), /* @__PURE__ */ import_react123.default.createElement("svg", {
+        }), /* @__PURE__ */ import_react126.default.createElement("svg", {
           viewBox: "0 0 9 18",
           xmlns: "http://www.w3.org/2000/svg"
-        }, /* @__PURE__ */ import_react123.default.createElement("line", {
+        }, /* @__PURE__ */ import_react126.default.createElement("line", {
           x1: "4",
           y1: "6",
           x2: "4",
           y2: "12"
-        }), /* @__PURE__ */ import_react123.default.createElement("line", {
+        }), /* @__PURE__ */ import_react126.default.createElement("line", {
           x1: "6",
           y1: "6",
           x2: "6",
@@ -38389,17 +38507,17 @@ var init_FocusRangeThumb = __esm({
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeZone.tsx
 function usePanelDragZoneGestureHandlers(layoutP, panelStuffRef) {
-  const [mode, setMode] = (0, import_react125.useState)("none");
+  const [mode, setMode] = (0, import_react128.useState)("none");
   useCssCursorLock(mode !== "none", "dragging", mode === "creating" ? "ew-resize" : "move");
-  return (0, import_react125.useMemo)(() => {
+  return (0, import_react128.useMemo)(() => {
     const focusRangeCreationGestureHandlers = () => {
       return {
         debugName: "FocusRangeZone/focusRangeCreationGestureHandlers",
         onDragStart(event) {
           let tempTransaction;
-          const clippedSpaceToUnitSpace = (0, import_dataverse37.val)(layoutP.clippedSpace.toUnitSpace);
-          const scaledSpaceToUnitSpace = (0, import_dataverse37.val)(layoutP.scaledSpace.toUnitSpace);
-          const sheet = (0, import_dataverse37.val)(layoutP.sheet);
+          const clippedSpaceToUnitSpace = (0, import_dataverse36.val)(layoutP.clippedSpace.toUnitSpace);
+          const scaledSpaceToUnitSpace = (0, import_dataverse36.val)(layoutP.scaledSpace.toUnitSpace);
+          const sheet = (0, import_dataverse36.val)(layoutP.sheet);
           const sequence = sheet.getSequence();
           const targetElement = event.target;
           const rect = targetElement.getBoundingClientRect();
@@ -38455,8 +38573,8 @@ function usePanelDragZoneGestureHandlers(layoutP, panelStuffRef) {
           return {
             onDrag(dx, dy) {
               const newDims = __spreadProps(__spreadValues({}, stuffBeforeDrag.dims), {
-                top: stuffBeforeDrag.dims.top + dy,
-                left: stuffBeforeDrag.dims.left + dx
+                top: clamp_default(stuffBeforeDrag.dims.top + dy, 0, window.innerHeight - visibleSize),
+                left: clamp_default(stuffBeforeDrag.dims.left + dx, -stuffBeforeDrag.dims.width + visibleSize, window.innerWidth - visibleSize)
               });
               const position2 = panelDimsToPanelPosition(newDims, {
                 width: window.innerWidth,
@@ -38510,10 +38628,10 @@ function usePanelDragZoneGestureHandlers(layoutP, panelStuffRef) {
     };
   }, [layoutP, panelStuffRef]);
 }
-var import_dataverse37, import_react125, Container27, FocusRangeZone, FocusRangeZone_default;
+var import_dataverse36, import_react128, Container27, FocusRangeZone, FocusRangeZone_default;
 var init_FocusRangeZone = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeZone.tsx"() {
-    import_dataverse37 = __toModule(require("@theatre/dataverse"));
+    import_dataverse36 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
     init_BasePanel();
@@ -38524,10 +38642,11 @@ var init_FocusRangeZone = __esm({
     init_useKeyDown();
     init_useRefAndState();
     init_lodash();
-    import_react125 = __toModule(require_react());
+    import_react128 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FocusRangeStrip();
     init_FocusRangeThumb();
+    init_common();
     Container27 = styled_components_browser_esm_default.div`
   position: absolute;
   height: ${() => topStripHeight}px;
@@ -38540,32 +38659,32 @@ var init_FocusRangeZone = __esm({
     FocusRangeZone = ({ layoutP }) => {
       const [containerRef, containerNode] = useRefAndState(null);
       const panelStuff = usePanel();
-      const panelStuffRef = (0, import_react125.useRef)(panelStuff);
+      const panelStuffRef = (0, import_react128.useRef)(panelStuff);
       panelStuffRef.current = panelStuff;
-      const existingRangeD = (0, import_react125.useMemo)(() => (0, import_dataverse37.prism)(() => {
-        const { projectId, sheetId } = (0, import_dataverse37.val)(layoutP.sheet).address;
-        const existingRange = (0, import_dataverse37.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
+      const existingRangeD = (0, import_react128.useMemo)(() => (0, import_dataverse36.prism)(() => {
+        const { projectId, sheetId } = (0, import_dataverse36.val)(layoutP.sheet).address;
+        const existingRange = (0, import_dataverse36.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange;
       }), [layoutP]);
       useDrag(containerNode, usePanelDragZoneGestureHandlers(layoutP, panelStuffRef));
       const isShiftDown = useKeyDown("Shift");
       const isPointerHovering = useHoverWithoutDescendants(containerNode);
-      (0, import_react125.useEffect)(() => {
+      (0, import_react128.useEffect)(() => {
         if (!isShiftDown && isPointerHovering) {
           const unlock = panelStuffRef.current.addBoundsHighlightLock();
           return unlock;
         }
       }, [!isShiftDown && isPointerHovering]);
       return usePrism(() => {
-        return /* @__PURE__ */ import_react125.default.createElement(Container27, {
+        return /* @__PURE__ */ import_react128.default.createElement(Container27, {
           ref: containerRef,
           isShiftDown
-        }, /* @__PURE__ */ import_react125.default.createElement(FocusRangeStrip_default, {
+        }, /* @__PURE__ */ import_react128.default.createElement(FocusRangeStrip_default, {
           layoutP
-        }), /* @__PURE__ */ import_react125.default.createElement(FocusRangeThumb_default, {
+        }), /* @__PURE__ */ import_react128.default.createElement(FocusRangeThumb_default, {
           thumbType: "start",
           layoutP
-        }), /* @__PURE__ */ import_react125.default.createElement(FocusRangeThumb_default, {
+        }), /* @__PURE__ */ import_react128.default.createElement(FocusRangeThumb_default, {
           thumbType: "end",
           layoutP
         }));
@@ -38576,11 +38695,11 @@ var init_FocusRangeZone = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/TopStrip.tsx
-var import_react127, topStripHeight, topStripTheme, Container28, TopStrip, TopStrip_default;
+var import_react130, topStripHeight, topStripTheme, Container28, TopStrip, TopStrip_default;
 var init_TopStrip = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/TopStrip.tsx"() {
     init_src();
-    import_react127 = __toModule(require_react());
+    import_react130 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_StampsGrid();
     init_FrameStampPositionProvider();
@@ -38588,8 +38707,8 @@ var init_TopStrip = __esm({
     init_FocusRangeZone();
     topStripHeight = 18;
     topStripTheme = {
-      backgroundColor: `#1f2120eb`,
-      borderColor: `#1c1e21`
+      backgroundColor: `rgba(0,0,0,0.99)`,
+      borderColor: `rgba(225, 225, 225, 0.1)`
     };
     Container28 = styled_components_browser_esm_default.div`
   position: absolute;
@@ -38599,18 +38718,18 @@ var init_TopStrip = __esm({
   height: ${topStripHeight}px;
   box-sizing: border-box;
   background: ${topStripTheme.backgroundColor};
-  border-bottom: 1px solid ${topStripTheme.borderColor};
+  border-bottom: 1px solid #4b4b4b;
   ${pointerEventsAutoInNormalMode};
 `;
     TopStrip = ({
       layoutP
     }) => {
       const width = useVal(layoutP.rightDims.width);
-      return /* @__PURE__ */ import_react127.default.createElement(import_react127.default.Fragment, null, /* @__PURE__ */ import_react127.default.createElement(Container28, __spreadValues({}, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react127.default.createElement(StampsGrid_default, {
+      return /* @__PURE__ */ import_react130.default.createElement(import_react130.default.Fragment, null, /* @__PURE__ */ import_react130.default.createElement(Container28, __spreadValues({}, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react130.default.createElement(StampsGrid_default, {
         layoutP,
         width,
         height: topStripHeight
-      }), /* @__PURE__ */ import_react127.default.createElement(FocusRangeZone_default, {
+      }), /* @__PURE__ */ import_react130.default.createElement(FocusRangeZone_default, {
         layoutP
       })));
     };
@@ -38619,16 +38738,16 @@ var init_TopStrip = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthEditorPopover.tsx
-var import_react128, greaterThanZero, Container29, Label2, nudge, LengthEditorPopover, LengthEditorPopover_default;
+var import_react131, greaterThanZero, Container29, Label2, nudge, LengthEditorPopover, LengthEditorPopover_default;
 var init_LengthEditorPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthEditorPopover.tsx"() {
-    import_react128 = __toModule(require_react());
+    import_react131 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_src();
     init_getStudio();
     init_BasicNumberInput();
     init_propNameTextCSS();
-    greaterThanZero = (v3) => isFinite(v3) && v3 > 0;
+    greaterThanZero = (v5) => isFinite(v5) && v5 > 0;
     Container29 = styled_components_browser_esm_default.div`
   display: flex;
   gap: 8px;
@@ -38643,7 +38762,7 @@ var init_LengthEditorPopover = __esm({
     nudge = ({ deltaX }) => deltaX * 0.25;
     LengthEditorPopover = ({ layoutP }) => {
       const sheet = useVal(layoutP.sheet);
-      const fns = (0, import_react128.useMemo)(() => {
+      const fns = (0, import_react131.useMemo)(() => {
         let tempTransaction;
         return {
           temporarilySetValue(newLength) {
@@ -38676,14 +38795,14 @@ var init_LengthEditorPopover = __esm({
           }
         };
       }, [layoutP, sheet]);
-      const inputRef = (0, import_react128.useRef)(null);
-      (0, import_react128.useLayoutEffect)(() => {
+      const inputRef = (0, import_react131.useRef)(null);
+      (0, import_react131.useLayoutEffect)(() => {
         inputRef.current.focus();
       }, []);
       return usePrism(() => {
         const sequence = sheet.getSequence();
         const sequenceLength = sequence.length;
-        return /* @__PURE__ */ import_react128.default.createElement(Container29, null, /* @__PURE__ */ import_react128.default.createElement(Label2, null, "Sequence length"), /* @__PURE__ */ import_react128.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
+        return /* @__PURE__ */ import_react131.default.createElement(Container29, null, /* @__PURE__ */ import_react131.default.createElement(Label2, null, "Sequence length"), /* @__PURE__ */ import_react131.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
           value: sequenceLength
         }, fns), {
           isValid: greaterThanZero,
@@ -38698,18 +38817,18 @@ var init_LengthEditorPopover = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthIndicator.tsx
 function useDragBulge(node, props) {
-  const propsRef = (0, import_react131.useRef)(props);
+  const propsRef = (0, import_react134.useRef)(props);
   propsRef.current = props;
-  const gestureHandlers = (0, import_react131.useMemo)(() => {
+  const gestureHandlers = (0, import_react134.useMemo)(() => {
     return {
       debugName: "LengthIndicator/useDragBulge",
       lockCSSCursorTo: "ew-resize",
       onDragStart(event) {
         let tempTransaction;
         const propsAtStartOfDrag = propsRef.current;
-        const sheet = (0, import_dataverse38.val)(propsRef.current.layoutP.sheet);
+        const sheet = (0, import_dataverse37.val)(propsRef.current.layoutP.sheet);
         const initialLength = sheet.getSequence().length;
-        const toUnitSpace = (0, import_dataverse38.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const toUnitSpace = (0, import_dataverse37.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
         return {
           onDrag(dx, dy, event2) {
             const delta = toUnitSpace(dx);
@@ -38742,12 +38861,12 @@ function useDragBulge(node, props) {
   useLockFrameStampPosition(isDragging, -1);
   return [isDragging];
 }
-var import_dataverse38, import_react131, coverWidth, colors, Strip, ThumbContainer, Tooltip, Tumb, Cover, RENDER_OUT_OF_VIEW_X, LengthIndicator, LengthIndicator_default;
+var import_dataverse37, import_react134, coverWidth, colors, Strip, ThumbContainer, Tooltip, Tumb, Cover, RENDER_OUT_OF_VIEW_X, LengthIndicator, LengthIndicator_default;
 var init_LengthIndicator = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthIndicator.tsx"() {
     init_src();
-    import_dataverse38 = __toModule(require("@theatre/dataverse"));
-    import_react131 = __toModule(require_react());
+    import_dataverse37 = __toModule(require("@theatre/dataverse"));
+    import_react134 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
     init_TopStrip();
@@ -38830,11 +38949,11 @@ var init_LengthIndicator = __esm({
   align-items: center;
   cursor: ew-resize;
   color: #5d5d5d;
-  background-color: #191919;
+  background-color: #32353b;
 
   ${Strip}:hover &, ${Strip}.dragging & {
     color: white;
-    background-color: ${colors.stripActive};
+    background:#40aeff;
 
     & > svg:first-child {
       margin-right: -1px;
@@ -38843,6 +38962,11 @@ var init_LengthIndicator = __esm({
 
   & > svg:first-child {
     margin-right: -4px;
+    fill: white;
+  }
+
+  & > svg:nth-child(2) {
+    fill: white;
   }
 `;
     Cover = styled_components_browser_esm_default.div`
@@ -38867,19 +38991,19 @@ var init_LengthIndicator = __esm({
         toggle: togglePopover,
         close: closePopover
       } = usePopover({ debugName: "LengthIndicator" }, () => {
-        return /* @__PURE__ */ import_react131.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react131.default.createElement(LengthEditorPopover_default, {
+        return /* @__PURE__ */ import_react134.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react134.default.createElement(LengthEditorPopover_default, {
           layoutP,
           onRequestClose: closePopover
         }));
       });
       return usePrism(() => {
-        const sheet = (0, import_dataverse38.val)(layoutP.sheet);
-        const height2 = (0, import_dataverse38.val)(layoutP.rightDims.height);
+        const sheet = (0, import_dataverse37.val)(layoutP.sheet);
+        const height2 = (0, import_dataverse37.val)(layoutP.rightDims.height);
         const sequence = sheet.getSequence();
         const sequenceLength = sequence.length;
         const startInUnitSpace = sequenceLength;
-        let startX = (0, import_dataverse38.val)(layoutP.clippedSpace.fromUnitSpace)(startInUnitSpace);
-        let endX = (0, import_dataverse38.val)(layoutP.clippedSpace.width);
+        let startX = (0, import_dataverse37.val)(layoutP.clippedSpace.fromUnitSpace)(startInUnitSpace);
+        let endX = (0, import_dataverse37.val)(layoutP.clippedSpace.width);
         let scaleX, translateX;
         if (startX > endX) {
           translateX = 0;
@@ -38891,18 +39015,18 @@ var init_LengthIndicator = __esm({
           translateX = startX;
           scaleX = (endX - startX) / coverWidth;
         }
-        return /* @__PURE__ */ import_react131.default.createElement(import_react131.default.Fragment, null, popoverNode, /* @__PURE__ */ import_react131.default.createElement(Strip, {
+        return /* @__PURE__ */ import_react134.default.createElement(import_react134.default.Fragment, null, popoverNode, /* @__PURE__ */ import_react134.default.createElement(Strip, {
           style: {
             height: height2 + "px",
             transform: `translateX(${translateX === 0 ? RENDER_OUT_OF_VIEW_X : translateX}px)`
           },
           className: isDragging ? "dragging" : ""
-        }, /* @__PURE__ */ import_react131.default.createElement(ThumbContainer, null, /* @__PURE__ */ import_react131.default.createElement(Tumb, __spreadValues({
+        }, /* @__PURE__ */ import_react134.default.createElement(ThumbContainer, null, /* @__PURE__ */ import_react134.default.createElement(Tumb, __spreadValues({
           ref: nodeRef,
           onClick: (e2) => {
             togglePopover(e2, node);
           }
-        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react131.default.createElement(GoChevronLeft, null), /* @__PURE__ */ import_react131.default.createElement(GoChevronRight, null)), /* @__PURE__ */ import_react131.default.createElement(Tooltip, null, "Sequence length:", " ", sequence.positionFormatter.formatBasic(sequenceLength)))), /* @__PURE__ */ import_react131.default.createElement(Cover, {
+        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react134.default.createElement(GoChevronLeft, null), /* @__PURE__ */ import_react134.default.createElement(GoChevronRight, null)), /* @__PURE__ */ import_react134.default.createElement(Tooltip, null, "Sequence length:", " ", sequence.positionFormatter.formatBasic(sequenceLength)))), /* @__PURE__ */ import_react134.default.createElement(Cover, {
           title: "Length",
           style: {
             height: height2 + "px",
@@ -38916,12 +39040,12 @@ var init_LengthIndicator = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/FrameStamp.tsx
-var import_dataverse39, import_react133, Container30, Label3, Line, FrameStamp, FrameStamp_default;
+var import_dataverse38, import_react136, Container30, Label3, Line, FrameStamp, FrameStamp_default;
 var init_FrameStamp = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FrameStamp.tsx"() {
     init_src();
-    import_dataverse39 = __toModule(require("@theatre/dataverse"));
-    import_react133 = __toModule(require_react());
+    import_dataverse38 = __toModule(require("@theatre/dataverse"));
+    import_react136 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_StampsGrid();
     init_SequenceEditorPanel();
@@ -38940,7 +39064,8 @@ var init_FrameStamp = __esm({
   color: ${stampsGridTheme.fullUnitStampColor};
   text-align: center;
   transform: translateX(-50%);
-  background: ${topStripTheme.backgroundColor};
+  //background: ${topStripTheme.backgroundColor};
+  background:#32353b;
   padding: 1px 8px;
   font-variant-numeric: tabular-nums;
   pointer-events: none;
@@ -38955,26 +39080,26 @@ var init_FrameStamp = __esm({
   background: rgba(100, 100, 100, 0.2);
   pointer-events: none;
 `;
-    FrameStamp = import_react133.default.memo(({ layoutP }) => {
+    FrameStamp = import_react136.default.memo(({ layoutP }) => {
       const [posInUnitSpace, posType] = useVal(useFrameStampPositionD());
       const unitSpaceToClippedSpace = useVal(layoutP.clippedSpace.fromUnitSpace);
       const { sequence, formatter, clippedSpaceWidth } = usePrism(() => {
-        const sequence2 = (0, import_dataverse39.val)(layoutP.sheet).getSequence();
-        const clippedSpaceWidth2 = (0, import_dataverse39.val)(layoutP.clippedSpace.width);
+        const sequence2 = (0, import_dataverse38.val)(layoutP.sheet).getSequence();
+        const clippedSpaceWidth2 = (0, import_dataverse38.val)(layoutP.clippedSpace.width);
         return { sequence: sequence2, formatter: sequence2.positionFormatter, clippedSpaceWidth: clippedSpaceWidth2 };
       }, [layoutP]);
       if (posInUnitSpace == -1) {
-        return /* @__PURE__ */ import_react133.default.createElement(import_react133.default.Fragment, null);
+        return /* @__PURE__ */ import_react136.default.createElement(import_react136.default.Fragment, null);
       }
       const snappedPosInUnitSpace = posType === FrameStampPositionType.free ? sequence.closestGridPosition(posInUnitSpace) : posInUnitSpace;
       const posInClippedSpace = unitSpaceToClippedSpace(snappedPosInUnitSpace);
       const isVisible2 = posInClippedSpace >= 0 && posInClippedSpace <= clippedSpaceWidth;
-      return /* @__PURE__ */ import_react133.default.createElement(import_react133.default.Fragment, null, /* @__PURE__ */ import_react133.default.createElement(Container30, null, /* @__PURE__ */ import_react133.default.createElement(Label3, {
+      return /* @__PURE__ */ import_react136.default.createElement(import_react136.default.Fragment, null, /* @__PURE__ */ import_react136.default.createElement(Container30, null, /* @__PURE__ */ import_react136.default.createElement(Label3, {
         style: {
           opacity: isVisible2 ? 1 : 0,
           transform: `translate3d(calc(${posInClippedSpace}px - 50%), 0, 0)`
         }
-      }, formatter.formatForPlayhead(snappedPosInUnitSpace)), /* @__PURE__ */ import_react133.default.createElement(Line, {
+      }, formatter.formatForPlayhead(snappedPosInUnitSpace)), /* @__PURE__ */ import_react136.default.createElement(Line, {
         posType,
         style: {
           opacity: isVisible2 ? 1 : 0,
@@ -38987,14 +39112,14 @@ var init_FrameStamp = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/HorizontalScrollbar.tsx
-var import_dataverse40, import_react135, Container31, TimeThread, RangeBar, RangeHandle, RangeStartHandle, RangeEndHandle, Tooltip2, HorizontalScrollbar, HorizontalScrollbar_default;
+var import_dataverse39, import_react138, Container31, TimeThread, RangeBar, RangeHandle, RangeStartHandle, RangeEndHandle, Tooltip2, HorizontalScrollbar, HorizontalScrollbar_default;
 var init_HorizontalScrollbar = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/HorizontalScrollbar.tsx"() {
     init_src();
-    import_dataverse40 = __toModule(require("@theatre/dataverse"));
+    import_dataverse39 = __toModule(require("@theatre/dataverse"));
     init_mapValues();
     init_polished_esm();
-    import_react135 = __toModule(require_react());
+    import_react138 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
     init_FrameStampPositionProvider();
@@ -39083,7 +39208,7 @@ var init_HorizontalScrollbar = __esm({
   left: 4px;
   padding: 0 4px;
   transform: translateX(-50%);
-  background: #131d1f;
+  background: #32353b;
   border-radius: 4px;
   color: #fff;
   font-size: 10px;
@@ -39098,11 +39223,11 @@ var init_HorizontalScrollbar = __esm({
   }
 `;
     HorizontalScrollbar = ({ layoutP }) => {
-      const unitPosToHumanReadablePos = (0, import_react135.useCallback)((n3) => n3.toFixed(2), []);
-      const relevantValuesD = (0, import_react135.useMemo)(() => (0, import_dataverse40.prism)(() => {
-        const rightWidth = (0, import_dataverse40.val)(layoutP.rightDims.width) - 25;
-        const clippedSpaceRange2 = (0, import_dataverse40.val)(layoutP.clippedSpace.range);
-        const sequenceLength = (0, import_dataverse40.val)(layoutP.sheet).getSequence().length;
+      const unitPosToHumanReadablePos = (0, import_react138.useCallback)((n3) => n3.toFixed(2), []);
+      const relevantValuesD = (0, import_react138.useMemo)(() => (0, import_dataverse39.prism)(() => {
+        const rightWidth = (0, import_dataverse39.val)(layoutP.rightDims.width) - 25;
+        const clippedSpaceRange2 = (0, import_dataverse39.val)(layoutP.clippedSpace.range);
+        const sequenceLength = (0, import_dataverse39.val)(layoutP.sheet).getSequence().length;
         const assumedLengthOfSequence = Math.max(clippedSpaceRange2.end, sequenceLength);
         const rangeStartX2 = clippedSpaceRange2.start / assumedLengthOfSequence * rightWidth;
         const rangeEndX2 = clippedSpaceRange2.end / assumedLengthOfSequence * rightWidth;
@@ -39113,15 +39238,15 @@ var init_HorizontalScrollbar = __esm({
           assumedLengthOfSequence,
           rangeStartX: rangeStartX2,
           rangeEndX: rangeEndX2,
-          bottom: (0, import_dataverse40.val)(layoutP.horizontalScrollbarDims.bottom)
+          bottom: (0, import_dataverse39.val)(layoutP.horizontalScrollbarDims.bottom)
         };
       }), [layoutP]);
       const { rangeStartX, rangeEndX, clippedSpaceRange, bottom } = useVal(relevantValuesD);
-      const [beingDragged, setBeingDragged] = (0, import_react135.useState)("nothing");
-      const handles = (0, import_react135.useMemo)(() => {
-        let valuesBeforeDrag = (0, import_dataverse40.val)(relevantValuesD);
+      const [beingDragged, setBeingDragged] = (0, import_react138.useState)("nothing");
+      const handles = (0, import_react138.useMemo)(() => {
+        let valuesBeforeDrag = (0, import_dataverse39.val)(relevantValuesD);
         let noteValuesBeforeDrag = () => {
-          valuesBeforeDrag = (0, import_dataverse40.val)(relevantValuesD);
+          valuesBeforeDrag = (0, import_dataverse39.val)(relevantValuesD);
         };
         const deltaXToDeltaPos = (dx) => {
           const asAFractionOfRightWidth = dx / valuesBeforeDrag.rightWidth;
@@ -39134,8 +39259,8 @@ var init_HorizontalScrollbar = __esm({
               onDrag(dx) {
                 setBeingDragged("both");
                 const deltaPosInUnitSpace = deltaXToDeltaPos(dx);
-                const newRange = mapValues_default(valuesBeforeDrag.clippedSpaceRange, (p2) => p2 + deltaPosInUnitSpace);
-                (0, import_dataverse40.val)(layoutP.clippedSpace.setRange)(newRange);
+                const newRange = mapValues_default(valuesBeforeDrag.clippedSpaceRange, (p3) => p3 + deltaPosInUnitSpace);
+                (0, import_dataverse39.val)(layoutP.clippedSpace.setRange)(newRange);
               },
               onDragEnd() {
                 setBeingDragged("nothing");
@@ -39158,7 +39283,7 @@ var init_HorizontalScrollbar = __esm({
                 if (newRange.start <= 0) {
                   newRange.start = 0;
                 }
-                (0, import_dataverse40.val)(layoutP.clippedSpace.setRange)(newRange);
+                (0, import_dataverse39.val)(layoutP.clippedSpace.setRange)(newRange);
               },
               onDragEnd() {
                 setBeingDragged("nothing");
@@ -39181,7 +39306,7 @@ var init_HorizontalScrollbar = __esm({
                 if (newRange.end >= valuesBeforeDrag.assumedLengthOfSequence) {
                   newRange.end = valuesBeforeDrag.assumedLengthOfSequence;
                 }
-                (0, import_dataverse40.val)(layoutP.clippedSpace.setRange)(newRange);
+                (0, import_dataverse39.val)(layoutP.clippedSpace.setRange)(newRange);
               },
               onDragEnd() {
                 setBeingDragged("nothing");
@@ -39191,41 +39316,41 @@ var init_HorizontalScrollbar = __esm({
         };
         return self2;
       }, [layoutP, relevantValuesD]);
-      const [rangeDragNode, setRangeDragNode] = (0, import_react135.useState)(null);
+      const [rangeDragNode, setRangeDragNode] = (0, import_react138.useState)(null);
       useDrag(rangeDragNode, {
         debugName: "HorizontalScrollbar/onRangeDrag",
         onDragStart: handles.onRangeDragStart,
         lockCSSCursorTo: "ew-resize"
       });
-      const [rangeStartDragNode, setRangeStartDragNode] = (0, import_react135.useState)(null);
+      const [rangeStartDragNode, setRangeStartDragNode] = (0, import_react138.useState)(null);
       useDrag(rangeStartDragNode, {
         debugName: "HorizontalScrollbar/onRangeStartDrag",
         onDragStart: handles.onRangeStartDragStart,
         lockCSSCursorTo: "w-resize"
       });
-      const [rangeEndDragNode, setRangeEndDragNode] = (0, import_react135.useState)(null);
+      const [rangeEndDragNode, setRangeEndDragNode] = (0, import_react138.useState)(null);
       useDrag(rangeEndDragNode, {
         debugName: "HorizontalScrollbar/onRangeEndDrag",
         onDragStart: handles.onRangeEndDragStart,
         lockCSSCursorTo: "e-resize"
       });
-      return /* @__PURE__ */ import_react135.default.createElement(Container31, __spreadValues({
+      return /* @__PURE__ */ import_react138.default.createElement(Container31, __spreadValues({
         style: { bottom: bottom + 8 + "px" }
-      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react135.default.createElement(TimeThread, null, /* @__PURE__ */ import_react135.default.createElement(RangeBar, {
+      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react138.default.createElement(TimeThread, null, /* @__PURE__ */ import_react138.default.createElement(RangeBar, {
         ref: setRangeDragNode,
         style: {
           width: `${rangeEndX - rangeStartX}px`,
           transform: `translate3d(${rangeStartX}px, 0, 0)`
         }
-      }), /* @__PURE__ */ import_react135.default.createElement(RangeStartHandle, {
+      }), /* @__PURE__ */ import_react138.default.createElement(RangeStartHandle, {
         ref: setRangeStartDragNode,
         style: { transform: `translate3d(${rangeStartX}px, 0, 0)` }
-      }, /* @__PURE__ */ import_react135.default.createElement(Tooltip2, {
+      }, /* @__PURE__ */ import_react138.default.createElement(Tooltip2, {
         active: beingDragged === "both" || beingDragged === "start"
-      }, unitPosToHumanReadablePos(clippedSpaceRange.start))), /* @__PURE__ */ import_react135.default.createElement(RangeEndHandle, {
+      }, unitPosToHumanReadablePos(clippedSpaceRange.start))), /* @__PURE__ */ import_react138.default.createElement(RangeEndHandle, {
         ref: setRangeEndDragNode,
         style: { transform: `translate3d(${rangeEndX}px, 0, 0)` }
-      }, /* @__PURE__ */ import_react135.default.createElement(Tooltip2, {
+      }, /* @__PURE__ */ import_react138.default.createElement(Tooltip2, {
         active: beingDragged === "both" || beingDragged === "end"
       }, unitPosToHumanReadablePos(clippedSpaceRange.end)))));
     };
@@ -39234,17 +39359,17 @@ var init_HorizontalScrollbar = __esm({
 });
 
 // studio/src/uiComponents/RoomToClick.tsx
-var import_react136, Container32, RoomToClick, RoomToClick_default;
+var import_react139, Container32, RoomToClick, RoomToClick_default;
 var init_RoomToClick = __esm({
   "studio/src/uiComponents/RoomToClick.tsx"() {
-    import_react136 = __toModule(require_react());
+    import_react139 = __toModule(require_react());
     init_styled_components_browser_esm();
     Container32 = styled_components_browser_esm_default.div`
   position: absolute;
   inset: ${(props) => props.room * -1}px;
 `;
     RoomToClick = (props) => {
-      return /* @__PURE__ */ import_react136.default.createElement(Container32, {
+      return /* @__PURE__ */ import_react139.default.createElement(Container32, {
         room: props.room
       });
     };
@@ -39253,18 +39378,18 @@ var init_RoomToClick = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/PlayheadPositionPopover.tsx
-var import_react138, import_react139, import_dataverse41, greaterThanOrEqualToZero, Container33, Label4, nudge2, PlayheadPositionPopover, PlayheadPositionPopover_default;
+var import_react141, import_react142, import_dataverse40, greaterThanOrEqualToZero, Container33, Label4, nudge2, PlayheadPositionPopover, PlayheadPositionPopover_default;
 var init_PlayheadPositionPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/PlayheadPositionPopover.tsx"() {
     init_styled_components_browser_esm();
     init_src();
     init_BasicNumberInput();
     init_propNameTextCSS();
-    import_react138 = __toModule(require_react());
-    import_react139 = __toModule(require_react());
-    import_dataverse41 = __toModule(require("@theatre/dataverse"));
+    import_react141 = __toModule(require_react());
+    import_react142 = __toModule(require_react());
+    import_dataverse40 = __toModule(require("@theatre/dataverse"));
     init_clamp();
-    greaterThanOrEqualToZero = (v3) => isFinite(v3) && v3 >= 0;
+    greaterThanOrEqualToZero = (v5) => isFinite(v5) && v5 >= 0;
     Container33 = styled_components_browser_esm_default.div`
   display: flex;
   gap: 8px;
@@ -39278,9 +39403,9 @@ var init_PlayheadPositionPopover = __esm({
 `;
     nudge2 = ({ deltaX }) => deltaX * 0.25;
     PlayheadPositionPopover = ({ layoutP }) => {
-      const sheet = (0, import_dataverse41.val)(layoutP.sheet);
+      const sheet = (0, import_dataverse40.val)(layoutP.sheet);
       const sequence = sheet.getSequence();
-      const fns = (0, import_react138.useMemo)(() => {
+      const fns = (0, import_react141.useMemo)(() => {
         let tempPosition;
         const originalPosition = sequence.position;
         return {
@@ -39305,13 +39430,13 @@ var init_PlayheadPositionPopover = __esm({
           }
         };
       }, [layoutP, sequence]);
-      const inputRef = (0, import_react138.useRef)(null);
-      (0, import_react138.useLayoutEffect)(() => {
+      const inputRef = (0, import_react141.useRef)(null);
+      (0, import_react141.useLayoutEffect)(() => {
         inputRef.current.focus();
       }, []);
       return usePrism(() => {
         const sequence2 = sheet.getSequence();
-        return /* @__PURE__ */ import_react139.default.createElement(Container33, null, /* @__PURE__ */ import_react139.default.createElement(Label4, null, "Sequence position"), /* @__PURE__ */ import_react139.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
+        return /* @__PURE__ */ import_react142.default.createElement(Container33, null, /* @__PURE__ */ import_react142.default.createElement(Label4, null, "Sequence position"), /* @__PURE__ */ import_react142.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
           value: Number(sequence2.position.toFixed(3))
         }, fns), {
           isValid: greaterThanOrEqualToZero,
@@ -39350,7 +39475,7 @@ var init_keyboardUtils = __esm({
 // studio/src/UIRoot/useKeyboardShortcuts.ts
 function useKeyboardShortcuts() {
   const studio3 = getStudio();
-  (0, import_react140.useEffect)(() => {
+  (0, import_react143.useEffect)(() => {
     const handleKeyDown = (e2) => {
       const target = e2.composedPath()[0];
       if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) {
@@ -39373,9 +39498,9 @@ function useKeyboardShortcuts() {
             seq.pause();
           } else {
             const { projectId, sheetId } = seq.address;
-            const controlledPlaybackStateD = (0, import_dataverse42.prism)(() => {
-              const focusRange = (0, import_dataverse42.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
-              const shouldFollowFocusRange = import_dataverse42.prism.memo("shouldFollowFocusRange", () => {
+            const controlledPlaybackStateD = (0, import_dataverse41.prism)(() => {
+              const focusRange = (0, import_dataverse41.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
+              const shouldFollowFocusRange = import_dataverse41.prism.memo("shouldFollowFocusRange", () => {
                 const posBeforePlay = seq.position;
                 if (focusRange) {
                   const withinRange = posBeforePlay >= focusRange.range.start && posBeforePlay <= focusRange.range.end;
@@ -39398,7 +39523,7 @@ function useKeyboardShortcuts() {
                   isFollowingARange: true
                 };
               } else {
-                const sequenceLength = (0, import_dataverse42.val)(seq.pointer.length);
+                const sequenceLength = (0, import_dataverse41.val)(seq.pointer.length);
                 return { range: [0, sequenceLength], isFollowingARange: false };
               }
             });
@@ -39428,29 +39553,29 @@ function useKeyboardShortcuts() {
     };
   }, []);
 }
-var import_react140, import_dataverse42, getPlaybackStateBox, getIsPlayheadAttachedToFocusRange;
+var import_react143, import_dataverse41, getPlaybackStateBox, getIsPlayheadAttachedToFocusRange;
 var init_useKeyboardShortcuts = __esm({
   "studio/src/UIRoot/useKeyboardShortcuts.ts"() {
-    import_react140 = __toModule(require_react());
+    import_react143 = __toModule(require_react());
     init_getStudio();
     init_keyboardUtils();
     init_selectors();
-    import_dataverse42 = __toModule(require("@theatre/dataverse"));
+    import_dataverse41 = __toModule(require("@theatre/dataverse"));
     init_memoizeFn();
     getPlaybackStateBox = memoizeFn((sequence) => {
-      const box = new import_dataverse42.Box(void 0);
+      const box = new import_dataverse41.Box(void 0);
       return box;
     });
-    getIsPlayheadAttachedToFocusRange = memoizeFn((sequence) => (0, import_dataverse42.prism)(() => {
+    getIsPlayheadAttachedToFocusRange = memoizeFn((sequence) => (0, import_dataverse41.prism)(() => {
       const controlledPlaybackState = getPlaybackStateBox(sequence).derivation.getValue();
       if (controlledPlaybackState) {
         return controlledPlaybackState.getValue().isFollowingARange;
       } else {
         const { projectId, sheetId } = sequence.address;
-        const focusRange = (0, import_dataverse42.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
+        const focusRange = (0, import_dataverse41.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         if (!focusRange || !focusRange.enabled)
           return false;
-        const pos = (0, import_dataverse42.val)(sequence.pointer.position);
+        const pos = (0, import_dataverse41.val)(sequence.pointer.position);
         const withinRange = pos >= focusRange.range.start && pos <= focusRange.range.end;
         return withinRange;
       }
@@ -39470,11 +39595,11 @@ var init_SnapCursor = __esm({
 var absoluteDims;
 var init_absoluteDims = __esm({
   "studio/src/utils/absoluteDims.tsx"() {
-    absoluteDims = (w3, h3 = w3) => `
-  left: ${w3 * -0.5}px;
-  top: ${h3 * -0.5}px;
-  width: ${w3}px;
-  height: ${h3}px;
+    absoluteDims = (w4, h4 = w4) => `
+  left: ${w4 * -0.5}px;
+  top: ${h4 * -0.5}px;
+  width: ${w4}px;
+  height: ${h4}px;
 `;
   }
 });
@@ -39555,11 +39680,11 @@ function collectKeyframeSnapPositions(tracksByObject, shouldIncludeKeyframe) {
     ]))
   ]));
 }
-var import_dataverse43, import_react141, HitZone, Container34, KeyframeSnapTarget, KeyframeSnapTarget_default, stateB, snapPositionsStateD;
+var import_dataverse42, import_react144, HitZone, Container34, KeyframeSnapTarget, KeyframeSnapTarget_default, stateB, snapPositionsStateD;
 var init_KeyframeSnapTarget = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/KeyframeSnapTarget.tsx"() {
-    import_dataverse43 = __toModule(require("@theatre/dataverse"));
-    import_react141 = __toModule(require_react());
+    import_dataverse42 = __toModule(require("@theatre/dataverse"));
+    import_react144 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DopeSnapHitZoneUI();
     HitZone = styled_components_browser_esm_default.div`
@@ -39576,24 +39701,24 @@ var init_KeyframeSnapTarget = __esm({
   position: absolute;
 `;
     KeyframeSnapTarget = (props) => {
-      return /* @__PURE__ */ import_react141.default.createElement(Container34, {
+      return /* @__PURE__ */ import_react144.default.createElement(Container34, {
         style: {
           top: `${props.leaf.nodeHeight / 2}px`,
-          left: `calc(${(0, import_dataverse43.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${props.position}px))`
+          left: `calc(${(0, import_dataverse42.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${props.position}px))`
         }
-      }, /* @__PURE__ */ import_react141.default.createElement(HitZone, __spreadValues({}, DopeSnapHitZoneUI.reactProps({
+      }, /* @__PURE__ */ import_react144.default.createElement(HitZone, __spreadValues({}, DopeSnapHitZoneUI.reactProps({
         isDragging: false,
         position: props.position
       }))));
     };
     KeyframeSnapTarget_default = KeyframeSnapTarget;
-    stateB = new import_dataverse43.Box({ mode: "snapToNone" });
+    stateB = new import_dataverse42.Box({ mode: "snapToNone" });
     snapPositionsStateD = stateB.derivation;
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/Playhead.tsx
-function usePlayheadContextMenu(node, options) {
+function usePlayheadContextMenu(node, options2) {
   return useContextMenu(node, {
     menuItems() {
       return [
@@ -39601,7 +39726,7 @@ function usePlayheadContextMenu(node, options) {
           label: "Place marker",
           callback: () => {
             getStudio().transaction(({ stateEditors: stateEditors2 }) => {
-              const sheet = (0, import_dataverse44.val)(options.layoutP.sheet);
+              const sheet = (0, import_dataverse43.val)(options2.layoutP.sheet);
               const sheetSequence = sheet.getSequence();
               stateEditors2.studio.historic.projects.stateByProjectId.stateBySheetId.sequenceEditor.replaceMarkers({
                 sheetAddress: sheet.address,
@@ -39620,16 +39745,16 @@ function usePlayheadContextMenu(node, options) {
     }
   });
 }
-var import_dataverse44, import_react143, Container35, Rod, Thumb, Squinch, Tooltip3, Playhead, Playhead_default;
+var import_dataverse43, import_react146, Container35, Rod, Thumb, Squinch, Tooltip3, Playhead, Playhead_default;
 var init_Playhead = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/Playhead.tsx"() {
     init_RoomToClick();
     init_useDrag();
     init_useRefAndState();
     init_src();
-    import_dataverse44 = __toModule(require("@theatre/dataverse"));
+    import_dataverse43 = __toModule(require("@theatre/dataverse"));
     init_clamp();
-    import_react143 = __toModule(require_react());
+    import_react146 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
     init_FrameStampPositionProvider();
@@ -39645,7 +39770,8 @@ var init_Playhead = __esm({
     init_DopeSnap();
     init_KeyframeSnapTarget();
     Container35 = styled_components_browser_esm_default.div`
-  --thumbColor: #00e0ff;
+  // --thumbColor: #00e0ff;
+  --thumbColor:#40aeff;
   position: absolute;
   top: 0;
   left: 0;
@@ -39661,7 +39787,8 @@ var init_Playhead = __esm({
   top: 8px;
   width: 0;
   height: calc(100% - 8px);
-  border-left: 1px solid #27e0fd;
+  // border-left: 1px solid #27e0fd;
+  border-left: 1px solid #40aeff;
   z-index: 10;
   pointer-events: none;
 
@@ -39804,19 +39931,19 @@ var init_Playhead = __esm({
         toggle: togglePopover,
         close: closePopover
       } = usePopover({ debugName: "Playhead" }, () => {
-        return /* @__PURE__ */ import_react143.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react143.default.createElement(PlayheadPositionPopover_default, {
+        return /* @__PURE__ */ import_react146.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react146.default.createElement(PlayheadPositionPopover_default, {
           layoutP,
           onRequestClose: closePopover
         }));
       });
-      const gestureHandlers = (0, import_react143.useMemo)(() => {
+      const gestureHandlers = (0, import_react146.useMemo)(() => {
         return {
           debugName: "RightOverlay/Playhead",
           onDragStart() {
-            const sequence = (0, import_dataverse44.val)(layoutP.sheet).getSequence();
+            const sequence = (0, import_dataverse43.val)(layoutP.sheet).getSequence();
             const posBeforeSeek = sequence.position;
-            const scaledSpaceToUnitSpace = (0, import_dataverse44.val)(layoutP.scaledSpace.toUnitSpace);
-            const setIsSeeking = (0, import_dataverse44.val)(layoutP.seeker.setIsSeeking);
+            const scaledSpaceToUnitSpace = (0, import_dataverse43.val)(layoutP.scaledSpace.toUnitSpace);
+            const setIsSeeking = (0, import_dataverse43.val)(layoutP.seeker.setIsSeeking);
             setIsSeeking(true);
             snapToAll();
             return {
@@ -39845,21 +39972,21 @@ var init_Playhead = __esm({
         layoutP
       });
       return usePrism(() => {
-        const isSeeking = (0, import_dataverse44.val)(layoutP.seeker.isSeeking);
-        const sequence = (0, import_dataverse44.val)(layoutP.sheet).getSequence();
-        const isPlayheadAttachedToFocusRange = (0, import_dataverse44.val)(getIsPlayheadAttachedToFocusRange(sequence));
+        const isSeeking = (0, import_dataverse43.val)(layoutP.seeker.isSeeking);
+        const sequence = (0, import_dataverse43.val)(layoutP.sheet).getSequence();
+        const isPlayheadAttachedToFocusRange = (0, import_dataverse43.val)(getIsPlayheadAttachedToFocusRange(sequence));
         const posInUnitSpace = sequence.positionDerivation.getValue();
-        const posInClippedSpace = (0, import_dataverse44.val)(layoutP.clippedSpace.fromUnitSpace)(posInUnitSpace);
-        const isVisible2 = posInClippedSpace >= 0 && posInClippedSpace <= (0, import_dataverse44.val)(layoutP.clippedSpace.width);
-        return /* @__PURE__ */ import_react143.default.createElement(import_react143.default.Fragment, null, contextMenu, popoverNode, /* @__PURE__ */ import_react143.default.createElement(Container35, __spreadValues({
+        const posInClippedSpace = (0, import_dataverse43.val)(layoutP.clippedSpace.fromUnitSpace)(posInUnitSpace);
+        const isVisible2 = posInClippedSpace >= 0 && posInClippedSpace <= (0, import_dataverse43.val)(layoutP.clippedSpace.width);
+        return /* @__PURE__ */ import_react146.default.createElement(import_react146.default.Fragment, null, contextMenu, popoverNode, /* @__PURE__ */ import_react146.default.createElement(Container35, __spreadValues({
           isVisible: isVisible2,
           style: { transform: `translate3d(${posInClippedSpace}px, 0, 0)` },
           className: `${isSeeking && "seeking"} ${isPlayheadAttachedToFocusRange && "playheadattachedtofocusrange"}`
-        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react143.default.createElement(Thumb, __spreadValues({
+        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react146.default.createElement(Thumb, __spreadValues({
           ref: thumbRef
-        }, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), /* @__PURE__ */ import_react143.default.createElement(RoomToClick_default, {
+        }, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), /* @__PURE__ */ import_react146.default.createElement(RoomToClick_default, {
           room: 8
-        }), /* @__PURE__ */ import_react143.default.createElement(Squinch, null), /* @__PURE__ */ import_react143.default.createElement(Tooltip3, null, sequence.positionFormatter.formatForPlayhead(sequence.closestGridPosition(posInUnitSpace)))), /* @__PURE__ */ import_react143.default.createElement(Rod, __spreadProps(__spreadValues({}, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), {
+        }), /* @__PURE__ */ import_react146.default.createElement(Squinch, null), /* @__PURE__ */ import_react146.default.createElement(Tooltip3, null, sequence.positionFormatter.formatForPlayhead(sequence.closestGridPosition(posInUnitSpace)))), /* @__PURE__ */ import_react146.default.createElement(Rod, __spreadProps(__spreadValues({}, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), {
           className: isSeeking ? "seeking" : ""
         }))));
       }, [layoutP, thumbRef, popoverNode]);
@@ -39869,14 +39996,14 @@ var init_Playhead = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/FocusRangeCurtains.tsx
-var import_dataverse45, import_react145, divWidth, Curtain, FocusRangeCurtains, FocusRangeCurtains_default;
+var import_dataverse44, import_react148, divWidth, Curtain, FocusRangeCurtains, FocusRangeCurtains_default;
 var init_FocusRangeCurtains = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/FocusRangeCurtains.tsx"() {
-    import_dataverse45 = __toModule(require("@theatre/dataverse"));
+    import_dataverse44 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
     init_TopStrip();
-    import_react145 = __toModule(require_react());
+    import_react148 = __toModule(require_react());
     init_styled_components_browser_esm();
     divWidth = 1e3;
     Curtain = styled_components_browser_esm_default.div`
@@ -39890,9 +40017,9 @@ var init_FocusRangeCurtains = __esm({
   background-color: ${(props) => props.enabled ? "#000000" : "transparent"};
 `;
     FocusRangeCurtains = ({ layoutP }) => {
-      const existingRangeD = (0, import_react145.useMemo)(() => (0, import_dataverse45.prism)(() => {
-        const { projectId, sheetId } = (0, import_dataverse45.val)(layoutP.sheet).address;
-        const existingRange = (0, import_dataverse45.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
+      const existingRangeD = (0, import_react148.useMemo)(() => (0, import_dataverse44.prism)(() => {
+        const { projectId, sheetId } = (0, import_dataverse44.val)(layoutP.sheet).address;
+        const existingRange = (0, import_dataverse44.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange;
       }), [layoutP]);
       return usePrism(() => {
@@ -39900,9 +40027,9 @@ var init_FocusRangeCurtains = __esm({
         if (!existingRange || !existingRange.enabled)
           return null;
         const { range } = existingRange;
-        const height2 = (0, import_dataverse45.val)(layoutP.rightDims.height) - topStripHeight;
-        const unitSpaceToClippedSpace = (0, import_dataverse45.val)(layoutP.clippedSpace.fromUnitSpace);
-        const clippedSpaceWidth = (0, import_dataverse45.val)(layoutP.clippedSpace.width);
+        const height2 = (0, import_dataverse44.val)(layoutP.rightDims.height) - topStripHeight;
+        const unitSpaceToClippedSpace = (0, import_dataverse44.val)(layoutP.clippedSpace.fromUnitSpace);
+        const clippedSpaceWidth = (0, import_dataverse44.val)(layoutP.clippedSpace.width);
         const els2 = [];
         {
           let startX = 0;
@@ -39936,7 +40063,7 @@ var init_FocusRangeCurtains = __esm({
           }
           els2.push({ translateX, scaleX });
         }
-        return /* @__PURE__ */ import_react145.default.createElement(import_react145.default.Fragment, null, els2.map(({ translateX, scaleX }, i3) => /* @__PURE__ */ import_react145.default.createElement(Curtain, {
+        return /* @__PURE__ */ import_react148.default.createElement(import_react148.default.Fragment, null, els2.map(({ translateX, scaleX }, i3) => /* @__PURE__ */ import_react148.default.createElement(Curtain, {
           key: `curtain-${i3}`,
           enabled: true,
           style: {
@@ -39951,7 +40078,7 @@ var init_FocusRangeCurtains = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/MarkerDot.tsx
-function useMarkerContextMenu(node, options) {
+function useMarkerContextMenu(node, options2) {
   return useContextMenu(node, {
     menuItems() {
       return [
@@ -39960,8 +40087,8 @@ function useMarkerContextMenu(node, options) {
           callback: () => {
             getStudio().transaction(({ stateEditors: stateEditors2 }) => {
               stateEditors2.studio.historic.projects.stateByProjectId.stateBySheetId.sequenceEditor.removeMarker({
-                sheetAddress: options.sheetAddress,
-                markerId: options.markerId
+                sheetAddress: options2.sheetAddress,
+                markerId: options2.markerId
               });
             });
           }
@@ -39971,14 +40098,14 @@ function useMarkerContextMenu(node, options) {
   });
 }
 function useDragMarker(node, props) {
-  const propsRef = (0, import_react147.useRef)(props);
+  const propsRef = (0, import_react150.useRef)(props);
   propsRef.current = props;
-  const useDragOpts = (0, import_react147.useMemo)(() => {
+  const useDragOpts = (0, import_react150.useMemo)(() => {
     return {
       debugName: `MarkerDot/useDragMarker (${props.marker.id})`,
       onDragStart(_event) {
         const markerAtStartOfDrag = propsRef.current.marker;
-        const toUnitSpace = (0, import_dataverse46.val)(props.layoutP.scaledSpace.toUnitSpace);
+        const toUnitSpace = (0, import_dataverse45.val)(props.layoutP.scaledSpace.toUnitSpace);
         let tempTransaction;
         snapToAll();
         return {
@@ -39991,9 +40118,9 @@ function useDragMarker(node, props) {
             tempTransaction == null ? void 0 : tempTransaction.discard();
             tempTransaction = getStudio().tempTransaction(({ stateEditors: stateEditors2 }) => {
               stateEditors2.studio.historic.projects.stateByProjectId.stateBySheetId.sequenceEditor.replaceMarkers({
-                sheetAddress: (0, import_dataverse46.val)(props.layoutP.sheet.address),
+                sheetAddress: (0, import_dataverse45.val)(props.layoutP.sheet.address),
                 markers: [__spreadProps(__spreadValues({}, original), { position: newPosition })],
-                snappingFunction: (0, import_dataverse46.val)(props.layoutP.sheet).getSequence().closestGridPosition
+                snappingFunction: (0, import_dataverse45.val)(props.layoutP.sheet).getSequence().closestGridPosition
               });
             });
           },
@@ -40013,16 +40140,16 @@ function useDragMarker(node, props) {
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor draggingMarker", "ew-resize");
   return [isDragging];
 }
-var import_dataverse46, import_react147, MARKER_SIZE_W_PX, MARKER_SIZE_H_PX, MARKER_HOVER_SIZE_W_PX, MARKER_HOVER_SIZE_H_PX, MarkerDotContainer, MarkerVisualDotSVGContainer, MarkerVisualDot, HitZone2, MarkerDot, MarkerDot_default, MarkerDotVisible;
+var import_dataverse45, import_react150, MARKER_SIZE_W_PX, MARKER_SIZE_H_PX, MARKER_HOVER_SIZE_W_PX, MARKER_HOVER_SIZE_H_PX, MarkerDotContainer, MarkerVisualDotSVGContainer, MarkerVisualDot, HitZone2, MarkerDot, MarkerDot_default, MarkerDotVisible;
 var init_MarkerDot = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/MarkerDot.tsx"() {
-    import_dataverse46 = __toModule(require("@theatre/dataverse"));
+    import_dataverse45 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
     init_PointerEventsHandler();
     init_useContextMenu();
     init_useRefAndState();
-    import_react147 = __toModule(require_react());
+    import_react150 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_useDrag();
@@ -40046,14 +40173,14 @@ var init_MarkerDot = __esm({
   ${absoluteDims(MARKER_SIZE_W_PX, MARKER_SIZE_H_PX)}
   pointer-events: none;
 `;
-    MarkerVisualDot = import_react147.default.memo(() => /* @__PURE__ */ import_react147.default.createElement(MarkerVisualDotSVGContainer, {
-      children: /* @__PURE__ */ import_react147.default.createElement("svg", {
+    MarkerVisualDot = import_react150.default.memo(() => /* @__PURE__ */ import_react150.default.createElement(MarkerVisualDotSVGContainer, {
+      children: /* @__PURE__ */ import_react150.default.createElement("svg", {
         width: "100%",
         height: "100%",
         viewBox: "0 0 12 12",
         fill: "none",
         xmlns: "http://www.w3.org/2000/svg"
-      }, /* @__PURE__ */ import_react147.default.createElement("path", {
+      }, /* @__PURE__ */ import_react150.default.createElement("path", {
         d: "M12 5H0V7H2.71973L5.96237 10.2426L9.20501 7H12V5Z",
         fill: "#40AAA4"
       }))
@@ -40099,11 +40226,11 @@ var init_MarkerDot = __esm({
       const outsideClipDims = clippedSpaceMarkerX <= 0 || clippedSpaceMarkerX > clippedSpaceWidth;
       const translateX = outsideClipDims ? -1e4 : clippedSpaceMarkerX;
       const scale = outsideClipDims ? 0 : 1;
-      return /* @__PURE__ */ import_react147.default.createElement(MarkerDotContainer, {
+      return /* @__PURE__ */ import_react150.default.createElement(MarkerDotContainer, {
         style: {
           transform: `translateX(${translateX}px) scale(${scale})`
         }
-      }, /* @__PURE__ */ import_react147.default.createElement(MarkerDotVisible, {
+      }, /* @__PURE__ */ import_react150.default.createElement(MarkerDotVisible, {
         marker,
         layoutP
       }));
@@ -40123,23 +40250,23 @@ var init_MarkerDot = __esm({
         layoutP,
         marker
       });
-      return /* @__PURE__ */ import_react147.default.createElement(import_react147.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react147.default.createElement(HitZone2, __spreadValues({
+      return /* @__PURE__ */ import_react150.default.createElement(import_react150.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react150.default.createElement(HitZone2, __spreadValues({
         ref: markRef
       }, DopeSnapHitZoneUI.reactProps({
         isDragging,
         position: marker.position
-      }))), /* @__PURE__ */ import_react147.default.createElement(MarkerVisualDot, null));
+      }))), /* @__PURE__ */ import_react150.default.createElement(MarkerVisualDot, null));
     };
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/Markers.tsx
-var import_react149, Markers, Markers_default;
+var import_react152, Markers, Markers_default;
 var init_Markers = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/Markers.tsx"() {
     init_src();
     init_getStudio();
-    import_react149 = __toModule(require_react());
+    import_react152 = __toModule(require_react());
     init_MarkerDot();
     Markers = ({
       layoutP
@@ -40147,7 +40274,7 @@ var init_Markers = __esm({
       const sheetAddress = useVal(layoutP.sheet.address);
       const markerSetP = getStudio().atomP.historic.projects.stateByProjectId[sheetAddress.projectId].stateBySheetId[sheetAddress.sheetId].sequenceEditor.markerSet;
       const markerAllIds = useVal(markerSetP.allIds);
-      return /* @__PURE__ */ import_react149.default.createElement(import_react149.default.Fragment, null, markerAllIds && Object.keys(markerAllIds).map((markerId) => /* @__PURE__ */ import_react149.default.createElement(MarkerDot_default, {
+      return /* @__PURE__ */ import_react152.default.createElement(import_react152.default.Fragment, null, markerAllIds && Object.keys(markerAllIds).map((markerId) => /* @__PURE__ */ import_react152.default.createElement(MarkerDot_default, {
         key: markerId,
         layoutP,
         markerId
@@ -40158,13 +40285,13 @@ var init_Markers = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/RightOverlay.tsx
-var import_dataverse47, import_react151, Container36, RightOverlay, RightOverlay_default;
+var import_dataverse46, import_react154, Container36, RightOverlay, RightOverlay_default;
 var init_RightOverlay = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/RightOverlay.tsx"() {
     init_SequenceEditorPanel();
     init_src();
-    import_dataverse47 = __toModule(require("@theatre/dataverse"));
-    import_react151 = __toModule(require_react());
+    import_dataverse46 = __toModule(require("@theatre/dataverse"));
+    import_react154 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_LengthIndicator();
     init_FrameStamp();
@@ -40181,25 +40308,26 @@ var init_RightOverlay = __esm({
   z-index: ${() => zIndexes.rightOverlay};
   overflow: visible;
   pointer-events: none;
+  border-left: 1px solid #4b4b4b;
 `;
     RightOverlay = ({ layoutP }) => {
       return usePrism(() => {
-        const width = (0, import_dataverse47.val)(layoutP.rightDims.width);
-        return /* @__PURE__ */ import_react151.default.createElement(Container36, {
+        const width = (0, import_dataverse46.val)(layoutP.rightDims.width);
+        return /* @__PURE__ */ import_react154.default.createElement(Container36, {
           style: { width: width + "px" }
-        }, /* @__PURE__ */ import_react151.default.createElement(Playhead_default, {
+        }, /* @__PURE__ */ import_react154.default.createElement(Playhead_default, {
           layoutP
-        }), /* @__PURE__ */ import_react151.default.createElement(HorizontalScrollbar_default, {
+        }), /* @__PURE__ */ import_react154.default.createElement(HorizontalScrollbar_default, {
           layoutP
-        }), /* @__PURE__ */ import_react151.default.createElement(FrameStamp_default, {
+        }), /* @__PURE__ */ import_react154.default.createElement(FrameStamp_default, {
           layoutP
-        }), /* @__PURE__ */ import_react151.default.createElement(TopStrip_default, {
+        }), /* @__PURE__ */ import_react154.default.createElement(TopStrip_default, {
           layoutP
-        }), /* @__PURE__ */ import_react151.default.createElement(Markers_default, {
+        }), /* @__PURE__ */ import_react154.default.createElement(Markers_default, {
           layoutP
-        }), /* @__PURE__ */ import_react151.default.createElement(LengthIndicator_default, {
+        }), /* @__PURE__ */ import_react154.default.createElement(LengthIndicator_default, {
           layoutP
-        }), /* @__PURE__ */ import_react151.default.createElement(FocusRangeCurtains_default, {
+        }), /* @__PURE__ */ import_react154.default.createElement(FocusRangeCurtains_default, {
           layoutP
         }));
       }, [layoutP]);
@@ -40209,25 +40337,27 @@ var init_RightOverlay = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelDragZone.tsx
-var import_react152, Container37, PanelDragZone, PanelDragZone_default;
+var import_react155, Container37, PanelDragZone, PanelDragZone_default;
 var init_PanelDragZone = __esm({
   "studio/src/panels/BasePanel/PanelDragZone.tsx"() {
     init_useRefAndState();
     init_getStudio();
     init_useDrag();
-    import_react152 = __toModule(require_react());
+    import_react155 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasePanel();
     init_PointerEventsHandler();
+    init_lodash();
+    init_common();
     Container37 = styled_components_browser_esm_default.div`
   cursor: move;
 `;
     PanelDragZone = (props) => {
       const panelStuff = usePanel();
-      const panelStuffRef = (0, import_react152.useRef)(panelStuff);
+      const panelStuffRef = (0, import_react155.useRef)(panelStuff);
       panelStuffRef.current = panelStuff;
       const [ref, node] = useRefAndState(null);
-      const dragOpts = (0, import_react152.useMemo)(() => {
+      const dragOpts = (0, import_react155.useMemo)(() => {
         return {
           debugName: "PanelDragZone",
           lockCursorTo: "move",
@@ -40238,8 +40368,8 @@ var init_PanelDragZone = __esm({
             return {
               onDrag(dx, dy) {
                 const newDims = __spreadProps(__spreadValues({}, stuffBeforeDrag.dims), {
-                  top: stuffBeforeDrag.dims.top + dy,
-                  left: stuffBeforeDrag.dims.left + dx
+                  top: clamp_default(stuffBeforeDrag.dims.top + dy, 0, window.innerHeight - visibleSize),
+                  left: clamp_default(stuffBeforeDrag.dims.left + dx, -stuffBeforeDrag.dims.width + visibleSize, window.innerWidth - visibleSize)
                 });
                 const position2 = panelDimsToPanelPosition(newDims, {
                   width: window.innerWidth,
@@ -40267,7 +40397,7 @@ var init_PanelDragZone = __esm({
       }, []);
       const [isDragging] = useDrag(node, dragOpts);
       useCssCursorLock(isDragging, "dragging", "move");
-      const [onMouseEnter, onMouseLeave] = (0, import_react152.useMemo)(() => {
+      const [onMouseEnter, onMouseLeave] = (0, import_react155.useMemo)(() => {
         let unlock;
         return [
           function onMouseEnter2() {
@@ -40287,7 +40417,7 @@ var init_PanelDragZone = __esm({
           }
         ];
       }, []);
-      return /* @__PURE__ */ import_react152.default.createElement(Container37, __spreadProps(__spreadValues({}, props), {
+      return /* @__PURE__ */ import_react155.default.createElement(Container37, __spreadProps(__spreadValues({}, props), {
         ref,
         onMouseEnter,
         onMouseLeave
@@ -40298,17 +40428,19 @@ var init_PanelDragZone = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelResizeHandle.tsx
-var import_react153, Base, Side, Horizontal, Top, Bottom, Vertical, Left3, Right, Angle, TopLeft, TopRight, BottomLeft, BottomRight, els, cursors, PanelResizeHandle, PanelResizeHandle_default;
+var import_react156, Base, Side, Horizontal, Top, Bottom, Vertical, Left3, Right, Angle, TopLeft, TopRight, BottomLeft, BottomRight, els, cursors, PanelResizeHandle, PanelResizeHandle_default;
 var init_PanelResizeHandle = __esm({
   "studio/src/panels/BasePanel/PanelResizeHandle.tsx"() {
     init_useRefAndState();
     init_getStudio();
     init_useDrag();
     init_polished_esm();
-    import_react153 = __toModule(require_react());
+    import_react156 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasePanel();
     init_css();
+    init_lodash();
+    init_common();
     Base = styled_components_browser_esm_default.div`
   position: absolute;
   ${pointerEventsAutoInNormalMode};
@@ -40320,7 +40452,7 @@ var init_PanelResizeHandle = __esm({
   }
 
   opacity: 0;
-  background-color: #478698;
+  background-color: #40aeff;
 
   &.isHighlighted {
     opacity: 0.7;
@@ -40328,7 +40460,7 @@ var init_PanelResizeHandle = __esm({
 
   &.isDragging {
     opacity: 1;
-    /* background-color: ${curriedLighten(0.2, "#478698")}; */
+    /* background-color: ${curriedLighten(0.2, "#40aeff")}; */
   }
 
   &:hover {
@@ -40413,10 +40545,10 @@ var init_PanelResizeHandle = __esm({
     };
     PanelResizeHandle = ({ which }) => {
       const panelStuff = usePanel();
-      const panelStuffRef = (0, import_react153.useRef)(panelStuff);
+      const panelStuffRef = (0, import_react156.useRef)(panelStuff);
       panelStuffRef.current = panelStuff;
       const [ref, node] = useRefAndState(null);
-      const dragOpts = (0, import_react153.useMemo)(() => {
+      const dragOpts = (0, import_react156.useMemo)(() => {
         return {
           debugName: "PanelResizeHandle",
           lockCursorTo: cursors[which],
@@ -40431,19 +40563,19 @@ var init_PanelResizeHandle = __esm({
                   newDims.height = Math.max(newDims.height + dy, stuffBeforeDrag.minDims.height);
                 } else if (which.startsWith("Top")) {
                   const bottom = newDims.top + newDims.height;
-                  const top = Math.min(bottom - stuffBeforeDrag.minDims.height, newDims.top + dy);
+                  const top = clamp_default(newDims.top + dy, 0, Math.min(bottom - stuffBeforeDrag.minDims.height, window.innerHeight - visibleSize));
                   const height2 = bottom - top;
                   newDims.height = height2;
                   newDims.top = top;
                 }
                 if (which.endsWith("Left")) {
                   const right = newDims.left + newDims.width;
-                  const left = Math.min(right - stuffBeforeDrag.minDims.width, newDims.left + dx);
+                  const left = Math.min(newDims.left + dx, Math.min(right - stuffBeforeDrag.minDims.width, window.innerWidth - visibleSize));
                   const width = right - left;
                   newDims.width = width;
                   newDims.left = left;
                 } else if (which.endsWith("Right")) {
-                  newDims.width = Math.max(newDims.width + dx, stuffBeforeDrag.minDims.width);
+                  newDims.width = Math.max(newDims.width + dx, Math.max(stuffBeforeDrag.minDims.width, visibleSize - stuffBeforeDrag.dims.left));
                 }
                 const position2 = panelDimsToPanelPosition(newDims, {
                   width: window.innerWidth,
@@ -40472,7 +40604,7 @@ var init_PanelResizeHandle = __esm({
       const [isDragging] = useDrag(node, dragOpts);
       const Comp = els[which];
       const isOnCorner = which.length <= 6;
-      return /* @__PURE__ */ import_react153.default.createElement(Comp, {
+      return /* @__PURE__ */ import_react156.default.createElement(Comp, {
         ref,
         className: [
           isDragging ? "isDragging" : "",
@@ -40486,27 +40618,27 @@ var init_PanelResizeHandle = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelResizers.tsx
-var import_react154, PanelResizers, PanelResizers_default;
+var import_react157, PanelResizers, PanelResizers_default;
 var init_PanelResizers = __esm({
   "studio/src/panels/BasePanel/PanelResizers.tsx"() {
-    import_react154 = __toModule(require_react());
+    import_react157 = __toModule(require_react());
     init_PanelResizeHandle();
     PanelResizers = (props) => {
-      return /* @__PURE__ */ import_react154.default.createElement(import_react154.default.Fragment, null, /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      return /* @__PURE__ */ import_react157.default.createElement(import_react157.default.Fragment, null, /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "Bottom"
-      }), /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "Top"
-      }), /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "Left"
-      }), /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "Right"
-      }), /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "TopLeft"
-      }), /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "TopRight"
-      }), /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "BottomLeft"
-      }), /* @__PURE__ */ import_react154.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
         which: "BottomRight"
       }));
     };
@@ -40515,11 +40647,11 @@ var init_PanelResizers = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelWrapper.tsx
-var import_react155, Container38, PanelWrapper, PanelWrapper_default;
+var import_react158, Container38, PanelWrapper, PanelWrapper_default;
 var init_PanelWrapper = __esm({
   "studio/src/panels/BasePanel/PanelWrapper.tsx"() {
     init_css();
-    import_react155 = __toModule(require_react());
+    import_react158 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasePanel();
     init_PanelResizers();
@@ -40529,13 +40661,15 @@ var init_PanelWrapper = __esm({
   box-sizing: border-box;
   ${pointerEventsAutoInNormalMode};
   /* box-shadow: 1px 2px 10px -5px black; */
-
+  overflow:hidden;
+  border-radius:12px;
+  border: 1px solid #4b4b4b;
   z-index: 1000;
 `;
-    PanelWrapper = import_react155.default.forwardRef((props, ref) => {
+    PanelWrapper = import_react158.default.forwardRef((props, ref) => {
       const stuff = usePanel();
       const _a2 = props, { style, children } = _a2, otherProps = __objRest(_a2, ["style", "children"]);
-      return /* @__PURE__ */ import_react155.default.createElement(Container38, __spreadProps(__spreadValues({
+      return /* @__PURE__ */ import_react158.default.createElement(Container38, __spreadProps(__spreadValues({
         ref
       }, otherProps), {
         style: __spreadValues({
@@ -40544,27 +40678,28 @@ var init_PanelWrapper = __esm({
           top: stuff.dims.top + "px",
           left: stuff.dims.left + "px"
         }, style != null ? style : {})
-      }), /* @__PURE__ */ import_react155.default.createElement(PanelResizers_default, null), children);
+      }), /* @__PURE__ */ import_react158.default.createElement(PanelResizers_default, null), children);
     });
     PanelWrapper_default = PanelWrapper;
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditorToggle.tsx
-var import_dataverse48, import_react157, Container39, GraphEditorToggle, GraphEditorToggle_default;
+var import_dataverse47, import_react160, Container39, GraphEditorToggle, GraphEditorToggle_default;
 var init_GraphEditorToggle = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditorToggle.tsx"() {
-    import_dataverse48 = __toModule(require("@theatre/dataverse"));
+    import_dataverse47 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
-    import_react157 = __toModule(require_react());
+    import_react160 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_all();
     init_FrameStampPositionProvider();
     Container39 = styled_components_browser_esm_default.button`
   outline: none;
-  background-color: #1c1d21;
-  border: 1px solid #191919;
+  background-color: #32353b;
+  border: 1px solid #4b4b4b;
+  cursor:pointer;
   border-radius: 2px;
   display: flex;
   bottom: 14px;
@@ -40580,6 +40715,7 @@ var init_GraphEditorToggle = __esm({
 
   &:hover {
     color: white;
+    background-color: #40aeff;
   }
 
   & > svg {
@@ -40601,33 +40737,33 @@ var init_GraphEditorToggle = __esm({
 `;
     GraphEditorToggle = ({ layoutP }) => {
       const isOpen = useVal(layoutP.graphEditorDims.isOpen);
-      const toggle = (0, import_react157.useCallback)(() => {
-        const isOpen2 = (0, import_dataverse48.val)(layoutP.graphEditorDims.isOpen);
+      const toggle = (0, import_react160.useCallback)(() => {
+        const isOpen2 = (0, import_dataverse47.val)(layoutP.graphEditorDims.isOpen);
         getStudio().transaction(({ stateEditors: stateEditors2 }) => {
           stateEditors2.studio.historic.panels.sequenceEditor.graphEditor.setIsOpen({
             isOpen: !isOpen2
           });
         });
       }, [layoutP]);
-      return /* @__PURE__ */ import_react157.default.createElement(Container39, __spreadValues({
+      return /* @__PURE__ */ import_react160.default.createElement(Container39, __spreadValues({
         onClick: toggle,
         title: "Toggle graph editor",
         className: isOpen ? "open" : ""
-      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react157.default.createElement(VscTriangleUp, null));
+      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react160.default.createElement(VscTriangleUp, null));
     };
     GraphEditorToggle_default = GraphEditorToggle;
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/SequenceEditorPanel.tsx
-var import_dataverse49, import_react159, Container40, LeftBackground, zIndexes, Header_Container, defaultPosition, minDims, SequenceEditorPanel, Content, Header3, SequenceEditorPanel_default, preventHorizontalWheelEvents;
+var import_dataverse48, import_react162, Container40, LeftBackground, zIndexes, Header_Container, defaultPosition, minDims, SequenceEditorPanel, Content, Header3, SequenceEditorPanel_default, preventHorizontalWheelEvents;
 var init_SequenceEditorPanel = __esm({
   "studio/src/panels/SequenceEditorPanel/SequenceEditorPanel.tsx"() {
     init_selectors();
     init_src();
     init_valToAtom();
-    import_dataverse49 = __toModule(require("@theatre/dataverse"));
-    import_react159 = __toModule(require_react());
+    import_dataverse48 = __toModule(require("@theatre/dataverse"));
+    import_react162 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DopeSheet();
     init_GraphEditor();
@@ -40644,10 +40780,13 @@ var init_SequenceEditorPanel = __esm({
     init_usePresence();
     Container40 = styled_components_browser_esm_default(PanelWrapper_default)`
   z-index: ${panelZIndexes.sequenceEditorPanel};
-  box-shadow: 2px 2px 0 rgb(0 0 0 / 11%);
+  // box-shadow: 2px 2px 0 rgb(0 0 0 / 11%);
+  // box-shadow:0px 2px 10px #0000002b;
 `;
     LeftBackground = styled_components_browser_esm_default.div`
-  background-color: rgba(40, 43, 47, 0.99);
+  //background-color: rgba(40, 43, 47, 0.99);
+  background-color: rgba(0, 0, 0, 0.99);
+  box-shadow:inset -1px 0px rgba(225, 225, 225, 0.1);
   position: absolute;
   left: 0;
   top: 0;
@@ -40690,18 +40829,18 @@ var init_SequenceEditorPanel = __esm({
     };
     minDims = { width: 800, height: 200 };
     SequenceEditorPanel = (props) => {
-      return /* @__PURE__ */ import_react159.default.createElement(BasePanel_default, {
+      return /* @__PURE__ */ import_react162.default.createElement(BasePanel_default, {
         panelId: "sequenceEditor",
         defaultPosition,
         minDims
-      }, /* @__PURE__ */ import_react159.default.createElement(Content, null));
+      }, /* @__PURE__ */ import_react162.default.createElement(Content, null));
     };
     Content = () => {
       const { dims } = usePanel();
-      const [containerNode, setContainerNode] = (0, import_react159.useState)(null);
+      const [containerNode, setContainerNode] = (0, import_react162.useState)(null);
       usePresenceListenersOnRootElement(containerNode);
       return usePrism(() => {
-        const panelSize = import_dataverse49.prism.memo("panelSize", () => {
+        const panelSize = import_dataverse48.prism.memo("panelSize", () => {
           const width = dims.width;
           const height2 = dims.height;
           return {
@@ -40716,42 +40855,42 @@ var init_SequenceEditorPanel = __esm({
         const selectedSheets = uniq_default(getOutlineSelection().filter((s3) => isSheet(s3) || isSheetObject(s3)).map((s3) => isSheetObject(s3) ? s3.sheet : s3));
         const selectedTemplates = uniq_default(selectedSheets.map((s3) => s3.template));
         if (selectedTemplates.length !== 1)
-          return /* @__PURE__ */ import_react159.default.createElement(import_react159.default.Fragment, null);
+          return /* @__PURE__ */ import_react162.default.createElement(import_react162.default.Fragment, null);
         const sheet = selectedSheets[0];
         if (!sheet)
-          return /* @__PURE__ */ import_react159.default.createElement(import_react159.default.Fragment, null);
+          return /* @__PURE__ */ import_react162.default.createElement(import_react162.default.Fragment, null);
         const panelSizeP = valToAtom("panelSizeP", panelSize).pointer;
-        const key = import_dataverse49.prism.memo("key", () => JSON.stringify(sheet.address), [sheet]);
-        const layoutP = import_dataverse49.prism.memo("layout", () => {
+        const key = import_dataverse48.prism.memo("key", () => JSON.stringify(sheet.address), [sheet]);
+        const layoutP = import_dataverse48.prism.memo("layout", () => {
           return sequenceEditorPanelLayout(sheet, panelSizeP);
         }, [sheet, panelSizeP]).getValue();
-        if ((0, import_dataverse49.val)(layoutP.tree.children).length === 0)
-          return /* @__PURE__ */ import_react159.default.createElement(import_react159.default.Fragment, null);
-        const containerRef = import_dataverse49.prism.memo("containerRef", preventHorizontalWheelEvents, []);
-        const graphEditorAvailable = (0, import_dataverse49.val)(layoutP.graphEditorDims.isAvailable);
-        const graphEditorOpen = (0, import_dataverse49.val)(layoutP.graphEditorDims.isOpen);
-        return /* @__PURE__ */ import_react159.default.createElement(Container40, {
+        if ((0, import_dataverse48.val)(layoutP.tree.children).length === 0)
+          return /* @__PURE__ */ import_react162.default.createElement(import_react162.default.Fragment, null);
+        const containerRef = import_dataverse48.prism.memo("containerRef", preventHorizontalWheelEvents, []);
+        const graphEditorAvailable = (0, import_dataverse48.val)(layoutP.graphEditorDims.isAvailable);
+        const graphEditorOpen = (0, import_dataverse48.val)(layoutP.graphEditorDims.isOpen);
+        return /* @__PURE__ */ import_react162.default.createElement(Container40, {
           ref: (elt) => {
             containerRef(elt);
             if (elt !== containerNode) {
               setContainerNode(elt);
             }
           }
-        }, /* @__PURE__ */ import_react159.default.createElement(LeftBackground, {
-          style: { width: `${(0, import_dataverse49.val)(layoutP.leftDims.width)}px` }
-        }), /* @__PURE__ */ import_react159.default.createElement(FrameStampPositionProvider_default, {
+        }, /* @__PURE__ */ import_react162.default.createElement(LeftBackground, {
+          style: { width: `${(0, import_dataverse48.val)(layoutP.leftDims.width)}px` }
+        }), /* @__PURE__ */ import_react162.default.createElement(FrameStampPositionProvider_default, {
           layoutP
-        }, /* @__PURE__ */ import_react159.default.createElement(Header3, {
+        }, /* @__PURE__ */ import_react162.default.createElement(Header3, {
           layoutP
-        }), /* @__PURE__ */ import_react159.default.createElement(DopeSheet_default, {
+        }), /* @__PURE__ */ import_react162.default.createElement(DopeSheet_default, {
           key: key + "-dopeSheet",
           layoutP
-        }), graphEditorOpen && /* @__PURE__ */ import_react159.default.createElement(GraphEditor_default, {
+        }), graphEditorOpen && /* @__PURE__ */ import_react162.default.createElement(GraphEditor_default, {
           key: key + "-graphEditor",
           layoutP
-        }), graphEditorAvailable && /* @__PURE__ */ import_react159.default.createElement(GraphEditorToggle_default, {
+        }), graphEditorAvailable && /* @__PURE__ */ import_react162.default.createElement(GraphEditorToggle_default, {
           layoutP
-        }), /* @__PURE__ */ import_react159.default.createElement(RightOverlay_default, {
+        }), /* @__PURE__ */ import_react162.default.createElement(RightOverlay_default, {
           layoutP
         })));
       }, [dims, containerNode]);
@@ -40760,12 +40899,12 @@ var init_SequenceEditorPanel = __esm({
       layoutP
     }) => {
       return usePrism(() => {
-        const sheet = (0, import_dataverse49.val)(layoutP.sheet);
-        return /* @__PURE__ */ import_react159.default.createElement(Header_Container, {
+        const sheet = (0, import_dataverse48.val)(layoutP.sheet);
+        return /* @__PURE__ */ import_react162.default.createElement(Header_Container, {
           style: {
-            width: (0, import_dataverse49.val)(layoutP.leftDims.width)
+            width: (0, import_dataverse48.val)(layoutP.leftDims.width)
           }
-        }, /* @__PURE__ */ import_react159.default.createElement(TitleBar, null, /* @__PURE__ */ import_react159.default.createElement(TitleBar_Piece, null, sheet.address.sheetId, " "), /* @__PURE__ */ import_react159.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react159.default.createElement(TitleBar_Piece, null, sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react159.default.createElement(TitleBar_Punctuation, null, "\xA0", ">", "\xA0"), /* @__PURE__ */ import_react159.default.createElement(TitleBar_Piece, null, "Sequence")));
+        }, /* @__PURE__ */ import_react162.default.createElement(TitleBar, null, /* @__PURE__ */ import_react162.default.createElement(TitleBar_Piece, null, sheet.address.sheetId, " "), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Piece, null, sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Punctuation, null, "\xA0", ">", "\xA0"), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Piece, null, "Sequence")));
       }, [layoutP]);
     };
     SequenceEditorPanel_default = SequenceEditorPanel;
@@ -40795,11 +40934,11 @@ var init_SequenceEditorPanel = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/VerticalScrollContainer.tsx
-var import_react160, Container41, ctx2, useReceiveVerticalWheelEvent, VerticalScrollContainer, VerticalScrollContainer_default;
+var import_react163, Container41, ctx2, useReceiveVerticalWheelEvent, VerticalScrollContainer, VerticalScrollContainer_default;
 var init_VerticalScrollContainer = __esm({
   "studio/src/panels/SequenceEditorPanel/VerticalScrollContainer.tsx"() {
-    init_utils();
-    import_react160 = __toModule(require_react());
+    init_noop2();
+    import_react163 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
     Container41 = styled_components_browser_esm_default.div`
@@ -40818,16 +40957,16 @@ var init_VerticalScrollContainer = __esm({
 
   scrollbar-width: none;
 `;
-    ctx2 = (0, import_react160.createContext)(voidFn);
-    useReceiveVerticalWheelEvent = () => (0, import_react160.useContext)(ctx2);
+    ctx2 = (0, import_react163.createContext)(noop_default2);
+    useReceiveVerticalWheelEvent = () => (0, import_react163.useContext)(ctx2);
     VerticalScrollContainer = (props) => {
-      const ref = (0, import_react160.useRef)(null);
-      const receiveVerticalWheelEvent = (0, import_react160.useCallback)((event) => {
+      const ref = (0, import_react163.useRef)(null);
+      const receiveVerticalWheelEvent = (0, import_react163.useCallback)((event) => {
         ref.current.scrollBy(0, event.deltaY);
       }, []);
-      return /* @__PURE__ */ import_react160.default.createElement(ctx2.Provider, {
+      return /* @__PURE__ */ import_react163.default.createElement(ctx2.Provider, {
         value: receiveVerticalWheelEvent
-      }, /* @__PURE__ */ import_react160.default.createElement(Container41, {
+      }, /* @__PURE__ */ import_react163.default.createElement(Container41, {
         ref
       }, props.children));
     };
@@ -40837,7 +40976,7 @@ var init_VerticalScrollContainer = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/HorizontallyScrollableArea.tsx
 function useDragPlayheadHandlers(layoutP, containerEl) {
-  const handlers = (0, import_react162.useMemo)(() => {
+  const handlers = (0, import_react165.useMemo)(() => {
     return {
       debugName: "HorizontallyScrollableArea",
       onDragStart(event) {
@@ -40851,12 +40990,12 @@ function useDragPlayheadHandlers(layoutP, containerEl) {
           return false;
         }
         const initialPositionInClippedSpace = event.clientX - containerEl.getBoundingClientRect().left;
-        const initialPositionInUnitSpace = clamp_default((0, import_dataverse50.val)(layoutP.clippedSpace.toUnitSpace)(initialPositionInClippedSpace), 0, Infinity);
-        const setIsSeeking = (0, import_dataverse50.val)(layoutP.seeker.setIsSeeking);
-        const sequence = (0, import_dataverse50.val)(layoutP.sheet).getSequence();
+        const initialPositionInUnitSpace = clamp_default((0, import_dataverse49.val)(layoutP.clippedSpace.toUnitSpace)(initialPositionInClippedSpace), 0, Infinity);
+        const setIsSeeking = (0, import_dataverse49.val)(layoutP.seeker.setIsSeeking);
+        const sequence = (0, import_dataverse49.val)(layoutP.sheet).getSequence();
         sequence.position = initialPositionInUnitSpace;
         const posBeforeSeek = initialPositionInUnitSpace;
-        const scaledSpaceToUnitSpace = (0, import_dataverse50.val)(layoutP.scaledSpace.toUnitSpace);
+        const scaledSpaceToUnitSpace = (0, import_dataverse49.val)(layoutP.scaledSpace.toUnitSpace);
         setIsSeeking(true);
         snapToAll();
         return {
@@ -40883,7 +41022,7 @@ function useDragPlayheadHandlers(layoutP, containerEl) {
 }
 function useHandlePanAndZoom(layoutP, node) {
   const receiveVerticalWheelEvent = useReceiveVerticalWheelEvent();
-  (0, import_react162.useLayoutEffect)(() => {
+  (0, import_react165.useLayoutEffect)(() => {
     if (!node)
       return;
     const receiveWheelEvent = (event) => {
@@ -40891,38 +41030,38 @@ function useHandlePanAndZoom(layoutP, node) {
         event.preventDefault();
         event.stopPropagation();
         const pivotPointInClippedSpace = event.clientX - node.getBoundingClientRect().left;
-        const pivotPointInUnitSpace = (0, import_dataverse50.val)(layoutP.clippedSpace.toUnitSpace)(pivotPointInClippedSpace);
-        const oldRange = (0, import_dataverse50.val)(layoutP.clippedSpace.range);
+        const pivotPointInUnitSpace = (0, import_dataverse49.val)(layoutP.clippedSpace.toUnitSpace)(pivotPointInClippedSpace);
+        const oldRange = (0, import_dataverse49.val)(layoutP.clippedSpace.range);
         const delta = normalize(event.deltaY, [-50, 50]);
         const scaleFactor = 1 + delta * 0.03;
         const newRange = mapValues_default(oldRange, (originalPos) => {
           return (originalPos - pivotPointInUnitSpace) * scaleFactor + pivotPointInUnitSpace;
         });
-        const sequenceLength = (0, import_dataverse50.val)(layoutP.sheet).getSequence().length;
+        const sequenceLength = (0, import_dataverse49.val)(layoutP.sheet).getSequence().length;
         const maxEnd = sequenceLength + sequenceLength * 0.25;
-        (0, import_dataverse50.val)(layoutP.clippedSpace.setRange)(normalizeRange(newRange, [0, maxEnd]));
+        (0, import_dataverse49.val)(layoutP.clippedSpace.setRange)(normalizeRange(newRange, [0, maxEnd]));
         return;
       } else if (event.shiftKey) {
         event.preventDefault();
         event.stopPropagation();
-        const sequenceLength = (0, import_dataverse50.val)(layoutP.sheet).getSequence().length;
-        const oldRange = (0, import_dataverse50.val)(layoutP.clippedSpace.range);
+        const sequenceLength = (0, import_dataverse49.val)(layoutP.sheet).getSequence().length;
+        const oldRange = (0, import_dataverse49.val)(layoutP.clippedSpace.range);
         const windowSize = oldRange.end - oldRange.start;
         const speed = windowSize / sequenceLength;
         const delta = normalize(event.deltaY || event.deltaX, [-50, 50]);
         const scaleFactor = delta * 0.05 * speed;
         const newRange = mapValues_default(oldRange, (originalPos) => originalPos + scaleFactor);
-        (0, import_dataverse50.val)(layoutP.clippedSpace.setRange)(newRange);
+        (0, import_dataverse49.val)(layoutP.clippedSpace.setRange)(newRange);
         return;
       } else {
         receiveVerticalWheelEvent(event);
         event.preventDefault();
         event.stopPropagation();
-        const scaledSpaceToUnitSpace = (0, import_dataverse50.val)(layoutP.scaledSpace.toUnitSpace);
+        const scaledSpaceToUnitSpace = (0, import_dataverse49.val)(layoutP.scaledSpace.toUnitSpace);
         const deltaPos = scaledSpaceToUnitSpace(event.deltaX * 1);
-        const oldRange = (0, import_dataverse50.val)(layoutP.clippedSpace.range);
-        const newRange = mapValues_default(oldRange, (p2) => p2 + deltaPos);
-        const setRange = (0, import_dataverse50.val)(layoutP.clippedSpace.setRange);
+        const oldRange = (0, import_dataverse49.val)(layoutP.clippedSpace.range);
+        const newRange = mapValues_default(oldRange, (p3) => p3 + deltaPos);
+        const setRange = (0, import_dataverse49.val)(layoutP.clippedSpace.setRange);
         setRange(newRange);
         return;
       }
@@ -40936,12 +41075,12 @@ function useHandlePanAndZoom(layoutP, node) {
       node.removeEventListener("wheel", receiveWheelEvent, listenerOptions);
     };
   }, [node, layoutP]);
-  useDrag(node, (0, import_react162.useMemo)(() => {
+  useDrag(node, (0, import_react165.useMemo)(() => {
     return {
       onDragStart(e2) {
-        const oldRange = (0, import_dataverse50.val)(layoutP.clippedSpace.range);
-        const setRange = (0, import_dataverse50.val)(layoutP.clippedSpace.setRange);
-        const scaledSpaceToUnitSpace = (0, import_dataverse50.val)(layoutP.scaledSpace.toUnitSpace);
+        const oldRange = (0, import_dataverse49.val)(layoutP.clippedSpace.range);
+        const setRange = (0, import_dataverse49.val)(layoutP.clippedSpace.setRange);
+        const scaledSpaceToUnitSpace = (0, import_dataverse49.val)(layoutP.scaledSpace.toUnitSpace);
         e2.preventDefault();
         e2.stopPropagation();
         return {
@@ -40966,12 +41105,12 @@ function normalizeRange(range, minMax) {
   return mapValues_default(range, (pos) => normalize(pos, minMax));
 }
 function useUpdateScrollFromClippedSpaceRange(layoutP, node) {
-  (0, import_react162.useLayoutEffect)(() => {
+  (0, import_react165.useLayoutEffect)(() => {
     if (!node)
       return;
-    const d3 = (0, import_dataverse50.prism)(() => {
-      const range = (0, import_dataverse50.val)(layoutP.clippedSpace.range);
-      const rangeStartInScaledSpace = (0, import_dataverse50.val)(layoutP.scaledSpace.fromUnitSpace)(range.start);
+    const d3 = (0, import_dataverse49.prism)(() => {
+      const range = (0, import_dataverse49.val)(layoutP.clippedSpace.range);
+      const rangeStartInScaledSpace = (0, import_dataverse49.val)(layoutP.scaledSpace.fromUnitSpace)(range.start);
       return rangeStartInScaledSpace;
     });
     const update = () => {
@@ -40987,15 +41126,15 @@ function useUpdateScrollFromClippedSpaceRange(layoutP, node) {
     };
   }, [layoutP, node]);
 }
-var import_dataverse50, import_react162, Container42, HorizontallyScrollableArea, HorizontallyScrollableArea_default;
+var import_dataverse49, import_react165, Container42, HorizontallyScrollableArea, HorizontallyScrollableArea_default;
 var init_HorizontallyScrollableArea = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/HorizontallyScrollableArea.tsx"() {
     init_useDrag();
     init_useRefAndState();
     init_src();
-    import_dataverse50 = __toModule(require("@theatre/dataverse"));
+    import_dataverse49 = __toModule(require("@theatre/dataverse"));
     init_lodash();
-    import_react162 = __toModule(require_react());
+    import_react165 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_VerticalScrollContainer();
     init_css();
@@ -41018,16 +41157,16 @@ var init_HorizontallyScrollableArea = __esm({
     display: none;
   }
 `;
-    HorizontallyScrollableArea = import_react162.default.memo(({ layoutP, children, height: height2 }) => {
+    HorizontallyScrollableArea = import_react165.default.memo(({ layoutP, children, height: height2 }) => {
       const { width, unitSpaceToScaledSpaceMultiplier } = usePrism(() => ({
-        width: (0, import_dataverse50.val)(layoutP.rightDims.width),
-        unitSpaceToScaledSpaceMultiplier: (0, import_dataverse50.val)(layoutP.scaledSpace.fromUnitSpace)(1)
+        width: (0, import_dataverse49.val)(layoutP.rightDims.width),
+        unitSpaceToScaledSpaceMultiplier: (0, import_dataverse49.val)(layoutP.scaledSpace.fromUnitSpace)(1)
       }), [layoutP]);
       const [containerRef, containerNode] = useRefAndState(null);
       useHandlePanAndZoom(layoutP, containerNode);
       useDragPlayheadHandlers(layoutP, containerNode);
       useUpdateScrollFromClippedSpaceRange(layoutP, containerNode);
-      return /* @__PURE__ */ import_react162.default.createElement(Container42, {
+      return /* @__PURE__ */ import_react165.default.createElement(Container42, {
         ref: containerRef,
         style: {
           width: width + "px",
@@ -41041,10 +41180,10 @@ var init_HorizontallyScrollableArea = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Row.tsx
-var import_react163, RightRowContainer, RightRowNodeWrapper, RightRowChildren, RightRow, Row_default;
+var import_react166, RightRowContainer, RightRowNodeWrapper, RightRowChildren, RightRow, Row_default;
 var init_Row = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Row.tsx"() {
-    import_react163 = __toModule(require_react());
+    import_react166 = __toModule(require_react());
     init_styled_components_browser_esm();
     RightRowContainer = styled_components_browser_esm_default.li`
   margin: 0;
@@ -41067,8 +41206,10 @@ var init_Row = __esm({
     bottom: 0;
     right: 0;
     box-sizing: border-box;
-    border-bottom: 1px solid #252b3869;
-    background: ${(props) => props.isEven ? "transparent" : "#6b8fb505"};
+    //border-bottom: 1px solid #252b3869;
+    // background: ${(props) => props.isEven ? "transparent" : "#6b8fb505"};
+    border-bottom:1px solid rgba(225, 225, 225, 0.1);
+    background: ${(props) => props.isEven ? "transparent" : "rgb(255 255 255 / 3%)"};
   }
 `;
     RightRowChildren = styled_components_browser_esm_default.ul`
@@ -41078,10 +41219,10 @@ var init_Row = __esm({
 `;
     RightRow = ({ leaf, children, node, isCollapsed }) => {
       const hasChildren = Array.isArray(children) && children.length > 0;
-      return leaf.shouldRender ? /* @__PURE__ */ import_react163.default.createElement(RightRowContainer, null, /* @__PURE__ */ import_react163.default.createElement(RightRowNodeWrapper, {
+      return leaf.shouldRender ? /* @__PURE__ */ import_react166.default.createElement(RightRowContainer, null, /* @__PURE__ */ import_react166.default.createElement(RightRowNodeWrapper, {
         style: { height: leaf.nodeHeight + "px" },
         isEven: leaf.n % 2 === 0
-      }, node), hasChildren && /* @__PURE__ */ import_react163.default.createElement(RightRowChildren, null, children)) : null;
+      }, node), hasChildren && /* @__PURE__ */ import_react166.default.createElement(RightRowChildren, null, children)) : null;
     };
     Row_default = RightRow;
   }
@@ -41151,11 +41292,11 @@ var require_fuzzy = __commonJS({
             };
           }
           return prev;
-        }, []).sort(function(a3, b3) {
-          var compare = b3.score - a3.score;
+        }, []).sort(function(a4, b4) {
+          var compare = b4.score - a4.score;
           if (compare)
             return compare;
-          return a3.index - b3.index;
+          return a4.index - b4.index;
         });
       };
     })();
@@ -41164,16 +41305,16 @@ var require_fuzzy = __commonJS({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useFreezableMemo.ts
 function useFreezableMemo(fn2, deps) {
-  const [isFrozen, setFreeze] = (0, import_react164.useState)(false);
-  const freezableDeps = (0, import_react164.useRef)(deps);
+  const [isFrozen, setFreeze] = (0, import_react167.useState)(false);
+  const freezableDeps = (0, import_react167.useRef)(deps);
   if (!isFrozen)
     freezableDeps.current = deps;
-  return (0, import_react164.useMemo)(() => fn2(setFreeze), freezableDeps.current);
+  return (0, import_react167.useMemo)(() => fn2(setFreeze), freezableDeps.current);
 }
-var import_react164;
+var import_react167;
 var init_useFreezableMemo = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useFreezableMemo.ts"() {
-    import_react164 = __toModule(require_react());
+    import_react167 = __toModule(require_react());
   }
 });
 
@@ -41181,7 +41322,7 @@ var init_useFreezableMemo = __esm({
 var COLOR_POPOVER_BACK, COLOR_BASE;
 var init_colors = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/colors.ts"() {
-    COLOR_POPOVER_BACK = "rgba(26, 28, 30, 0.97);";
+    COLOR_POPOVER_BACK = "rgba(0, 0, 0, 0.97);";
     COLOR_BASE = "#272B2F";
   }
 });
@@ -41208,10 +41349,10 @@ function useKeyframeDrag(svgNode, node, props, setHandles) {
   }), [svgNode, props.onCurveChange, props.onCancelCurveChange]);
   useDrag(node, handlers);
 }
-var import_react165, VIEWBOX_PADDING, VIEWBOX_SIZE, PATTERN_DOT_SIZE, PATTERN_DOT_COUNT, PATTERN_GRID_SIZE, CURVE_START_OVERSHOOT_COLOR, CURVE_START_COLOR, CURVE_MID_START_COLOR, CURVE_MID_COLOR, CURVE_MID_END_COLOR, CURVE_END_COLOR, CURVE_END_OVERSHOOT_COLOR, CONTROL_COLOR, HANDLE_COLOR, HANDLE_HOVER_COLOR, BACKGROUND_CURVE_COLORS, Circle, HitZone3, CurveSegmentEditor, CurveSegmentEditor_default;
+var import_react168, VIEWBOX_PADDING, VIEWBOX_SIZE, PATTERN_DOT_SIZE, PATTERN_DOT_COUNT, PATTERN_GRID_SIZE, CURVE_START_OVERSHOOT_COLOR, CURVE_START_COLOR, CURVE_MID_START_COLOR, CURVE_MID_COLOR, CURVE_MID_END_COLOR, CURVE_END_COLOR, CURVE_END_OVERSHOOT_COLOR, CONTROL_COLOR, HANDLE_COLOR, HANDLE_HOVER_COLOR, BACKGROUND_CURVE_COLORS, Circle, HitZone3, CurveSegmentEditor, CurveSegmentEditor_default;
 var init_CurveSegmentEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/CurveSegmentEditor.tsx"() {
-    import_react165 = __toModule(require_react());
+    import_react168 = __toModule(require_react());
     init_useDrag();
     init_useRefAndState();
     init_clamp();
@@ -41224,16 +41365,16 @@ var init_CurveSegmentEditor = __esm({
     PATTERN_DOT_SIZE = 0.01;
     PATTERN_DOT_COUNT = 8;
     PATTERN_GRID_SIZE = (1 - PATTERN_DOT_SIZE) / (PATTERN_DOT_COUNT - 1);
-    CURVE_START_OVERSHOOT_COLOR = "#3EAAA4";
-    CURVE_START_COLOR = "#3EAAA4";
-    CURVE_MID_START_COLOR = "#3EAAA4";
-    CURVE_MID_COLOR = "#3EAAA4";
-    CURVE_MID_END_COLOR = "#3EAAA4";
-    CURVE_END_COLOR = "#3EAAA4";
-    CURVE_END_OVERSHOOT_COLOR = "#3EAAA4";
+    CURVE_START_OVERSHOOT_COLOR = "#0768cf";
+    CURVE_START_COLOR = "#0768cf";
+    CURVE_MID_START_COLOR = "#0768cf";
+    CURVE_MID_COLOR = "#0768cf";
+    CURVE_MID_END_COLOR = "#0768cf";
+    CURVE_END_COLOR = "#0768cf";
+    CURVE_END_OVERSHOOT_COLOR = "#0768cf";
     CONTROL_COLOR = "#B3B3B3";
-    HANDLE_COLOR = "#3eaaa4";
-    HANDLE_HOVER_COLOR = "#67dfd8";
+    HANDLE_COLOR = "#0768cf";
+    HANDLE_HOVER_COLOR = "#0d99ff";
     BACKGROUND_CURVE_COLORS = [
       "goldenrod",
       "cornflowerblue",
@@ -41268,8 +41409,8 @@ var init_CurveSegmentEditor = __esm({
       } = props;
       const minY = Math.min(0, 1 - right.handles[1], 1 - left.handles[3]);
       const maxY = Math.max(1, 1 - right.handles[1], 1 - left.handles[3]);
-      const h3 = Math.max(1, maxY - minY);
-      const toExtremumSpace = (y3) => (y3 - minY) / h3;
+      const h4 = Math.max(1, maxY - minY);
+      const toExtremumSpace = (y3) => (y3 - minY) / h4;
       const [refSVG, nodeSVG] = useRefAndState(null);
       const viewboxToElWidthRatio = VIEWBOX_SIZE / ((nodeSVG == null ? void 0 : nodeSVG.clientWidth) || 1);
       const viewboxToElHeightRatio = VIEWBOX_SIZE / ((nodeSVG == null ? void 0 : nodeSVG.clientHeight) || 1);
@@ -41286,7 +41427,7 @@ var init_CurveSegmentEditor = __esm({
         return [left.handles[2], left.handles[3], handleX, handleY];
       });
       const curvePathDAttrValue = (connection) => `M0 ${toExtremumSpace(1)} C${connection.left.handles[2]} ${toExtremumSpace(1 - connection.left.handles[3])} ${connection.right.handles[0]} ${toExtremumSpace(1 - connection.right.handles[1])} 1 ${toExtremumSpace(0)}`;
-      return /* @__PURE__ */ import_react165.default.createElement("svg", {
+      return /* @__PURE__ */ import_react168.default.createElement("svg", {
         height: "100%",
         width: "100%",
         ref: refSVG,
@@ -41294,119 +41435,119 @@ var init_CurveSegmentEditor = __esm({
         xmlns: "http://www.w3.org/2000/svg",
         preserveAspectRatio: "none",
         fill: "none"
-      }, /* @__PURE__ */ import_react165.default.createElement("linearGradient", {
+      }, /* @__PURE__ */ import_react168.default.createElement("linearGradient", {
         id: "myGradient",
         gradientTransform: "rotate(90)"
-      }, /* @__PURE__ */ import_react165.default.createElement("stop", {
+      }, /* @__PURE__ */ import_react168.default.createElement("stop", {
         offset: toExtremumSpace(-1),
         stopColor: CURVE_END_OVERSHOOT_COLOR
-      }), /* @__PURE__ */ import_react165.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
         offset: toExtremumSpace(0),
         stopColor: CURVE_END_COLOR
-      }), /* @__PURE__ */ import_react165.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
         offset: toExtremumSpace(0.3),
         stopColor: CURVE_MID_END_COLOR
-      }), /* @__PURE__ */ import_react165.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
         offset: toExtremumSpace(0.5),
         stopColor: CURVE_MID_COLOR
-      }), /* @__PURE__ */ import_react165.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
         offset: toExtremumSpace(0.7),
         stopColor: CURVE_MID_START_COLOR
-      }), /* @__PURE__ */ import_react165.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
         offset: toExtremumSpace(1),
         stopColor: CURVE_START_COLOR
-      }), /* @__PURE__ */ import_react165.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
         offset: toExtremumSpace(2),
         stopColor: CURVE_START_OVERSHOOT_COLOR
-      })), /* @__PURE__ */ import_react165.default.createElement("pattern", {
+      })), /* @__PURE__ */ import_react168.default.createElement("pattern", {
         id: "dot-background-pattern-1",
         width: PATTERN_GRID_SIZE,
-        height: PATTERN_GRID_SIZE / h3,
-        y: -minY / h3
-      }, /* @__PURE__ */ import_react165.default.createElement("rect", {
+        height: PATTERN_GRID_SIZE / h4,
+        y: -minY / h4
+      }, /* @__PURE__ */ import_react168.default.createElement("rect", {
         width: PATTERN_DOT_SIZE,
         height: PATTERN_DOT_SIZE,
         fill: CONTROL_COLOR,
         opacity: 0.3
-      })), /* @__PURE__ */ import_react165.default.createElement("rect", {
+      })), /* @__PURE__ */ import_react168.default.createElement("rect", {
         x: 0,
         y: 0,
         width: "1",
         height: 1,
         fill: "url(#dot-background-pattern-1)"
-      }), /* @__PURE__ */ import_react165.default.createElement("pattern", {
+      }), /* @__PURE__ */ import_react168.default.createElement("pattern", {
         id: "dot-background-pattern-2",
         width: PATTERN_GRID_SIZE,
         height: PATTERN_GRID_SIZE
-      }, /* @__PURE__ */ import_react165.default.createElement("rect", {
+      }, /* @__PURE__ */ import_react168.default.createElement("rect", {
         width: PATTERN_DOT_SIZE,
         height: PATTERN_DOT_SIZE,
         fill: CONTROL_COLOR
-      })), /* @__PURE__ */ import_react165.default.createElement("rect", {
+      })), /* @__PURE__ */ import_react168.default.createElement("rect", {
         x: 0,
         y: toExtremumSpace(0),
         width: "1",
         height: toExtremumSpace(1) - toExtremumSpace(0),
         fill: "url(#dot-background-pattern-2)"
-      }), /* @__PURE__ */ import_react165.default.createElement("line", {
+      }), /* @__PURE__ */ import_react168.default.createElement("line", {
         x1: 0,
         y1: toExtremumSpace(1),
         x2: left.handles[2],
         y2: toExtremumSpace(1 - left.handles[3]),
         stroke: CONTROL_COLOR,
         strokeWidth: "0.01"
-      }), /* @__PURE__ */ import_react165.default.createElement("line", {
+      }), /* @__PURE__ */ import_react168.default.createElement("line", {
         x1: 1,
         y1: toExtremumSpace(0),
         x2: right.handles[0],
         y2: toExtremumSpace(1 - right.handles[1]),
         stroke: CONTROL_COLOR,
         strokeWidth: "0.01"
-      }), /* @__PURE__ */ import_react165.default.createElement("path", {
+      }), /* @__PURE__ */ import_react168.default.createElement("path", {
         d: curvePathDAttrValue(props.curveConnection),
         stroke: "none",
         fill: "url('#myGradient')",
         opacity: "0.1"
-      }), backgroundConnections.map((connection, i3) => /* @__PURE__ */ import_react165.default.createElement("path", {
+      }), backgroundConnections.map((connection, i3) => /* @__PURE__ */ import_react168.default.createElement("path", {
         key: connection.objectKey + "/" + connection.left.id,
         d: curvePathDAttrValue(connection),
         stroke: BACKGROUND_CURVE_COLORS[i3 % BACKGROUND_CURVE_COLORS.length],
         opacity: 0.6,
         strokeWidth: "0.01"
-      })), /* @__PURE__ */ import_react165.default.createElement("path", {
+      })), /* @__PURE__ */ import_react168.default.createElement("path", {
         d: curvePathDAttrValue(props.curveConnection),
         stroke: "url('#myGradient')",
         strokeWidth: "0.02"
-      }), /* @__PURE__ */ import_react165.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react168.default.createElement("circle", {
         cx: 0,
         cy: toExtremumSpace(1),
         r: "0.025",
         stroke: CURVE_START_COLOR,
         strokeWidth: "0.02",
         fill: COLOR_BASE
-      }), /* @__PURE__ */ import_react165.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react168.default.createElement("circle", {
         cx: 1,
         cy: toExtremumSpace(0),
         r: "0.025",
         stroke: CURVE_END_COLOR,
         strokeWidth: "0.02",
         fill: COLOR_BASE
-      }), /* @__PURE__ */ import_react165.default.createElement(HitZone3, {
+      }), /* @__PURE__ */ import_react168.default.createElement(HitZone3, {
         ref: refLeft,
         cx: left.handles[2],
         cy: toExtremumSpace(1 - left.handles[3]),
         fill: CURVE_START_COLOR,
         opacity: 0.2
-      }), /* @__PURE__ */ import_react165.default.createElement(Circle, {
+      }), /* @__PURE__ */ import_react168.default.createElement(Circle, {
         cx: left.handles[2],
         cy: toExtremumSpace(1 - left.handles[3])
-      }), /* @__PURE__ */ import_react165.default.createElement(HitZone3, {
+      }), /* @__PURE__ */ import_react168.default.createElement(HitZone3, {
         ref: refRight,
         cx: right.handles[0],
         cy: toExtremumSpace(1 - right.handles[1]),
         fill: CURVE_END_COLOR,
         opacity: 0.2
-      }), /* @__PURE__ */ import_react165.default.createElement(Circle, {
+      }), /* @__PURE__ */ import_react168.default.createElement(Circle, {
         cx: right.handles[0],
         cy: toExtremumSpace(1 - right.handles[1])
       }));
@@ -41417,7 +41558,7 @@ var init_CurveSegmentEditor = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/shared.ts
 function cssCubicBezierArgsFromHandles(points) {
-  return points.map((p2) => p2.toFixed(CSS_BEZIER_ARGS_DECIMAL_POINTS)).join(", ");
+  return points.map((p3) => p3.toFixed(CSS_BEZIER_ARGS_DECIMAL_POINTS)).join(", ");
 }
 function handlesFromCssCubicBezierArgs(str) {
   if (!str || (str == null ? void 0 : str.length) > MAX_REASONABLE_BEZIER_STRING)
@@ -41428,20 +41569,20 @@ function handlesFromCssCubicBezierArgs(str) {
   const nums = args.map((arg) => {
     return Number(arg.trim());
   });
-  if (!nums.every((v3) => isFinite(v3)))
+  if (!nums.every((v5) => isFinite(v5)))
     return null;
   if (nums[0] < 0 || nums[0] > 1 || nums[2] < 0 || nums[2] > 1)
     return null;
   return nums;
 }
-function areEasingsSimilar(easing1, easing2, options = { threshold: 0.02 }) {
+function areEasingsSimilar(easing1, easing2, options2 = { threshold: 0.02 }) {
   if (!easing1 || !easing2)
     return false;
   let totalDiff = 0;
   for (let i3 = 0; i3 < 4; i3++) {
     totalDiff += Math.abs(easing1[i3] - easing2[i3]);
   }
-  return totalDiff < options.threshold;
+  return totalDiff < options2.threshold;
 }
 var CSS_BEZIER_ARGS_DECIMAL_POINTS, MAX_REASONABLE_BEZIER_STRING, EASING_PRESETS;
 var init_shared = __esm({
@@ -41480,10 +41621,10 @@ var init_shared = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/SVGCurveSegment.tsx
-var import_react166, VIEWBOX_PADDING2, SVG_CIRCLE_RADIUS, VIEWBOX_SIZE2, SELECTED_CURVE_COLOR, CURVE_COLOR, CONTROL_COLOR2, CONTROL_HITZONE_COLOR, toVerticalSVGSpace, SVGCurveSegment, SVGCurveSegment_default;
+var import_react169, VIEWBOX_PADDING2, SVG_CIRCLE_RADIUS, VIEWBOX_SIZE2, SELECTED_CURVE_COLOR, CURVE_COLOR, CONTROL_COLOR2, CONTROL_HITZONE_COLOR, toVerticalSVGSpace, SVGCurveSegment, SVGCurveSegment_default;
 var init_SVGCurveSegment = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/SVGCurveSegment.tsx"() {
-    import_react166 = __toModule(require_react());
+    import_react169 = __toModule(require_react());
     VIEWBOX_PADDING2 = 0.75;
     SVG_CIRCLE_RADIUS = 0.1;
     VIEWBOX_SIZE2 = 1 + VIEWBOX_PADDING2 * 2;
@@ -41495,62 +41636,62 @@ var init_SVGCurveSegment = __esm({
     SVGCurveSegment = (props) => {
       const { easing, isSelected } = props;
       if (!easing)
-        return /* @__PURE__ */ import_react166.default.createElement(import_react166.default.Fragment, null);
+        return /* @__PURE__ */ import_react169.default.createElement(import_react169.default.Fragment, null);
       const curveColor = isSelected ? SELECTED_CURVE_COLOR : CURVE_COLOR;
       const leftControlPoint = [easing[0], toVerticalSVGSpace(easing[1])];
       const rightControlPoint = [easing[2], toVerticalSVGSpace(easing[3])];
       const SVG_VIEWBOX_ATTR = `${-VIEWBOX_PADDING2} ${-VIEWBOX_PADDING2} ${VIEWBOX_SIZE2} ${VIEWBOX_SIZE2}`;
-      return /* @__PURE__ */ import_react166.default.createElement("svg", {
+      return /* @__PURE__ */ import_react169.default.createElement("svg", {
         height: "100%",
         width: "100%",
         viewBox: SVG_VIEWBOX_ATTR,
         fill: "none",
         xmlns: "http://www.w3.org/2000/svg"
-      }, /* @__PURE__ */ import_react166.default.createElement("line", {
+      }, /* @__PURE__ */ import_react169.default.createElement("line", {
         x1: "0",
         y1: "1",
         x2: leftControlPoint[0],
         y2: leftControlPoint[1],
         stroke: CONTROL_COLOR2,
         strokeWidth: "0.1"
-      }), /* @__PURE__ */ import_react166.default.createElement("line", {
+      }), /* @__PURE__ */ import_react169.default.createElement("line", {
         x1: "1",
         y1: "0",
         x2: rightControlPoint[0],
         y2: rightControlPoint[1],
         stroke: CONTROL_COLOR2,
         strokeWidth: "0.1"
-      }), /* @__PURE__ */ import_react166.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
         cx: leftControlPoint[0],
         cy: leftControlPoint[1],
         r: 0.1,
         fill: CONTROL_HITZONE_COLOR
-      }), /* @__PURE__ */ import_react166.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
         cx: rightControlPoint[0],
         cy: rightControlPoint[1],
         r: 0.1,
         fill: CONTROL_HITZONE_COLOR
-      }), /* @__PURE__ */ import_react166.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
         cx: leftControlPoint[0],
         cy: leftControlPoint[1],
         r: SVG_CIRCLE_RADIUS,
         fill: CONTROL_COLOR2
-      }), /* @__PURE__ */ import_react166.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
         cx: rightControlPoint[0],
         cy: rightControlPoint[1],
         r: SVG_CIRCLE_RADIUS,
         fill: CONTROL_COLOR2
-      }), /* @__PURE__ */ import_react166.default.createElement("path", {
+      }), /* @__PURE__ */ import_react169.default.createElement("path", {
         d: `M0 1 C${leftControlPoint[0]} ${leftControlPoint[1]} ${rightControlPoint[0]} 
       ${rightControlPoint[1]} 1 0`,
         stroke: curveColor,
         strokeWidth: "0.08"
-      }), /* @__PURE__ */ import_react166.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
         cx: 0,
         cy: 1,
         r: SVG_CIRCLE_RADIUS,
         fill: curveColor
-      }), /* @__PURE__ */ import_react166.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
         cx: 1,
         cy: 0,
         r: SVG_CIRCLE_RADIUS,
@@ -41562,11 +41703,11 @@ var init_SVGCurveSegment = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/EasingOption.tsx
-var import_react167, Wrapper, EasingTooltip, EasingOption, EasingOption_default;
+var import_react170, Wrapper, EasingTooltip, EasingOption, EasingOption_default;
 var init_EasingOption = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/EasingOption.tsx"() {
     init_useTooltip();
-    import_react167 = __toModule(require_react());
+    import_react170 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_shared();
     init_SVGCurveSegment();
@@ -41582,7 +41723,8 @@ var init_EasingOption = __esm({
   aspect-ratio: 1;
 
   transition: background-color 0.15s;
-  background-color: ${COLOR_BASE};
+  // background-color: ${COLOR_BASE};
+  background-color: #121212;
   border-radius: 2px;
   cursor: pointer;
   outline: none;
@@ -41604,18 +41746,21 @@ var init_EasingOption = __esm({
   color: white;
   max-width: 240px;
   pointer-events: none !important;
-  --popover-bg: black;
+  // --popover-bg: black;
+  --popover-bg: white;
   --popover-outer-stroke: transparent;
-  --popover-inner-stroke: transparent;
-  box-shadow: none;
+  // --popover-inner-stroke: transparent;
+  --popover-inner-stroke: #4b4b4b;
+  //box-shadow: none;
+  //box-shadow: 0px 2px 10px #0000002b;
 `;
-    EasingOption = import_react167.default.forwardRef((props, ref) => {
-      const [tooltip, tooltipHostRef] = useTooltip({ enabled: true, verticalPlacement: props.tooltipPlacement, verticalGap: 0 }, () => /* @__PURE__ */ import_react167.default.createElement(EasingTooltip, {
+    EasingOption = import_react170.default.forwardRef((props, ref) => {
+      const [tooltip, tooltipHostRef] = useTooltip({ enabled: true, verticalPlacement: props.tooltipPlacement, verticalGap: 0 }, () => /* @__PURE__ */ import_react170.default.createElement(EasingTooltip, {
         showPopoverEdgeTriangle: false
       }, props.easing.label));
-      return /* @__PURE__ */ import_react167.default.createElement(Wrapper, __spreadValues({
+      return /* @__PURE__ */ import_react170.default.createElement(Wrapper, __spreadValues({
         ref: react_merge_refs_esm_default([tooltipHostRef, ref])
-      }, props), tooltip, /* @__PURE__ */ import_react167.default.createElement(SVGCurveSegment_default, {
+      }, props), tooltip, /* @__PURE__ */ import_react170.default.createElement(SVGCurveSegment_default, {
         easing: handlesFromCssCubicBezierArgs(props.easing.value),
         isSelected: props.isSelected
       }));
@@ -41625,23 +41770,23 @@ var init_EasingOption = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useUIOptionGrid.tsx
-function useUIOptionGrid(options) {
+function useUIOptionGrid(options2) {
   var _a2;
-  const [selectionIndex, setSelectionIndex] = (0, import_react168.useState)(null);
+  const [selectionIndex, setSelectionIndex] = (0, import_react171.useState)(null);
   const moveCursorVertical = (vdir) => {
     if (selectionIndex === null) {
-      if (options.items.length > 0) {
+      if (options2.items.length > 0) {
         setSelectionIndex(0);
       } else {
       }
       return;
     }
-    const nextSelectionIndex = selectionIndex + vdir * options.uiColumns;
+    const nextSelectionIndex = selectionIndex + vdir * options2.uiColumns;
     const exitsTop = nextSelectionIndex < 0;
-    const exitsBottom = nextSelectionIndex > options.items.length - 1;
+    const exitsBottom = nextSelectionIndex > options2.items.length - 1;
     if (exitsTop || exitsBottom) {
-      if (options.canVerticleExit) {
-        if (options.canVerticleExit(exitsTop ? "top" : "bottom")) {
+      if (options2.canVerticleExit) {
+        if (options2.canVerticleExit(exitsTop ? "top" : "bottom")) {
           setSelectionIndex(null);
           return;
         }
@@ -41652,11 +41797,11 @@ function useUIOptionGrid(options) {
   };
   const moveCursorHorizontal = (hdir) => {
     if (selectionIndex === null)
-      setSelectionIndex(mod(hdir, options.items.length));
+      setSelectionIndex(mod(hdir, options2.items.length));
     else if (selectionIndex + hdir < 0) {
       setSelectionIndex(null);
     } else
-      setSelectionIndex(Math.min(selectionIndex + hdir, options.items.length - 1));
+      setSelectionIndex(Math.min(selectionIndex + hdir, options2.items.length - 1));
   };
   const onParentKeydown = (e2) => {
     if (e2.key === "ArrowRight")
@@ -41676,24 +41821,24 @@ function useUIOptionGrid(options) {
       setSelectionIndex(0);
     },
     onParentEltKeyDown: onParentKeydown,
-    gridItems: options.items.map((item, idx) => options.renderItem({
+    gridItems: options2.items.map((item, idx) => options2.renderItem({
       isSelected: idx === selectionIndex,
       item,
       select(e2) {
         setSelectionIndex(idx);
-        if (options.onSelectItem(item) === 1) {
+        if (options2.onSelectItem(item) === 1) {
           e2 == null ? void 0 : e2.preventDefault();
           e2 == null ? void 0 : e2.stopPropagation();
         }
       }
     })),
-    currentSelection: (_a2 = options.items[selectionIndex != null ? selectionIndex : -1]) != null ? _a2 : null
+    currentSelection: (_a2 = options2.items[selectionIndex != null ? selectionIndex : -1]) != null ? _a2 : null
   };
 }
-var import_react168, Outcome;
+var import_react171, Outcome;
 var init_useUIOptionGrid = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useUIOptionGrid.tsx"() {
-    import_react168 = __toModule(require_react());
+    import_react171 = __toModule(require_react());
     init_CurveEditorPopover();
     (function(Outcome2) {
       Outcome2[Outcome2["Handled"] = 1] = "Handled";
@@ -41747,11 +41892,11 @@ function transactionSetCubicBezier(keyframeConnections2, handles) {
     }
   });
 }
-function mod(n3, m2) {
-  return (n3 % m2 + m2) % m2;
+function mod(n3, m3) {
+  return (n3 % m3 + m3) % m3;
 }
-function setTimeoutFunction(f2, timeout) {
-  return () => setTimeout(f2, timeout);
+function setTimeoutFunction(f3, timeout) {
+  return () => setTimeout(f3, timeout);
 }
 function areConnectedKeyframesTheSameAs({
   left: left1,
@@ -41759,11 +41904,11 @@ function areConnectedKeyframesTheSameAs({
 }) {
   return ({ left: left2, right: right2 }) => left1.handles[2] !== left2.handles[2] || left1.handles[3] !== left2.handles[3] || right1.handles[0] !== right2.handles[0] || right1.handles[1] !== right2.handles[1];
 }
-var import_dataverse51, import_react169, import_fuzzy, PRESET_COLUMNS, PRESET_SIZE, APPROX_TOOLTIP_HEIGHT, Grid, OptionsContainer, SearchBox, CurveEditorContainer, NoResultsFoundContainer, TextInputMode, CurveEditorPopover, CurveEditorPopover_default, isCurveEditorOpenD, isConnectionEditingInCurvePopover, getLock;
+var import_dataverse50, import_react172, import_fuzzy, PRESET_COLUMNS, PRESET_SIZE, APPROX_TOOLTIP_HEIGHT, Grid, OptionsContainer, SearchBox, CurveEditorContainer, NoResultsFoundContainer, TextInputMode, CurveEditorPopover, CurveEditorPopover_default, isCurveEditorOpenD, isConnectionEditingInCurvePopover, getLock;
 var init_CurveEditorPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/CurveEditorPopover.tsx"() {
-    import_dataverse51 = __toModule(require("@theatre/dataverse"));
-    import_react169 = __toModule(require_react());
+    import_dataverse50 = __toModule(require("@theatre/dataverse"));
+    import_react172 = __toModule(require_react());
     init_styled_components_browser_esm();
     import_fuzzy = __toModule(require_fuzzy());
     init_getStudio();
@@ -41832,7 +41977,8 @@ var init_CurveEditorPopover = __esm({
 `;
     CurveEditorContainer = styled_components_browser_esm_default.div`
   grid-area: tween;
-  background: ${COLOR_BASE};
+  // background: ${COLOR_BASE};
+  background: #121212;
 `;
     NoResultsFoundContainer = styled_components_browser_esm_default.div`
   grid-column: 1 / 4;
@@ -41846,9 +41992,9 @@ var init_CurveEditorPopover = __esm({
       TextInputMode2[TextInputMode2["multipleValues"] = 3] = "multipleValues";
     })(TextInputMode || (TextInputMode = {}));
     CurveEditorPopover = (props) => {
-      const allConnections = (0, import_react169.useMemo)(() => [props.curveConnection, ...props.additionalConnections], [props.curveConnection, ...props.additionalConnections]);
-      const tempTransaction = (0, import_react169.useRef)(null);
-      (0, import_react169.useEffect)(() => {
+      const allConnections = (0, import_react172.useMemo)(() => [props.curveConnection, ...props.additionalConnections], [props.curveConnection, ...props.additionalConnections]);
+      const tempTransaction = (0, import_react172.useRef)(null);
+      (0, import_react172.useEffect)(() => {
         const unlock = getLock(allConnections);
         return () => {
           var _a2;
@@ -41862,13 +42008,13 @@ var init_CurveEditorPopover = __esm({
         props.curveConnection.right.handles[0],
         props.curveConnection.right.handles[1]
       ];
-      const inputRef = (0, import_react169.useRef)(null);
-      (0, import_react169.useLayoutEffect)(() => {
+      const inputRef = (0, import_react172.useRef)(null);
+      (0, import_react172.useLayoutEffect)(() => {
         var _a2, _b;
         (_a2 = inputRef.current) == null ? void 0 : _a2.select();
         (_b = inputRef.current) == null ? void 0 : _b.focus();
       }, [inputRef.current]);
-      const [inputValue, setInputValue] = (0, import_react169.useState)(cssCubicBezierArgsFromHandles(easing));
+      const [inputValue, setInputValue] = (0, import_react172.useState)(cssCubicBezierArgsFromHandles(easing));
       const onInputChange = (e2) => {
         setTextInputMode(1);
         setInputValue(e2.target.value);
@@ -41891,8 +42037,8 @@ var init_CurveEditorPopover = __esm({
           props.onRequestClose("key Enter");
         }
       };
-      const [textInputMode, setTextInputMode] = (0, import_react169.useState)(0);
-      (0, import_react169.useEffect)(() => {
+      const [textInputMode, setTextInputMode] = (0, import_react172.useState)(0);
+      (0, import_react172.useEffect)(() => {
         if (textInputMode === 2) {
           setInputValue(cssCubicBezierArgsFromHandles(easing));
         } else if (textInputMode === 3) {
@@ -41900,13 +42046,13 @@ var init_CurveEditorPopover = __esm({
             setInputValue("");
         }
       }, allConnections);
-      const [edit, setEdit] = (0, import_react169.useState)(cssCubicBezierArgsFromHandles(easing));
-      const [preview, setPreview] = (0, import_react169.useState)(null);
-      (0, import_react169.useEffect)(() => {
+      const [edit2, setEdit] = (0, import_react172.useState)(cssCubicBezierArgsFromHandles(easing));
+      const [preview, setPreview] = (0, import_react172.useState)(null);
+      (0, import_react172.useEffect)(() => {
         var _a2;
         if (textInputMode !== 0 && textInputMode !== 3)
-          setTempValue(tempTransaction, allConnections, (_a2 = preview != null ? preview : edit) != null ? _a2 : "");
-      }, [preview, edit, textInputMode]);
+          setTempValue(tempTransaction, allConnections, (_a2 = preview != null ? preview : edit2) != null ? _a2 : "");
+      }, [preview, edit2, textInputMode]);
       if (allConnections.some(areConnectedKeyframesTheSameAs(props.curveConnection)) && textInputMode === 0) {
         setTextInputMode(3);
       }
@@ -41921,7 +42067,7 @@ var init_CurveEditorPopover = __esm({
       };
       const onCancelCurveChange = () => {
       };
-      const displayedPresets = (0, import_react169.useMemo)(() => {
+      const displayedPresets = (0, import_react172.useMemo)(() => {
         const isInputValueAQuery = /^[A-Za-z]/.test(inputValue);
         if (isInputValueAQuery) {
           return import_fuzzy.default.filter(inputValue, EASING_PRESETS, {
@@ -41931,7 +42077,7 @@ var init_CurveEditorPopover = __esm({
           return EASING_PRESETS;
         }
       }, [inputValue]);
-      (0, import_react169.useEffect)(() => {
+      (0, import_react172.useEffect)(() => {
         if (textInputMode === 1 && displayedPresets[0])
           setEdit(displayedPresets[0].value);
       }, [displayedPresets]);
@@ -41956,13 +42102,13 @@ var init_CurveEditorPopover = __esm({
         props.onRequestClose("selected easing option");
         return Outcome.Handled;
       };
-      const optionsRef = (0, import_react169.useRef)(EASING_PRESETS.reduce((acc, curr) => {
+      const optionsRef = (0, import_react172.useRef)(EASING_PRESETS.reduce((acc, curr) => {
         acc[curr.label] = { current: null };
         return acc;
       }, {}));
       const [optionsContainerRef, optionsContainer] = useRefAndState(null);
-      const [optionsScrollPosition, setOptionsScrollPosition] = (0, import_react169.useState)(0);
-      (0, import_react169.useEffect)(() => {
+      const [optionsScrollPosition, setOptionsScrollPosition] = (0, import_react172.useState)(0);
+      (0, import_react172.useEffect)(() => {
         const listener = () => {
           var _a2;
           setOptionsScrollPosition((_a2 = optionsContainer == null ? void 0 : optionsContainer.scrollTop) != null ? _a2 : 0);
@@ -41985,7 +42131,7 @@ var init_CurveEditorPopover = __esm({
         },
         renderItem: ({ item: preset, select }) => {
           var _a2, _b;
-          return /* @__PURE__ */ import_react169.default.createElement(EasingOption_default, {
+          return /* @__PURE__ */ import_react172.default.createElement(EasingOption_default, {
             key: preset.label,
             easing: preset,
             tabIndex: 0,
@@ -41999,7 +42145,7 @@ var init_CurveEditorPopover = __esm({
           });
         }
       });
-      (0, import_react169.useLayoutEffect)(() => {
+      (0, import_react172.useLayoutEffect)(() => {
         var _a2, _b;
         if (grid.currentSelection !== null && document.activeElement !== inputRef.current) {
           const maybePresetEl = (_b = (_a2 = optionsRef.current) == null ? void 0 : _a2[grid.currentSelection.label]) == null ? void 0 : _b.current;
@@ -42011,22 +42157,22 @@ var init_CurveEditorPopover = __esm({
           }
         }
       }, [grid.currentSelection]);
-      return /* @__PURE__ */ import_react169.default.createElement(Grid, null, /* @__PURE__ */ import_react169.default.createElement(SearchBox, {
+      return /* @__PURE__ */ import_react172.default.createElement(Grid, null, /* @__PURE__ */ import_react172.default.createElement(SearchBox, {
         value: inputValue,
         placeholder: textInputMode === 3 ? "Multiple easings selected" : "Search presets...",
         onPaste: setTimeoutFunction(onInputChange),
         onChange: onInputChange,
         ref: inputRef,
         onKeyDown: onSearchKeyDown
-      }), /* @__PURE__ */ import_react169.default.createElement(OptionsContainer, {
+      }), /* @__PURE__ */ import_react172.default.createElement(OptionsContainer, {
         ref: optionsContainerRef,
         onKeyDown: (evt) => grid.onParentEltKeyDown(evt)
-      }, grid.gridItems, grid.gridItems.length === 0 ? /* @__PURE__ */ import_react169.default.createElement(NoResultsFoundContainer, null, "No results found") : void 0), /* @__PURE__ */ import_react169.default.createElement(CurveEditorContainer, {
+      }, grid.gridItems, grid.gridItems.length === 0 ? /* @__PURE__ */ import_react172.default.createElement(NoResultsFoundContainer, null, "No results found") : void 0), /* @__PURE__ */ import_react172.default.createElement(CurveEditorContainer, {
         onClick: () => {
           var _a2;
           return (_a2 = inputRef.current) == null ? void 0 : _a2.focus();
         }
-      }, /* @__PURE__ */ import_react169.default.createElement(CurveSegmentEditor_default, {
+      }, /* @__PURE__ */ import_react172.default.createElement(CurveSegmentEditor_default, {
         curveConnection: props.curveConnection,
         backgroundConnections: props.additionalConnections,
         onCurveChange,
@@ -42035,7 +42181,7 @@ var init_CurveEditorPopover = __esm({
     };
     CurveEditorPopover_default = CurveEditorPopover;
     ({ isCurveEditorOpenD, isConnectionEditingInCurvePopover, getLock } = (() => {
-      const connectionsInCurvePopoverEdit = new import_dataverse51.Box([]);
+      const connectionsInCurvePopoverEdit = new import_dataverse50.Box([]);
       return {
         getLock(connections) {
           connectionsInCurvePopoverEdit.set(connections);
@@ -42043,11 +42189,11 @@ var init_CurveEditorPopover = __esm({
             connectionsInCurvePopoverEdit.set([]);
           };
         },
-        isCurveEditorOpenD: (0, import_dataverse51.prism)(() => {
+        isCurveEditorOpenD: (0, import_dataverse50.prism)(() => {
           return connectionsInCurvePopoverEdit.derivation.getValue().length > 0;
         }),
         isConnectionEditingInCurvePopover(con) {
-          import_dataverse51.prism.ensurePrism();
+          import_dataverse50.prism.ensurePrism();
           return connectionsInCurvePopoverEdit.derivation.getValue().some(({ left, right }) => con.left.id === left.id && con.right.id === right.id);
         }
       };
@@ -42064,12 +42210,12 @@ function isKeyframeConnectionInSelection(keyframeConnection, selection) {
   return false;
 }
 function selectedKeyframeConnections(projectId, sheetId, selection) {
-  return (0, import_dataverse52.prism)(() => {
+  return (0, import_dataverse51.prism)(() => {
     if (selection === void 0)
       return [];
     let ckfs = [];
     for (const { objectKey, trackId } of flatSelectionTrackIds(selection)) {
-      const track = (0, import_dataverse52.val)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[objectKey].trackData[trackId]);
+      const track = (0, import_dataverse51.val)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[objectKey].trackData[trackId]);
       if (track) {
         ckfs = ckfs.concat(keyframeConnections(track.keyframes).filter((kfc) => isKeyframeConnectionInSelection(kfc, selection)).map(({ left, right }) => ({
           left,
@@ -42112,7 +42258,7 @@ function keyframesWithPaths({
   trackId,
   keyframeIds
 }) {
-  const tracksByObject = (0, import_dataverse52.val)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[objectKey]);
+  const tracksByObject = (0, import_dataverse51.val)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[objectKey]);
   const track = tracksByObject == null ? void 0 : tracksByObject.trackData[trackId];
   if (!track)
     return null;
@@ -42162,10 +42308,10 @@ function flatSelectionTrackIds(selection) {
   }
   return result2;
 }
-var import_dataverse52;
+var import_dataverse51;
 var init_selections = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/selections.ts"() {
-    import_dataverse52 = __toModule(require("@theatre/dataverse"));
+    import_dataverse51 = __toModule(require("@theatre/dataverse"));
     init_getStudio();
     init_addresses();
   }
@@ -42173,7 +42319,7 @@ var init_selections = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useTempTransactionEditingTools.tsx
 function useTempTransactionEditingTools(writeTx) {
-  return (0, import_react170.useMemo)(() => createTempTransactionEditingTools(writeTx), []);
+  return (0, import_react173.useMemo)(() => createTempTransactionEditingTools(writeTx), []);
 }
 function createTempTransactionEditingTools(writeTx) {
   let currentTransaction = null;
@@ -42194,58 +42340,58 @@ function createTempTransactionEditingTools(writeTx) {
     }
   };
 }
-var import_react170;
+var import_react173;
 var init_useTempTransactionEditingTools = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useTempTransactionEditingTools.tsx"() {
     init_getStudio();
-    import_react170 = __toModule(require_react());
+    import_react173 = __toModule(require_react());
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/DeterminePropEditorForSingleKeyframe.tsx
-function DeterminePropEditorForKeyframeTree(p2) {
+function DeterminePropEditorForKeyframeTree(p3) {
   var _a2;
-  if (p2.type === "sheetObject") {
-    return /* @__PURE__ */ import_react171.default.createElement(import_react171.default.Fragment, null, /* @__PURE__ */ import_react171.default.createElement(SingleKeyframePropLabel, {
-      style: { paddingLeft: `${p2.indent * INDENT_PX}px` }
-    }, p2.sheetObject.address.objectKey), p2.children.map((c3, i3) => /* @__PURE__ */ import_react171.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
+  if (p3.type === "sheetObject") {
+    return /* @__PURE__ */ import_react174.default.createElement(import_react174.default.Fragment, null, /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropLabel, {
+      style: { paddingLeft: `${p3.indent * INDENT_PX}px` }
+    }, p3.sheetObject.address.objectKey), p3.children.map((c3, i3) => /* @__PURE__ */ import_react174.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
       key: i3
     }, c3), {
-      autoFocusInput: p2.autoFocusInput && i3 === 0,
-      indent: p2.indent + 1
+      autoFocusInput: p3.autoFocusInput && i3 === 0,
+      indent: p3.indent + 1
     }))));
-  } else if (p2.type === "propWithChildren") {
-    const label = (_a2 = p2.propConfig.label) != null ? _a2 : last_default(p2.pathToProp);
-    return /* @__PURE__ */ import_react171.default.createElement(import_react171.default.Fragment, null, /* @__PURE__ */ import_react171.default.createElement(SingleKeyframePropLabel, {
-      style: { paddingLeft: `${p2.indent * INDENT_PX}px` }
-    }, label), p2.children.map((c3, i3) => /* @__PURE__ */ import_react171.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
+  } else if (p3.type === "propWithChildren") {
+    const label = (_a2 = p3.propConfig.label) != null ? _a2 : last_default(p3.pathToProp);
+    return /* @__PURE__ */ import_react174.default.createElement(import_react174.default.Fragment, null, /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropLabel, {
+      style: { paddingLeft: `${p3.indent * INDENT_PX}px` }
+    }, label), p3.children.map((c3, i3) => /* @__PURE__ */ import_react174.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
       key: i3
     }, c3), {
-      autoFocusInput: p2.autoFocusInput && i3 === 0,
-      indent: p2.indent + 1
+      autoFocusInput: p3.autoFocusInput && i3 === 0,
+      indent: p3.indent + 1
     }))));
   } else {
-    return /* @__PURE__ */ import_react171.default.createElement(PrimitivePropEditor, __spreadProps(__spreadValues({}, p2), {
-      autoFocusInput: p2.autoFocusInput,
-      indent: p2.indent
+    return /* @__PURE__ */ import_react174.default.createElement(PrimitivePropEditor, __spreadProps(__spreadValues({}, p3), {
+      autoFocusInput: p3.autoFocusInput,
+      indent: p3.indent
     }));
   }
 }
-function PrimitivePropEditor(p2) {
+function PrimitivePropEditor(p3) {
   var _a2;
-  const label = (_a2 = p2.propConfig.label) != null ? _a2 : last_default(p2.pathToProp);
-  const editingTools = useEditingToolsForKeyframeEditorPopover(p2);
-  if (p2.propConfig.type === "enum") {
-    return /* @__PURE__ */ import_react171.default.createElement(import_react171.default.Fragment, null);
+  const label = (_a2 = p3.propConfig.label) != null ? _a2 : last_default(p3.pathToProp);
+  const editingTools = useEditingToolsForKeyframeEditorPopover(p3);
+  if (p3.propConfig.type === "enum") {
+    return /* @__PURE__ */ import_react174.default.createElement(import_react174.default.Fragment, null);
   } else {
-    const PropEditor = simplePropEditorByPropType[p2.propConfig.type];
-    return /* @__PURE__ */ import_react171.default.createElement(SingleKeyframePropEditorContainer, null, /* @__PURE__ */ import_react171.default.createElement(SingleKeyframePropLabel, null, /* @__PURE__ */ import_react171.default.createElement("span", {
-      style: { paddingLeft: `${p2.indent * INDENT_PX}px` }
-    }, label)), /* @__PURE__ */ import_react171.default.createElement(SingleKeyframeSimplePropEditorContainer, null, /* @__PURE__ */ import_react171.default.createElement(PropEditor, {
+    const PropEditor = simplePropEditorByPropType[p3.propConfig.type];
+    return /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropEditorContainer, null, /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropLabel, null, /* @__PURE__ */ import_react174.default.createElement("span", {
+      style: { paddingLeft: `${p3.indent * INDENT_PX}px` }
+    }, label)), /* @__PURE__ */ import_react174.default.createElement(SingleKeyframeSimplePropEditorContainer, null, /* @__PURE__ */ import_react174.default.createElement(PropEditor, {
       editingTools,
-      propConfig: p2.propConfig,
-      value: valueInProp(p2.keyframe.value, p2.propConfig),
-      autoFocus: p2.autoFocusInput
+      propConfig: p3.propConfig,
+      value: valueInProp(p3.keyframe.value, p3.propConfig),
+      autoFocus: p3.autoFocusInput
     })));
   }
 }
@@ -42260,15 +42406,15 @@ function useEditingToolsForKeyframeEditorPopover(props) {
     }));
   });
 }
-var import_react171, SingleKeyframePropEditorContainer, SingleKeyframePropLabel, INDENT_PX, SingleKeyframeSimplePropEditorContainer;
+var import_react174, SingleKeyframePropEditorContainer, SingleKeyframePropLabel, INDENT_PX, SingleKeyframeSimplePropEditorContainer;
 var init_DeterminePropEditorForSingleKeyframe = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/DeterminePropEditorForSingleKeyframe.tsx"() {
-    import_react171 = __toModule(require_react());
+    import_react174 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_simplePropEditorByPropType();
     init_last();
     init_useTempTransactionEditingTools();
-    init_utils2();
+    init_utils();
     SingleKeyframePropEditorContainer = styled_components_browser_esm_default.div`
   display: flex;
   align-items: stretch;
@@ -42302,21 +42448,21 @@ var init_DeterminePropEditorForSingleKeyframe = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useSingleKeyframeInlineEditorPopover.tsx
 function useKeyframeInlineEditorPopover(props) {
-  return usePopover({ debugName: "useKeyframeInlineEditorPopover" }, () => /* @__PURE__ */ import_react172.default.createElement(BasicPopover_default, {
+  return usePopover({ debugName: "useKeyframeInlineEditorPopover" }, () => /* @__PURE__ */ import_react175.default.createElement(BasicPopover_default, {
     showPopoverEdgeTriangle: true
-  }, /* @__PURE__ */ import_react172.default.createElement("div", {
+  }, /* @__PURE__ */ import_react175.default.createElement("div", {
     style: { margin: "1px 2px 1px 10px" }
-  }, !Array.isArray(props) ? void 0 : props.map((prop, i3) => /* @__PURE__ */ import_react172.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
+  }, !Array.isArray(props) ? void 0 : props.map((prop, i3) => /* @__PURE__ */ import_react175.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
     key: i3
   }, prop), {
     autoFocusInput: i3 === 0,
     indent: 0
   }))))));
 }
-var import_react172;
+var import_react175;
 var init_useSingleKeyframeInlineEditorPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useSingleKeyframeInlineEditorPopover.tsx"() {
-    import_react172 = __toModule(require_react());
+    import_react175 = __toModule(require_react());
     init_usePopover();
     init_BasicPopover();
     init_DeterminePropEditorForSingleKeyframe();
@@ -42368,16 +42514,16 @@ function useSingleKeyframeContextMenu(target, logger, props) {
     }
   });
 }
-function useDragForSingleKeyframeDot(node, props, options) {
-  const propsRef = (0, import_react173.useRef)(props);
+function useDragForSingleKeyframeDot(node, props, options2) {
+  const propsRef = (0, import_react176.useRef)(props);
   propsRef.current = props;
-  const { onClickFromDrag } = options;
-  const useDragOpts = (0, import_react173.useMemo)(() => {
+  const { onClickFromDrag } = options2;
+  const useDragOpts = (0, import_react176.useMemo)(() => {
     return {
       debugName: "KeyframeDot/useDragKeyframe",
       onDragStart(event) {
         const props2 = propsRef.current;
-        const tracksByObject = (0, import_dataverse53.val)(getStudio().atomP.historic.coreByProject[props2.leaf.sheetObject.address.projectId].sheetsById[props2.leaf.sheetObject.address.sheetId].sequence.tracksByObject);
+        const tracksByObject = (0, import_dataverse52.val)(getStudio().atomP.historic.coreByProject[props2.leaf.sheetObject.address.projectId].sheetsById[props2.leaf.sheetObject.address.sheetId].sequence.tracksByObject);
         const snapPositions = collectKeyframeSnapPositions(tracksByObject, function shouldIncludeKeyfram(keyframe, { trackId, objectKey }) {
           var _a2, _b;
           return keyframe.id !== props2.keyframe.id && !(props2.selection && ((_b = (_a2 = props2.selection.byObjectKey[objectKey]) == null ? void 0 : _a2.byTrackId[trackId]) == null ? void 0 : _b.byKeyframeId[keyframe.id]));
@@ -42400,7 +42546,7 @@ function useDragForSingleKeyframeDot(node, props, options) {
           });
         }
         const propsAtStartOfDrag = props2;
-        const toUnitSpace = (0, import_dataverse53.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const toUnitSpace = (0, import_dataverse52.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
         let tempTransaction;
         return {
           onDrag(dx, dy, event2) {
@@ -42415,7 +42561,7 @@ function useDragForSingleKeyframeDot(node, props, options) {
               stateEditors2.coreByProject.historic.sheetsById.sequence.replaceKeyframes(__spreadProps(__spreadValues({}, propsAtStartOfDrag.leaf.sheetObject.address), {
                 trackId: propsAtStartOfDrag.leaf.trackId,
                 keyframes: [__spreadProps(__spreadValues({}, original), { position: newPosition })],
-                snappingFunction: (0, import_dataverse53.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
+                snappingFunction: (0, import_dataverse52.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
               }));
             });
           },
@@ -42439,16 +42585,16 @@ function useDragForSingleKeyframeDot(node, props, options) {
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor", "ew-resize");
   return [isDragging];
 }
-var import_react173, import_dataverse53, DOT_SIZE_PX, DOT_HOVER_SIZE_PX, dotTheme, selectBacgroundForDiamond, Diamond, HitZone4, SingleKeyframeDot, SingleKeyframeDot_default;
+var import_react176, import_dataverse52, DOT_SIZE_PX, DOT_HOVER_SIZE_PX, dotTheme, selectBacgroundForDiamond, Diamond, HitZone4, SingleKeyframeDot, SingleKeyframeDot_default;
 var init_SingleKeyframeDot = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/SingleKeyframeDot.tsx"() {
-    import_react173 = __toModule(require_react());
+    import_react176 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_getStudio();
     init_useContextMenu();
     init_useDrag();
     init_useRefAndState();
-    import_dataverse53 = __toModule(require("@theatre/dataverse"));
+    import_dataverse52 = __toModule(require("@theatre/dataverse"));
     init_FrameStampPositionProvider();
     init_PointerEventsHandler();
     init_DopeSnap();
@@ -42462,7 +42608,7 @@ var init_SingleKeyframeDot = __esm({
     DOT_SIZE_PX = 6;
     DOT_HOVER_SIZE_PX = DOT_SIZE_PX + 2;
     dotTheme = {
-      normalColor: "#40AAA4",
+      normalColor: "#0d99ff",
       selectedColor: "#F2C95C",
       inlineEditorOpenColor: "#FCF3DC",
       selectedAndInlineEditorOpenColor: "#CBEBEA"
@@ -42533,10 +42679,10 @@ var init_SingleKeyframeDot = __esm({
           toggleEditor(dragStartEvent, ref.current);
         }
       });
-      return /* @__PURE__ */ import_react173.default.createElement(import_react173.default.Fragment, null, /* @__PURE__ */ import_react173.default.createElement(HitZone4, __spreadValues({
+      return /* @__PURE__ */ import_react176.default.createElement(import_react176.default.Fragment, null, /* @__PURE__ */ import_react176.default.createElement(HitZone4, __spreadValues({
         ref,
         isInlineEditorPopoverOpen
-      }, presence.attrs)), /* @__PURE__ */ import_react173.default.createElement(Diamond, {
+      }, presence.attrs)), /* @__PURE__ */ import_react176.default.createElement(Diamond, {
         isSelected: !!props.selection,
         isInlineEditorPopoverOpen,
         flag: presence.flag
@@ -42547,17 +42693,17 @@ var init_SingleKeyframeDot = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/keyframeRowUI/ConnectorLine.tsx
-var import_react174, CONNECTOR_HEIGHT, CONNECTOR_WIDTH_UNSCALED, CONNECTOR_THEME, Container43, ConnectorLine;
+var import_react177, CONNECTOR_HEIGHT, CONNECTOR_WIDTH_UNSCALED, CONNECTOR_THEME, Container43, ConnectorLine;
 var init_ConnectorLine = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/keyframeRowUI/ConnectorLine.tsx"() {
     init_polished_esm();
-    import_react174 = __toModule(require_react());
+    import_react177 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SingleKeyframeDot();
     CONNECTOR_HEIGHT = DOT_SIZE_PX / 2 + 1;
     CONNECTOR_WIDTH_UNSCALED = 1e3;
     CONNECTOR_THEME = {
-      normalColor: `#365b59`,
+      normalColor: `#007be5`,
       selectedColor: `#8A7842`,
       barColor: (values) => {
         const base = values.isSelected ? CONNECTOR_THEME.selectedColor : CONNECTOR_THEME.normalColor;
@@ -42594,12 +42740,12 @@ var init_ConnectorLine = __esm({
     background: ${CONNECTOR_THEME.hoverColor};
   }
 `;
-    ConnectorLine = import_react174.default.forwardRef((props, ref) => {
+    ConnectorLine = import_react177.default.forwardRef((props, ref) => {
       const themeValues = {
         isPopoverOpen: props.isPopoverOpen,
         isSelected: props.isSelected
       };
-      return /* @__PURE__ */ import_react174.default.createElement(Container43, __spreadProps(__spreadValues({}, themeValues), {
+      return /* @__PURE__ */ import_react177.default.createElement(Container43, __spreadProps(__spreadValues({}, themeValues), {
         ref,
         style: {
           transform: `scaleX(calc(var(--unitSpaceToScaledSpaceMultiplier) * ${props.connectorLengthInUnitSpace / CONNECTOR_WIDTH_UNSCALED}))`
@@ -42615,9 +42761,9 @@ var init_ConnectorLine = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/BasicKeyframeConnector.tsx
 function useDragKeyframe(node, props) {
-  const propsRef = (0, import_react176.useRef)(props);
+  const propsRef = (0, import_react179.useRef)(props);
   propsRef.current = props;
-  const gestureHandlers = (0, import_react176.useMemo)(() => {
+  const gestureHandlers = (0, import_react179.useMemo)(() => {
     return {
       debugName: "useDragKeyframe",
       lockCSSCursorTo: "ew-resize",
@@ -42633,8 +42779,8 @@ function useDragKeyframe(node, props) {
           })).onDragStart(event);
         }
         const propsAtStartOfDrag = props2;
-        const sequence = (0, import_dataverse54.val)(propsAtStartOfDrag.layoutP.sheet).getSequence();
-        const toUnitSpace = (0, import_dataverse54.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const sequence = (0, import_dataverse53.val)(propsAtStartOfDrag.layoutP.sheet).getSequence();
+        const toUnitSpace = (0, import_dataverse53.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
         return {
           onDrag(dx, dy, event2) {
             const delta = toUnitSpace(dx);
@@ -42715,16 +42861,16 @@ function useConnectorContextMenu(props, node, cur, next) {
     }
   });
 }
-var import_dataverse54, import_react175, import_react176, POPOVER_MARGIN, EasingPopover, BasicKeyframeConnector, BasicKeyframeConnector_default, SingleCurveEditorPopover;
+var import_dataverse53, import_react178, import_react179, POPOVER_MARGIN, EasingPopover, BasicKeyframeConnector, BasicKeyframeConnector_default, SingleCurveEditorPopover;
 var init_BasicKeyframeConnector = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/BasicKeyframeConnector.tsx"() {
     init_getStudio();
     init_useContextMenu();
     init_useDrag();
     init_useRefAndState();
-    import_dataverse54 = __toModule(require("@theatre/dataverse"));
-    import_react175 = __toModule(require_react());
-    import_react176 = __toModule(require_react());
+    import_dataverse53 = __toModule(require("@theatre/dataverse"));
+    import_react178 = __toModule(require_react());
+    import_react179 = __toModule(require_react());
     init_usePopover();
     init_BasicPopover();
     init_CurveEditorPopover();
@@ -42749,7 +42895,7 @@ var init_BasicKeyframeConnector = __esm({
         toggle: togglePopover,
         close: closePopover
       } = usePopover(() => {
-        const rightDims = (0, import_dataverse54.val)(props.layoutP.rightDims);
+        const rightDims = (0, import_dataverse53.val)(props.layoutP.rightDims);
         return {
           debugName: "Connector",
           constraints: {
@@ -42757,7 +42903,7 @@ var init_BasicKeyframeConnector = __esm({
             maxX: rightDims.screenX + rightDims.width - POPOVER_MARGIN
           }
         };
-      }, () => /* @__PURE__ */ import_react175.default.createElement(SingleCurveEditorPopover, __spreadProps(__spreadValues({}, props), {
+      }, () => /* @__PURE__ */ import_react178.default.createElement(SingleCurveEditorPopover, __spreadProps(__spreadValues({}, props), {
         closePopover
       })));
       const [contextMenu] = useConnectorContextMenu(props, node, cur, next);
@@ -42772,7 +42918,7 @@ var init_BasicKeyframeConnector = __esm({
         isPopoverOpen: isInCurveEditorPopoverSelection,
         isSelected: props.selection !== void 0
       };
-      return /* @__PURE__ */ import_react175.default.createElement(import_react175.default.Fragment, null, /* @__PURE__ */ import_react175.default.createElement(ConnectorLine, __spreadProps(__spreadValues({
+      return /* @__PURE__ */ import_react178.default.createElement(import_react178.default.Fragment, null, /* @__PURE__ */ import_react178.default.createElement(ConnectorLine, __spreadProps(__spreadValues({
         ref: nodeRef,
         connectorLengthInUnitSpace
       }, themeValues), {
@@ -42783,7 +42929,7 @@ var init_BasicKeyframeConnector = __esm({
       }), popoverNode), contextMenu);
     };
     BasicKeyframeConnector_default = BasicKeyframeConnector;
-    SingleCurveEditorPopover = import_react175.default.forwardRef((props, ref) => {
+    SingleCurveEditorPopover = import_react178.default.forwardRef((props, ref) => {
       const {
         index,
         track: { data: trackData },
@@ -42799,10 +42945,10 @@ var init_BasicKeyframeConnector = __esm({
         right: next,
         trackId
       }, address);
-      return /* @__PURE__ */ import_react175.default.createElement(EasingPopover, {
+      return /* @__PURE__ */ import_react178.default.createElement(EasingPopover, {
         showPopoverEdgeTriangle: false,
         ref
-      }, /* @__PURE__ */ import_react175.default.createElement(CurveEditorPopover_default, {
+      }, /* @__PURE__ */ import_react178.default.createElement(CurveEditorPopover_default, {
         curveConnection,
         additionalConnections: selectedConnections,
         onRequestClose: props.closePopover
@@ -42812,19 +42958,19 @@ var init_BasicKeyframeConnector = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/SingleKeyframeEditor.tsx
-var import_dataverse55, import_react178, SingleKeyframeEditorContainer, noConnector, SingleKeyframeEditor, SingleKeyframeEditor_default;
+var import_dataverse54, import_react181, SingleKeyframeEditorContainer, noConnector, SingleKeyframeEditor, SingleKeyframeEditor_default;
 var init_SingleKeyframeEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/SingleKeyframeEditor.tsx"() {
-    import_dataverse55 = __toModule(require("@theatre/dataverse"));
-    import_react178 = __toModule(require_react());
+    import_dataverse54 = __toModule(require("@theatre/dataverse"));
+    import_react181 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasicKeyframeConnector();
     init_SingleKeyframeDot();
     SingleKeyframeEditorContainer = styled_components_browser_esm_default.div`
   position: absolute;
 `;
-    noConnector = /* @__PURE__ */ import_react178.default.createElement(import_react178.default.Fragment, null);
-    SingleKeyframeEditor = import_react178.default.memo((props) => {
+    noConnector = /* @__PURE__ */ import_react181.default.createElement(import_react181.default.Fragment, null);
+    SingleKeyframeEditor = import_react181.default.memo((props) => {
       const {
         index,
         track: { data: trackData }
@@ -42832,14 +42978,14 @@ var init_SingleKeyframeEditor = __esm({
       const cur = trackData.keyframes[index];
       const next = trackData.keyframes[index + 1];
       const connected = cur.connectedRight && !!next;
-      return /* @__PURE__ */ import_react178.default.createElement(SingleKeyframeEditorContainer, {
+      return /* @__PURE__ */ import_react181.default.createElement(SingleKeyframeEditorContainer, {
         style: {
           top: `${props.leaf.nodeHeight / 2}px`,
-          left: `calc(${(0, import_dataverse55.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position}px))`
+          left: `calc(${(0, import_dataverse54.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position}px))`
         }
-      }, /* @__PURE__ */ import_react178.default.createElement(SingleKeyframeDot_default, __spreadProps(__spreadValues({}, props), {
+      }, /* @__PURE__ */ import_react181.default.createElement(SingleKeyframeDot_default, __spreadProps(__spreadValues({}, props), {
         itemKey: props.itemKey
-      })), connected ? /* @__PURE__ */ import_react178.default.createElement(BasicKeyframeConnector_default, __spreadValues({}, props)) : noConnector);
+      })), connected ? /* @__PURE__ */ import_react181.default.createElement(BasicKeyframeConnector_default, __spreadValues({}, props)) : noConnector);
     });
     SingleKeyframeEditor_default = SingleKeyframeEditor;
   }
@@ -42851,7 +42997,7 @@ function useBasicKeyframedTrackContextMenu(node, props) {
     displayName: "Keyframe Track",
     menuItems: () => {
       var _a2;
-      const selectionKeyframes = (_a2 = (0, import_dataverse56.val)(getStudio().atomP.ahistoric.clipboard.keyframesWithRelativePaths)) != null ? _a2 : [];
+      const selectionKeyframes = (_a2 = (0, import_dataverse55.val)(getStudio().atomP.ahistoric.clipboard.keyframesWithRelativePaths)) != null ? _a2 : [];
       return [pasteKeyframesContextMenuItem(props, selectionKeyframes)];
     }
   });
@@ -42862,7 +43008,7 @@ function pasteKeyframesContextMenuItem(props, keyframes) {
     enabled: keyframes.length > 0,
     callback: () => {
       var _a2;
-      const sheet = (0, import_dataverse56.val)(props.layoutP.sheet);
+      const sheet = (0, import_dataverse55.val)(props.layoutP.sheet);
       const sequence = sheet.getSequence();
       const firstPath = (_a2 = keyframes[0]) == null ? void 0 : _a2.pathToProp;
       const singleTrackKeyframes = keyframes.filter(({ keyframe, pathToProp }) => arePathsEqual(firstPath, pathToProp)).map(({ keyframe, pathToProp }) => keyframe);
@@ -42892,12 +43038,12 @@ function earliestKeyframe(keyframes) {
   }
   return curEarliest;
 }
-var import_dataverse56, import_react180, Container44, BasicKeyframedTrack, BasicKeyframedTrack_default;
+var import_dataverse55, import_react183, Container44, BasicKeyframedTrack, BasicKeyframedTrack_default;
 var init_BasicKeyframedTrack = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/BasicKeyframedTrack.tsx"() {
     init_src();
-    import_dataverse56 = __toModule(require("@theatre/dataverse"));
-    import_react180 = __toModule(require_react());
+    import_dataverse55 = __toModule(require("@theatre/dataverse"));
+    import_react183 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SingleKeyframeEditor();
     init_useContextMenu();
@@ -42911,17 +43057,17 @@ var init_BasicKeyframedTrack = __esm({
   height: 100%;
   width: 100%;
 `;
-    BasicKeyframedTrack = import_react180.default.memo((props) => {
+    BasicKeyframedTrack = import_react183.default.memo((props) => {
       var _a2;
       const { layoutP, trackData, leaf } = props;
       const [containerRef, containerNode] = useRefAndState(null);
       const { selectedKeyframeIds, selection } = usePrism(() => {
-        const selectionAtom = (0, import_dataverse56.val)(layoutP.selectionAtom);
-        const selectedKeyframeIds2 = (0, import_dataverse56.val)(selectionAtom.pointer.current.byObjectKey[leaf.sheetObject.address.objectKey].byTrackId[leaf.trackId].byKeyframeId);
+        const selectionAtom = (0, import_dataverse55.val)(layoutP.selectionAtom);
+        const selectedKeyframeIds2 = (0, import_dataverse55.val)(selectionAtom.pointer.current.byObjectKey[leaf.sheetObject.address.objectKey].byTrackId[leaf.trackId].byKeyframeId);
         if (selectedKeyframeIds2) {
           return {
             selectedKeyframeIds: selectedKeyframeIds2,
-            selection: (0, import_dataverse56.val)(selectionAtom.pointer.current)
+            selection: (0, import_dataverse55.val)(selectionAtom.pointer.current)
           };
         } else {
           return {
@@ -42934,12 +43080,12 @@ var init_BasicKeyframedTrack = __esm({
       const snapPositionsState = useVal(snapPositionsStateD);
       const snapPositions = snapPositionsState.mode === "snapToSome" ? (_a2 = snapPositionsState.positions[leaf.sheetObject.address.objectKey]) == null ? void 0 : _a2[leaf.trackId] : [];
       const snapToAllKeyframes = snapPositionsState.mode === "snapToAll";
-      const track = (0, import_react180.useMemo)(() => ({
+      const track = (0, import_react183.useMemo)(() => ({
         data: trackData,
         id: leaf.trackId,
         sheetObject: props.leaf.sheetObject
       }), [trackData, leaf.trackId]);
-      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react180.default.createElement(SingleKeyframeEditor_default, {
+      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react183.default.createElement(SingleKeyframeEditor_default, {
         key: "keyframe-" + kf.id,
         itemKey: createStudioSheetItemKey.forTrackKeyframe(leaf.sheetObject, leaf.trackId, kf.id),
         keyframe: kf,
@@ -42949,24 +43095,24 @@ var init_BasicKeyframedTrack = __esm({
         leaf,
         selection: selectedKeyframeIds[kf.id] === true ? selection : void 0
       }));
-      const snapTargets = snapPositions.map((position2) => /* @__PURE__ */ import_react180.default.createElement(KeyframeSnapTarget_default, {
+      const snapTargets = snapPositions.map((position2) => /* @__PURE__ */ import_react183.default.createElement(KeyframeSnapTarget_default, {
         key: "snap-target-" + position2,
         layoutP,
         leaf,
         position: position2
       }));
-      const additionalSnapTargets = !snapToAllKeyframes ? null : trackData.keyframes.map((kf) => /* @__PURE__ */ import_react180.default.createElement(KeyframeSnapTarget_default, {
+      const additionalSnapTargets = !snapToAllKeyframes ? null : trackData.keyframes.map((kf) => /* @__PURE__ */ import_react183.default.createElement(KeyframeSnapTarget_default, {
         key: `additionalSnapTarget-${kf.id}`,
         layoutP,
         leaf,
         position: kf.position
       }));
-      return /* @__PURE__ */ import_react180.default.createElement(Container44, {
+      return /* @__PURE__ */ import_react183.default.createElement(Container44, {
         ref: containerRef,
         style: {
-          background: isOpen ? "#444850 " : "unset"
+          background: isOpen ? "#121212 " : "unset"
         }
-      }, keyframeEditors, snapTargets, /* @__PURE__ */ import_react180.default.createElement(import_react180.default.Fragment, null, additionalSnapTargets), contextMenu);
+      }, keyframeEditors, snapTargets, /* @__PURE__ */ import_react183.default.createElement(import_react183.default.Fragment, null, additionalSnapTargets), contextMenu);
     });
     BasicKeyframedTrack.displayName = `BasicKeyframedTrack`;
     BasicKeyframedTrack_default = BasicKeyframedTrack;
@@ -42974,13 +43120,13 @@ var init_BasicKeyframedTrack = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PrimitivePropRow.tsx
-var import_dataverse57, import_react182, PrimitivePropRow2, PrimitivePropRow_default2;
+var import_dataverse56, import_react185, PrimitivePropRow2, PrimitivePropRow_default2;
 var init_PrimitivePropRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PrimitivePropRow.tsx"() {
     init_getStudio();
     init_src();
-    import_dataverse57 = __toModule(require("@theatre/dataverse"));
-    import_react182 = __toModule(require_react());
+    import_dataverse56 = __toModule(require("@theatre/dataverse"));
+    import_react185 = __toModule(require_react());
     init_Row();
     init_BasicKeyframedTrack();
     init_useLogger();
@@ -42989,21 +43135,21 @@ var init_PrimitivePropRow2 = __esm({
       return usePrism(() => {
         const { sheetObject } = leaf;
         const { trackId } = leaf;
-        const trackData = (0, import_dataverse57.val)(getStudio().atomP.historic.coreByProject[sheetObject.address.projectId].sheetsById[sheetObject.address.sheetId].sequence.tracksByObject[sheetObject.address.objectKey].trackData[trackId]);
+        const trackData = (0, import_dataverse56.val)(getStudio().atomP.historic.coreByProject[sheetObject.address.projectId].sheetsById[sheetObject.address.sheetId].sequence.tracksByObject[sheetObject.address.objectKey].trackData[trackId]);
         if ((trackData == null ? void 0 : trackData.type) !== "BasicKeyframedTrack") {
           logger.errorDev(`trackData type ${trackData == null ? void 0 : trackData.type} is not yet supported on the sequence editor`);
-          return /* @__PURE__ */ import_react182.default.createElement(Row_default, {
+          return /* @__PURE__ */ import_react185.default.createElement(Row_default, {
             leaf,
             isCollapsed: false,
-            node: /* @__PURE__ */ import_react182.default.createElement("div", null)
+            node: /* @__PURE__ */ import_react185.default.createElement("div", null)
           });
         } else {
-          const node = /* @__PURE__ */ import_react182.default.createElement(BasicKeyframedTrack_default, {
+          const node = /* @__PURE__ */ import_react185.default.createElement(BasicKeyframedTrack_default, {
             layoutP,
             trackData,
             leaf
           });
-          return /* @__PURE__ */ import_react182.default.createElement(Row_default, {
+          return /* @__PURE__ */ import_react185.default.createElement(Row_default, {
             leaf,
             isCollapsed: false,
             node
@@ -43051,11 +43197,11 @@ function getAggregateKeyframeEditorUtilsPrismFn(props) {
       right: next.keyframes[i3].kf
     }));
     const allConnections = iif(() => {
-      const selectedConnections = import_dataverse58.prism.memo("selectedConnections", () => selectedKeyframeConnections(projectId, sheetId, selection), [projectId, sheetId, selection]).getValue();
+      const selectedConnections = import_dataverse57.prism.memo("selectedConnections", () => selectedKeyframeConnections(projectId, sheetId, selection), [projectId, sheetId, selection]).getValue();
       return [...aggregatedConnections, ...selectedConnections];
     });
     const isAggregateEditingInCurvePopover = aggregatedConnections.every((con) => isConnectionEditingInCurvePopover(con));
-    const itemKey = import_dataverse58.prism.memo("itemKey", () => {
+    const itemKey = import_dataverse57.prism.memo("itemKey", () => {
       if (props.viewModel.type === "sheet") {
         return createStudioSheetItemKey.forSheetAggregateKeyframe(props.viewModel.sheet, cur.position);
       } else if (props.viewModel.type === "sheetObject") {
@@ -43073,10 +43219,10 @@ function getAggregateKeyframeEditorUtilsPrismFn(props) {
     };
   };
 }
-var import_dataverse58;
+var import_dataverse57;
 var init_useAggregateKeyframeEditorUtils = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/useAggregateKeyframeEditorUtils.tsx"() {
-    import_dataverse58 = __toModule(require("@theatre/dataverse"));
+    import_dataverse57 = __toModule(require("@theatre/dataverse"));
     init_ids();
     init_AggregatedKeyframeTrack();
     init_CurveEditorPopover();
@@ -43088,9 +43234,9 @@ var init_useAggregateKeyframeEditorUtils = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeConnector.tsx
 function useDragKeyframe2(node, editorProps) {
-  const propsRef = (0, import_react184.useRef)(editorProps);
+  const propsRef = (0, import_react187.useRef)(editorProps);
   propsRef.current = editorProps;
-  const gestureHandlers = (0, import_react184.useMemo)(() => {
+  const gestureHandlers = (0, import_react187.useMemo)(() => {
     return {
       debugName: "useDragKeyframe",
       lockCSSCursorTo: "ew-resize",
@@ -43107,8 +43253,8 @@ function useDragKeyframe2(node, editorProps) {
           })).onDragStart(event);
         }
         const propsAtStartOfDrag = props;
-        const sequence = (0, import_dataverse59.val)(propsAtStartOfDrag.layoutP.sheet).getSequence();
-        const toUnitSpace = (0, import_dataverse59.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const sequence = (0, import_dataverse58.val)(propsAtStartOfDrag.layoutP.sheet).getSequence();
+        const toUnitSpace = (0, import_dataverse58.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
         return {
           onDrag(dx, dy, event2) {
             const delta = toUnitSpace(dx);
@@ -43204,11 +43350,11 @@ function useConnectorContextMenu2(props, node) {
     }
   });
 }
-var import_dataverse59, import_react184, POPOVER_MARGIN_PX, EasingPopoverWrapper, AggregateCurveEditorPopover, AggregateKeyframeConnector;
+var import_dataverse58, import_react187, POPOVER_MARGIN_PX, EasingPopoverWrapper, AggregateCurveEditorPopover, AggregateKeyframeConnector;
 var init_AggregateKeyframeConnector = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeConnector.tsx"() {
-    import_dataverse59 = __toModule(require("@theatre/dataverse"));
-    import_react184 = __toModule(require_react());
+    import_dataverse58 = __toModule(require("@theatre/dataverse"));
+    import_react187 = __toModule(require_react());
     init_ConnectorLine();
     init_AggregatedKeyframeTrack();
     init_usePopover();
@@ -43227,12 +43373,12 @@ var init_AggregateKeyframeConnector = __esm({
   --popover-outer-stroke: transparent;
   --popover-inner-stroke: rgba(26, 28, 30, 0.97);
 `;
-    AggregateCurveEditorPopover = import_react184.default.forwardRef((props, ref) => {
+    AggregateCurveEditorPopover = import_react187.default.forwardRef((props, ref) => {
       const { allConnections } = useAggregateKeyframeEditorUtils(props);
-      return /* @__PURE__ */ import_react184.default.createElement(EasingPopoverWrapper, {
+      return /* @__PURE__ */ import_react187.default.createElement(EasingPopoverWrapper, {
         showPopoverEdgeTriangle: false,
         ref
-      }, /* @__PURE__ */ import_react184.default.createElement(CurveEditorPopover_default, {
+      }, /* @__PURE__ */ import_react187.default.createElement(CurveEditorPopover_default, {
         curveConnection: allConnections[0],
         additionalConnections: allConnections,
         onRequestClose: props.closePopover
@@ -43248,7 +43394,7 @@ var init_AggregateKeyframeConnector = __esm({
         toggle: togglePopover,
         close: closePopover
       } = usePopover(() => {
-        const rightDims = (0, import_dataverse59.val)(editorProps.layoutP.rightDims);
+        const rightDims = (0, import_dataverse58.val)(editorProps.layoutP.rightDims);
         return {
           debugName: "Connector",
           constraints: {
@@ -43257,12 +43403,12 @@ var init_AggregateKeyframeConnector = __esm({
           }
         };
       }, () => {
-        return /* @__PURE__ */ import_react184.default.createElement(AggregateCurveEditorPopover, __spreadProps(__spreadValues({}, editorProps), {
+        return /* @__PURE__ */ import_react187.default.createElement(AggregateCurveEditorPopover, __spreadProps(__spreadValues({}, editorProps), {
           closePopover
         }));
       });
       const { connected, isAggregateEditingInCurvePopover } = props.utils;
-      return connected || isDragging ? /* @__PURE__ */ import_react184.default.createElement(import_react184.default.Fragment, null, /* @__PURE__ */ import_react184.default.createElement(ConnectorLine, {
+      return connected || isDragging ? /* @__PURE__ */ import_react187.default.createElement(import_react187.default.Fragment, null, /* @__PURE__ */ import_react187.default.createElement(ConnectorLine, {
         ref: nodeRef,
         connectorLengthInUnitSpace: connected ? connected.length : 0,
         isSelected: connected ? connected.selected : false,
@@ -43271,7 +43417,7 @@ var init_AggregateKeyframeConnector = __esm({
           if (node)
             togglePopover(e2, node);
         }
-      }), popoverNode, contextMenu) : /* @__PURE__ */ import_react184.default.createElement(import_react184.default.Fragment, null);
+      }), popoverNode, contextMenu) : /* @__PURE__ */ import_react187.default.createElement(import_react187.default.Fragment, null);
     };
   }
 });
@@ -43282,12 +43428,12 @@ function AggregateKeyframeVisualDot(props) {
     isSelected: props.isSelected,
     flag: props.flag
   };
-  return /* @__PURE__ */ import_react185.default.createElement(DotContainer, null, props.isAllHere ? /* @__PURE__ */ import_react185.default.createElement(AggregateDotAllHereSvg, __spreadValues({}, theme4)) : /* @__PURE__ */ import_react185.default.createElement(AggregateDotSomeHereSvg, __spreadValues({}, theme4)));
+  return /* @__PURE__ */ import_react188.default.createElement(DotContainer, null, props.isAllHere ? /* @__PURE__ */ import_react188.default.createElement(AggregateDotAllHereSvg, __spreadValues({}, theme4)) : /* @__PURE__ */ import_react188.default.createElement(AggregateDotSomeHereSvg, __spreadValues({}, theme4)));
 }
-var import_react185, DOT_SIZE_PX2, DOT_HOVER_SIZE_PX2, DotContainer, HitZone5, SELECTED_COLOR, DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR, selectionColorAll, selectionColorSome, AggregateDotAllHereSvg, AggregateDotSomeHereSvg;
+var import_react188, DOT_SIZE_PX2, DOT_HOVER_SIZE_PX2, DotContainer, HitZone5, SELECTED_COLOR, DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR, selectionColorAll, selectionColorSome, AggregateDotAllHereSvg, AggregateDotSomeHereSvg;
 var init_AggregateKeyframeVisualDot = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeVisualDot.tsx"() {
-    import_react185 = __toModule(require_react());
+    import_react188 = __toModule(require_react());
     init_AggregatedKeyframeTrack();
     init_usePresence();
     init_styled_components_browser_esm();
@@ -43318,16 +43464,16 @@ var init_AggregateKeyframeVisualDot = __esm({
 `;
     SELECTED_COLOR = "#F2C95C";
     DEFAULT_PRIMARY_COLOR = "#40AAA4";
-    DEFAULT_SECONDARY_COLOR = "#45747C";
+    DEFAULT_SECONDARY_COLOR = "#0d99ff";
     selectionColorAll = (theme4) => theme4.isSelected === AggregateKeyframePositionIsSelected.AllSelected ? SELECTED_COLOR : theme4.isSelected === AggregateKeyframePositionIsSelected.AtLeastOneUnselected ? DEFAULT_PRIMARY_COLOR : DEFAULT_SECONDARY_COLOR;
     selectionColorSome = (theme4) => theme4.isSelected === AggregateKeyframePositionIsSelected.AllSelected ? SELECTED_COLOR : theme4.isSelected === AggregateKeyframePositionIsSelected.AtLeastOneUnselected ? DEFAULT_PRIMARY_COLOR : DEFAULT_SECONDARY_COLOR;
-    AggregateDotAllHereSvg = (theme4) => /* @__PURE__ */ import_react185.default.createElement("svg", {
+    AggregateDotAllHereSvg = (theme4) => /* @__PURE__ */ import_react188.default.createElement("svg", {
       width: "100%",
       height: "100%",
       viewBox: "0 0 16 16",
       fill: "none",
       xmlns: "http://www.w3.org/2000/svg"
-    }, /* @__PURE__ */ import_react185.default.createElement("rect", {
+    }, /* @__PURE__ */ import_react188.default.createElement("rect", {
       x: "4.46443",
       y: "10.0078",
       width: "5",
@@ -43335,7 +43481,7 @@ var init_AggregateKeyframeVisualDot = __esm({
       transform: "rotate(-45 4.46443 10.0078)",
       fill: "#212327",
       stroke: selectionColorSome(theme4)
-    }), /* @__PURE__ */ import_react185.default.createElement("rect", {
+    }), /* @__PURE__ */ import_react188.default.createElement("rect", {
       x: "3.75732",
       y: "6.01953",
       width: "6",
@@ -43345,13 +43491,13 @@ var init_AggregateKeyframeVisualDot = __esm({
       stroke: theme4.flag === PresenceFlag.Primary ? "white" : void 0,
       strokeWidth: theme4.flag === PresenceFlag.Primary ? "2px" : void 0
     }));
-    AggregateDotSomeHereSvg = (theme4) => /* @__PURE__ */ import_react185.default.createElement("svg", {
+    AggregateDotSomeHereSvg = (theme4) => /* @__PURE__ */ import_react188.default.createElement("svg", {
       width: "100%",
       height: "100%",
       viewBox: "0 0 16 16",
       fill: "none",
       xmlns: "http://www.w3.org/2000/svg"
-    }, /* @__PURE__ */ import_react185.default.createElement("rect", {
+    }, /* @__PURE__ */ import_react188.default.createElement("rect", {
       x: "4.46443",
       y: "8",
       width: "5",
@@ -43366,7 +43512,7 @@ var init_AggregateKeyframeVisualDot = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeDot.tsx
 function sheetObjectBuild(viewModel, keyframes) {
-  const children = viewModel.children.map((a3) => a3.type === "propWithChildren" ? propWithChildrenBuild(a3, keyframes) : primitivePropBuild(a3, keyframes)).filter(isOptionsTreeNodeNotNull);
+  const children = viewModel.children.map((a4) => a4.type === "propWithChildren" ? propWithChildrenBuild(a4, keyframes) : primitivePropBuild(a4, keyframes)).filter(isOptionsTreeNodeNotNull);
   if (children.length === 0)
     return null;
   return {
@@ -43376,7 +43522,7 @@ function sheetObjectBuild(viewModel, keyframes) {
   };
 }
 function propWithChildrenBuild(viewModel, keyframes) {
-  const children = viewModel.children.map((a3) => a3.type === "propWithChildren" ? propWithChildrenBuild(a3, keyframes) : primitivePropBuild(a3, keyframes)).filter(isOptionsTreeNodeNotNull);
+  const children = viewModel.children.map((a4) => a4.type === "propWithChildren" ? propWithChildrenBuild(a4, keyframes) : primitivePropBuild(a4, keyframes)).filter(isOptionsTreeNodeNotNull);
   if (children.length === 0)
     return null;
   return {
@@ -43412,11 +43558,11 @@ function AggregateKeyframeDot(props) {
   ]);
   const [ref, node] = useRefAndState(null);
   const [contextMenu] = useAggregateKeyframeContextMenu(props, node);
-  return /* @__PURE__ */ import_react186.default.createElement(import_react186.default.Fragment, null, /* @__PURE__ */ import_react186.default.createElement(HitZone5, __spreadProps(__spreadValues(__spreadValues({
+  return /* @__PURE__ */ import_react189.default.createElement(import_react189.default.Fragment, null, /* @__PURE__ */ import_react189.default.createElement(HitZone5, __spreadProps(__spreadValues(__spreadValues({
     ref
   }, presence.attrs), DopeSnap_default.includePositionSnapAttrs(cur.position)), {
     onClick: (e2) => props.editorProps.viewModel.type !== "sheet" ? inlineEditorPopover.open(e2, ref.current) : null
-  })), /* @__PURE__ */ import_react186.default.createElement(AggregateKeyframeVisualDot, {
+  })), /* @__PURE__ */ import_react189.default.createElement(AggregateKeyframeVisualDot, {
     flag: presence.flag,
     isAllHere: cur.allHere,
     isSelected: cur.selected
@@ -43485,10 +43631,10 @@ function useAggregateKeyframeContextMenu(props, target) {
     }
   });
 }
-var import_react186, isOptionsTreeNodeNotNull;
+var import_react189, isOptionsTreeNodeNotNull;
 var init_AggregateKeyframeDot = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeDot.tsx"() {
-    import_react186 = __toModule(require_react());
+    import_react189 = __toModule(require_react());
     init_useRefAndState();
     init_usePresence();
     init_useContextMenu();
@@ -43498,16 +43644,16 @@ var init_AggregateKeyframeDot = __esm({
     init_addresses();
     init_DopeSnap();
     init_useSingleKeyframeInlineEditorPopover();
-    isOptionsTreeNodeNotNull = (a3) => a3 !== null;
+    isOptionsTreeNodeNotNull = (a4) => a4 !== null;
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeEditor.tsx
-var import_dataverse60, import_react187, AggregateKeyframeEditorContainer, AggregateKeyframeEditor, AggregateKeyframeEditor_default;
+var import_dataverse59, import_react190, AggregateKeyframeEditorContainer, AggregateKeyframeEditor, AggregateKeyframeEditor_default;
 var init_AggregateKeyframeEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeEditor.tsx"() {
-    import_dataverse60 = __toModule(require("@theatre/dataverse"));
-    import_react187 = __toModule(require_react());
+    import_dataverse59 = __toModule(require("@theatre/dataverse"));
+    import_react190 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_AggregateKeyframeConnector();
     init_useAggregateKeyframeEditorUtils();
@@ -43515,22 +43661,31 @@ var init_AggregateKeyframeEditor = __esm({
     AggregateKeyframeEditorContainer = styled_components_browser_esm_default.div`
   position: absolute;
 `;
-    AggregateKeyframeEditor = import_react187.default.memo((props) => {
+    AggregateKeyframeEditor = import_react190.default.memo((props) => {
       const utils2 = useAggregateKeyframeEditorUtils(props);
-      return /* @__PURE__ */ import_react187.default.createElement(AggregateKeyframeEditorContainer, {
+      return /* @__PURE__ */ import_react190.default.createElement(AggregateKeyframeEditorContainer, {
         style: {
           top: `${props.viewModel.nodeHeight / 2}px`,
-          left: `calc(${(0, import_dataverse60.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${utils2.cur.position}px))`
+          left: `calc(${(0, import_dataverse59.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${utils2.cur.position}px))`
         }
-      }, /* @__PURE__ */ import_react187.default.createElement(AggregateKeyframeDot, {
+      }, /* @__PURE__ */ import_react190.default.createElement(AggregateKeyframeDot, {
         editorProps: props,
         utils: utils2
-      }), /* @__PURE__ */ import_react187.default.createElement(AggregateKeyframeConnector, {
+      }), /* @__PURE__ */ import_react190.default.createElement(AggregateKeyframeConnector, {
         editorProps: props,
         utils: utils2
       }));
     });
     AggregateKeyframeEditor_default = AggregateKeyframeEditor;
+  }
+});
+
+// shared/src/utils/index.ts
+var emptyObject, emptyArray;
+var init_utils2 = __esm({
+  "shared/src/utils/index.ts"() {
+    emptyObject = {};
+    emptyArray = [];
   }
 });
 
@@ -43541,7 +43696,7 @@ function AggregatedKeyframeTrack_memo(props) {
   const [containerRef, containerNode] = useRefAndState(null);
   const { selectedPositions, selection } = useCollectedSelectedPositions(layoutP, aggregatedKeyframes);
   const [contextMenu, _3, isOpen] = useAggregatedKeyframeTrackContextMenu(containerNode, props, () => logger._debug("see aggregatedKeyframes", props.aggregatedKeyframes));
-  const posKfs = (0, import_react189.useMemo)(() => [...aggregatedKeyframes.byPosition.entries()].sort((a3, b3) => a3[0] - b3[0]).map(([position2, keyframes]) => ({
+  const posKfs = (0, import_react192.useMemo)(() => [...aggregatedKeyframes.byPosition.entries()].sort((a4, b4) => a4[0] - b4[0]).map(([position2, keyframes]) => ({
     position: position2,
     keyframes,
     selected: selectedPositions.get(position2),
@@ -43550,14 +43705,14 @@ function AggregatedKeyframeTrack_memo(props) {
   const snapPositionsState = useVal(snapPositionsStateD);
   const snapToAllKeyframes = snapPositionsState.mode === "snapToAll";
   const snapPositions = snapPositionsState.mode === "snapToSome" ? snapPositionsState.positions : emptyObject;
-  const aggregateSnapPositions = (0, import_react189.useMemo)(() => viewModel.type === "sheet" ? collectAggregateSnapPositionsSheet(viewModel, snapPositions) : collectAggregateSnapPositionsObjectOrCompound(viewModel, snapPositions), [snapPositions]);
-  const snapTargets = aggregateSnapPositions.map((position2) => /* @__PURE__ */ import_react189.default.createElement(KeyframeSnapTarget_default, {
+  const aggregateSnapPositions = (0, import_react192.useMemo)(() => viewModel.type === "sheet" ? collectAggregateSnapPositionsSheet(viewModel, snapPositions) : collectAggregateSnapPositionsObjectOrCompound(viewModel, snapPositions), [snapPositions]);
+  const snapTargets = aggregateSnapPositions.map((position2) => /* @__PURE__ */ import_react192.default.createElement(KeyframeSnapTarget_default, {
     key: "snap-target-" + position2,
     layoutP,
     leaf: viewModel,
     position: position2
   }));
-  const keyframeEditorProps = (0, import_react189.useMemo)(() => posKfs.map(({ position: position2, keyframes }, index) => ({
+  const keyframeEditorProps = (0, import_react192.useMemo)(() => posKfs.map(({ position: position2, keyframes }, index) => ({
     position: position2,
     editorProps: {
       index,
@@ -43574,27 +43729,27 @@ function AggregatedKeyframeTrack_memo(props) {
     onClickFromDrag(dragStartEvent) {
     }
   });
-  const keyframeEditors = keyframeEditorProps.map((props2, i3) => /* @__PURE__ */ import_react189.default.createElement(import_react189.Fragment, {
+  const keyframeEditors = keyframeEditorProps.map((props2, i3) => /* @__PURE__ */ import_react192.default.createElement(import_react192.Fragment, {
     key: "agg-" + posKfs[i3].keyframes[0].kf.id
-  }, snapToAllKeyframes && /* @__PURE__ */ import_react189.default.createElement(KeyframeSnapTarget_default, {
+  }, snapToAllKeyframes && /* @__PURE__ */ import_react192.default.createElement(KeyframeSnapTarget_default, {
     layoutP,
     leaf: viewModel,
     position: props2.position
-  }), /* @__PURE__ */ import_react189.default.createElement(AggregateKeyframeEditor_default, __spreadValues({}, props2.editorProps))));
-  return /* @__PURE__ */ import_react189.default.createElement(AggregatedKeyframeTrackContainer, {
+  }), /* @__PURE__ */ import_react192.default.createElement(AggregateKeyframeEditor_default, __spreadValues({}, props2.editorProps))));
+  return /* @__PURE__ */ import_react192.default.createElement(AggregatedKeyframeTrackContainer, {
     ref: containerRef,
     style: {
-      background: isOpen ? "#444850 " : "unset"
+      background: isOpen ? "#121212 " : "unset"
     }
   }, keyframeEditors, snapTargets, contextMenu);
 }
 function useCollectedSelectedPositions(layoutP, aggregatedKeyframes) {
-  return usePrism(() => (0, import_dataverse61.val)(collectedSelectedPositions(layoutP, aggregatedKeyframes)), [layoutP, aggregatedKeyframes]);
+  return usePrism(() => (0, import_dataverse60.val)(collectedSelectedPositions(layoutP, aggregatedKeyframes)), [layoutP, aggregatedKeyframes]);
 }
 function collectedSelectedPositions(layoutP, aggregatedKeyframes) {
-  return (0, import_dataverse61.prism)(() => {
-    const selectionAtom = (0, import_dataverse61.val)(layoutP.selectionAtom);
-    const selection = (0, import_dataverse61.val)(selectionAtom.pointer.current);
+  return (0, import_dataverse60.prism)(() => {
+    const selectionAtom = (0, import_dataverse60.val)(layoutP.selectionAtom);
+    const selection = (0, import_dataverse60.val)(selectionAtom.pointer.current);
     if (!selection)
       return EMPTY_SELECTION;
     const selectedAtPositions = new Map();
@@ -43606,7 +43761,7 @@ function collectedSelectedPositions(layoutP, aggregatedKeyframes) {
     }
     return {
       selectedPositions: selectedAtPositions,
-      selection: (0, import_dataverse61.val)(selectionAtom.pointer.current)
+      selection: (0, import_dataverse60.val)(selectionAtom.pointer.current)
     };
   });
 }
@@ -43639,7 +43794,7 @@ function useAggregatedKeyframeTrackContextMenu(node, props, debugOnOpen) {
     displayName: "Aggregate Keyframe Track",
     menuItems: () => {
       var _a2;
-      const selectionKeyframes = (_a2 = (0, import_dataverse61.valueDerivation)(getStudio().atomP.ahistoric.clipboard.keyframesWithRelativePaths).getValue()) != null ? _a2 : [];
+      const selectionKeyframes = (_a2 = (0, import_dataverse60.valueDerivation)(getStudio().atomP.ahistoric.clipboard.keyframesWithRelativePaths).getValue()) != null ? _a2 : [];
       return [pasteKeyframesContextMenuItem2(props, selectionKeyframes)];
     }
   });
@@ -43649,7 +43804,7 @@ function pasteKeyframesContextMenuItem2(props, keyframes) {
     label: "Paste Keyframes",
     enabled: keyframes.length > 0,
     callback: () => {
-      const sheet = (0, import_dataverse61.val)(props.layoutP.sheet);
+      const sheet = (0, import_dataverse60.val)(props.layoutP.sheet);
       const sequence = sheet.getSequence();
       if (props.viewModel.type === "sheet") {
         pasteKeyframesSheet(props.viewModel, keyframes, sequence);
@@ -43665,12 +43820,12 @@ function pasteKeyframesSheet(viewModel, keyframes, sequence) {
   const areKeyframesAllOnSingleTrack = keyframes.every(({ pathToProp }) => pathToProp.length === 0);
   if (areKeyframesAllOnSingleTrack) {
     for (const object of viewModel.children.map((child) => child.sheetObject)) {
-      const tracksByObject = (0, import_dataverse61.valueDerivation)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[object.address.objectKey]).getValue();
+      const tracksByObject = (0, import_dataverse60.valueDerivation)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[object.address.objectKey]).getValue();
       const trackIdsOnObject = Object.keys((_a2 = tracksByObject == null ? void 0 : tracksByObject.trackData) != null ? _a2 : {});
       pasteKeyframesToMultipleTracks(object.address, trackIdsOnObject, keyframes, sequence);
     }
   } else {
-    const tracksByObject = (0, import_dataverse61.valueDerivation)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject).getValue();
+    const tracksByObject = (0, import_dataverse60.valueDerivation)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject).getValue();
     const placeableKeyframes = keyframes.map(({ keyframe, pathToProp }) => {
       var _a3, _b;
       const objectKey = pathToProp[0];
@@ -43695,7 +43850,7 @@ function pasteKeyframesSheet(viewModel, keyframes, sequence) {
 function pasteKeyframesObjectOrCompound(viewModel, keyframes, sequence) {
   var _a2;
   const { projectId, sheetId, objectKey } = viewModel.sheetObject.address;
-  const trackRecords = (0, import_dataverse61.valueDerivation)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[objectKey]).getValue();
+  const trackRecords = (0, import_dataverse60.valueDerivation)(getStudio().atomP.historic.coreByProject[projectId].sheetsById[sheetId].sequence.tracksByObject[objectKey]).getValue();
   const areKeyframesAllOnSingleTrack = keyframes.every(({ pathToProp }) => pathToProp.length === 0);
   if (areKeyframesAllOnSingleTrack) {
     const trackIdsOnObject = Object.keys((_a2 = trackRecords == null ? void 0 : trackRecords.trackData) != null ? _a2 : {});
@@ -43771,10 +43926,10 @@ function earliestKeyframe2(keyframes) {
   }
   return curEarliest;
 }
-function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, options) {
+function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, options2) {
   const logger = useLogger("useDragForAggregateKeyframeDot");
   const frameStampLock = useLockFrameStampPositionRef();
-  const useDragOpts = (0, import_react189.useMemo)(() => {
+  const useDragOpts = (0, import_react192.useMemo)(() => {
     return {
       debugName: "AggregateKeyframeDot/useDragKeyframe",
       onDragStart(event) {
@@ -43786,9 +43941,9 @@ function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, opti
           return false;
         }
         frameStampLock(true, positionToFind);
-        const keyframes = (0, import_dataverse61.prism)(getAggregateKeyframeEditorUtilsPrismFn(props)).getValue().cur.keyframes;
+        const keyframes = (0, import_dataverse60.prism)(getAggregateKeyframeEditorUtilsPrismFn(props)).getValue().cur.keyframes;
         const address = props.viewModel.type === "sheet" ? props.viewModel.sheet.address : props.viewModel.sheetObject.address;
-        const tracksByObject = (0, import_dataverse61.val)(getStudio().atomP.historic.coreByProject[address.projectId].sheetsById[address.sheetId].sequence.tracksByObject);
+        const tracksByObject = (0, import_dataverse60.val)(getStudio().atomP.historic.coreByProject[address.projectId].sheetsById[address.sheetId].sequence.tracksByObject);
         const snapPositions = collectKeyframeSnapPositions(tracksByObject, function shouldIncludeKeyfram(keyframe, { trackId, objectKey }) {
           var _a2, _b;
           return keyframes.every((kfWithTrack) => keyframe.id !== kfWithTrack.kf.id) && !(props.selection && ((_b = (_a2 = props.selection.byObjectKey[objectKey]) == null ? void 0 : _a2.byTrackId[trackId]) == null ? void 0 : _b.byKeyframeId[keyframe.id]));
@@ -43801,7 +43956,7 @@ function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, opti
             positionAtStartOfDrag: keyframes[0].kf.position
           })).onDragStart(event);
           return handlers && __spreadProps(__spreadValues({}, handlers), {
-            onClick: options.onClickFromDrag,
+            onClick: options2.onClickFromDrag,
             onDragEnd: (...args) => {
               var _a2;
               (_a2 = handlers.onDragEnd) == null ? void 0 : _a2.call(handlers, ...args);
@@ -43810,7 +43965,7 @@ function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, opti
           });
         }
         const propsAtStartOfDrag = props;
-        const toUnitSpace = (0, import_dataverse61.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const toUnitSpace = (0, import_dataverse60.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
         let tempTransaction;
         return {
           onDrag(dx, dy, event2) {
@@ -43825,7 +43980,7 @@ function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, opti
                 stateEditors2.coreByProject.historic.sheetsById.sequence.replaceKeyframes(__spreadProps(__spreadValues({}, keyframe.track.sheetObject.address), {
                   trackId: keyframe.track.id,
                   keyframes: [__spreadProps(__spreadValues({}, original), { position: newPosition })],
-                  snappingFunction: (0, import_dataverse61.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
+                  snappingFunction: (0, import_dataverse60.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
                 }));
               }
             });
@@ -43836,27 +43991,27 @@ function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, opti
               tempTransaction == null ? void 0 : tempTransaction.commit();
             } else {
               tempTransaction == null ? void 0 : tempTransaction.discard();
-              options.onClickFromDrag(event);
+              options2.onClickFromDrag(event);
             }
             snapToNone();
           },
           onClick(ev) {
-            options.onClickFromDrag(ev);
+            options2.onClickFromDrag(ev);
           }
         };
       }
     };
-  }, [getPropsForPosition, options.onClickFromDrag]);
+  }, [getPropsForPosition, options2.onClickFromDrag]);
   const [isDragging] = useDrag(containerNode, useDragOpts);
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor", "ew-resize");
   return [isDragging];
 }
-var import_dataverse61, import_react189, AggregatedKeyframeTrackContainer, EMPTY_SELECTION, AggregatedKeyframeTrack, AggregatedKeyframeTrack_default, AggregateKeyframePositionIsSelected, AllSelected, AtLeastOneUnselected, NoneSelected;
+var import_dataverse60, import_react192, AggregatedKeyframeTrackContainer, EMPTY_SELECTION, AggregatedKeyframeTrack, AggregatedKeyframeTrack_default, AggregateKeyframePositionIsSelected, AllSelected, AtLeastOneUnselected, NoneSelected;
 var init_AggregatedKeyframeTrack = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregatedKeyframeTrack.tsx"() {
     init_src();
-    import_dataverse61 = __toModule(require("@theatre/dataverse"));
-    import_react189 = __toModule(require_react());
+    import_dataverse60 = __toModule(require("@theatre/dataverse"));
+    import_react192 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_useContextMenu();
     init_useRefAndState();
@@ -43871,7 +44026,7 @@ var init_AggregatedKeyframeTrack = __esm({
     init_getStudio();
     init_addresses();
     init_KeyframeSnapTarget();
-    init_utils();
+    init_utils2();
     init_KeyframeSnapTarget();
     init_collectAggregateKeyframes();
     AggregatedKeyframeTrackContainer = styled_components_browser_esm_default.div`
@@ -43883,7 +44038,7 @@ var init_AggregatedKeyframeTrack = __esm({
       selectedPositions: new Map(),
       selection: void 0
     });
-    AggregatedKeyframeTrack = import_react189.default.memo(AggregatedKeyframeTrack_memo);
+    AggregatedKeyframeTrack = import_react192.default.memo(AggregatedKeyframeTrack_memo);
     AggregatedKeyframeTrack_default = AggregatedKeyframeTrack;
     (function(AggregateKeyframePositionIsSelected2) {
       AggregateKeyframePositionIsSelected2[AggregateKeyframePositionIsSelected2["AllSelected"] = 0] = "AllSelected";
@@ -43895,21 +44050,21 @@ var init_AggregatedKeyframeTrack = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PropWithChildrenRow.tsx
-var import_react191, decideRowByPropType2, RightPropWithChildrenRow;
+var import_react194, decideRowByPropType2, RightPropWithChildrenRow;
 var init_PropWithChildrenRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PropWithChildrenRow.tsx"() {
     init_src();
-    import_react191 = __toModule(require_react());
+    import_react194 = __toModule(require_react());
     init_PrimitivePropRow2();
     init_Row();
     init_AggregatedKeyframeTrack();
     init_collectAggregateKeyframes();
     init_useLogger();
-    decideRowByPropType2 = (leaf, layoutP) => leaf.type === "propWithChildren" ? /* @__PURE__ */ import_react191.default.createElement(RightPropWithChildrenRow, {
+    decideRowByPropType2 = (leaf, layoutP) => leaf.type === "propWithChildren" ? /* @__PURE__ */ import_react194.default.createElement(RightPropWithChildrenRow, {
       layoutP,
       viewModel: leaf,
       key: "prop" + leaf.pathToProp[leaf.pathToProp.length - 1]
-    }) : /* @__PURE__ */ import_react191.default.createElement(PrimitivePropRow_default2, {
+    }) : /* @__PURE__ */ import_react194.default.createElement(PrimitivePropRow_default2, {
       layoutP,
       leaf,
       key: "prop" + leaf.pathToProp[leaf.pathToProp.length - 1]
@@ -43918,14 +44073,14 @@ var init_PropWithChildrenRow2 = __esm({
       const logger = useLogger("RightPropWithChildrenRow", viewModel.pathToProp.join());
       return usePrism(() => {
         const aggregatedKeyframes = collectAggregateKeyframesInPrism(viewModel);
-        const node = /* @__PURE__ */ import_react191.default.createElement(AggregatedKeyframeTrack_default, {
+        const node = /* @__PURE__ */ import_react194.default.createElement(AggregatedKeyframeTrack_default, {
           layoutP,
           aggregatedKeyframes,
           viewModel
         });
-        return /* @__PURE__ */ import_react191.default.createElement(ProvideLogger, {
+        return /* @__PURE__ */ import_react194.default.createElement(ProvideLogger, {
           logger
-        }, /* @__PURE__ */ import_react191.default.createElement(Row_default, {
+        }, /* @__PURE__ */ import_react194.default.createElement(Row_default, {
           leaf: viewModel,
           node,
           isCollapsed: viewModel.isCollapsed
@@ -43936,11 +44091,11 @@ var init_PropWithChildrenRow2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetObjectRow.tsx
-var import_react193, RightSheetObjectRow, SheetObjectRow_default2;
+var import_react196, RightSheetObjectRow, SheetObjectRow_default2;
 var init_SheetObjectRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetObjectRow.tsx"() {
     init_src();
-    import_react193 = __toModule(require_react());
+    import_react196 = __toModule(require_react());
     init_PropWithChildrenRow2();
     init_Row();
     init_collectAggregateKeyframes();
@@ -43948,12 +44103,12 @@ var init_SheetObjectRow2 = __esm({
     RightSheetObjectRow = ({ leaf, layoutP }) => {
       return usePrism(() => {
         const aggregatedKeyframes = collectAggregateKeyframesInPrism(leaf);
-        const node = /* @__PURE__ */ import_react193.default.createElement(AggregatedKeyframeTrack_default, {
+        const node = /* @__PURE__ */ import_react196.default.createElement(AggregatedKeyframeTrack_default, {
           layoutP,
           aggregatedKeyframes,
           viewModel: leaf
         });
-        return /* @__PURE__ */ import_react193.default.createElement(Row_default, {
+        return /* @__PURE__ */ import_react196.default.createElement(Row_default, {
           leaf,
           node,
           isCollapsed: leaf.isCollapsed
@@ -43965,11 +44120,11 @@ var init_SheetObjectRow2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetRow.tsx
-var import_react195, SheetRow2, SheetRow_default2;
+var import_react198, SheetRow2, SheetRow_default2;
 var init_SheetRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetRow.tsx"() {
     init_src();
-    import_react195 = __toModule(require_react());
+    import_react198 = __toModule(require_react());
     init_SheetObjectRow2();
     init_Row();
     init_collectAggregateKeyframes();
@@ -43977,16 +44132,16 @@ var init_SheetRow2 = __esm({
     SheetRow2 = ({ leaf, layoutP }) => {
       return usePrism(() => {
         const aggregatedKeyframes = collectAggregateKeyframesInPrism(leaf);
-        const node = /* @__PURE__ */ import_react195.default.createElement(AggregatedKeyframeTrack_default, {
+        const node = /* @__PURE__ */ import_react198.default.createElement(AggregatedKeyframeTrack_default, {
           layoutP,
           aggregatedKeyframes,
           viewModel: leaf
         });
-        return /* @__PURE__ */ import_react195.default.createElement(Row_default, {
+        return /* @__PURE__ */ import_react198.default.createElement(Row_default, {
           leaf,
           node,
           isCollapsed: leaf.isCollapsed
-        }, leaf.children.map((sheetObjectLeaf) => /* @__PURE__ */ import_react195.default.createElement(SheetObjectRow_default2, {
+        }, leaf.children.map((sheetObjectLeaf) => /* @__PURE__ */ import_react198.default.createElement(SheetObjectRow_default2, {
           layoutP,
           key: "sheetObject-" + sheetObjectLeaf.sheetObject.address.objectKey,
           leaf: sheetObjectLeaf
@@ -43998,12 +44153,12 @@ var init_SheetRow2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Right.tsx
-var import_dataverse62, import_react197, contentWidth, ListContainer2, Right2, Right_default;
+var import_dataverse61, import_react200, contentWidth, ListContainer2, Right2, Right_default;
 var init_Right = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Right.tsx"() {
     init_src();
-    import_dataverse62 = __toModule(require("@theatre/dataverse"));
-    import_react197 = __toModule(require_react());
+    import_dataverse61 = __toModule(require("@theatre/dataverse"));
+    import_react200 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DopeSheetSelectionView();
     init_HorizontallyScrollableArea();
@@ -44019,17 +44174,17 @@ var init_Right = __esm({
 `;
     Right2 = ({ layoutP }) => {
       return usePrism(() => {
-        const tree = (0, import_dataverse62.val)(layoutP.tree);
-        const height2 = (0, import_dataverse62.val)(layoutP.tree.top) + Math.max((0, import_dataverse62.val)(layoutP.tree.heightIncludingChildren), (0, import_dataverse62.val)(layoutP.dopeSheetDims.height));
-        return /* @__PURE__ */ import_react197.default.createElement(import_react197.default.Fragment, null, /* @__PURE__ */ import_react197.default.createElement(HorizontallyScrollableArea_default, {
+        const tree = (0, import_dataverse61.val)(layoutP.tree);
+        const height2 = (0, import_dataverse61.val)(layoutP.tree.top) + Math.max((0, import_dataverse61.val)(layoutP.tree.heightIncludingChildren), (0, import_dataverse61.val)(layoutP.dopeSheetDims.height));
+        return /* @__PURE__ */ import_react200.default.createElement(import_react200.default.Fragment, null, /* @__PURE__ */ import_react200.default.createElement(HorizontallyScrollableArea_default, {
           layoutP,
           height: height2
-        }, /* @__PURE__ */ import_react197.default.createElement(DopeSheetSelectionView_default, {
+        }, /* @__PURE__ */ import_react200.default.createElement(DopeSheetSelectionView_default, {
           layoutP,
           height: height2
-        }, /* @__PURE__ */ import_react197.default.createElement(ListContainer2, {
+        }, /* @__PURE__ */ import_react200.default.createElement(ListContainer2, {
           style: { top: tree.top + "px" }
-        }, /* @__PURE__ */ import_react197.default.createElement(SheetRow_default2, {
+        }, /* @__PURE__ */ import_react200.default.createElement(SheetRow_default2, {
           leaf: tree,
           layoutP
         })))));
@@ -44076,14 +44231,14 @@ function useConnectorContextMenu3(node, props) {
     }
   });
 }
-var import_react198, SVGPath, Curve, Curve_default;
+var import_react201, SVGPath, Curve, Curve_default;
 var init_Curve = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/Curve.tsx"() {
-    init_utils2();
+    init_utils();
     init_getStudio();
     init_useContextMenu();
     init_useRefAndState();
-    import_react198 = __toModule(require_react());
+    import_react201 = __toModule(require_react());
     init_styled_components_browser_esm();
     SVGPath = styled_components_browser_esm_default.path`
   stroke-width: 2;
@@ -44109,7 +44264,7 @@ var init_Curve = __esm({
       const x22 = next.handles[0];
       const y22 = next.handles[1];
       const pathD = `M 0 0 C ${x1} ${y1} ${x22} ${y22} 1 1`;
-      return /* @__PURE__ */ import_react198.default.createElement(import_react198.default.Fragment, null, /* @__PURE__ */ import_react198.default.createElement(SVGPath, {
+      return /* @__PURE__ */ import_react201.default.createElement(import_react201.default.Fragment, null, /* @__PURE__ */ import_react201.default.createElement(SVGPath, {
         ref: nodeRef,
         d: pathD,
         style: {
@@ -44123,17 +44278,17 @@ var init_Curve = __esm({
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/CurveHandle.tsx
 function useOurDrags(node, props) {
-  const propsRef = (0, import_react199.useRef)(props);
+  const propsRef = (0, import_react202.useRef)(props);
   propsRef.current = props;
-  const handlers = (0, import_react199.useMemo)(() => {
+  const handlers = (0, import_react202.useMemo)(() => {
     return {
       debugName: "CurveHandler/useOurDrags",
       lockCSSCursorTo: "move",
       onDragStart() {
         let tempTransaction;
         const propsAtStartOfDrag = propsRef.current;
-        const scaledToUnitSpace = (0, import_dataverse63.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
-        const verticalToExtremumSpace = (0, import_dataverse63.val)(propsAtStartOfDrag.layoutP.graphEditorVerticalSpace.toExtremumSpace);
+        const scaledToUnitSpace = (0, import_dataverse62.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const verticalToExtremumSpace = (0, import_dataverse62.val)(propsAtStartOfDrag.layoutP.graphEditorVerticalSpace.toExtremumSpace);
         const unlockExtremums = propsAtStartOfDrag.extremumSpace.lock();
         return {
           onDrag(dxInScaledSpace, dy) {
@@ -44157,7 +44312,7 @@ function useOurDrags(node, props) {
               const handleY = cur.handles[3] + dyInKeyframeDiffSpace;
               tempTransaction = getStudio().tempTransaction(({ stateEditors: stateEditors2 }) => {
                 stateEditors2.coreByProject.historic.sheetsById.sequence.replaceKeyframes(__spreadProps(__spreadValues({}, propsAtStartOfDrag.sheetObject.address), {
-                  snappingFunction: (0, import_dataverse63.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition,
+                  snappingFunction: (0, import_dataverse62.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition,
                   trackId: propsAtStartOfDrag.trackId,
                   keyframes: [
                     __spreadProps(__spreadValues({}, cur), {
@@ -44177,7 +44332,7 @@ function useOurDrags(node, props) {
               tempTransaction = getStudio().tempTransaction(({ stateEditors: stateEditors2 }) => {
                 stateEditors2.coreByProject.historic.sheetsById.sequence.replaceKeyframes(__spreadProps(__spreadValues({}, propsAtStartOfDrag.sheetObject.address), {
                   trackId: propsAtStartOfDrag.trackId,
-                  snappingFunction: (0, import_dataverse63.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition,
+                  snappingFunction: (0, import_dataverse62.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition,
                   keyframes: [
                     __spreadProps(__spreadValues({}, next), {
                       handles: [
@@ -44229,16 +44384,16 @@ function useOurContextMenu(node, props) {
     }
   });
 }
-var import_dataverse63, import_react199, Circle2, HitZone6, Line2, CurveHandle, CurveHandle_default;
+var import_dataverse62, import_react202, Circle2, HitZone6, Line2, CurveHandle, CurveHandle_default;
 var init_CurveHandle = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/CurveHandle.tsx"() {
     init_getStudio();
     init_useContextMenu();
     init_useDrag();
     init_useRefAndState();
-    import_dataverse63 = __toModule(require("@theatre/dataverse"));
+    import_dataverse62 = __toModule(require("@theatre/dataverse"));
     init_lodash();
-    import_react199 = __toModule(require_react());
+    import_react202 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Curve();
     init_css();
@@ -44285,18 +44440,18 @@ var init_CurveHandle = __esm({
       const valInExtremumSpace = props.extremumSpace.fromValueSpace(value);
       const heightInExtremumSpace = valInExtremumSpace - props.extremumSpace.fromValueSpace(props.which === "left" ? curValue : nextValue);
       const lineTransform = transformBox(props.which === "left" ? cur.position : next.position, props.extremumSpace.fromValueSpace(props.which === "left" ? curValue : nextValue), posInUnitSpace - (props.which === "left" ? cur.position : next.position), heightInExtremumSpace);
-      return /* @__PURE__ */ import_react199.default.createElement("g", null, /* @__PURE__ */ import_react199.default.createElement(HitZone6, {
+      return /* @__PURE__ */ import_react202.default.createElement("g", null, /* @__PURE__ */ import_react202.default.createElement(HitZone6, {
         ref,
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${posInUnitSpace} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${valInExtremumSpace}) * 1px)`
         }
-      }), /* @__PURE__ */ import_react199.default.createElement(Circle2, {
+      }), /* @__PURE__ */ import_react202.default.createElement(Circle2, {
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${posInUnitSpace} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${valInExtremumSpace}) * 1px)`
         }
-      }), /* @__PURE__ */ import_react199.default.createElement(Line2, {
+      }), /* @__PURE__ */ import_react202.default.createElement(Line2, {
         d: "M 0 0 L 1 1",
         style: {
           transform: lineTransform
@@ -44308,12 +44463,12 @@ var init_CurveHandle = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotScalar.tsx
-function useDragKeyframe3(options) {
-  const [isDragging, setIsDragging] = (0, import_react200.useState)(false);
-  useLockFrameStampPosition(isDragging, options.props.keyframe.position);
-  const propsRef = (0, import_react200.useRef)(options.props);
-  propsRef.current = options.props;
-  const gestureHandlers = (0, import_react200.useMemo)(() => {
+function useDragKeyframe3(options2) {
+  const [isDragging, setIsDragging] = (0, import_react203.useState)(false);
+  useLockFrameStampPosition(isDragging, options2.props.keyframe.position);
+  const propsRef = (0, import_react203.useRef)(options2.props);
+  propsRef.current = options2.props;
+  const gestureHandlers = (0, import_react203.useMemo)(() => {
     return {
       debugName: "GraphEditorDotScalar/useDragKeyframe",
       lockCSSCursorTo: "move",
@@ -44321,8 +44476,8 @@ function useDragKeyframe3(options) {
         setIsDragging(true);
         const keepSpeeds = !!event.altKey;
         const propsAtStartOfDrag = propsRef.current;
-        const toUnitSpace = (0, import_dataverse64.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
-        const verticalToExtremumSpace = (0, import_dataverse64.val)(propsAtStartOfDrag.layoutP.graphEditorVerticalSpace.toExtremumSpace);
+        const toUnitSpace = (0, import_dataverse63.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const verticalToExtremumSpace = (0, import_dataverse63.val)(propsAtStartOfDrag.layoutP.graphEditorVerticalSpace.toExtremumSpace);
         const unlockExtremums = propsAtStartOfDrag.extremumSpace.lock();
         let tempTransaction;
         return {
@@ -44362,7 +44517,7 @@ function useDragKeyframe3(options) {
               stateEditors2.coreByProject.historic.sheetsById.sequence.replaceKeyframes(__spreadProps(__spreadValues({}, propsAtStartOfDrag.sheetObject.address), {
                 trackId: propsAtStartOfDrag.trackId,
                 keyframes: updatedKeyframes,
-                snappingFunction: (0, import_dataverse64.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
+                snappingFunction: (0, import_dataverse63.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
               }));
             });
           },
@@ -44373,14 +44528,14 @@ function useDragKeyframe3(options) {
               tempTransaction == null ? void 0 : tempTransaction.commit();
             } else {
               tempTransaction == null ? void 0 : tempTransaction.discard();
-              options.onDetectedClick(event);
+              options2.onDetectedClick(event);
             }
           }
         };
       }
     };
   }, []);
-  useDrag(options.node, gestureHandlers);
+  useDrag(options2.node, gestureHandlers);
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor", "move");
   return isDragging;
 }
@@ -44416,15 +44571,15 @@ function preserveLeftHandle(leftHandleInKeyframeDeltaSpace, originalValueOfMoved
   const newHandleYInKeyframeDeltaSpace = diffOfNewHandleYToNeighbouringKeyframe / (newValueOfMovedKeyframe - newValueOfNeighbouringKeyframe);
   return newHandleYInKeyframeDeltaSpace;
 }
-var import_dataverse64, import_react200, Circle3, HitZone7, GraphEditorDotScalar, GraphEditorDotScalar_default;
+var import_dataverse63, import_react203, Circle3, HitZone7, GraphEditorDotScalar, GraphEditorDotScalar_default;
 var init_GraphEditorDotScalar = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotScalar.tsx"() {
     init_getStudio();
     init_useContextMenu();
     init_useDrag();
     init_useRefAndState();
-    import_dataverse64 = __toModule(require("@theatre/dataverse"));
-    import_react200 = __toModule(require_react());
+    import_dataverse63 = __toModule(require("@theatre/dataverse"));
+    import_react203 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_FrameStampPositionProvider();
@@ -44487,7 +44642,7 @@ var init_GraphEditorDotScalar = __esm({
         props,
         onDetectedClick: (event) => inlineEditorPopover.toggle(event, event.target instanceof Element ? event.target : node)
       });
-      return /* @__PURE__ */ import_react200.default.createElement(import_react200.default.Fragment, null, /* @__PURE__ */ import_react200.default.createElement(HitZone7, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
+      return /* @__PURE__ */ import_react203.default.createElement(import_react203.default.Fragment, null, /* @__PURE__ */ import_react203.default.createElement(HitZone7, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
         ref,
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
@@ -44495,7 +44650,7 @@ var init_GraphEditorDotScalar = __esm({
         }
       }, includeLockFrameStampAttrs(cur.position)), DopeSnap_default.includePositionSnapAttrs(cur.position)), presence.attrs), {
         className: isDragging ? "beingDragged" : ""
-      })), /* @__PURE__ */ import_react200.default.createElement(Circle3, {
+      })), /* @__PURE__ */ import_react203.default.createElement(Circle3, {
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${cyInExtremumSpace}) * 1px)`,
@@ -44508,19 +44663,19 @@ var init_GraphEditorDotScalar = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotNonScalar.tsx
-function useDragKeyframe4(options) {
-  const [isDragging, setIsDragging] = (0, import_react201.useState)(false);
-  useLockFrameStampPosition(isDragging, options.props.keyframe.position);
-  const propsRef = (0, import_react201.useRef)(options.props);
-  propsRef.current = options.props;
-  const gestureHandlers = (0, import_react201.useMemo)(() => {
+function useDragKeyframe4(options2) {
+  const [isDragging, setIsDragging] = (0, import_react204.useState)(false);
+  useLockFrameStampPosition(isDragging, options2.props.keyframe.position);
+  const propsRef = (0, import_react204.useRef)(options2.props);
+  propsRef.current = options2.props;
+  const gestureHandlers = (0, import_react204.useMemo)(() => {
     return {
       debugName: "GraphEditorDotNonScalar/useDragKeyframe",
       lockCSSCursorTo: "ew-resize",
       onDragStart(event) {
         setIsDragging(true);
         const propsAtStartOfDrag = propsRef.current;
-        const toUnitSpace = (0, import_dataverse65.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
+        const toUnitSpace = (0, import_dataverse64.val)(propsAtStartOfDrag.layoutP.scaledSpace.toUnitSpace);
         const unlockExtremums = propsAtStartOfDrag.extremumSpace.lock();
         let tempTransaction;
         return {
@@ -44539,7 +44694,7 @@ function useDragKeyframe4(options) {
               stateEditors2.coreByProject.historic.sheetsById.sequence.replaceKeyframes(__spreadProps(__spreadValues({}, propsAtStartOfDrag.sheetObject.address), {
                 trackId: propsAtStartOfDrag.trackId,
                 keyframes: updatedKeyframes,
-                snappingFunction: (0, import_dataverse65.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
+                snappingFunction: (0, import_dataverse64.val)(propsAtStartOfDrag.layoutP.sheet).getSequence().closestGridPosition
               }));
             });
           },
@@ -44550,14 +44705,14 @@ function useDragKeyframe4(options) {
               tempTransaction == null ? void 0 : tempTransaction.commit();
             } else {
               tempTransaction == null ? void 0 : tempTransaction.discard();
-              options.onDetectedClick(event);
+              options2.onDetectedClick(event);
             }
           }
         };
       }
     };
   }, []);
-  useDrag(options.node, gestureHandlers);
+  useDrag(options2.node, gestureHandlers);
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor", "ew-resize");
   return isDragging;
 }
@@ -44580,15 +44735,15 @@ function useKeyframeContextMenu2(node, props) {
     }
   });
 }
-var import_dataverse65, import_react201, Circle4, HitZone8, GraphEditorDotNonScalar, GraphEditorDotNonScalar_default;
+var import_dataverse64, import_react204, Circle4, HitZone8, GraphEditorDotNonScalar, GraphEditorDotNonScalar_default;
 var init_GraphEditorDotNonScalar = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotNonScalar.tsx"() {
     init_getStudio();
     init_useContextMenu();
     init_useDrag();
     init_useRefAndState();
-    import_dataverse65 = __toModule(require("@theatre/dataverse"));
-    import_react201 = __toModule(require_react());
+    import_dataverse64 = __toModule(require("@theatre/dataverse"));
+    import_react204 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_FrameStampPositionProvider();
@@ -44651,7 +44806,7 @@ var init_GraphEditorDotNonScalar = __esm({
         onDetectedClick: (event) => inlineEditorPopover.toggle(event, event.target instanceof Element ? event.target : node)
       });
       const cyInExtremumSpace = props.extremumSpace.fromValueSpace(curValue);
-      return /* @__PURE__ */ import_react201.default.createElement(import_react201.default.Fragment, null, /* @__PURE__ */ import_react201.default.createElement(HitZone8, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
+      return /* @__PURE__ */ import_react204.default.createElement(import_react204.default.Fragment, null, /* @__PURE__ */ import_react204.default.createElement(HitZone8, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
         ref,
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
@@ -44659,7 +44814,7 @@ var init_GraphEditorDotNonScalar = __esm({
         }
       }, presence.attrs), includeLockFrameStampAttrs(cur.position)), DopeSnap_default.includePositionSnapAttrs(cur.position)), {
         className: isDragging ? "beingDragged" : ""
-      })), /* @__PURE__ */ import_react201.default.createElement(Circle4, {
+      })), /* @__PURE__ */ import_react204.default.createElement(Circle4, {
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${cyInExtremumSpace}) * 1px)`,
@@ -44672,10 +44827,10 @@ var init_GraphEditorDotNonScalar = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorNonScalarDash.tsx
-var import_react202, SVGPath2, GraphEditorNonScalarDash, GraphEditorNonScalarDash_default;
+var import_react205, SVGPath2, GraphEditorNonScalarDash, GraphEditorNonScalarDash_default;
 var init_GraphEditorNonScalarDash = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorNonScalarDash.tsx"() {
-    import_react202 = __toModule(require_react());
+    import_react205 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Curve();
     SVGPath2 = styled_components_browser_esm_default.path`
@@ -44690,7 +44845,7 @@ var init_GraphEditorNonScalarDash = __esm({
       const { index, trackData } = props;
       const pathD = `M 0 0 L 1 1`;
       const transform = transformBox(trackData.keyframes[index].position, props.extremumSpace.fromValueSpace(0), 0, props.extremumSpace.fromValueSpace(1) - props.extremumSpace.fromValueSpace(0));
-      return /* @__PURE__ */ import_react202.default.createElement(import_react202.default.Fragment, null, /* @__PURE__ */ import_react202.default.createElement(SVGPath2, {
+      return /* @__PURE__ */ import_react205.default.createElement(import_react205.default.Fragment, null, /* @__PURE__ */ import_react205.default.createElement(SVGPath2, {
         d: pathD,
         style: {
           transform
@@ -44702,10 +44857,10 @@ var init_GraphEditorNonScalarDash = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/KeyframeEditor.tsx
-var import_react203, Container45, noConnector2, KeyframeEditor, KeyframeEditor_default;
+var import_react206, Container45, noConnector2, KeyframeEditor, KeyframeEditor_default;
 var init_KeyframeEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/KeyframeEditor.tsx"() {
-    import_react203 = __toModule(require_react());
+    import_react206 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Curve();
     init_CurveHandle();
@@ -44715,22 +44870,22 @@ var init_KeyframeEditor = __esm({
     Container45 = styled_components_browser_esm_default.g`
   /* position: absolute; */
 `;
-    noConnector2 = /* @__PURE__ */ import_react203.default.createElement(import_react203.default.Fragment, null);
+    noConnector2 = /* @__PURE__ */ import_react206.default.createElement(import_react206.default.Fragment, null);
     KeyframeEditor = (props) => {
       const { index, trackData, isScalar } = props;
       const cur = trackData.keyframes[index];
       const next = trackData.keyframes[index + 1];
       const connected = cur.connectedRight && !!next;
       const shouldShowCurve = connected && next.value !== cur.value;
-      return /* @__PURE__ */ import_react203.default.createElement(Container45, null, shouldShowCurve ? /* @__PURE__ */ import_react203.default.createElement(import_react203.default.Fragment, null, /* @__PURE__ */ import_react203.default.createElement(Curve_default, __spreadValues({}, props)), /* @__PURE__ */ import_react203.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
+      return /* @__PURE__ */ import_react206.default.createElement(Container45, null, shouldShowCurve ? /* @__PURE__ */ import_react206.default.createElement(import_react206.default.Fragment, null, /* @__PURE__ */ import_react206.default.createElement(Curve_default, __spreadValues({}, props)), /* @__PURE__ */ import_react206.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
         which: "left"
-      })), /* @__PURE__ */ import_react203.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
+      })), /* @__PURE__ */ import_react206.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
         which: "right"
-      }))) : noConnector2, isScalar ? /* @__PURE__ */ import_react203.default.createElement(GraphEditorDotScalar_default, __spreadValues({}, props)) : /* @__PURE__ */ import_react203.default.createElement(import_react203.default.Fragment, null, /* @__PURE__ */ import_react203.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
+      }))) : noConnector2, isScalar ? /* @__PURE__ */ import_react206.default.createElement(GraphEditorDotScalar_default, __spreadValues({}, props)) : /* @__PURE__ */ import_react206.default.createElement(import_react206.default.Fragment, null, /* @__PURE__ */ import_react206.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
         which: "left"
-      })), /* @__PURE__ */ import_react203.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
+      })), /* @__PURE__ */ import_react206.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
         which: "right"
-      })), /* @__PURE__ */ import_react203.default.createElement(GraphEditorNonScalarDash_default, __spreadValues({}, props))));
+      })), /* @__PURE__ */ import_react206.default.createElement(GraphEditorNonScalarDash_default, __spreadValues({}, props))));
     };
     KeyframeEditor_default = KeyframeEditor;
   }
@@ -44774,22 +44929,23 @@ function calculateNonScalarExtremums(keyframes) {
   });
   return [min, max];
 }
-var import_react204, BasicKeyframedTrack2, BasicKeyframedTrack_default2;
+var import_react207, BasicKeyframedTrack2, BasicKeyframedTrack_default2;
 var init_BasicKeyframedTrack2 = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/BasicKeyframedTrack.tsx"() {
     init_ids();
-    import_react204 = __toModule(require_react());
+    import_react207 = __toModule(require_react());
     init_GraphEditor();
     init_KeyframeEditor();
-    init_utils2();
-    BasicKeyframedTrack2 = import_react204.default.memo(({ layoutP, trackData, sheetObject, trackId, color: color2, pathToProp }) => {
-      const propConfig = getPropConfigByPath(sheetObject.template.config, pathToProp);
+    init_utils();
+    init_src();
+    BasicKeyframedTrack2 = import_react207.default.memo(({ layoutP, trackData, sheetObject, trackId, color: color2, pathToProp }) => {
+      const propConfig = getPropConfigByPath(useVal(sheetObject.template.configPointer), pathToProp);
       if (isPropConfigComposite(propConfig)) {
         console.error(`Composite prop types cannot be keyframed`);
-        return /* @__PURE__ */ import_react204.default.createElement(import_react204.default.Fragment, null);
+        return /* @__PURE__ */ import_react207.default.createElement(import_react207.default.Fragment, null);
       }
-      const [areExtremumsLocked, setAreExtremumsLocked] = (0, import_react204.useState)(false);
-      const lockExtremums = (0, import_react204.useMemo)(() => {
+      const [areExtremumsLocked, setAreExtremumsLocked] = (0, import_react207.useState)(false);
+      const lockExtremums = (0, import_react207.useMemo)(() => {
         const locks = new Set();
         return function lockExtremums2() {
           const shouldLock = locks.size === 0;
@@ -44805,7 +44961,7 @@ var init_BasicKeyframedTrack2 = __esm({
           return unlock;
         };
       }, []);
-      const extremumSpace = (0, import_react204.useMemo)(() => {
+      const extremumSpace = (0, import_react207.useMemo)(() => {
         const extremums = propConfig.type === "number" ? calculateScalarExtremums(trackData.keyframes, propConfig) : calculateNonScalarExtremums(trackData.keyframes);
         const fromValueSpace = (val59) => (val59 - extremums[0]) / (extremums[1] - extremums[0]);
         const toValueSpace = (ex) => extremums[0] + deltaToValueSpace(ex);
@@ -44817,11 +44973,11 @@ var init_BasicKeyframedTrack2 = __esm({
           lock: lockExtremums
         };
       }, [trackData.keyframes]);
-      const cachedExtremumSpace = (0, import_react204.useRef)(void 0);
+      const cachedExtremumSpace = (0, import_react207.useRef)(void 0);
       if (!areExtremumsLocked) {
         cachedExtremumSpace.current = extremumSpace;
       }
-      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react204.default.createElement(KeyframeEditor_default, {
+      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react207.default.createElement(KeyframeEditor_default, {
         pathToProp,
         propConfig,
         itemKey: createStudioSheetItemKey.forTrackKeyframe(sheetObject, trackId, kf.id),
@@ -44836,7 +44992,7 @@ var init_BasicKeyframedTrack2 = __esm({
         extremumSpace: cachedExtremumSpace.current,
         color: color2
       }));
-      return /* @__PURE__ */ import_react204.default.createElement("g", {
+      return /* @__PURE__ */ import_react207.default.createElement("g", {
         style: {
           "--main-color": graphEditorColors[color2].iconColor
         }
@@ -44847,23 +45003,23 @@ var init_BasicKeyframedTrack2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/PrimitivePropGraph.tsx
-var import_dataverse66, import_react206, PrimitivePropGraph, PrimitivePropGraph_default;
+var import_dataverse65, import_react210, PrimitivePropGraph, PrimitivePropGraph_default;
 var init_PrimitivePropGraph = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/PrimitivePropGraph.tsx"() {
     init_getStudio();
     init_src();
-    import_dataverse66 = __toModule(require("@theatre/dataverse"));
-    import_react206 = __toModule(require_react());
+    import_dataverse65 = __toModule(require("@theatre/dataverse"));
+    import_react210 = __toModule(require_react());
     init_BasicKeyframedTrack2();
     PrimitivePropGraph = (props) => {
       return usePrism(() => {
         const { sheetObject, trackId } = props;
-        const trackData = (0, import_dataverse66.val)(getStudio().atomP.historic.coreByProject[sheetObject.address.projectId].sheetsById[sheetObject.address.sheetId].sequence.tracksByObject[sheetObject.address.objectKey].trackData[trackId]);
+        const trackData = (0, import_dataverse65.val)(getStudio().atomP.historic.coreByProject[sheetObject.address.projectId].sheetsById[sheetObject.address.sheetId].sequence.tracksByObject[sheetObject.address.objectKey].trackData[trackId]);
         if ((trackData == null ? void 0 : trackData.type) !== "BasicKeyframedTrack") {
           console.error(`trackData type ${trackData == null ? void 0 : trackData.type} is not yet supported on the graph editor`);
-          return /* @__PURE__ */ import_react206.default.createElement(import_react206.default.Fragment, null);
+          return /* @__PURE__ */ import_react210.default.createElement(import_react210.default.Fragment, null);
         } else {
-          return /* @__PURE__ */ import_react206.default.createElement(BasicKeyframedTrack_default2, __spreadProps(__spreadValues({}, props), {
+          return /* @__PURE__ */ import_react210.default.createElement(BasicKeyframedTrack_default2, __spreadProps(__spreadValues({}, props), {
             trackData
           }));
         }
@@ -44874,15 +45030,15 @@ var init_PrimitivePropGraph = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/GraphEditor.tsx
-var import_dataverse67, import_react208, graphEditorColors, Container46, SVGContainer, GraphEditor, GraphEditor_default;
+var import_dataverse66, import_react212, graphEditorColors, Container46, SVGContainer, GraphEditor, GraphEditor_default;
 var init_GraphEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/GraphEditor.tsx"() {
     init_getStudio();
     init_addresses();
     init_getDeep();
     init_src();
-    import_dataverse67 = __toModule(require("@theatre/dataverse"));
-    import_react208 = __toModule(require_react());
+    import_dataverse66 = __toModule(require("@theatre/dataverse"));
+    import_react212 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Right();
     init_HorizontallyScrollableArea();
@@ -44901,7 +45057,8 @@ var init_GraphEditor = __esm({
   position: absolute;
   right: 0;
   bottom: 0;
-  background: ${curriedTransparentize(0.03, "#1a1c1e")};
+  background: ${curriedTransparentize(0.03, "#030303")};
+  border-top: 1px solid #4b4b4b;
 `;
     SVGContainer = styled_components_browser_esm_default.svg`
   position: absolute;
@@ -44912,23 +45069,23 @@ var init_GraphEditor = __esm({
 `;
     GraphEditor = ({ layoutP }) => {
       return usePrism(() => {
-        const sheet = (0, import_dataverse67.val)(layoutP.sheet);
-        const selectedPropsByObject = (0, import_dataverse67.val)(getStudio().atomP.historic.projects.stateByProjectId[sheet.address.projectId].stateBySheetId[sheet.address.sheetId].sequenceEditor.selectedPropsByObject);
-        const height2 = (0, import_dataverse67.val)(layoutP.graphEditorDims.height);
-        const unitSpaceToScaledSpaceMultiplier = (0, import_dataverse67.val)(layoutP.scaledSpace.fromUnitSpace)(1);
+        const sheet = (0, import_dataverse66.val)(layoutP.sheet);
+        const selectedPropsByObject = (0, import_dataverse66.val)(getStudio().atomP.historic.projects.stateByProjectId[sheet.address.projectId].stateBySheetId[sheet.address.sheetId].sequenceEditor.selectedPropsByObject);
+        const height2 = (0, import_dataverse66.val)(layoutP.graphEditorDims.height);
+        const unitSpaceToScaledSpaceMultiplier = (0, import_dataverse66.val)(layoutP.scaledSpace.fromUnitSpace)(1);
         const graphs = [];
         if (selectedPropsByObject) {
           for (const [objectKey, props] of Object.entries(selectedPropsByObject)) {
             const sheetObject = sheet.getObject(objectKey);
             if (!sheetObject)
               continue;
-            const validSequenceTracks = (0, import_dataverse67.val)(sheetObject.template.getMapOfValidSequenceTracks_forStudio());
+            const validSequenceTracks = (0, import_dataverse66.val)(sheetObject.template.getMapOfValidSequenceTracks_forStudio());
             for (const [encodedPathToProp, graphEditorColor] of Object.entries(props)) {
               const pathToProp = decodePathToProp(encodedPathToProp);
               const possibleSequenceTrackId = getDeep(validSequenceTracks, pathToProp);
               if (!possibleSequenceTrackId)
                 continue;
-              graphs.push(/* @__PURE__ */ import_react208.default.createElement(PrimitivePropGraph_default, {
+              graphs.push(/* @__PURE__ */ import_react212.default.createElement(PrimitivePropGraph_default, {
                 key: `graph-${objectKey}-${encodedPathToProp}`,
                 sheetObject,
                 pathToProp,
@@ -44939,28 +45096,28 @@ var init_GraphEditor = __esm({
             }
           }
         }
-        const width = (0, import_dataverse67.val)(layoutP.rightDims.width);
-        return /* @__PURE__ */ import_react208.default.createElement(Container46, {
+        const width = (0, import_dataverse66.val)(layoutP.rightDims.width);
+        return /* @__PURE__ */ import_react212.default.createElement(Container46, {
           style: {
             width: width + "px",
             height: height2 + "px",
             "--unitSpaceToScaledSpaceMultiplier": unitSpaceToScaledSpaceMultiplier,
-            "--graphEditorVerticalSpace": `${(0, import_dataverse67.val)(layoutP.graphEditorVerticalSpace.space)}`
+            "--graphEditorVerticalSpace": `${(0, import_dataverse66.val)(layoutP.graphEditorVerticalSpace.space)}`
           }
-        }, /* @__PURE__ */ import_react208.default.createElement(FrameGrid_default, {
+        }, /* @__PURE__ */ import_react212.default.createElement(FrameGrid_default, {
           layoutP,
           width,
           height: height2
-        }), /* @__PURE__ */ import_react208.default.createElement(HorizontallyScrollableArea_default, {
+        }), /* @__PURE__ */ import_react212.default.createElement(HorizontallyScrollableArea_default, {
           layoutP,
           height: height2
-        }, /* @__PURE__ */ import_react208.default.createElement(SVGContainer, {
+        }, /* @__PURE__ */ import_react212.default.createElement(SVGContainer, {
           width: contentWidth,
           height: height2,
           viewBox: `0 0 ${contentWidth} ${height2}`
-        }, /* @__PURE__ */ import_react208.default.createElement("g", {
+        }, /* @__PURE__ */ import_react212.default.createElement("g", {
           style: {
-            transform: `translate(${(0, import_dataverse67.val)(layoutP.scaledSpace.leftPadding)}px, ${(0, import_dataverse67.val)(layoutP.graphEditorDims.padding.top)}px)`
+            transform: `translate(${(0, import_dataverse66.val)(layoutP.scaledSpace.leftPadding)}px, ${(0, import_dataverse66.val)(layoutP.graphEditorDims.padding.top)}px)`
           }
         }, graphs))));
       }, [layoutP]);
@@ -44985,20 +45142,20 @@ var userReadableTypeOfValue, userReadableTypeOfValue_default;
 var init_userReadableTypeOfValue = __esm({
   "shared/src/utils/userReadableTypeOfValue.ts"() {
     init_ellipsify();
-    userReadableTypeOfValue = (v3) => {
-      if (typeof v3 === "string") {
-        return `string("${ellipsify(v3, 10)}")`;
-      } else if (typeof v3 === "number") {
-        return `number(${ellipsify(String(v3), 10)})`;
-      } else if (v3 === null) {
+    userReadableTypeOfValue = (v5) => {
+      if (typeof v5 === "string") {
+        return `string("${ellipsify(v5, 10)}")`;
+      } else if (typeof v5 === "number") {
+        return `number(${ellipsify(String(v5), 10)})`;
+      } else if (v5 === null) {
         return "null";
-      } else if (v3 === void 0) {
+      } else if (v5 === void 0) {
         return "undefined";
-      } else if (typeof v3 === "boolean") {
-        return String(v3);
-      } else if (Array.isArray(v3)) {
+      } else if (typeof v5 === "boolean") {
+        return String(v5);
+      } else if (Array.isArray(v5)) {
         return "array";
-      } else if (typeof v3 === "object") {
+      } else if (typeof v5 === "object") {
         return "object";
       } else {
         return "unknown";
@@ -45009,10 +45166,10 @@ var init_userReadableTypeOfValue = __esm({
 });
 
 // studio/src/panels/OutlinePanel/BaseItem.tsx
-var import_react209, Container47, BaseHeader2, Header4, outlineItemFont, Head_Label, Head_IconContainer, Head_Icon_WithDescendants, ChildrenContainer, BaseItem, BaseItem_default;
+var import_react213, Container47, BaseHeader2, Header4, outlineItemFont, Head_Label, Head_IconContainer, Head_Icon_WithDescendants, ChildrenContainer, BaseItem, BaseItem_default;
 var init_BaseItem = __esm({
   "studio/src/panels/OutlinePanel/BaseItem.tsx"() {
-    import_react209 = __toModule(require_react());
+    import_react213 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_css();
     init_icons();
@@ -45028,13 +45185,11 @@ var init_BaseItem = __esm({
     BaseHeader2 = styled_components_browser_esm_default.div``;
     Header4 = styled_components_browser_esm_default(BaseHeader2)`
   position: relative;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  margin-left: calc(4px + var(--depth) * 16px);
-  padding-left: 4px;
-  padding-right: 8px;
+  padding-left: calc(8px + var(--depth) * 16px);
+  padding-right: 24px;
+  width: 100%;
   gap: 4px;
-  height: 21px;
+  height: 32px;
   line-height: 0;
   box-sizing: border-box;
   display: flex;
@@ -45042,34 +45197,24 @@ var init_BaseItem = __esm({
   align-items: center;
   pointer-events: none;
   white-space: nowrap;
-
-  border-radius: 2px;
-  box-shadow: 0 3px 4px -1px rgba(0, 0, 0, 0.48);
-
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(40, 43, 47, 0.65);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid transparent;
 
   &.descendant-is-selected {
-    background: rgba(29, 53, 59, 0.7);
+    background: transparent;
   }
 
   ${pointerEventsAutoInNormalMode};
   &:not(.not-selectable):not(.selected):hover {
-    background: rgba(59, 63, 69, 0.9);
-
-    border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+    border: 1px solid #40aeff;
   }
 
   &:not(.not-selectable):not(.selected):active {
-    background: rgba(82, 88, 96, 0.9);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+    background: #40aeff;
   }
 
   &.selected {
-    background: rgba(30, 88, 102, 0.7);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #40aeff;
   }
 
   // Hit zone
@@ -45086,8 +45231,9 @@ var init_BaseItem = __esm({
   }
 `;
     outlineItemFont = Ce`
-  font-weight: 500;
-  font-size: 11px;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  font-size: 12px;
+  font-weight:400;
   & {
   }
 `;
@@ -45120,28 +45266,29 @@ var init_BaseItem = __esm({
   margin: 0;
   padding: 0;
   list-style: none;
+  width: 100%;
 `;
     BaseItem = ({ label, children, depth, select, selectionStatus, labelDecoration }) => {
       const canContainChildren = children !== void 0;
-      return /* @__PURE__ */ import_react209.default.createElement(Container47, {
+      return /* @__PURE__ */ import_react213.default.createElement(Container47, {
         style: { "--depth": depth }
-      }, /* @__PURE__ */ import_react209.default.createElement(Header4, {
+      }, /* @__PURE__ */ import_react213.default.createElement(Header4, {
         className: selectionStatus,
         onClick: select
-      }, /* @__PURE__ */ import_react209.default.createElement(Head_IconContainer, null, canContainChildren ? /* @__PURE__ */ import_react209.default.createElement(Head_Icon_WithDescendants, {
+      }, /* @__PURE__ */ import_react213.default.createElement(Head_IconContainer, null, canContainChildren ? /* @__PURE__ */ import_react213.default.createElement(Head_Icon_WithDescendants, {
         isOpen: true
-      }, /* @__PURE__ */ import_react209.default.createElement(ChevronDown_default, null)) : /* @__PURE__ */ import_react209.default.createElement(Package_default, null)), /* @__PURE__ */ import_react209.default.createElement(Head_Label, null, /* @__PURE__ */ import_react209.default.createElement("span", null, label)), labelDecoration), canContainChildren && /* @__PURE__ */ import_react209.default.createElement(ChildrenContainer, null, children));
+      }, /* @__PURE__ */ import_react213.default.createElement(ChevronDown_default, null)) : /* @__PURE__ */ import_react213.default.createElement(Package_default, null)), /* @__PURE__ */ import_react213.default.createElement(Head_Label, null, /* @__PURE__ */ import_react213.default.createElement("span", null, label)), labelDecoration), canContainChildren && /* @__PURE__ */ import_react213.default.createElement(ChildrenContainer, null, children));
     };
     BaseItem_default = BaseItem;
   }
 });
 
 // studio/src/panels/OutlinePanel/ObjectsList/ObjectItem.tsx
-var import_react210, ObjectItem;
+var import_react214, ObjectItem;
 var init_ObjectItem = __esm({
   "studio/src/panels/OutlinePanel/ObjectsList/ObjectItem.tsx"() {
     init_getStudio();
-    import_react210 = __toModule(require_react());
+    import_react214 = __toModule(require_react());
     init_BaseItem();
     init_src();
     init_selectors();
@@ -45152,7 +45299,7 @@ var init_ObjectItem = __esm({
         });
       };
       const selection = usePrism(() => getOutlineSelection(), []);
-      return /* @__PURE__ */ import_react210.default.createElement(BaseItem_default, {
+      return /* @__PURE__ */ import_react214.default.createElement(BaseItem_default, {
         select,
         label: overrideLabel != null ? overrideLabel : sheetObject.address.objectKey,
         depth,
@@ -45213,21 +45360,21 @@ var init_NamespacedObjects = __esm({
 
 // studio/src/panels/OutlinePanel/ObjectsList/ObjectsList.tsx
 function NamespaceTree(props) {
-  return /* @__PURE__ */ import_react213.default.createElement(import_react213.default.Fragment, null, [...props.namespace.entries()].map(([label, { object, nested }]) => {
-    const nestedChildrenElt = nested && /* @__PURE__ */ import_react213.default.createElement(NamespaceTree, {
+  return /* @__PURE__ */ import_react217.default.createElement(import_react217.default.Fragment, null, [...props.namespace.entries()].map(([label, { object, nested }]) => {
+    const nestedChildrenElt = nested && /* @__PURE__ */ import_react217.default.createElement(NamespaceTree, {
       namespace: nested,
       key: "namespaceTree(" + label + ")",
       visualIndentation: props.visualIndentation + 1
     });
-    const sameNameElt = object && /* @__PURE__ */ import_react213.default.createElement(ObjectItem, {
+    const sameNameElt = object && /* @__PURE__ */ import_react217.default.createElement(ObjectItem, {
       depth: props.visualIndentation,
       key: "objectPath(" + object.address.objectKey + ")",
       sheetObject: object,
       overrideLabel: label
     });
-    return /* @__PURE__ */ import_react213.default.createElement(import_react213.default.Fragment, {
+    return /* @__PURE__ */ import_react217.default.createElement(import_react217.default.Fragment, {
       key: `${label} - ${props.visualIndentation}`
-    }, sameNameElt, nestedChildrenElt && /* @__PURE__ */ import_react213.default.createElement(BaseItem_default, {
+    }, sameNameElt, nestedChildrenElt && /* @__PURE__ */ import_react217.default.createElement(BaseItem_default, {
       selectionStatus: "not-selectable",
       label,
       key: `baseItem(${label})`,
@@ -45236,12 +45383,12 @@ function NamespaceTree(props) {
     }));
   }));
 }
-var import_dataverse73, import_react213, Li, ObjectsList, ObjectsList_default;
+var import_dataverse72, import_react217, Li, ObjectsList, ObjectsList_default;
 var init_ObjectsList = __esm({
   "studio/src/panels/OutlinePanel/ObjectsList/ObjectsList.tsx"() {
     init_src();
-    import_dataverse73 = __toModule(require("@theatre/dataverse"));
-    import_react213 = __toModule(require_react());
+    import_dataverse72 = __toModule(require("@theatre/dataverse"));
+    import_react217 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_ObjectItem();
     init_BaseItem();
@@ -45251,13 +45398,13 @@ var init_ObjectsList = __esm({
 `;
     ObjectsList = ({ sheet, depth }) => {
       return usePrism(() => {
-        const objectsMap = (0, import_dataverse73.val)(sheet.objectsP);
-        const objects = Object.values(objectsMap).filter((a3) => a3 != null);
+        const objectsMap = (0, import_dataverse72.val)(sheet.objectsP);
+        const objects = Object.values(objectsMap).filter((a4) => a4 != null);
         const rootObject = new Map();
         objects.forEach((object) => {
           addToNamespace(rootObject, object);
         });
-        return /* @__PURE__ */ import_react213.default.createElement(NamespaceTree, {
+        return /* @__PURE__ */ import_react217.default.createElement(NamespaceTree, {
           namespace: rootObject,
           visualIndentation: depth
         });
@@ -45268,13 +45415,13 @@ var init_ObjectsList = __esm({
 });
 
 // studio/src/panels/OutlinePanel/SheetsList/SheetInstanceItem.tsx
-var import_react215, Head, Container48, Body2, SheetInstanceItem;
+var import_react219, Head, Container48, Body2, SheetInstanceItem;
 var init_SheetInstanceItem = __esm({
   "studio/src/panels/OutlinePanel/SheetsList/SheetInstanceItem.tsx"() {
     init_getStudio();
     init_selectors();
     init_src();
-    import_react215 = __toModule(require_react());
+    import_react219 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_ObjectsList();
     init_BaseItem();
@@ -45286,19 +45433,19 @@ var init_SheetInstanceItem = __esm({
 `;
     Body2 = styled_components_browser_esm_default.div``;
     SheetInstanceItem = ({ sheet, depth }) => {
-      const setSelectedSheet = (0, import_react215.useCallback)(() => {
+      const setSelectedSheet = (0, import_react219.useCallback)(() => {
         getStudio().transaction(({ stateEditors: stateEditors2 }) => {
           stateEditors2.studio.historic.panels.outline.selection.set([sheet]);
         });
       }, [sheet]);
       return usePrism(() => {
         const selection = getOutlineSelection();
-        return /* @__PURE__ */ import_react215.default.createElement(BaseItem_default, {
+        return /* @__PURE__ */ import_react219.default.createElement(BaseItem_default, {
           depth,
           select: setSelectedSheet,
           selectionStatus: selection.some((s3) => s3 === sheet) ? "selected" : selection.some((s3) => s3.type === "Theatre_SheetObject" && s3.sheet === sheet) ? "descendant-is-selected" : "not-selected",
-          label: /* @__PURE__ */ import_react215.default.createElement(Head, null, sheet.address.sheetId, ": ", sheet.address.sheetInstanceId)
-        }, /* @__PURE__ */ import_react215.default.createElement(Body2, null, /* @__PURE__ */ import_react215.default.createElement(ObjectsList_default, {
+          label: /* @__PURE__ */ import_react219.default.createElement(Head, null, sheet.address.sheetId, ": ", sheet.address.sheetInstanceId)
+        }, /* @__PURE__ */ import_react219.default.createElement(Body2, null, /* @__PURE__ */ import_react219.default.createElement(ObjectsList_default, {
           depth: depth + 1,
           sheet,
           key: "objectList" + sheet.address.sheetInstanceId
@@ -45309,12 +45456,12 @@ var init_SheetInstanceItem = __esm({
 });
 
 // studio/src/panels/OutlinePanel/SheetsList/SheetItem.tsx
-var import_dataverse74, import_react217, Head2, Container49, Body3, SheetItem;
+var import_dataverse73, import_react221, Head2, Container49, Body3, SheetItem;
 var init_SheetItem = __esm({
   "studio/src/panels/OutlinePanel/SheetsList/SheetItem.tsx"() {
     init_src();
-    import_dataverse74 = __toModule(require("@theatre/dataverse"));
-    import_react217 = __toModule(require_react());
+    import_dataverse73 = __toModule(require("@theatre/dataverse"));
+    import_react221 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SheetInstanceItem();
     Head2 = styled_components_browser_esm_default.div`
@@ -45326,12 +45473,12 @@ var init_SheetItem = __esm({
     Body3 = styled_components_browser_esm_default.div``;
     SheetItem = ({ sheetId, depth, project }) => {
       return usePrism(() => {
-        const template = (0, import_dataverse74.val)(project.sheetTemplatesP[sheetId]);
+        const template = (0, import_dataverse73.val)(project.sheetTemplatesP[sheetId]);
         if (!template)
-          return /* @__PURE__ */ import_react217.default.createElement(import_react217.default.Fragment, null);
-        const allInstances = (0, import_dataverse74.val)(template.instancesP);
-        return /* @__PURE__ */ import_react217.default.createElement(import_react217.default.Fragment, null, Object.entries(allInstances).map(([_3, inst]) => {
-          return /* @__PURE__ */ import_react217.default.createElement(SheetInstanceItem, {
+          return /* @__PURE__ */ import_react221.default.createElement(import_react221.default.Fragment, null);
+        const allInstances = (0, import_dataverse73.val)(template.instancesP);
+        return /* @__PURE__ */ import_react221.default.createElement(import_react221.default.Fragment, null, Object.entries(allInstances).map(([_3, inst]) => {
+          return /* @__PURE__ */ import_react221.default.createElement(SheetInstanceItem, {
             key: inst.address.sheetInstanceId,
             sheet: inst,
             depth
@@ -45343,20 +45490,20 @@ var init_SheetItem = __esm({
 });
 
 // studio/src/panels/OutlinePanel/SheetsList/SheetsList.tsx
-var import_react219, SheetsList, SheetsList_default;
+var import_react223, SheetsList, SheetsList_default;
 var init_SheetsList = __esm({
   "studio/src/panels/OutlinePanel/SheetsList/SheetsList.tsx"() {
     init_selectors();
     init_src();
-    import_react219 = __toModule(require_react());
+    import_react223 = __toModule(require_react());
     init_SheetItem();
     SheetsList = ({ project, depth }) => {
       return usePrism(() => {
         if (!project)
           return null;
         const registeredSheetIds = getRegisteredSheetIds(project);
-        return /* @__PURE__ */ import_react219.default.createElement(import_react219.default.Fragment, null, registeredSheetIds.map((sheetId) => {
-          return /* @__PURE__ */ import_react219.default.createElement(SheetItem, {
+        return /* @__PURE__ */ import_react223.default.createElement(import_react223.default.Fragment, null, registeredSheetIds.map((sheetId) => {
+          return /* @__PURE__ */ import_react223.default.createElement(SheetItem, {
             depth,
             sheetId,
             key: `sheet-${sheetId}`,
@@ -45370,16 +45517,16 @@ var init_SheetsList = __esm({
 });
 
 // studio/src/panels/OutlinePanel/ProjectsList/ProjectListItem.tsx
-var import_react220, import_dataverse75, ConflictNotice, ProjectListItem, ProjectListItem_default;
+var import_react224, import_dataverse74, ConflictNotice, ProjectListItem, ProjectListItem_default;
 var init_ProjectListItem = __esm({
   "studio/src/panels/OutlinePanel/ProjectsList/ProjectListItem.tsx"() {
-    import_react220 = __toModule(require_react());
+    import_react224 = __toModule(require_react());
     init_BaseItem();
     init_SheetsList();
     init_getStudio();
     init_src();
     init_selectors();
-    import_dataverse75 = __toModule(require("@theatre/dataverse"));
+    import_dataverse74 = __toModule(require("@theatre/dataverse"));
     init_styled_components_browser_esm();
     ConflictNotice = styled_components_browser_esm_default.div`
   color: #ff6363;
@@ -45394,19 +45541,19 @@ var init_ProjectListItem = __esm({
       const selection = usePrism(() => getOutlineSelection(), []);
       const hasConflict = usePrism(() => {
         const projectId = project.address.projectId;
-        const loadingState = (0, import_dataverse75.val)(getStudio().atomP.ephemeral.coreByProject[projectId].loadingState);
+        const loadingState = (0, import_dataverse74.val)(getStudio().atomP.ephemeral.coreByProject[projectId].loadingState);
         return (loadingState == null ? void 0 : loadingState.type) === "browserStateIsNotBasedOnDiskState";
       }, [project]);
-      const select = (0, import_react220.useCallback)(() => {
+      const select = (0, import_react224.useCallback)(() => {
         getStudio().transaction(({ stateEditors: stateEditors2 }) => {
           stateEditors2.studio.historic.panels.outline.selection.set([project]);
         });
       }, [project]);
-      return /* @__PURE__ */ import_react220.default.createElement(BaseItem_default, {
+      return /* @__PURE__ */ import_react224.default.createElement(BaseItem_default, {
         depth,
         label: project.address.projectId,
-        labelDecoration: hasConflict ? /* @__PURE__ */ import_react220.default.createElement(ConflictNotice, null, "Has Conflicts") : null,
-        children: /* @__PURE__ */ import_react220.default.createElement(SheetsList_default, {
+        labelDecoration: hasConflict ? /* @__PURE__ */ import_react224.default.createElement(ConflictNotice, null, "Has Conflicts") : null,
+        children: /* @__PURE__ */ import_react224.default.createElement(SheetsList_default, {
           project,
           depth: depth + 1
         }),
@@ -45419,27 +45566,48 @@ var init_ProjectListItem = __esm({
 });
 
 // studio/src/panels/OutlinePanel/ProjectsList/ProjectsList.tsx
-var import_dataverse76, import_react223, Container50, ProjectsList, ProjectsList_default;
+var import_dataverse75, import_react227, Container50, ProjectsList, ProjectsList_default;
 var init_ProjectsList = __esm({
   "studio/src/panels/OutlinePanel/ProjectsList/ProjectsList.tsx"() {
-    import_dataverse76 = __toModule(require("@theatre/dataverse"));
+    import_dataverse75 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
-    import_react223 = __toModule(require_react());
+    import_react227 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_ProjectListItem();
     Container50 = styled_components_browser_esm_default.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  padding-right: 4px;
+  border: 1px solid #4b4b4b;
+  border-radius: 0px 0px 12px 12px;
+  height: calc(100% - 43px);
+  background: black;
+  overflow-x: hidden;
+  overflow-y: overlay;
+
+  ::-webkit-scrollbar {
+      width: 2px;
+      background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      //background-color: #40aeff;
+      //background-color: rgb(0 0 0 / 80%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
+  ::-webkit-scrollbar-track {
+      //box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+      background-color: transparent;
+      border-radius: 100px;
+  }
 `;
     ProjectsList = (props) => {
       return usePrism(() => {
-        const projects = (0, import_dataverse76.val)(getStudio().projectsP);
-        return /* @__PURE__ */ import_react223.default.createElement(Container50, null, Object.keys(projects).map((projectId) => {
+        const projects = (0, import_dataverse75.val)(getStudio().projectsP);
+        return /* @__PURE__ */ import_react227.default.createElement(Container50, null, Object.keys(projects).map((projectId) => {
           const project = projects[projectId];
-          return /* @__PURE__ */ import_react223.default.createElement(ProjectListItem_default, {
+          return /* @__PURE__ */ import_react227.default.createElement(ProjectListItem_default, {
             depth: 0,
             project,
             key: `projectListItem-${projectId}`
@@ -45452,33 +45620,43 @@ var init_ProjectsList = __esm({
 });
 
 // studio/src/panels/OutlinePanel/OutlinePanel.tsx
-var import_react224, import_dataverse77, headerHeight2, Container51, OutlinePanel, OutlinePanel_default, isOutlinePanelHotspotActiveB, isOutlinePanelHoveredB, shouldShowOutlineD;
+var import_react228, import_dataverse76, headerHeight2, Container51, BeforePadding2, OutlinePanel, OutlinePanel_default, isOutlinePanelHotspotActiveB, isOutlinePanelHoveredB, shouldShowOutlineD;
 var init_OutlinePanel = __esm({
   "studio/src/panels/OutlinePanel/OutlinePanel.tsx"() {
-    import_react224 = __toModule(require_react());
+    import_react228 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_common();
     init_ProjectsList();
     init_src();
     init_getStudio();
     init_useHotspot();
-    import_dataverse77 = __toModule(require("@theatre/dataverse"));
+    import_dataverse76 = __toModule(require("@theatre/dataverse"));
     init_css();
     headerHeight2 = `44px`;
     Container51 = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
-  background-color: transparent;
+  //background-color: white;
   position: absolute;
-  left: 8px;
-  z-index: ${panelZIndexes.outlinePanel};
+  // left: 8px;
+  // z-index: ${panelZIndexes.outlinePanel};
+  // top: calc(${headerHeight2} + 8px);
+  // height: fit-content;
+  // max-height: calc(100% - ${headerHeight2});
+  // left:0px;
+  // top:0px;
+  // height:100vh;
 
-  top: calc(${headerHeight2} + 8px);
-  height: fit-content;
-  max-height: calc(100% - ${headerHeight2});
-  overflow-y: scroll;
+  left: 8px;
+  top: 8px;
+  height:calc(100% - 17px);
+  border-radius:12px;
+  overflow-y: hidden;
   overflow-x: hidden;
   padding: 0;
+  // padding-top: 40px;
+  min-width:200px;
   user-select: none;
+  z-index:-1;
 
   &::-webkit-scrollbar {
     display: none;
@@ -45499,36 +45677,45 @@ var init_OutlinePanel = __esm({
     height: 20px;
   }
 `;
+    BeforePadding2 = styled_components_browser_esm_default.div`
+  height: 40px;
+  background: black;
+  border-radius: 12px 12px 0 0;
+  border-top: 1px solid #4b4b4b;
+  border-left: 1px solid #4b4b4b;
+  border-right: 1px solid #4b4b4b;
+
+`;
     OutlinePanel = () => {
       var _a2;
       const pin = (_a2 = useVal(getStudio().atomP.ahistoric.pinOutline)) != null ? _a2 : true;
       const show = useVal(shouldShowOutlineD);
       const active = useHotspot("left");
-      (0, import_react224.useLayoutEffect)(() => {
+      (0, import_react228.useLayoutEffect)(() => {
         isOutlinePanelHotspotActiveB.set(active);
       }, [active]);
-      (0, import_react224.useEffect)(() => {
+      (0, import_react228.useEffect)(() => {
         return () => {
           isOutlinePanelHoveredB.set(false);
           isOutlinePanelHotspotActiveB.set(false);
         };
       }, []);
-      return /* @__PURE__ */ import_react224.default.createElement(Container51, {
-        pin: pin || show,
+      return /* @__PURE__ */ import_react228.default.createElement(Container51, {
+        pin,
         onMouseEnter: () => {
           isOutlinePanelHoveredB.set(true);
         },
         onMouseLeave: () => {
           isOutlinePanelHoveredB.set(false);
         }
-      }, /* @__PURE__ */ import_react224.default.createElement(ProjectsList_default, null));
+      }, /* @__PURE__ */ import_react228.default.createElement(BeforePadding2, null), /* @__PURE__ */ import_react228.default.createElement(ProjectsList_default, null));
     };
     OutlinePanel_default = OutlinePanel;
-    isOutlinePanelHotspotActiveB = new import_dataverse77.Box(false);
-    isOutlinePanelHoveredB = new import_dataverse77.Box(false);
-    shouldShowOutlineD = (0, import_dataverse77.prism)(() => {
-      const isHovered = (0, import_dataverse77.val)(isOutlinePanelHoveredB.derivation);
-      const isHotspotActive = (0, import_dataverse77.val)(isOutlinePanelHotspotActiveB.derivation);
+    isOutlinePanelHotspotActiveB = new import_dataverse76.Box(false);
+    isOutlinePanelHoveredB = new import_dataverse76.Box(false);
+    shouldShowOutlineD = (0, import_dataverse76.prism)(() => {
+      const isHovered = (0, import_dataverse76.val)(isOutlinePanelHoveredB.derivation);
+      const isHotspotActive = (0, import_dataverse76.val)(isOutlinePanelHotspotActiveB.derivation);
       return isHovered || isHotspotActive;
     });
   }
@@ -45539,20 +45726,20 @@ var require_react_error_boundary_umd = __commonJS({
   "../node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports2, module2) {
     (function(global2, factory) {
       typeof exports2 === "object" && typeof module2 !== "undefined" ? factory(exports2, require_react()) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
-    })(exports2, function(exports3, React147) {
+    })(exports2, function(exports3, React149) {
       "use strict";
       function _interopNamespace(e2) {
         if (e2 && e2.__esModule)
           return e2;
         var n3 = Object.create(null);
         if (e2) {
-          Object.keys(e2).forEach(function(k3) {
-            if (k3 !== "default") {
-              var d3 = Object.getOwnPropertyDescriptor(e2, k3);
-              Object.defineProperty(n3, k3, d3.get ? d3 : {
+          Object.keys(e2).forEach(function(k4) {
+            if (k4 !== "default") {
+              var d3 = Object.getOwnPropertyDescriptor(e2, k4);
+              Object.defineProperty(n3, k4, d3.get ? d3 : {
                 enumerable: true,
                 get: function() {
-                  return e2[k3];
+                  return e2[k4];
                 }
               });
             }
@@ -45561,28 +45748,28 @@ var require_react_error_boundary_umd = __commonJS({
         n3["default"] = e2;
         return Object.freeze(n3);
       }
-      var React__namespace = /* @__PURE__ */ _interopNamespace(React147);
-      function _setPrototypeOf2(o3, p2) {
-        _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf3(o4, p3) {
-          o4.__proto__ = p3;
+      var React__namespace = /* @__PURE__ */ _interopNamespace(React149);
+      function _setPrototypeOf2(o3, p3) {
+        _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf3(o4, p4) {
+          o4.__proto__ = p4;
           return o4;
         };
-        return _setPrototypeOf2(o3, p2);
+        return _setPrototypeOf2(o3, p3);
       }
       function _inheritsLoose2(subClass, superClass) {
         subClass.prototype = Object.create(superClass.prototype);
         subClass.prototype.constructor = subClass;
         _setPrototypeOf2(subClass, superClass);
       }
-      var changedArray = function changedArray2(a3, b3) {
-        if (a3 === void 0) {
-          a3 = [];
+      var changedArray = function changedArray2(a4, b4) {
+        if (a4 === void 0) {
+          a4 = [];
         }
-        if (b3 === void 0) {
-          b3 = [];
+        if (b4 === void 0) {
+          b4 = [];
         }
-        return a3.length !== b3.length || a3.some(function(item, index) {
-          return !Object.is(item, b3[index]);
+        return a4.length !== b4.length || a4.some(function(item, index) {
+          return !Object.is(item, b4[index]);
         });
       };
       var initialState2 = {
@@ -45688,10 +45875,10 @@ var require_react_error_boundary_umd = __commonJS({
 });
 
 // studio/src/panels/BasePanel/ExtensionPaneWrapper.tsx
-var import_react226, import_react_error_boundary, defaultPosition2, minDims2, ExtensionPaneWrapper, Container52, Title2, PaneTools, ClosePanelButton, F23, ErrorContainer, ErrorFallback, Content2, ExtensionPaneWrapper_default;
+var import_react230, import_react_error_boundary, defaultPosition2, minDims2, ExtensionPaneWrapper, Container52, Title2, PaneTools, ClosePanelButton, F23, ErrorContainer, ErrorFallback, Content2, ExtensionPaneWrapper_default;
 var init_ExtensionPaneWrapper = __esm({
   "studio/src/panels/BasePanel/ExtensionPaneWrapper.tsx"() {
-    import_react226 = __toModule(require_react());
+    import_react230 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_common();
     init_BasePanel();
@@ -45711,11 +45898,11 @@ var init_ExtensionPaneWrapper = __esm({
     };
     minDims2 = { width: 300, height: 300 };
     ExtensionPaneWrapper = ({ paneInstance }) => {
-      return /* @__PURE__ */ import_react226.default.createElement(BasePanel_default, {
+      return /* @__PURE__ */ import_react230.default.createElement(BasePanel_default, {
         panelId: `pane-${paneInstance.instanceId}`,
         defaultPosition: defaultPosition2,
         minDims: minDims2
-      }, /* @__PURE__ */ import_react226.default.createElement(Content2, {
+      }, /* @__PURE__ */ import_react230.default.createElement(Content2, {
         paneInstance
       }));
     };
@@ -45723,7 +45910,7 @@ var init_ExtensionPaneWrapper = __esm({
   display: flex;
   flex-direction: column;
 
-  box-shadow: 0px 5px 12px -4px rgb(0 0 0 / 22%);
+  // box-shadow: 0px 5px 12px -4px rgb(0 0 0 / 22%);
   z-index: ${panelZIndexes.pluginPanes};
 `;
     Title2 = styled_components_browser_esm_default.div`
@@ -45746,12 +45933,16 @@ var init_ExtensionPaneWrapper = __esm({
   font-size: 11px;
   height: 10px;
   width: 18px;
-  color: #adadadb3;
+  // color: #adadadb3;
+  color: #717171b3;
   background: transparent;
   border: none;
   cursor: pointer;
+  // &:hover {
+  //   color: white;
+  // }
   &:hover {
-    color: white;
+    opacity:0.6;
   }
 `;
     F23 = styled_components_browser_esm_default(F22)`
@@ -45785,14 +45976,14 @@ var init_ExtensionPaneWrapper = __esm({
   }
 `;
     ErrorFallback = (props) => {
-      return /* @__PURE__ */ import_react226.default.createElement(ErrorContainer, null, "An Error occured rendering this pane. Open the console for more info.", /* @__PURE__ */ import_react226.default.createElement("pre", null, JSON.stringify({ message: props.error.message, stack: props.error.stack }, null, 2)));
+      return /* @__PURE__ */ import_react230.default.createElement(ErrorContainer, null, "An Error occured rendering this pane. Open the console for more info.", /* @__PURE__ */ import_react230.default.createElement("pre", null, JSON.stringify({ message: props.error.message, stack: props.error.stack }, null, 2)));
     };
     Content2 = ({
       paneInstance
     }) => {
-      const [mountingPoint, setMountingPoint] = (0, import_react226.useState)(null);
+      const [mountingPoint, setMountingPoint] = (0, import_react230.useState)(null);
       const mount = paneInstance.definition.mount;
-      (0, import_react226.useLayoutEffect)(() => {
+      (0, import_react230.useLayoutEffect)(() => {
         if (!mountingPoint)
           return;
         const unmount = mount({
@@ -45803,15 +45994,15 @@ var init_ExtensionPaneWrapper = __esm({
           return unmount;
         }
       }, [mountingPoint, mount, paneInstance.instanceId]);
-      const closePane = (0, import_react226.useCallback)(() => {
+      const closePane = (0, import_react230.useCallback)(() => {
         getStudio().paneManager.destroyPane(paneInstance.instanceId);
       }, [paneInstance]);
-      return /* @__PURE__ */ import_react226.default.createElement(Container52, null, /* @__PURE__ */ import_react226.default.createElement(PanelDragZone_default, null, /* @__PURE__ */ import_react226.default.createElement(TitleBar, null, /* @__PURE__ */ import_react226.default.createElement(PaneTools, null, /* @__PURE__ */ import_react226.default.createElement(ClosePanelButton, {
+      return /* @__PURE__ */ import_react230.default.createElement(Container52, null, /* @__PURE__ */ import_react230.default.createElement(PanelDragZone_default, null, /* @__PURE__ */ import_react230.default.createElement(TitleBar, null, /* @__PURE__ */ import_react230.default.createElement(PaneTools, null, /* @__PURE__ */ import_react230.default.createElement(ClosePanelButton, {
         onClick: closePane,
         title: "Close Pane"
-      }, /* @__PURE__ */ import_react226.default.createElement(IoClose, null))), /* @__PURE__ */ import_react226.default.createElement(Title2, null, paneInstance.instanceId))), /* @__PURE__ */ import_react226.default.createElement(import_react_error_boundary.ErrorBoundary, {
+      }, /* @__PURE__ */ import_react230.default.createElement(IoClose, null))), /* @__PURE__ */ import_react230.default.createElement(Title2, null, paneInstance.instanceId))), /* @__PURE__ */ import_react230.default.createElement(import_react_error_boundary.ErrorBoundary, {
         FallbackComponent: ErrorFallback
-      }, /* @__PURE__ */ import_react226.default.createElement(F23, {
+      }, /* @__PURE__ */ import_react230.default.createElement(F23, {
         ref: setMountingPoint
       })));
     };
@@ -45820,12 +46011,12 @@ var init_ExtensionPaneWrapper = __esm({
 });
 
 // studio/src/UIRoot/PanelsRoot.tsx
-var import_react227, PanelsRoot, PanelsRoot_default;
+var import_react231, PanelsRoot, PanelsRoot_default;
 var init_PanelsRoot = __esm({
   "studio/src/UIRoot/PanelsRoot.tsx"() {
     init_OutlinePanel();
     init_DetailPanel();
-    import_react227 = __toModule(require_react());
+    import_react231 = __toModule(require_react());
     init_getStudio();
     init_src();
     init_ExtensionPaneWrapper();
@@ -45833,12 +46024,12 @@ var init_PanelsRoot = __esm({
     PanelsRoot = () => {
       const panes = useVal(getStudio().paneManager.allPanesD);
       const paneEls = Object.entries(panes).map(([instanceId, paneInstance]) => {
-        return /* @__PURE__ */ import_react227.default.createElement(ExtensionPaneWrapper_default, {
+        return /* @__PURE__ */ import_react231.default.createElement(ExtensionPaneWrapper_default, {
           key: `pane-${instanceId}`,
           paneInstance
         });
       });
-      return /* @__PURE__ */ import_react227.default.createElement(import_react227.default.Fragment, null, paneEls, /* @__PURE__ */ import_react227.default.createElement(OutlinePanel_default, null), /* @__PURE__ */ import_react227.default.createElement(DetailPanel_default, null), /* @__PURE__ */ import_react227.default.createElement(SequenceEditorPanel_default, null));
+      return /* @__PURE__ */ import_react231.default.createElement(import_react231.default.Fragment, null, paneEls, /* @__PURE__ */ import_react231.default.createElement(OutlinePanel_default, null), /* @__PURE__ */ import_react231.default.createElement(DetailPanel_default, null), /* @__PURE__ */ import_react231.default.createElement(SequenceEditorPanel_default, null));
     };
     PanelsRoot_default = PanelsRoot;
   }
@@ -45920,10 +46111,10 @@ var require_propose = __commonJS({
       var word = arguments[0];
       var dictionary = arguments[1];
       var len = dictionary.length;
-      var options = arguments[2];
-      if (options) {
-        threshold = options.threshold;
-        ignoreCase = options.ignoreCase;
+      var options2 = arguments[2];
+      if (options2) {
+        threshold = options2.threshold;
+        ignoreCase = options2.ignoreCase;
       }
       if (threshold === void 0)
         threshold = 0;
@@ -45951,11 +46142,11 @@ var require_propose = __commonJS({
 
 // shared/src/utils/didYouMean.ts
 function didYouMean(str, dictionary, prepend = "Did you mean ", append = "?") {
-  const p2 = (0, import_propose.default)(str, dictionary, {
+  const p3 = (0, import_propose.default)(str, dictionary, {
     threshold: 0.7
   });
-  if (p2) {
-    return prepend + JSON.stringify(p2) + append;
+  if (p3) {
+    return prepend + JSON.stringify(p3) + append;
   } else {
     return "";
   }
@@ -45975,6 +46166,9 @@ var init_MinimalTooltip = __esm({
     init_BasicTooltip();
     MinimalTooltip = styled_components_browser_esm_default(BasicTooltip_default)`
   padding: 6px;
+  background:black;
+  // border:none;
+  border: 1px solid #4b4b4b;
 `;
     MinimalTooltip_default = MinimalTooltip;
   }
@@ -45989,7 +46183,6 @@ var init_ToolbarSwitchSelectContainer = __esm({
     Container53 = styled_components_browser_esm_default(Group)`
   display: flex;
   height: fit-content;
-  backdrop-filter: blur(14px);
   border-radius: 2px;
 `;
     ToolbarSwitchSelectContainer_default = Container53;
@@ -45997,12 +46190,12 @@ var init_ToolbarSwitchSelectContainer = __esm({
 });
 
 // studio/src/uiComponents/toolbar/ToolbarIconButton.tsx
-var import_react229, Container54, ToolbarIconButton, ToolbarIconButton_default;
+var import_react233, Container54, ToolbarIconButton, ToolbarIconButton_default;
 var init_ToolbarIconButton = __esm({
   "studio/src/uiComponents/toolbar/ToolbarIconButton.tsx"() {
     init_styled_components_browser_esm();
     init_css();
-    import_react229 = __toModule(require_react());
+    import_react233 = __toModule(require_react());
     init_useTooltip();
     init_react_merge_refs_esm();
     init_MinimalTooltip();
@@ -46015,33 +46208,32 @@ var init_ToolbarIconButton = __esm({
   justify-content: center;
   font-size: 14px;
   font-weight: 600;
+  border-radius:12px;
   width: 32px;
   height: 32px;
   outline: none;
-
-  color: #a8a8a9;
-
-  background: rgba(40, 43, 47, 0.8);
-  backdrop-filter: blur(14px);
+  cursor:pointer;
+  color:rgba(255, 255, 255, 0.5);
+  background:black;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
 
   svg {
     display: block;
   }
 
   &:hover {
-    background: rgba(59, 63, 69, 0.8);
+    color: rgba(255, 255, 255, 0.9);
+    background:#40aeff;
   }
 
   &:active {
-    background: rgba(82, 88, 96, 0.8);
+    color: rgba(255, 255, 255, 0.9);
+    background:#40aeff;
   }
 
   &.selected {
-    color: rgba(255, 255, 255, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9);
+    background:#40aeff;
   }
 
   // Don't blur if in a button group, because it already blurs. We need to blur
@@ -46066,10 +46258,10 @@ var init_ToolbarIconButton = __esm({
     background: rgba(40, 43, 47, 0.95);
   }
 `;
-    ToolbarIconButton = import_react229.default.forwardRef((_a2, ref) => {
+    ToolbarIconButton = import_react233.default.forwardRef((_a2, ref) => {
       var _b = _a2, { title } = _b, props = __objRest(_b, ["title"]);
-      const [tooltip, localRef] = useTooltip({ enabled: typeof title === "string" }, () => /* @__PURE__ */ import_react229.default.createElement(MinimalTooltip_default, null, title));
-      return /* @__PURE__ */ import_react229.default.createElement(import_react229.default.Fragment, null, tooltip, /* @__PURE__ */ import_react229.default.createElement(Container54, __spreadValues({
+      const [tooltip, localRef] = useTooltip({ enabled: typeof title === "string" }, () => /* @__PURE__ */ import_react233.default.createElement(MinimalTooltip_default, null, title));
+      return /* @__PURE__ */ import_react233.default.createElement(import_react233.default.Fragment, null, tooltip, /* @__PURE__ */ import_react233.default.createElement(Container54, __spreadValues({
         ref: react_merge_refs_esm_default([localRef, ref])
       }, props)), " ");
     });
@@ -46078,10 +46270,10 @@ var init_ToolbarIconButton = __esm({
 });
 
 // studio/src/toolbars/ExtensionToolbar/tools/IconButton.tsx
-var import_react230, Container55, IconButton, IconButton_default;
+var import_react234, Container55, IconButton, IconButton_default;
 var init_IconButton = __esm({
   "studio/src/toolbars/ExtensionToolbar/tools/IconButton.tsx"() {
-    import_react230 = __toModule(require_react());
+    import_react234 = __toModule(require_react());
     init_ToolbarIconButton();
     init_styled_components_browser_esm();
     init_css();
@@ -46095,7 +46287,7 @@ var init_IconButton = __esm({
 `;
     IconButton = ({ config }) => {
       var _a2;
-      return /* @__PURE__ */ import_react230.default.createElement(Container55, {
+      return /* @__PURE__ */ import_react234.default.createElement(Container55, {
         onClick: config.onClick,
         title: config.title,
         dangerouslySetInnerHTML: { __html: (_a2 = config["svgSource"]) != null ? _a2 : "" }
@@ -46113,7 +46305,7 @@ function OptionButton({
   onClick,
   isSelected
 }) {
-  return /* @__PURE__ */ import_react231.default.createElement(import_react231.default.Fragment, null, /* @__PURE__ */ import_react231.default.createElement(ToolbarIconButton_default, {
+  return /* @__PURE__ */ import_react235.default.createElement(import_react235.default.Fragment, null, /* @__PURE__ */ import_react235.default.createElement(ToolbarIconButton_default, {
     forwardedAs: Button,
     className: isSelected ? "selected" : void 0,
     "aria-label": label,
@@ -46121,19 +46313,19 @@ function OptionButton({
     title: label
   }, icon));
 }
-var import_react231, ToolbarSwitchSelect, ToolbarSwitchSelect_default;
+var import_react235, ToolbarSwitchSelect, ToolbarSwitchSelect_default;
 var init_ToolbarSwitchSelect = __esm({
   "studio/src/uiComponents/toolbar/ToolbarSwitchSelect.tsx"() {
-    import_react231 = __toModule(require_react());
+    import_react235 = __toModule(require_react());
     init_es2();
     init_ToolbarIconButton();
     init_ToolbarSwitchSelectContainer();
     ToolbarSwitchSelect = ({
       value: valueOfSwitch,
       onChange,
-      options
+      options: options2
     }) => {
-      return /* @__PURE__ */ import_react231.default.createElement(ToolbarSwitchSelectContainer_default, null, options.map(({ label, icon, value: optionValue }) => /* @__PURE__ */ import_react231.default.createElement(OptionButton, {
+      return /* @__PURE__ */ import_react235.default.createElement(ToolbarSwitchSelectContainer_default, null, options2.map(({ label, icon, value: optionValue }) => /* @__PURE__ */ import_react235.default.createElement(OptionButton, {
         key: optionValue,
         value: optionValue,
         isSelected: valueOfSwitch === optionValue,
@@ -46147,10 +46339,10 @@ var init_ToolbarSwitchSelect = __esm({
 });
 
 // studio/src/toolbars/ExtensionToolbar/tools/Switch.tsx
-var import_react232, IconContainer2, IconButton2, Switch_default;
+var import_react236, IconContainer2, IconButton2, Switch_default;
 var init_Switch = __esm({
   "studio/src/toolbars/ExtensionToolbar/tools/Switch.tsx"() {
-    import_react232 = __toModule(require_react());
+    import_react236 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_css();
     init_ToolbarSwitchSelect();
@@ -46163,12 +46355,12 @@ var init_Switch = __esm({
   }
 `;
     IconButton2 = ({ config }) => {
-      return /* @__PURE__ */ import_react232.default.createElement(ToolbarSwitchSelect_default, {
+      return /* @__PURE__ */ import_react236.default.createElement(ToolbarSwitchSelect_default, {
         onChange: config.onChange,
         options: config.options.map(({ label, value, svgSource }) => ({
           label,
           value,
-          icon: /* @__PURE__ */ import_react232.default.createElement(IconContainer2, {
+          icon: /* @__PURE__ */ import_react236.default.createElement(IconContainer2, {
             dangerouslySetInnerHTML: { __html: svgSource }
           })
         })),
@@ -46183,17 +46375,17 @@ var init_Switch = __esm({
 function getToolByType(type) {
   return toolByType[type];
 }
-var import_react233, Toolset, toolByType, Tool, Toolset_default;
+var import_react237, Toolset, toolByType, Tool, Toolset_default;
 var init_Toolset = __esm({
   "studio/src/toolbars/ExtensionToolbar/Toolset.tsx"() {
     init_didYouMean();
     init_userReadableTypeOfValue();
-    import_react233 = __toModule(require_react());
+    import_react237 = __toModule(require_react());
     init_IconButton();
     init_Switch();
     Toolset = (props) => {
-      return /* @__PURE__ */ import_react233.default.createElement(import_react233.default.Fragment, null, props.config.map((toolConfig, i3) => {
-        return /* @__PURE__ */ import_react233.default.createElement(Tool, {
+      return /* @__PURE__ */ import_react237.default.createElement(import_react237.default.Fragment, null, props.config.map((toolConfig, i3) => {
+        return /* @__PURE__ */ import_react237.default.createElement(Tool, {
           config: toolConfig,
           key: i3
         });
@@ -46208,7 +46400,7 @@ var init_Toolset = __esm({
       if (!Comp) {
         throw new Error(`No tool with tool.type ${userReadableTypeOfValue_default(config.type)} exists. Did you mean ${didYouMean(config.type, Object.keys(toolByType))}`);
       }
-      return /* @__PURE__ */ import_react233.default.createElement(Comp, {
+      return /* @__PURE__ */ import_react237.default.createElement(Comp, {
         config
       });
     };
@@ -46217,13 +46409,13 @@ var init_Toolset = __esm({
 });
 
 // studio/src/toolbars/ExtensionToolbar/ExtensionToolbar.tsx
-var import_dataverse78, import_react235, Container56, GroupDivider, ExtensionToolsetRender, ExtensionToolbar, ExtensionToolbar_default;
+var import_dataverse77, import_react239, Container56, GroupDivider, ExtensionToolsetRender, ExtensionToolbar, ExtensionToolbar_default;
 var init_ExtensionToolbar = __esm({
   "studio/src/toolbars/ExtensionToolbar/ExtensionToolbar.tsx"() {
-    import_dataverse78 = __toModule(require("@theatre/dataverse"));
+    import_dataverse77 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
-    import_react235 = __toModule(require_react());
+    import_react239 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Toolset();
     Container56 = styled_components_browser_esm_default.div`
@@ -46242,15 +46434,15 @@ var init_ExtensionToolbar = __esm({
   opacity: 0.4;
 `;
     ExtensionToolsetRender = ({ extension, toolbarId }) => {
-      const toolsetConfigBox = (0, import_react235.useMemo)(() => new import_dataverse78.Box([]), []);
-      (0, import_react235.useLayoutEffect)(() => {
+      const toolsetConfigBox = (0, import_react239.useMemo)(() => new import_dataverse77.Box([]), []);
+      (0, import_react239.useLayoutEffect)(() => {
         var _a2, _b;
         const detach = (_b = (_a2 = extension.toolbars) == null ? void 0 : _a2[toolbarId]) == null ? void 0 : _b.call(_a2, toolsetConfigBox.set.bind(toolsetConfigBox), getStudio().publicApi);
         if (typeof detach === "function")
           return detach;
       }, [extension, toolbarId]);
       const config = useVal(toolsetConfigBox.derivation);
-      return /* @__PURE__ */ import_react235.default.createElement(Toolset_default, {
+      return /* @__PURE__ */ import_react239.default.createElement(Toolset_default, {
         config
       });
     };
@@ -46262,9 +46454,9 @@ var init_ExtensionToolbar = __esm({
       for (const [, extension] of Object.entries(extensionsById)) {
         if (!extension || !((_a2 = extension.toolbars) == null ? void 0 : _a2[toolbarId]))
           continue;
-        groups.push(/* @__PURE__ */ import_react235.default.createElement(import_react235.default.Fragment, {
+        groups.push(/* @__PURE__ */ import_react239.default.createElement(import_react239.default.Fragment, {
           key: "extensionToolbar-" + extension.id
-        }, isAfterFirstGroup ? /* @__PURE__ */ import_react235.default.createElement(GroupDivider, null) : void 0, /* @__PURE__ */ import_react235.default.createElement(ExtensionToolsetRender, {
+        }, isAfterFirstGroup ? /* @__PURE__ */ import_react239.default.createElement(GroupDivider, null) : void 0, /* @__PURE__ */ import_react239.default.createElement(ExtensionToolsetRender, {
           extension,
           toolbarId
         })));
@@ -46272,42 +46464,40 @@ var init_ExtensionToolbar = __esm({
       }
       if (groups.length === 0)
         return null;
-      return /* @__PURE__ */ import_react235.default.createElement(Container56, null, showLeftDivider ? /* @__PURE__ */ import_react235.default.createElement(GroupDivider, null) : void 0, groups);
+      return /* @__PURE__ */ import_react239.default.createElement(Container56, null, showLeftDivider ? /* @__PURE__ */ import_react239.default.createElement(GroupDivider, null) : void 0, groups);
     };
     ExtensionToolbar_default = ExtensionToolbar;
   }
 });
 
 // studio/src/toolbars/PinButton.tsx
-var import_react236, Container57, PinButton, PinButton_default;
+var import_react240, Container57, PinButton, PinButton_default;
 var init_PinButton = __esm({
   "studio/src/toolbars/PinButton.tsx"() {
     init_styled_components_browser_esm();
-    import_react236 = __toModule(require_react());
+    import_react240 = __toModule(require_react());
     init_ToolbarIconButton();
     Container57 = styled_components_browser_esm_default(ToolbarIconButton_default)`
-  color: ${({ pinned }) => pinned ? "rgba(255, 255, 255, 0.8)" : "#A8A8A9"};
+  color: ${({ pinned }) => pinned ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.5)"};
 
-  border-bottom: 1px solid
-    ${({ pinned }) => pinned ? "rgba(255, 255, 255, 0.7)" : "rgba(255, 255, 255, 0.08)"};
 `;
-    PinButton = (0, import_react236.forwardRef)((_a2, ref) => {
-      var _b = _a2, { hint, pinned, icon, pinHintIcon, unpinHintIcon } = _b, props = __objRest(_b, ["hint", "pinned", "icon", "pinHintIcon", "unpinHintIcon"]);
-      const [hovered, setHovered] = (0, import_react236.useState)(false);
+    PinButton = (0, import_react240.forwardRef)((_a2, ref) => {
+      var _b = _a2, { children, hint, pinned, icon, pinHintIcon, unpinHintIcon } = _b, props = __objRest(_b, ["children", "hint", "pinned", "icon", "pinHintIcon", "unpinHintIcon"]);
+      const [hovered, setHovered] = (0, import_react240.useState)(false);
       const showHint = hovered || hint;
-      return /* @__PURE__ */ import_react236.default.createElement(Container57, __spreadProps(__spreadValues({}, props), {
+      return /* @__PURE__ */ import_react240.default.createElement(Container57, __spreadProps(__spreadValues({}, props), {
         pinned,
         ref,
         onMouseOver: () => setHovered(true),
         onMouseOut: () => setHovered(false)
-      }), /* @__PURE__ */ import_react236.default.createElement("div", {
+      }), /* @__PURE__ */ import_react240.default.createElement("div", {
         style: {
           pointerEvents: "none",
           width: "fit-content",
           height: "fit-content",
           inset: 0
         }
-      }, showHint && !pinned ? pinHintIcon : showHint && pinned ? unpinHintIcon : icon));
+      }, showHint && !pinned ? pinHintIcon : showHint && pinned ? unpinHintIcon : icon), children);
     });
     PinButton_default = PinButton;
   }
@@ -46315,29 +46505,6 @@ var init_PinButton = __esm({
 
 // studio/src/uiComponents/icons/DoubleChevronLeft.tsx
 function DoubleChevronLeft(props) {
-  return /* @__PURE__ */ React139.createElement("svg", __spreadValues({
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React139.createElement("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M12.732 4.048l-.792-.792L7.2 8l4.74 4.744.792-.792L8.781 8l3.951-3.952zm-3.932 0l-.792-.792L3.268 8l4.74 4.744.792-.792L4.848 8 8.8 4.048z",
-    fill: "currentColor"
-  }));
-}
-var React139, DoubleChevronLeft_default;
-var init_DoubleChevronLeft = __esm({
-  "studio/src/uiComponents/icons/DoubleChevronLeft.tsx"() {
-    React139 = __toModule(require_react());
-    DoubleChevronLeft_default = DoubleChevronLeft;
-  }
-});
-
-// studio/src/uiComponents/icons/DoubleChevronRight.tsx
-function DoubleChevronRight(props) {
   return /* @__PURE__ */ React140.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
@@ -46347,46 +46514,73 @@ function DoubleChevronRight(props) {
   }, props), /* @__PURE__ */ React140.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
+    d: "M12.732 4.048l-.792-.792L7.2 8l4.74 4.744.792-.792L8.781 8l3.951-3.952zm-3.932 0l-.792-.792L3.268 8l4.74 4.744.792-.792L4.848 8 8.8 4.048z",
+    fill: "currentColor"
+  }));
+}
+var React140, DoubleChevronLeft_default;
+var init_DoubleChevronLeft = __esm({
+  "studio/src/uiComponents/icons/DoubleChevronLeft.tsx"() {
+    React140 = __toModule(require_react());
+    DoubleChevronLeft_default = DoubleChevronLeft;
+  }
+});
+
+// studio/src/uiComponents/icons/DoubleChevronRight.tsx
+function DoubleChevronRight(props) {
+  return /* @__PURE__ */ React141.createElement("svg", __spreadValues({
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), /* @__PURE__ */ React141.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
     d: "M3.694 3.765l.792-.792 4.74 4.744-4.74 4.744-.792-.793 3.951-3.951-3.951-3.952zm3.932 0l.792-.792 4.74 4.744-4.74 4.744-.792-.793 3.952-3.951-3.952-3.952z",
     fill: "currentColor"
   }));
 }
-var React140, DoubleChevronRight_default;
+var React141, DoubleChevronRight_default;
 var init_DoubleChevronRight = __esm({
   "studio/src/uiComponents/icons/DoubleChevronRight.tsx"() {
-    React140 = __toModule(require_react());
+    React141 = __toModule(require_react());
     DoubleChevronRight_default = DoubleChevronRight;
   }
 });
 
 // studio/src/toolbars/MoreMenu/MoreMenu.tsx
-var import_react238, Container58, Item2, Link, VersionContainer, VersionLabel, VersionValueRow, VersionValue, Divider, UpdateDot, version, untaggedVersion, MoreMenu, MoreMenu_default;
+var import_react242, Container58, Item2, Link, VersionContainer, VersionLabel, VersionValueRow, VersionValue, Divider, UpdateDot, version, untaggedVersion, MoreMenu, MoreMenu_default;
 var init_MoreMenu = __esm({
   "studio/src/toolbars/MoreMenu/MoreMenu.tsx"() {
     init_src();
     init_getStudio();
-    import_react238 = __toModule(require_react());
+    import_react242 = __toModule(require_react());
     init_styled_components_browser_esm();
     Container58 = styled_components_browser_esm_default.div`
   width: 138px;
   border-radius: 2px;
-  background-color: rgba(42, 45, 50, 0.9);
+  // background-color: rgba(42, 45, 50, 0.9);
+  background-color: black;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25), 0px 2px 6px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(14px);
+  //box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25), 0px 2px 6px rgba(0, 0, 0, 0.15);
+  // box-shadow: 0px 2px 10px #0000002b;
+  // backdrop-filter: blur(14px);
+  border:1px solid #4b4b4b;
   pointer-events: auto;
   // makes the edges of the item highlights match the rounded corners
   overflow: hidden;
 
-  @supports not (backdrop-filter: blur()) {
-    background-color: rgba(42, 45, 50, 0.98);
-  }
+  // @supports not (backdrop-filter: blur()) {
+  //   background-color: rgba(42, 45, 50, 0.98);
+  // }
 
-  color: rgba(255, 255, 255, 0.9);
+  // color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
 
   & a {
     // Fix colors of links to not be default
@@ -46423,7 +46617,8 @@ var init_MoreMenu = __esm({
 
   &:hover {
     /* background-color: #398995; */
-    color: white !important;
+    // color: white !important;
+    color: rgba(255,255,255,0.5) !important;
     &:before {
       opacity: 1;
     }
@@ -46438,6 +46633,7 @@ var init_MoreMenu = __esm({
   justify-content: flex-start;
   align-items: stretch;
   gap: 8px;
+  // color: rgba(255, 255, 255, 0.5);
   color: rgba(255, 255, 255, 0.5);
 `;
     VersionLabel = styled_components_browser_esm_default.div`
@@ -46465,45 +46661,45 @@ var init_MoreMenu = __esm({
   top: 12px;
   border-radius: 50%;
 `;
-    version = "0.5.0";
+    version = "0.5.1-rc.2";
     untaggedVersion = version.match(/^[^\-]+/)[0];
-    MoreMenu = import_react238.default.forwardRef((props, ref) => {
+    MoreMenu = import_react242.default.forwardRef((props, ref) => {
       const hasUpdates = useVal(getStudio().atomP.ahistoric.updateChecker.result.hasUpdates);
-      return /* @__PURE__ */ import_react238.default.createElement(Container58, {
+      return /* @__PURE__ */ import_react242.default.createElement(Container58, {
         ref
-      }, /* @__PURE__ */ import_react238.default.createElement(Link, {
+      }, /* @__PURE__ */ import_react242.default.createElement(Link, {
         as: "a",
-        href: "https://docs.theatrejs.com",
+        href: "https://www.theatrejs.com/docs/latest",
         className: "",
         target: "_blank"
-      }, "Docs"), /* @__PURE__ */ import_react238.default.createElement(Link, {
+      }, "Docs"), /* @__PURE__ */ import_react242.default.createElement(Link, {
         as: "a",
-        href: `https://docs.theatrejs.com/changelog`,
+        href: `https://www.theatrejs.com/docs/latest/releases`,
         className: "",
         target: "_blank"
-      }, "Changelog"), /* @__PURE__ */ import_react238.default.createElement(Divider, null), /* @__PURE__ */ import_react238.default.createElement(Link, {
+      }, "Changelog"), /* @__PURE__ */ import_react242.default.createElement(Divider, null), /* @__PURE__ */ import_react242.default.createElement(Link, {
         as: "a",
         href: "https://github.com/theatre-js/theatre",
         className: "",
         target: "_blank"
-      }, "Github"), /* @__PURE__ */ import_react238.default.createElement(Link, {
+      }, "Github"), /* @__PURE__ */ import_react242.default.createElement(Link, {
         as: "a",
         href: "https://twitter.com/theatre_js",
         className: "",
         target: "_blank"
-      }, "Twitter"), /* @__PURE__ */ import_react238.default.createElement(Link, {
+      }, "Twitter"), /* @__PURE__ */ import_react242.default.createElement(Link, {
         className: "",
         as: "a",
         href: "https://discord.gg/bm9f8F9Y9N",
         target: "_blank"
-      }, "Discord"), /* @__PURE__ */ import_react238.default.createElement(Divider, null), /* @__PURE__ */ import_react238.default.createElement(VersionContainer, null, /* @__PURE__ */ import_react238.default.createElement(VersionLabel, null, "Version"), /* @__PURE__ */ import_react238.default.createElement(VersionValueRow, null, /* @__PURE__ */ import_react238.default.createElement(VersionValue, null, version, " ", hasUpdates === true ? "(outdated)" : hasUpdates === false ? "(latest)" : ""))), hasUpdates === true && /* @__PURE__ */ import_react238.default.createElement(import_react238.default.Fragment, null, /* @__PURE__ */ import_react238.default.createElement(Divider, null), /* @__PURE__ */ import_react238.default.createElement(Link, {
+      }, "Discord"), /* @__PURE__ */ import_react242.default.createElement(Divider, null), /* @__PURE__ */ import_react242.default.createElement(VersionContainer, null, /* @__PURE__ */ import_react242.default.createElement(VersionLabel, null, "Version"), /* @__PURE__ */ import_react242.default.createElement(VersionValueRow, null, /* @__PURE__ */ import_react242.default.createElement(VersionValue, null, version, " ", hasUpdates === true ? "(outdated)" : hasUpdates === false ? "(latest)" : ""))), hasUpdates === true && /* @__PURE__ */ import_react242.default.createElement(import_react242.default.Fragment, null, /* @__PURE__ */ import_react242.default.createElement(Divider, null), /* @__PURE__ */ import_react242.default.createElement(Link, {
         as: "a",
-        href: `https://docs.theatrejs.com/update#${encodeURIComponent(untaggedVersion)}`,
+        href: `https://www.theatrejs.com/docs/latest/releases${encodeURIComponent(untaggedVersion)}`,
         className: "",
         target: "_blank"
-      }, "Update", /* @__PURE__ */ import_react238.default.createElement(UpdateDot, null)), /* @__PURE__ */ import_react238.default.createElement(Link, {
+      }, "Update", /* @__PURE__ */ import_react242.default.createElement(UpdateDot, null)), /* @__PURE__ */ import_react242.default.createElement(Link, {
         as: "a",
-        href: `https://docs.theatrejs.com/changelog#${encodeURIComponent(untaggedVersion)}`,
+        href: `https://www.theatrejs.com/docs/latest/releases#${encodeURIComponent(untaggedVersion)}`,
         className: "",
         target: "_blank"
       }, "What's new?")));
@@ -46512,18 +46708,2469 @@ var init_MoreMenu = __esm({
   }
 });
 
+// ../node_modules/react-hot-toast/headless/index.mjs
+var import_react243, import_react244, x3, p2, E3, X3, I3, m2, v3, b3, M3, g3, f2, S3, T2, U3, O3, w3, l3, a3, k3, C, H3, ie2;
+var init_headless = __esm({
+  "../node_modules/react-hot-toast/headless/index.mjs"() {
+    import_react243 = __toModule(require_react());
+    import_react244 = __toModule(require_react());
+    x3 = (e2) => typeof e2 == "function";
+    p2 = (e2, t3) => x3(e2) ? e2(t3) : e2;
+    E3 = (() => {
+      let e2 = 0;
+      return () => (++e2).toString();
+    })();
+    X3 = (() => {
+      let e2;
+      return () => {
+        if (e2 === void 0 && typeof window < "u") {
+          let t3 = matchMedia("(prefers-reduced-motion: reduce)");
+          e2 = !t3 || t3.matches;
+        }
+        return e2;
+      };
+    })();
+    I3 = 20;
+    m2 = new Map();
+    v3 = 1e3;
+    b3 = (e2) => {
+      if (m2.has(e2))
+        return;
+      let t3 = setTimeout(() => {
+        m2.delete(e2), T2({ type: 4, toastId: e2 });
+      }, v3);
+      m2.set(e2, t3);
+    };
+    M3 = (e2) => {
+      let t3 = m2.get(e2);
+      t3 && clearTimeout(t3);
+    };
+    g3 = (e2, t3) => {
+      switch (t3.type) {
+        case 0:
+          return __spreadProps(__spreadValues({}, e2), { toasts: [t3.toast, ...e2.toasts].slice(0, I3) });
+        case 1:
+          return t3.toast.id && M3(t3.toast.id), __spreadProps(__spreadValues({}, e2), { toasts: e2.toasts.map((r3) => r3.id === t3.toast.id ? __spreadValues(__spreadValues({}, r3), t3.toast) : r3) });
+        case 2:
+          let { toast: o3 } = t3;
+          return e2.toasts.find((r3) => r3.id === o3.id) ? g3(e2, { type: 1, toast: o3 }) : g3(e2, { type: 0, toast: o3 });
+        case 3:
+          let { toastId: n3 } = t3;
+          return n3 ? b3(n3) : e2.toasts.forEach((r3) => {
+            b3(r3.id);
+          }), __spreadProps(__spreadValues({}, e2), { toasts: e2.toasts.map((r3) => r3.id === n3 || n3 === void 0 ? __spreadProps(__spreadValues({}, r3), { visible: false }) : r3) });
+        case 4:
+          return t3.toastId === void 0 ? __spreadProps(__spreadValues({}, e2), { toasts: [] }) : __spreadProps(__spreadValues({}, e2), { toasts: e2.toasts.filter((r3) => r3.id !== t3.toastId) });
+        case 5:
+          return __spreadProps(__spreadValues({}, e2), { pausedAt: t3.time });
+        case 6:
+          let s3 = t3.time - (e2.pausedAt || 0);
+          return __spreadProps(__spreadValues({}, e2), { pausedAt: void 0, toasts: e2.toasts.map((r3) => __spreadProps(__spreadValues({}, r3), { pauseDuration: r3.pauseDuration + s3 })) });
+      }
+    };
+    f2 = [];
+    S3 = { toasts: [], pausedAt: void 0 };
+    T2 = (e2) => {
+      S3 = g3(S3, e2), f2.forEach((t3) => {
+        t3(S3);
+      });
+    };
+    U3 = { blank: 4e3, error: 4e3, success: 2e3, loading: 1 / 0, custom: 4e3 };
+    O3 = (e2 = {}) => {
+      let [t3, o3] = (0, import_react243.useState)(S3);
+      (0, import_react243.useEffect)(() => (f2.push(o3), () => {
+        let s3 = f2.indexOf(o3);
+        s3 > -1 && f2.splice(s3, 1);
+      }), [t3]);
+      let n3 = t3.toasts.map((s3) => {
+        var r3, c3;
+        return __spreadProps(__spreadValues(__spreadValues(__spreadValues({}, e2), e2[s3.type]), s3), { duration: s3.duration || ((r3 = e2[s3.type]) == null ? void 0 : r3.duration) || (e2 == null ? void 0 : e2.duration) || U3[s3.type], style: __spreadValues(__spreadValues(__spreadValues({}, e2.style), (c3 = e2[s3.type]) == null ? void 0 : c3.style), s3.style) });
+      });
+      return __spreadProps(__spreadValues({}, t3), { toasts: n3 });
+    };
+    w3 = (e2, t3 = "blank", o3) => __spreadProps(__spreadValues({ createdAt: Date.now(), visible: true, type: t3, ariaProps: { role: "status", "aria-live": "polite" }, message: e2, pauseDuration: 0 }, o3), { id: (o3 == null ? void 0 : o3.id) || E3() });
+    l3 = (e2) => (t3, o3) => {
+      let n3 = w3(t3, e2, o3);
+      return T2({ type: 2, toast: n3 }), n3.id;
+    };
+    a3 = (e2, t3) => l3("blank")(e2, t3);
+    a3.error = l3("error");
+    a3.success = l3("success");
+    a3.loading = l3("loading");
+    a3.custom = l3("custom");
+    a3.dismiss = (e2) => {
+      T2({ type: 3, toastId: e2 });
+    };
+    a3.remove = (e2) => T2({ type: 4, toastId: e2 });
+    a3.promise = (e2, t3, o3) => {
+      let n3 = a3.loading(t3.loading, __spreadValues(__spreadValues({}, o3), o3 == null ? void 0 : o3.loading));
+      return e2.then((s3) => (a3.success(p2(t3.success, s3), __spreadValues(__spreadValues({ id: n3 }, o3), o3 == null ? void 0 : o3.success)), s3)).catch((s3) => {
+        a3.error(p2(t3.error, s3), __spreadValues(__spreadValues({ id: n3 }, o3), o3 == null ? void 0 : o3.error));
+      }), e2;
+    };
+    k3 = (e2, t3) => {
+      T2({ type: 1, toast: { id: e2, height: t3 } });
+    };
+    C = () => {
+      T2({ type: 5, time: Date.now() });
+    };
+    H3 = (e2) => {
+      let { toasts: t3, pausedAt: o3 } = O3(e2);
+      (0, import_react244.useEffect)(() => {
+        if (o3)
+          return;
+        let r3 = Date.now(), c3 = t3.map((i3) => {
+          if (i3.duration === 1 / 0)
+            return;
+          let d3 = (i3.duration || 0) + i3.pauseDuration - (r3 - i3.createdAt);
+          if (d3 < 0) {
+            i3.visible && a3.dismiss(i3.id);
+            return;
+          }
+          return setTimeout(() => a3.dismiss(i3.id), d3);
+        });
+        return () => {
+          c3.forEach((i3) => i3 && clearTimeout(i3));
+        };
+      }, [t3, o3]);
+      let n3 = (0, import_react244.useCallback)(() => {
+        o3 && T2({ type: 6, time: Date.now() });
+      }, [o3]), s3 = (0, import_react244.useCallback)((r3, c3) => {
+        let { reverseOrder: i3 = false, gutter: d3 = 8, defaultPosition: P3 } = c3 || {}, A3 = t3.filter((u3) => (u3.position || P3) === (r3.position || P3) && u3.height), _3 = A3.findIndex((u3) => u3.id === r3.id), D3 = A3.filter((u3, y3) => y3 < _3 && u3.visible).length;
+        return A3.filter((u3) => u3.visible).slice(...i3 ? [D3 + 1] : [0, D3]).reduce((u3, y3) => u3 + (y3.height || 0) + d3, 0);
+      }, [t3]);
+      return { toasts: t3, handlers: { updateHeight: k3, startPause: C, endPause: n3, calculateOffset: s3 } };
+    };
+    ie2 = a3;
+  }
+});
+
+// ../node_modules/marked/lib/marked.esm.js
+function getDefaults() {
+  return {
+    async: false,
+    baseUrl: null,
+    breaks: false,
+    extensions: null,
+    gfm: true,
+    headerIds: true,
+    headerPrefix: "",
+    highlight: null,
+    langPrefix: "language-",
+    mangle: true,
+    pedantic: false,
+    renderer: null,
+    sanitize: false,
+    sanitizer: null,
+    silent: false,
+    smartypants: false,
+    tokenizer: null,
+    walkTokens: null,
+    xhtml: false
+  };
+}
+function changeDefaults(newDefaults) {
+  defaults = newDefaults;
+}
+function escape(html, encode) {
+  if (encode) {
+    if (escapeTest.test(html)) {
+      return html.replace(escapeReplace, getEscapeReplacement);
+    }
+  } else {
+    if (escapeTestNoEncode.test(html)) {
+      return html.replace(escapeReplaceNoEncode, getEscapeReplacement);
+    }
+  }
+  return html;
+}
+function unescape(html) {
+  return html.replace(unescapeTest, (_3, n3) => {
+    n3 = n3.toLowerCase();
+    if (n3 === "colon")
+      return ":";
+    if (n3.charAt(0) === "#") {
+      return n3.charAt(1) === "x" ? String.fromCharCode(parseInt(n3.substring(2), 16)) : String.fromCharCode(+n3.substring(1));
+    }
+    return "";
+  });
+}
+function edit(regex, opt) {
+  regex = typeof regex === "string" ? regex : regex.source;
+  opt = opt || "";
+  const obj = {
+    replace: (name, val59) => {
+      val59 = val59.source || val59;
+      val59 = val59.replace(caret, "$1");
+      regex = regex.replace(name, val59);
+      return obj;
+    },
+    getRegex: () => {
+      return new RegExp(regex, opt);
+    }
+  };
+  return obj;
+}
+function cleanUrl(sanitize, base, href) {
+  if (sanitize) {
+    let prot;
+    try {
+      prot = decodeURIComponent(unescape(href)).replace(nonWordAndColonTest, "").toLowerCase();
+    } catch (e2) {
+      return null;
+    }
+    if (prot.indexOf("javascript:") === 0 || prot.indexOf("vbscript:") === 0 || prot.indexOf("data:") === 0) {
+      return null;
+    }
+  }
+  if (base && !originIndependentUrl.test(href)) {
+    href = resolveUrl(base, href);
+  }
+  try {
+    href = encodeURI(href).replace(/%25/g, "%");
+  } catch (e2) {
+    return null;
+  }
+  return href;
+}
+function resolveUrl(base, href) {
+  if (!baseUrls[" " + base]) {
+    if (justDomain.test(base)) {
+      baseUrls[" " + base] = base + "/";
+    } else {
+      baseUrls[" " + base] = rtrim(base, "/", true);
+    }
+  }
+  base = baseUrls[" " + base];
+  const relativeBase = base.indexOf(":") === -1;
+  if (href.substring(0, 2) === "//") {
+    if (relativeBase) {
+      return href;
+    }
+    return base.replace(protocol, "$1") + href;
+  } else if (href.charAt(0) === "/") {
+    if (relativeBase) {
+      return href;
+    }
+    return base.replace(domain, "$1") + href;
+  } else {
+    return base + href;
+  }
+}
+function merge(obj) {
+  let i3 = 1, target, key;
+  for (; i3 < arguments.length; i3++) {
+    target = arguments[i3];
+    for (key in target) {
+      if (Object.prototype.hasOwnProperty.call(target, key)) {
+        obj[key] = target[key];
+      }
+    }
+  }
+  return obj;
+}
+function splitCells(tableRow, count) {
+  const row = tableRow.replace(/\|/g, (match, offset, str) => {
+    let escaped = false, curr = offset;
+    while (--curr >= 0 && str[curr] === "\\")
+      escaped = !escaped;
+    if (escaped) {
+      return "|";
+    } else {
+      return " |";
+    }
+  }), cells = row.split(/ \|/);
+  let i3 = 0;
+  if (!cells[0].trim()) {
+    cells.shift();
+  }
+  if (cells.length > 0 && !cells[cells.length - 1].trim()) {
+    cells.pop();
+  }
+  if (cells.length > count) {
+    cells.splice(count);
+  } else {
+    while (cells.length < count)
+      cells.push("");
+  }
+  for (; i3 < cells.length; i3++) {
+    cells[i3] = cells[i3].trim().replace(/\\\|/g, "|");
+  }
+  return cells;
+}
+function rtrim(str, c3, invert) {
+  const l4 = str.length;
+  if (l4 === 0) {
+    return "";
+  }
+  let suffLen = 0;
+  while (suffLen < l4) {
+    const currChar = str.charAt(l4 - suffLen - 1);
+    if (currChar === c3 && !invert) {
+      suffLen++;
+    } else if (currChar !== c3 && invert) {
+      suffLen++;
+    } else {
+      break;
+    }
+  }
+  return str.slice(0, l4 - suffLen);
+}
+function findClosingBracket(str, b4) {
+  if (str.indexOf(b4[1]) === -1) {
+    return -1;
+  }
+  const l4 = str.length;
+  let level = 0, i3 = 0;
+  for (; i3 < l4; i3++) {
+    if (str[i3] === "\\") {
+      i3++;
+    } else if (str[i3] === b4[0]) {
+      level++;
+    } else if (str[i3] === b4[1]) {
+      level--;
+      if (level < 0) {
+        return i3;
+      }
+    }
+  }
+  return -1;
+}
+function checkSanitizeDeprecation(opt) {
+  if (opt && opt.sanitize && !opt.silent) {
+    console.warn("marked(): sanitize and sanitizer parameters are deprecated since version 0.7.0, should not be used and will be removed in the future. Read more here: https://marked.js.org/#/USING_ADVANCED.md#options");
+  }
+}
+function repeatString(pattern, count) {
+  if (count < 1) {
+    return "";
+  }
+  let result2 = "";
+  while (count > 1) {
+    if (count & 1) {
+      result2 += pattern;
+    }
+    count >>= 1;
+    pattern += pattern;
+  }
+  return result2 + pattern;
+}
+function outputLink(cap, link, raw, lexer2) {
+  const href = link.href;
+  const title = link.title ? escape(link.title) : null;
+  const text = cap[1].replace(/\\([\[\]])/g, "$1");
+  if (cap[0].charAt(0) !== "!") {
+    lexer2.state.inLink = true;
+    const token = {
+      type: "link",
+      raw,
+      href,
+      title,
+      text,
+      tokens: lexer2.inlineTokens(text)
+    };
+    lexer2.state.inLink = false;
+    return token;
+  }
+  return {
+    type: "image",
+    raw,
+    href,
+    title,
+    text: escape(text)
+  };
+}
+function indentCodeCompensation(raw, text) {
+  const matchIndentToCode = raw.match(/^(\s+)(?:```)/);
+  if (matchIndentToCode === null) {
+    return text;
+  }
+  const indentToCode = matchIndentToCode[1];
+  return text.split("\n").map((node) => {
+    const matchIndentInNode = node.match(/^\s+/);
+    if (matchIndentInNode === null) {
+      return node;
+    }
+    const [indentInNode] = matchIndentInNode;
+    if (indentInNode.length >= indentToCode.length) {
+      return node.slice(indentToCode.length);
+    }
+    return node;
+  }).join("\n");
+}
+function smartypants(text) {
+  return text.replace(/---/g, "\u2014").replace(/--/g, "\u2013").replace(/(^|[-\u2014/(\[{"\s])'/g, "$1\u2018").replace(/'/g, "\u2019").replace(/(^|[-\u2014/(\[{\u2018\s])"/g, "$1\u201C").replace(/"/g, "\u201D").replace(/\.{3}/g, "\u2026");
+}
+function mangle(text) {
+  let out = "", i3, ch;
+  const l4 = text.length;
+  for (i3 = 0; i3 < l4; i3++) {
+    ch = text.charCodeAt(i3);
+    if (Math.random() > 0.5) {
+      ch = "x" + ch.toString(16);
+    }
+    out += "&#" + ch + ";";
+  }
+  return out;
+}
+function marked(src, opt, callback) {
+  if (typeof src === "undefined" || src === null) {
+    throw new Error("marked(): input parameter is undefined or null");
+  }
+  if (typeof src !== "string") {
+    throw new Error("marked(): input parameter is of type " + Object.prototype.toString.call(src) + ", string expected");
+  }
+  if (typeof opt === "function") {
+    callback = opt;
+    opt = null;
+  }
+  opt = merge({}, marked.defaults, opt || {});
+  checkSanitizeDeprecation(opt);
+  if (callback) {
+    const highlight = opt.highlight;
+    let tokens;
+    try {
+      tokens = Lexer.lex(src, opt);
+    } catch (e2) {
+      return callback(e2);
+    }
+    const done = function(err) {
+      let out;
+      if (!err) {
+        try {
+          if (opt.walkTokens) {
+            marked.walkTokens(tokens, opt.walkTokens);
+          }
+          out = Parser.parse(tokens, opt);
+        } catch (e2) {
+          err = e2;
+        }
+      }
+      opt.highlight = highlight;
+      return err ? callback(err) : callback(null, out);
+    };
+    if (!highlight || highlight.length < 3) {
+      return done();
+    }
+    delete opt.highlight;
+    if (!tokens.length)
+      return done();
+    let pending = 0;
+    marked.walkTokens(tokens, function(token) {
+      if (token.type === "code") {
+        pending++;
+        setTimeout(() => {
+          highlight(token.text, token.lang, function(err, code) {
+            if (err) {
+              return done(err);
+            }
+            if (code != null && code !== token.text) {
+              token.text = code;
+              token.escaped = true;
+            }
+            pending--;
+            if (pending === 0) {
+              done();
+            }
+          });
+        }, 0);
+      }
+    });
+    if (pending === 0) {
+      done();
+    }
+    return;
+  }
+  function onError(e2) {
+    e2.message += "\nPlease report this to https://github.com/markedjs/marked.";
+    if (opt.silent) {
+      return "<p>An error occurred:</p><pre>" + escape(e2.message + "", true) + "</pre>";
+    }
+    throw e2;
+  }
+  try {
+    const tokens = Lexer.lex(src, opt);
+    if (opt.walkTokens) {
+      if (opt.async) {
+        return Promise.all(marked.walkTokens(tokens, opt.walkTokens)).then(() => {
+          return Parser.parse(tokens, opt);
+        }).catch(onError);
+      }
+      marked.walkTokens(tokens, opt.walkTokens);
+    }
+    return Parser.parse(tokens, opt);
+  } catch (e2) {
+    onError(e2);
+  }
+}
+var defaults, escapeTest, escapeReplace, escapeTestNoEncode, escapeReplaceNoEncode, escapeReplacements, getEscapeReplacement, unescapeTest, caret, nonWordAndColonTest, originIndependentUrl, baseUrls, justDomain, protocol, domain, noopTest, Tokenizer, block, inline, Lexer, Renderer, TextRenderer, Slugger, Parser, options, setOptions, use, walkTokens, parseInline, parser, lexer;
+var init_marked_esm = __esm({
+  "../node_modules/marked/lib/marked.esm.js"() {
+    defaults = getDefaults();
+    escapeTest = /[&<>"']/;
+    escapeReplace = /[&<>"']/g;
+    escapeTestNoEncode = /[<>"']|&(?!#?\w+;)/;
+    escapeReplaceNoEncode = /[<>"']|&(?!#?\w+;)/g;
+    escapeReplacements = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+    getEscapeReplacement = (ch) => escapeReplacements[ch];
+    unescapeTest = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/ig;
+    caret = /(^|[^\[])\^/g;
+    nonWordAndColonTest = /[^\w:]/g;
+    originIndependentUrl = /^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;
+    baseUrls = {};
+    justDomain = /^[^:]+:\/*[^/]*$/;
+    protocol = /^([^:]+:)[\s\S]*$/;
+    domain = /^([^:]+:\/*[^/]*)[\s\S]*$/;
+    noopTest = { exec: function noopTest2() {
+    } };
+    Tokenizer = class {
+      constructor(options2) {
+        this.options = options2 || defaults;
+      }
+      space(src) {
+        const cap = this.rules.block.newline.exec(src);
+        if (cap && cap[0].length > 0) {
+          return {
+            type: "space",
+            raw: cap[0]
+          };
+        }
+      }
+      code(src) {
+        const cap = this.rules.block.code.exec(src);
+        if (cap) {
+          const text = cap[0].replace(/^ {1,4}/gm, "");
+          return {
+            type: "code",
+            raw: cap[0],
+            codeBlockStyle: "indented",
+            text: !this.options.pedantic ? rtrim(text, "\n") : text
+          };
+        }
+      }
+      fences(src) {
+        const cap = this.rules.block.fences.exec(src);
+        if (cap) {
+          const raw = cap[0];
+          const text = indentCodeCompensation(raw, cap[3] || "");
+          return {
+            type: "code",
+            raw,
+            lang: cap[2] ? cap[2].trim() : cap[2],
+            text
+          };
+        }
+      }
+      heading(src) {
+        const cap = this.rules.block.heading.exec(src);
+        if (cap) {
+          let text = cap[2].trim();
+          if (/#$/.test(text)) {
+            const trimmed = rtrim(text, "#");
+            if (this.options.pedantic) {
+              text = trimmed.trim();
+            } else if (!trimmed || / $/.test(trimmed)) {
+              text = trimmed.trim();
+            }
+          }
+          return {
+            type: "heading",
+            raw: cap[0],
+            depth: cap[1].length,
+            text,
+            tokens: this.lexer.inline(text)
+          };
+        }
+      }
+      hr(src) {
+        const cap = this.rules.block.hr.exec(src);
+        if (cap) {
+          return {
+            type: "hr",
+            raw: cap[0]
+          };
+        }
+      }
+      blockquote(src) {
+        const cap = this.rules.block.blockquote.exec(src);
+        if (cap) {
+          const text = cap[0].replace(/^ *>[ \t]?/gm, "");
+          return {
+            type: "blockquote",
+            raw: cap[0],
+            tokens: this.lexer.blockTokens(text, []),
+            text
+          };
+        }
+      }
+      list(src) {
+        let cap = this.rules.block.list.exec(src);
+        if (cap) {
+          let raw, istask, ischecked, indent, i3, blankLine, endsWithBlankLine, line, nextLine, rawLine, itemContents, endEarly;
+          let bull = cap[1].trim();
+          const isordered = bull.length > 1;
+          const list = {
+            type: "list",
+            raw: "",
+            ordered: isordered,
+            start: isordered ? +bull.slice(0, -1) : "",
+            loose: false,
+            items: []
+          };
+          bull = isordered ? `\\d{1,9}\\${bull.slice(-1)}` : `\\${bull}`;
+          if (this.options.pedantic) {
+            bull = isordered ? bull : "[*+-]";
+          }
+          const itemRegex = new RegExp(`^( {0,3}${bull})((?:[	 ][^\\n]*)?(?:\\n|$))`);
+          while (src) {
+            endEarly = false;
+            if (!(cap = itemRegex.exec(src))) {
+              break;
+            }
+            if (this.rules.block.hr.test(src)) {
+              break;
+            }
+            raw = cap[0];
+            src = src.substring(raw.length);
+            line = cap[2].split("\n", 1)[0];
+            nextLine = src.split("\n", 1)[0];
+            if (this.options.pedantic) {
+              indent = 2;
+              itemContents = line.trimLeft();
+            } else {
+              indent = cap[2].search(/[^ ]/);
+              indent = indent > 4 ? 1 : indent;
+              itemContents = line.slice(indent);
+              indent += cap[1].length;
+            }
+            blankLine = false;
+            if (!line && /^ *$/.test(nextLine)) {
+              raw += nextLine + "\n";
+              src = src.substring(nextLine.length + 1);
+              endEarly = true;
+            }
+            if (!endEarly) {
+              const nextBulletRegex = new RegExp(`^ {0,${Math.min(3, indent - 1)}}(?:[*+-]|\\d{1,9}[.)])((?: [^\\n]*)?(?:\\n|$))`);
+              const hrRegex = new RegExp(`^ {0,${Math.min(3, indent - 1)}}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)`);
+              const fencesBeginRegex = new RegExp(`^ {0,${Math.min(3, indent - 1)}}(?:\`\`\`|~~~)`);
+              const headingBeginRegex = new RegExp(`^ {0,${Math.min(3, indent - 1)}}#`);
+              while (src) {
+                rawLine = src.split("\n", 1)[0];
+                line = rawLine;
+                if (this.options.pedantic) {
+                  line = line.replace(/^ {1,4}(?=( {4})*[^ ])/g, "  ");
+                }
+                if (fencesBeginRegex.test(line)) {
+                  break;
+                }
+                if (headingBeginRegex.test(line)) {
+                  break;
+                }
+                if (nextBulletRegex.test(line)) {
+                  break;
+                }
+                if (hrRegex.test(src)) {
+                  break;
+                }
+                if (line.search(/[^ ]/) >= indent || !line.trim()) {
+                  itemContents += "\n" + line.slice(indent);
+                } else if (!blankLine) {
+                  itemContents += "\n" + line;
+                } else {
+                  break;
+                }
+                if (!blankLine && !line.trim()) {
+                  blankLine = true;
+                }
+                raw += rawLine + "\n";
+                src = src.substring(rawLine.length + 1);
+              }
+            }
+            if (!list.loose) {
+              if (endsWithBlankLine) {
+                list.loose = true;
+              } else if (/\n *\n *$/.test(raw)) {
+                endsWithBlankLine = true;
+              }
+            }
+            if (this.options.gfm) {
+              istask = /^\[[ xX]\] /.exec(itemContents);
+              if (istask) {
+                ischecked = istask[0] !== "[ ] ";
+                itemContents = itemContents.replace(/^\[[ xX]\] +/, "");
+              }
+            }
+            list.items.push({
+              type: "list_item",
+              raw,
+              task: !!istask,
+              checked: ischecked,
+              loose: false,
+              text: itemContents
+            });
+            list.raw += raw;
+          }
+          list.items[list.items.length - 1].raw = raw.trimRight();
+          list.items[list.items.length - 1].text = itemContents.trimRight();
+          list.raw = list.raw.trimRight();
+          const l4 = list.items.length;
+          for (i3 = 0; i3 < l4; i3++) {
+            this.lexer.state.top = false;
+            list.items[i3].tokens = this.lexer.blockTokens(list.items[i3].text, []);
+            const spacers = list.items[i3].tokens.filter((t3) => t3.type === "space");
+            const hasMultipleLineBreaks = spacers.every((t3) => {
+              const chars = t3.raw.split("");
+              let lineBreaks = 0;
+              for (const char of chars) {
+                if (char === "\n") {
+                  lineBreaks += 1;
+                }
+                if (lineBreaks > 1) {
+                  return true;
+                }
+              }
+              return false;
+            });
+            if (!list.loose && spacers.length && hasMultipleLineBreaks) {
+              list.loose = true;
+              list.items[i3].loose = true;
+            }
+          }
+          return list;
+        }
+      }
+      html(src) {
+        const cap = this.rules.block.html.exec(src);
+        if (cap) {
+          const token = {
+            type: "html",
+            raw: cap[0],
+            pre: !this.options.sanitizer && (cap[1] === "pre" || cap[1] === "script" || cap[1] === "style"),
+            text: cap[0]
+          };
+          if (this.options.sanitize) {
+            const text = this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape(cap[0]);
+            token.type = "paragraph";
+            token.text = text;
+            token.tokens = this.lexer.inline(text);
+          }
+          return token;
+        }
+      }
+      def(src) {
+        const cap = this.rules.block.def.exec(src);
+        if (cap) {
+          if (cap[3])
+            cap[3] = cap[3].substring(1, cap[3].length - 1);
+          const tag = cap[1].toLowerCase().replace(/\s+/g, " ");
+          return {
+            type: "def",
+            tag,
+            raw: cap[0],
+            href: cap[2],
+            title: cap[3]
+          };
+        }
+      }
+      table(src) {
+        const cap = this.rules.block.table.exec(src);
+        if (cap) {
+          const item = {
+            type: "table",
+            header: splitCells(cap[1]).map((c3) => {
+              return { text: c3 };
+            }),
+            align: cap[2].replace(/^ *|\| *$/g, "").split(/ *\| */),
+            rows: cap[3] && cap[3].trim() ? cap[3].replace(/\n[ \t]*$/, "").split("\n") : []
+          };
+          if (item.header.length === item.align.length) {
+            item.raw = cap[0];
+            let l4 = item.align.length;
+            let i3, j3, k4, row;
+            for (i3 = 0; i3 < l4; i3++) {
+              if (/^ *-+: *$/.test(item.align[i3])) {
+                item.align[i3] = "right";
+              } else if (/^ *:-+: *$/.test(item.align[i3])) {
+                item.align[i3] = "center";
+              } else if (/^ *:-+ *$/.test(item.align[i3])) {
+                item.align[i3] = "left";
+              } else {
+                item.align[i3] = null;
+              }
+            }
+            l4 = item.rows.length;
+            for (i3 = 0; i3 < l4; i3++) {
+              item.rows[i3] = splitCells(item.rows[i3], item.header.length).map((c3) => {
+                return { text: c3 };
+              });
+            }
+            l4 = item.header.length;
+            for (j3 = 0; j3 < l4; j3++) {
+              item.header[j3].tokens = this.lexer.inline(item.header[j3].text);
+            }
+            l4 = item.rows.length;
+            for (j3 = 0; j3 < l4; j3++) {
+              row = item.rows[j3];
+              for (k4 = 0; k4 < row.length; k4++) {
+                row[k4].tokens = this.lexer.inline(row[k4].text);
+              }
+            }
+            return item;
+          }
+        }
+      }
+      lheading(src) {
+        const cap = this.rules.block.lheading.exec(src);
+        if (cap) {
+          return {
+            type: "heading",
+            raw: cap[0],
+            depth: cap[2].charAt(0) === "=" ? 1 : 2,
+            text: cap[1],
+            tokens: this.lexer.inline(cap[1])
+          };
+        }
+      }
+      paragraph(src) {
+        const cap = this.rules.block.paragraph.exec(src);
+        if (cap) {
+          const text = cap[1].charAt(cap[1].length - 1) === "\n" ? cap[1].slice(0, -1) : cap[1];
+          return {
+            type: "paragraph",
+            raw: cap[0],
+            text,
+            tokens: this.lexer.inline(text)
+          };
+        }
+      }
+      text(src) {
+        const cap = this.rules.block.text.exec(src);
+        if (cap) {
+          return {
+            type: "text",
+            raw: cap[0],
+            text: cap[0],
+            tokens: this.lexer.inline(cap[0])
+          };
+        }
+      }
+      escape(src) {
+        const cap = this.rules.inline.escape.exec(src);
+        if (cap) {
+          return {
+            type: "escape",
+            raw: cap[0],
+            text: escape(cap[1])
+          };
+        }
+      }
+      tag(src) {
+        const cap = this.rules.inline.tag.exec(src);
+        if (cap) {
+          if (!this.lexer.state.inLink && /^<a /i.test(cap[0])) {
+            this.lexer.state.inLink = true;
+          } else if (this.lexer.state.inLink && /^<\/a>/i.test(cap[0])) {
+            this.lexer.state.inLink = false;
+          }
+          if (!this.lexer.state.inRawBlock && /^<(pre|code|kbd|script)(\s|>)/i.test(cap[0])) {
+            this.lexer.state.inRawBlock = true;
+          } else if (this.lexer.state.inRawBlock && /^<\/(pre|code|kbd|script)(\s|>)/i.test(cap[0])) {
+            this.lexer.state.inRawBlock = false;
+          }
+          return {
+            type: this.options.sanitize ? "text" : "html",
+            raw: cap[0],
+            inLink: this.lexer.state.inLink,
+            inRawBlock: this.lexer.state.inRawBlock,
+            text: this.options.sanitize ? this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape(cap[0]) : cap[0]
+          };
+        }
+      }
+      link(src) {
+        const cap = this.rules.inline.link.exec(src);
+        if (cap) {
+          const trimmedUrl = cap[2].trim();
+          if (!this.options.pedantic && /^</.test(trimmedUrl)) {
+            if (!/>$/.test(trimmedUrl)) {
+              return;
+            }
+            const rtrimSlash = rtrim(trimmedUrl.slice(0, -1), "\\");
+            if ((trimmedUrl.length - rtrimSlash.length) % 2 === 0) {
+              return;
+            }
+          } else {
+            const lastParenIndex = findClosingBracket(cap[2], "()");
+            if (lastParenIndex > -1) {
+              const start = cap[0].indexOf("!") === 0 ? 5 : 4;
+              const linkLen = start + cap[1].length + lastParenIndex;
+              cap[2] = cap[2].substring(0, lastParenIndex);
+              cap[0] = cap[0].substring(0, linkLen).trim();
+              cap[3] = "";
+            }
+          }
+          let href = cap[2];
+          let title = "";
+          if (this.options.pedantic) {
+            const link = /^([^'"]*[^\s])\s+(['"])(.*)\2/.exec(href);
+            if (link) {
+              href = link[1];
+              title = link[3];
+            }
+          } else {
+            title = cap[3] ? cap[3].slice(1, -1) : "";
+          }
+          href = href.trim();
+          if (/^</.test(href)) {
+            if (this.options.pedantic && !/>$/.test(trimmedUrl)) {
+              href = href.slice(1);
+            } else {
+              href = href.slice(1, -1);
+            }
+          }
+          return outputLink(cap, {
+            href: href ? href.replace(this.rules.inline._escapes, "$1") : href,
+            title: title ? title.replace(this.rules.inline._escapes, "$1") : title
+          }, cap[0], this.lexer);
+        }
+      }
+      reflink(src, links) {
+        let cap;
+        if ((cap = this.rules.inline.reflink.exec(src)) || (cap = this.rules.inline.nolink.exec(src))) {
+          let link = (cap[2] || cap[1]).replace(/\s+/g, " ");
+          link = links[link.toLowerCase()];
+          if (!link || !link.href) {
+            const text = cap[0].charAt(0);
+            return {
+              type: "text",
+              raw: text,
+              text
+            };
+          }
+          return outputLink(cap, link, cap[0], this.lexer);
+        }
+      }
+      emStrong(src, maskedSrc, prevChar = "") {
+        let match = this.rules.inline.emStrong.lDelim.exec(src);
+        if (!match)
+          return;
+        if (match[3] && prevChar.match(/[\p{L}\p{N}]/u))
+          return;
+        const nextChar = match[1] || match[2] || "";
+        if (!nextChar || nextChar && (prevChar === "" || this.rules.inline.punctuation.exec(prevChar))) {
+          const lLength = match[0].length - 1;
+          let rDelim, rLength, delimTotal = lLength, midDelimTotal = 0;
+          const endReg = match[0][0] === "*" ? this.rules.inline.emStrong.rDelimAst : this.rules.inline.emStrong.rDelimUnd;
+          endReg.lastIndex = 0;
+          maskedSrc = maskedSrc.slice(-1 * src.length + lLength);
+          while ((match = endReg.exec(maskedSrc)) != null) {
+            rDelim = match[1] || match[2] || match[3] || match[4] || match[5] || match[6];
+            if (!rDelim)
+              continue;
+            rLength = rDelim.length;
+            if (match[3] || match[4]) {
+              delimTotal += rLength;
+              continue;
+            } else if (match[5] || match[6]) {
+              if (lLength % 3 && !((lLength + rLength) % 3)) {
+                midDelimTotal += rLength;
+                continue;
+              }
+            }
+            delimTotal -= rLength;
+            if (delimTotal > 0)
+              continue;
+            rLength = Math.min(rLength, rLength + delimTotal + midDelimTotal);
+            if (Math.min(lLength, rLength) % 2) {
+              const text2 = src.slice(1, lLength + match.index + rLength);
+              return {
+                type: "em",
+                raw: src.slice(0, lLength + match.index + rLength + 1),
+                text: text2,
+                tokens: this.lexer.inlineTokens(text2)
+              };
+            }
+            const text = src.slice(2, lLength + match.index + rLength - 1);
+            return {
+              type: "strong",
+              raw: src.slice(0, lLength + match.index + rLength + 1),
+              text,
+              tokens: this.lexer.inlineTokens(text)
+            };
+          }
+        }
+      }
+      codespan(src) {
+        const cap = this.rules.inline.code.exec(src);
+        if (cap) {
+          let text = cap[2].replace(/\n/g, " ");
+          const hasNonSpaceChars = /[^ ]/.test(text);
+          const hasSpaceCharsOnBothEnds = /^ /.test(text) && / $/.test(text);
+          if (hasNonSpaceChars && hasSpaceCharsOnBothEnds) {
+            text = text.substring(1, text.length - 1);
+          }
+          text = escape(text, true);
+          return {
+            type: "codespan",
+            raw: cap[0],
+            text
+          };
+        }
+      }
+      br(src) {
+        const cap = this.rules.inline.br.exec(src);
+        if (cap) {
+          return {
+            type: "br",
+            raw: cap[0]
+          };
+        }
+      }
+      del(src) {
+        const cap = this.rules.inline.del.exec(src);
+        if (cap) {
+          return {
+            type: "del",
+            raw: cap[0],
+            text: cap[2],
+            tokens: this.lexer.inlineTokens(cap[2])
+          };
+        }
+      }
+      autolink(src, mangle2) {
+        const cap = this.rules.inline.autolink.exec(src);
+        if (cap) {
+          let text, href;
+          if (cap[2] === "@") {
+            text = escape(this.options.mangle ? mangle2(cap[1]) : cap[1]);
+            href = "mailto:" + text;
+          } else {
+            text = escape(cap[1]);
+            href = text;
+          }
+          return {
+            type: "link",
+            raw: cap[0],
+            text,
+            href,
+            tokens: [
+              {
+                type: "text",
+                raw: text,
+                text
+              }
+            ]
+          };
+        }
+      }
+      url(src, mangle2) {
+        let cap;
+        if (cap = this.rules.inline.url.exec(src)) {
+          let text, href;
+          if (cap[2] === "@") {
+            text = escape(this.options.mangle ? mangle2(cap[0]) : cap[0]);
+            href = "mailto:" + text;
+          } else {
+            let prevCapZero;
+            do {
+              prevCapZero = cap[0];
+              cap[0] = this.rules.inline._backpedal.exec(cap[0])[0];
+            } while (prevCapZero !== cap[0]);
+            text = escape(cap[0]);
+            if (cap[1] === "www.") {
+              href = "http://" + text;
+            } else {
+              href = text;
+            }
+          }
+          return {
+            type: "link",
+            raw: cap[0],
+            text,
+            href,
+            tokens: [
+              {
+                type: "text",
+                raw: text,
+                text
+              }
+            ]
+          };
+        }
+      }
+      inlineText(src, smartypants2) {
+        const cap = this.rules.inline.text.exec(src);
+        if (cap) {
+          let text;
+          if (this.lexer.state.inRawBlock) {
+            text = this.options.sanitize ? this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape(cap[0]) : cap[0];
+          } else {
+            text = escape(this.options.smartypants ? smartypants2(cap[0]) : cap[0]);
+          }
+          return {
+            type: "text",
+            raw: cap[0],
+            text
+          };
+        }
+      }
+    };
+    block = {
+      newline: /^(?: *(?:\n|$))+/,
+      code: /^( {4}[^\n]+(?:\n(?: *(?:\n|$))*)?)+/,
+      fences: /^ {0,3}(`{3,}(?=[^`\n]*\n)|~{3,})([^\n]*)\n(?:|([\s\S]*?)\n)(?: {0,3}\1[~`]* *(?=\n|$)|$)/,
+      hr: /^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/,
+      heading: /^ {0,3}(#{1,6})(?=\s|$)(.*)(?:\n+|$)/,
+      blockquote: /^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/,
+      list: /^( {0,3}bull)([ \t][^\n]+?)?(?:\n|$)/,
+      html: "^ {0,3}(?:<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?(?:\\?>\\n*|$)|<![A-Z][\\s\\S]*?(?:>\\n*|$)|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>\\n*|$)|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n *)+\\n|$)|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$)|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$))",
+      def: /^ {0,3}\[(label)\]: *(?:\n *)?<?([^\s>]+)>?(?:(?: +(?:\n *)?| *\n *)(title))? *(?:\n+|$)/,
+      table: noopTest,
+      lheading: /^([^\n]+)\n {0,3}(=+|-+) *(?:\n+|$)/,
+      _paragraph: /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/,
+      text: /^[^\n]+/
+    };
+    block._label = /(?!\s*\])(?:\\.|[^\[\]\\])+/;
+    block._title = /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/;
+    block.def = edit(block.def).replace("label", block._label).replace("title", block._title).getRegex();
+    block.bullet = /(?:[*+-]|\d{1,9}[.)])/;
+    block.listItemStart = edit(/^( *)(bull) */).replace("bull", block.bullet).getRegex();
+    block.list = edit(block.list).replace(/bull/g, block.bullet).replace("hr", "\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))").replace("def", "\\n+(?=" + block.def.source + ")").getRegex();
+    block._tag = "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul";
+    block._comment = /<!--(?!-?>)[\s\S]*?(?:-->|$)/;
+    block.html = edit(block.html, "i").replace("comment", block._comment).replace("tag", block._tag).replace("attribute", / +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/).getRegex();
+    block.paragraph = edit(block._paragraph).replace("hr", block.hr).replace("heading", " {0,3}#{1,6} ").replace("|lheading", "").replace("|table", "").replace("blockquote", " {0,3}>").replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list", " {0,3}(?:[*+-]|1[.)]) ").replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag", block._tag).getRegex();
+    block.blockquote = edit(block.blockquote).replace("paragraph", block.paragraph).getRegex();
+    block.normal = merge({}, block);
+    block.gfm = merge({}, block.normal, {
+      table: "^ *([^\\n ].*\\|.*)\\n {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?(?:\\n((?:(?! *\\n|hr|heading|blockquote|code|fences|list|html).*(?:\\n|$))*)\\n*|$)"
+    });
+    block.gfm.table = edit(block.gfm.table).replace("hr", block.hr).replace("heading", " {0,3}#{1,6} ").replace("blockquote", " {0,3}>").replace("code", " {4}[^\\n]").replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list", " {0,3}(?:[*+-]|1[.)]) ").replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag", block._tag).getRegex();
+    block.gfm.paragraph = edit(block._paragraph).replace("hr", block.hr).replace("heading", " {0,3}#{1,6} ").replace("|lheading", "").replace("table", block.gfm.table).replace("blockquote", " {0,3}>").replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list", " {0,3}(?:[*+-]|1[.)]) ").replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag", block._tag).getRegex();
+    block.pedantic = merge({}, block.normal, {
+      html: edit(`^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:"[^"]*"|'[^']*'|\\s[^'"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))`).replace("comment", block._comment).replace(/tag/g, "(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b").getRegex(),
+      def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,
+      heading: /^(#{1,6})(.*)(?:\n+|$)/,
+      fences: noopTest,
+      paragraph: edit(block.normal._paragraph).replace("hr", block.hr).replace("heading", " *#{1,6} *[^\n]").replace("lheading", block.lheading).replace("blockquote", " {0,3}>").replace("|fences", "").replace("|list", "").replace("|html", "").getRegex()
+    });
+    inline = {
+      escape: /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/,
+      autolink: /^<(scheme:[^\s\x00-\x1f<>]*|email)>/,
+      url: noopTest,
+      tag: "^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>",
+      link: /^!?\[(label)\]\(\s*(href)(?:\s+(title))?\s*\)/,
+      reflink: /^!?\[(label)\]\[(ref)\]/,
+      nolink: /^!?\[(ref)\](?:\[\])?/,
+      reflinkSearch: "reflink|nolink(?!\\()",
+      emStrong: {
+        lDelim: /^(?:\*+(?:([punct_])|[^\s*]))|^_+(?:([punct*])|([^\s_]))/,
+        rDelimAst: /^[^_*]*?\_\_[^_*]*?\*[^_*]*?(?=\_\_)|[^*]+(?=[^*])|[punct_](\*+)(?=[\s]|$)|[^punct*_\s](\*+)(?=[punct_\s]|$)|[punct_\s](\*+)(?=[^punct*_\s])|[\s](\*+)(?=[punct_])|[punct_](\*+)(?=[punct_])|[^punct*_\s](\*+)(?=[^punct*_\s])/,
+        rDelimUnd: /^[^_*]*?\*\*[^_*]*?\_[^_*]*?(?=\*\*)|[^_]+(?=[^_])|[punct*](\_+)(?=[\s]|$)|[^punct*_\s](\_+)(?=[punct*\s]|$)|[punct*\s](\_+)(?=[^punct*_\s])|[\s](\_+)(?=[punct*])|[punct*](\_+)(?=[punct*])/
+      },
+      code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
+      br: /^( {2,}|\\)\n(?!\s*$)/,
+      del: noopTest,
+      text: /^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*_]|\b_|$)|[^ ](?= {2,}\n)))/,
+      punctuation: /^([\spunctuation])/
+    };
+    inline._punctuation = "!\"#$%&'()+\\-.,/:;<=>?@\\[\\]`^{|}~";
+    inline.punctuation = edit(inline.punctuation).replace(/punctuation/g, inline._punctuation).getRegex();
+    inline.blockSkip = /\[[^\]]*?\]\([^\)]*?\)|`[^`]*?`|<[^>]*?>/g;
+    inline.escapedEmSt = /\\\*|\\_/g;
+    inline._comment = edit(block._comment).replace("(?:-->|$)", "-->").getRegex();
+    inline.emStrong.lDelim = edit(inline.emStrong.lDelim).replace(/punct/g, inline._punctuation).getRegex();
+    inline.emStrong.rDelimAst = edit(inline.emStrong.rDelimAst, "g").replace(/punct/g, inline._punctuation).getRegex();
+    inline.emStrong.rDelimUnd = edit(inline.emStrong.rDelimUnd, "g").replace(/punct/g, inline._punctuation).getRegex();
+    inline._escapes = /\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g;
+    inline._scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
+    inline._email = /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/;
+    inline.autolink = edit(inline.autolink).replace("scheme", inline._scheme).replace("email", inline._email).getRegex();
+    inline._attribute = /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/;
+    inline.tag = edit(inline.tag).replace("comment", inline._comment).replace("attribute", inline._attribute).getRegex();
+    inline._label = /(?:\[(?:\\.|[^\[\]\\])*\]|\\.|`[^`]*`|[^\[\]\\`])*?/;
+    inline._href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]*/;
+    inline._title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
+    inline.link = edit(inline.link).replace("label", inline._label).replace("href", inline._href).replace("title", inline._title).getRegex();
+    inline.reflink = edit(inline.reflink).replace("label", inline._label).replace("ref", block._label).getRegex();
+    inline.nolink = edit(inline.nolink).replace("ref", block._label).getRegex();
+    inline.reflinkSearch = edit(inline.reflinkSearch, "g").replace("reflink", inline.reflink).replace("nolink", inline.nolink).getRegex();
+    inline.normal = merge({}, inline);
+    inline.pedantic = merge({}, inline.normal, {
+      strong: {
+        start: /^__|\*\*/,
+        middle: /^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,
+        endAst: /\*\*(?!\*)/g,
+        endUnd: /__(?!_)/g
+      },
+      em: {
+        start: /^_|\*/,
+        middle: /^()\*(?=\S)([\s\S]*?\S)\*(?!\*)|^_(?=\S)([\s\S]*?\S)_(?!_)/,
+        endAst: /\*(?!\*)/g,
+        endUnd: /_(?!_)/g
+      },
+      link: edit(/^!?\[(label)\]\((.*?)\)/).replace("label", inline._label).getRegex(),
+      reflink: edit(/^!?\[(label)\]\s*\[([^\]]*)\]/).replace("label", inline._label).getRegex()
+    });
+    inline.gfm = merge({}, inline.normal, {
+      escape: edit(inline.escape).replace("])", "~|])").getRegex(),
+      _extended_email: /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/,
+      url: /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/,
+      _backpedal: /(?:[^?!.,:;*_~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_~)]+(?!$))+/,
+      del: /^(~~?)(?=[^\s~])([\s\S]*?[^\s~])\1(?=[^~]|$)/,
+      text: /^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/
+    });
+    inline.gfm.url = edit(inline.gfm.url, "i").replace("email", inline.gfm._extended_email).getRegex();
+    inline.breaks = merge({}, inline.gfm, {
+      br: edit(inline.br).replace("{2,}", "*").getRegex(),
+      text: edit(inline.gfm.text).replace("\\b_", "\\b_| {2,}\\n").replace(/\{2,\}/g, "*").getRegex()
+    });
+    Lexer = class {
+      constructor(options2) {
+        this.tokens = [];
+        this.tokens.links = Object.create(null);
+        this.options = options2 || defaults;
+        this.options.tokenizer = this.options.tokenizer || new Tokenizer();
+        this.tokenizer = this.options.tokenizer;
+        this.tokenizer.options = this.options;
+        this.tokenizer.lexer = this;
+        this.inlineQueue = [];
+        this.state = {
+          inLink: false,
+          inRawBlock: false,
+          top: true
+        };
+        const rules = {
+          block: block.normal,
+          inline: inline.normal
+        };
+        if (this.options.pedantic) {
+          rules.block = block.pedantic;
+          rules.inline = inline.pedantic;
+        } else if (this.options.gfm) {
+          rules.block = block.gfm;
+          if (this.options.breaks) {
+            rules.inline = inline.breaks;
+          } else {
+            rules.inline = inline.gfm;
+          }
+        }
+        this.tokenizer.rules = rules;
+      }
+      static get rules() {
+        return {
+          block,
+          inline
+        };
+      }
+      static lex(src, options2) {
+        const lexer2 = new Lexer(options2);
+        return lexer2.lex(src);
+      }
+      static lexInline(src, options2) {
+        const lexer2 = new Lexer(options2);
+        return lexer2.inlineTokens(src);
+      }
+      lex(src) {
+        src = src.replace(/\r\n|\r/g, "\n");
+        this.blockTokens(src, this.tokens);
+        let next;
+        while (next = this.inlineQueue.shift()) {
+          this.inlineTokens(next.src, next.tokens);
+        }
+        return this.tokens;
+      }
+      blockTokens(src, tokens = []) {
+        if (this.options.pedantic) {
+          src = src.replace(/\t/g, "    ").replace(/^ +$/gm, "");
+        } else {
+          src = src.replace(/^( *)(\t+)/gm, (_3, leading, tabs) => {
+            return leading + "    ".repeat(tabs.length);
+          });
+        }
+        let token, lastToken, cutSrc, lastParagraphClipped;
+        while (src) {
+          if (this.options.extensions && this.options.extensions.block && this.options.extensions.block.some((extTokenizer) => {
+            if (token = extTokenizer.call({ lexer: this }, src, tokens)) {
+              src = src.substring(token.raw.length);
+              tokens.push(token);
+              return true;
+            }
+            return false;
+          })) {
+            continue;
+          }
+          if (token = this.tokenizer.space(src)) {
+            src = src.substring(token.raw.length);
+            if (token.raw.length === 1 && tokens.length > 0) {
+              tokens[tokens.length - 1].raw += "\n";
+            } else {
+              tokens.push(token);
+            }
+            continue;
+          }
+          if (token = this.tokenizer.code(src)) {
+            src = src.substring(token.raw.length);
+            lastToken = tokens[tokens.length - 1];
+            if (lastToken && (lastToken.type === "paragraph" || lastToken.type === "text")) {
+              lastToken.raw += "\n" + token.raw;
+              lastToken.text += "\n" + token.text;
+              this.inlineQueue[this.inlineQueue.length - 1].src = lastToken.text;
+            } else {
+              tokens.push(token);
+            }
+            continue;
+          }
+          if (token = this.tokenizer.fences(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.heading(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.hr(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.blockquote(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.list(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.html(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.def(src)) {
+            src = src.substring(token.raw.length);
+            lastToken = tokens[tokens.length - 1];
+            if (lastToken && (lastToken.type === "paragraph" || lastToken.type === "text")) {
+              lastToken.raw += "\n" + token.raw;
+              lastToken.text += "\n" + token.raw;
+              this.inlineQueue[this.inlineQueue.length - 1].src = lastToken.text;
+            } else if (!this.tokens.links[token.tag]) {
+              this.tokens.links[token.tag] = {
+                href: token.href,
+                title: token.title
+              };
+            }
+            continue;
+          }
+          if (token = this.tokenizer.table(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.lheading(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          cutSrc = src;
+          if (this.options.extensions && this.options.extensions.startBlock) {
+            let startIndex = Infinity;
+            const tempSrc = src.slice(1);
+            let tempStart;
+            this.options.extensions.startBlock.forEach(function(getStartIndex) {
+              tempStart = getStartIndex.call({ lexer: this }, tempSrc);
+              if (typeof tempStart === "number" && tempStart >= 0) {
+                startIndex = Math.min(startIndex, tempStart);
+              }
+            });
+            if (startIndex < Infinity && startIndex >= 0) {
+              cutSrc = src.substring(0, startIndex + 1);
+            }
+          }
+          if (this.state.top && (token = this.tokenizer.paragraph(cutSrc))) {
+            lastToken = tokens[tokens.length - 1];
+            if (lastParagraphClipped && lastToken.type === "paragraph") {
+              lastToken.raw += "\n" + token.raw;
+              lastToken.text += "\n" + token.text;
+              this.inlineQueue.pop();
+              this.inlineQueue[this.inlineQueue.length - 1].src = lastToken.text;
+            } else {
+              tokens.push(token);
+            }
+            lastParagraphClipped = cutSrc.length !== src.length;
+            src = src.substring(token.raw.length);
+            continue;
+          }
+          if (token = this.tokenizer.text(src)) {
+            src = src.substring(token.raw.length);
+            lastToken = tokens[tokens.length - 1];
+            if (lastToken && lastToken.type === "text") {
+              lastToken.raw += "\n" + token.raw;
+              lastToken.text += "\n" + token.text;
+              this.inlineQueue.pop();
+              this.inlineQueue[this.inlineQueue.length - 1].src = lastToken.text;
+            } else {
+              tokens.push(token);
+            }
+            continue;
+          }
+          if (src) {
+            const errMsg = "Infinite loop on byte: " + src.charCodeAt(0);
+            if (this.options.silent) {
+              console.error(errMsg);
+              break;
+            } else {
+              throw new Error(errMsg);
+            }
+          }
+        }
+        this.state.top = true;
+        return tokens;
+      }
+      inline(src, tokens = []) {
+        this.inlineQueue.push({ src, tokens });
+        return tokens;
+      }
+      inlineTokens(src, tokens = []) {
+        let token, lastToken, cutSrc;
+        let maskedSrc = src;
+        let match;
+        let keepPrevChar, prevChar;
+        if (this.tokens.links) {
+          const links = Object.keys(this.tokens.links);
+          if (links.length > 0) {
+            while ((match = this.tokenizer.rules.inline.reflinkSearch.exec(maskedSrc)) != null) {
+              if (links.includes(match[0].slice(match[0].lastIndexOf("[") + 1, -1))) {
+                maskedSrc = maskedSrc.slice(0, match.index) + "[" + repeatString("a", match[0].length - 2) + "]" + maskedSrc.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex);
+              }
+            }
+          }
+        }
+        while ((match = this.tokenizer.rules.inline.blockSkip.exec(maskedSrc)) != null) {
+          maskedSrc = maskedSrc.slice(0, match.index) + "[" + repeatString("a", match[0].length - 2) + "]" + maskedSrc.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
+        }
+        while ((match = this.tokenizer.rules.inline.escapedEmSt.exec(maskedSrc)) != null) {
+          maskedSrc = maskedSrc.slice(0, match.index) + "++" + maskedSrc.slice(this.tokenizer.rules.inline.escapedEmSt.lastIndex);
+        }
+        while (src) {
+          if (!keepPrevChar) {
+            prevChar = "";
+          }
+          keepPrevChar = false;
+          if (this.options.extensions && this.options.extensions.inline && this.options.extensions.inline.some((extTokenizer) => {
+            if (token = extTokenizer.call({ lexer: this }, src, tokens)) {
+              src = src.substring(token.raw.length);
+              tokens.push(token);
+              return true;
+            }
+            return false;
+          })) {
+            continue;
+          }
+          if (token = this.tokenizer.escape(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.tag(src)) {
+            src = src.substring(token.raw.length);
+            lastToken = tokens[tokens.length - 1];
+            if (lastToken && token.type === "text" && lastToken.type === "text") {
+              lastToken.raw += token.raw;
+              lastToken.text += token.text;
+            } else {
+              tokens.push(token);
+            }
+            continue;
+          }
+          if (token = this.tokenizer.link(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.reflink(src, this.tokens.links)) {
+            src = src.substring(token.raw.length);
+            lastToken = tokens[tokens.length - 1];
+            if (lastToken && token.type === "text" && lastToken.type === "text") {
+              lastToken.raw += token.raw;
+              lastToken.text += token.text;
+            } else {
+              tokens.push(token);
+            }
+            continue;
+          }
+          if (token = this.tokenizer.emStrong(src, maskedSrc, prevChar)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.codespan(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.br(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.del(src)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (token = this.tokenizer.autolink(src, mangle)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          if (!this.state.inLink && (token = this.tokenizer.url(src, mangle))) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            continue;
+          }
+          cutSrc = src;
+          if (this.options.extensions && this.options.extensions.startInline) {
+            let startIndex = Infinity;
+            const tempSrc = src.slice(1);
+            let tempStart;
+            this.options.extensions.startInline.forEach(function(getStartIndex) {
+              tempStart = getStartIndex.call({ lexer: this }, tempSrc);
+              if (typeof tempStart === "number" && tempStart >= 0) {
+                startIndex = Math.min(startIndex, tempStart);
+              }
+            });
+            if (startIndex < Infinity && startIndex >= 0) {
+              cutSrc = src.substring(0, startIndex + 1);
+            }
+          }
+          if (token = this.tokenizer.inlineText(cutSrc, smartypants)) {
+            src = src.substring(token.raw.length);
+            if (token.raw.slice(-1) !== "_") {
+              prevChar = token.raw.slice(-1);
+            }
+            keepPrevChar = true;
+            lastToken = tokens[tokens.length - 1];
+            if (lastToken && lastToken.type === "text") {
+              lastToken.raw += token.raw;
+              lastToken.text += token.text;
+            } else {
+              tokens.push(token);
+            }
+            continue;
+          }
+          if (src) {
+            const errMsg = "Infinite loop on byte: " + src.charCodeAt(0);
+            if (this.options.silent) {
+              console.error(errMsg);
+              break;
+            } else {
+              throw new Error(errMsg);
+            }
+          }
+        }
+        return tokens;
+      }
+    };
+    Renderer = class {
+      constructor(options2) {
+        this.options = options2 || defaults;
+      }
+      code(code, infostring, escaped) {
+        const lang = (infostring || "").match(/\S*/)[0];
+        if (this.options.highlight) {
+          const out = this.options.highlight(code, lang);
+          if (out != null && out !== code) {
+            escaped = true;
+            code = out;
+          }
+        }
+        code = code.replace(/\n$/, "") + "\n";
+        if (!lang) {
+          return "<pre><code>" + (escaped ? code : escape(code, true)) + "</code></pre>\n";
+        }
+        return '<pre><code class="' + this.options.langPrefix + escape(lang, true) + '">' + (escaped ? code : escape(code, true)) + "</code></pre>\n";
+      }
+      blockquote(quote) {
+        return `<blockquote>
+${quote}</blockquote>
+`;
+      }
+      html(html) {
+        return html;
+      }
+      heading(text, level, raw, slugger) {
+        if (this.options.headerIds) {
+          const id = this.options.headerPrefix + slugger.slug(raw);
+          return `<h${level} id="${id}">${text}</h${level}>
+`;
+        }
+        return `<h${level}>${text}</h${level}>
+`;
+      }
+      hr() {
+        return this.options.xhtml ? "<hr/>\n" : "<hr>\n";
+      }
+      list(body, ordered, start) {
+        const type = ordered ? "ol" : "ul", startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
+        return "<" + type + startatt + ">\n" + body + "</" + type + ">\n";
+      }
+      listitem(text) {
+        return `<li>${text}</li>
+`;
+      }
+      checkbox(checked) {
+        return "<input " + (checked ? 'checked="" ' : "") + 'disabled="" type="checkbox"' + (this.options.xhtml ? " /" : "") + "> ";
+      }
+      paragraph(text) {
+        return `<p>${text}</p>
+`;
+      }
+      table(header, body) {
+        if (body)
+          body = `<tbody>${body}</tbody>`;
+        return "<table>\n<thead>\n" + header + "</thead>\n" + body + "</table>\n";
+      }
+      tablerow(content) {
+        return `<tr>
+${content}</tr>
+`;
+      }
+      tablecell(content, flags) {
+        const type = flags.header ? "th" : "td";
+        const tag = flags.align ? `<${type} align="${flags.align}">` : `<${type}>`;
+        return tag + content + `</${type}>
+`;
+      }
+      strong(text) {
+        return `<strong>${text}</strong>`;
+      }
+      em(text) {
+        return `<em>${text}</em>`;
+      }
+      codespan(text) {
+        return `<code>${text}</code>`;
+      }
+      br() {
+        return this.options.xhtml ? "<br/>" : "<br>";
+      }
+      del(text) {
+        return `<del>${text}</del>`;
+      }
+      link(href, title, text) {
+        href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
+        if (href === null) {
+          return text;
+        }
+        let out = '<a href="' + escape(href) + '"';
+        if (title) {
+          out += ' title="' + title + '"';
+        }
+        out += ">" + text + "</a>";
+        return out;
+      }
+      image(href, title, text) {
+        href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
+        if (href === null) {
+          return text;
+        }
+        let out = `<img src="${href}" alt="${text}"`;
+        if (title) {
+          out += ` title="${title}"`;
+        }
+        out += this.options.xhtml ? "/>" : ">";
+        return out;
+      }
+      text(text) {
+        return text;
+      }
+    };
+    TextRenderer = class {
+      strong(text) {
+        return text;
+      }
+      em(text) {
+        return text;
+      }
+      codespan(text) {
+        return text;
+      }
+      del(text) {
+        return text;
+      }
+      html(text) {
+        return text;
+      }
+      text(text) {
+        return text;
+      }
+      link(href, title, text) {
+        return "" + text;
+      }
+      image(href, title, text) {
+        return "" + text;
+      }
+      br() {
+        return "";
+      }
+    };
+    Slugger = class {
+      constructor() {
+        this.seen = {};
+      }
+      serialize(value) {
+        return value.toLowerCase().trim().replace(/<[!\/a-z].*?>/ig, "").replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, "").replace(/\s/g, "-");
+      }
+      getNextSafeSlug(originalSlug, isDryRun) {
+        let slug = originalSlug;
+        let occurenceAccumulator = 0;
+        if (this.seen.hasOwnProperty(slug)) {
+          occurenceAccumulator = this.seen[originalSlug];
+          do {
+            occurenceAccumulator++;
+            slug = originalSlug + "-" + occurenceAccumulator;
+          } while (this.seen.hasOwnProperty(slug));
+        }
+        if (!isDryRun) {
+          this.seen[originalSlug] = occurenceAccumulator;
+          this.seen[slug] = 0;
+        }
+        return slug;
+      }
+      slug(value, options2 = {}) {
+        const slug = this.serialize(value);
+        return this.getNextSafeSlug(slug, options2.dryrun);
+      }
+    };
+    Parser = class {
+      constructor(options2) {
+        this.options = options2 || defaults;
+        this.options.renderer = this.options.renderer || new Renderer();
+        this.renderer = this.options.renderer;
+        this.renderer.options = this.options;
+        this.textRenderer = new TextRenderer();
+        this.slugger = new Slugger();
+      }
+      static parse(tokens, options2) {
+        const parser2 = new Parser(options2);
+        return parser2.parse(tokens);
+      }
+      static parseInline(tokens, options2) {
+        const parser2 = new Parser(options2);
+        return parser2.parseInline(tokens);
+      }
+      parse(tokens, top = true) {
+        let out = "", i3, j3, k4, l22, l32, row, cell, header, body, token, ordered, start, loose, itemBody, item, checked, task, checkbox, ret;
+        const l4 = tokens.length;
+        for (i3 = 0; i3 < l4; i3++) {
+          token = tokens[i3];
+          if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[token.type]) {
+            ret = this.options.extensions.renderers[token.type].call({ parser: this }, token);
+            if (ret !== false || !["space", "hr", "heading", "code", "table", "blockquote", "list", "html", "paragraph", "text"].includes(token.type)) {
+              out += ret || "";
+              continue;
+            }
+          }
+          switch (token.type) {
+            case "space": {
+              continue;
+            }
+            case "hr": {
+              out += this.renderer.hr();
+              continue;
+            }
+            case "heading": {
+              out += this.renderer.heading(this.parseInline(token.tokens), token.depth, unescape(this.parseInline(token.tokens, this.textRenderer)), this.slugger);
+              continue;
+            }
+            case "code": {
+              out += this.renderer.code(token.text, token.lang, token.escaped);
+              continue;
+            }
+            case "table": {
+              header = "";
+              cell = "";
+              l22 = token.header.length;
+              for (j3 = 0; j3 < l22; j3++) {
+                cell += this.renderer.tablecell(this.parseInline(token.header[j3].tokens), { header: true, align: token.align[j3] });
+              }
+              header += this.renderer.tablerow(cell);
+              body = "";
+              l22 = token.rows.length;
+              for (j3 = 0; j3 < l22; j3++) {
+                row = token.rows[j3];
+                cell = "";
+                l32 = row.length;
+                for (k4 = 0; k4 < l32; k4++) {
+                  cell += this.renderer.tablecell(this.parseInline(row[k4].tokens), { header: false, align: token.align[k4] });
+                }
+                body += this.renderer.tablerow(cell);
+              }
+              out += this.renderer.table(header, body);
+              continue;
+            }
+            case "blockquote": {
+              body = this.parse(token.tokens);
+              out += this.renderer.blockquote(body);
+              continue;
+            }
+            case "list": {
+              ordered = token.ordered;
+              start = token.start;
+              loose = token.loose;
+              l22 = token.items.length;
+              body = "";
+              for (j3 = 0; j3 < l22; j3++) {
+                item = token.items[j3];
+                checked = item.checked;
+                task = item.task;
+                itemBody = "";
+                if (item.task) {
+                  checkbox = this.renderer.checkbox(checked);
+                  if (loose) {
+                    if (item.tokens.length > 0 && item.tokens[0].type === "paragraph") {
+                      item.tokens[0].text = checkbox + " " + item.tokens[0].text;
+                      if (item.tokens[0].tokens && item.tokens[0].tokens.length > 0 && item.tokens[0].tokens[0].type === "text") {
+                        item.tokens[0].tokens[0].text = checkbox + " " + item.tokens[0].tokens[0].text;
+                      }
+                    } else {
+                      item.tokens.unshift({
+                        type: "text",
+                        text: checkbox
+                      });
+                    }
+                  } else {
+                    itemBody += checkbox;
+                  }
+                }
+                itemBody += this.parse(item.tokens, loose);
+                body += this.renderer.listitem(itemBody, task, checked);
+              }
+              out += this.renderer.list(body, ordered, start);
+              continue;
+            }
+            case "html": {
+              out += this.renderer.html(token.text);
+              continue;
+            }
+            case "paragraph": {
+              out += this.renderer.paragraph(this.parseInline(token.tokens));
+              continue;
+            }
+            case "text": {
+              body = token.tokens ? this.parseInline(token.tokens) : token.text;
+              while (i3 + 1 < l4 && tokens[i3 + 1].type === "text") {
+                token = tokens[++i3];
+                body += "\n" + (token.tokens ? this.parseInline(token.tokens) : token.text);
+              }
+              out += top ? this.renderer.paragraph(body) : body;
+              continue;
+            }
+            default: {
+              const errMsg = 'Token with "' + token.type + '" type was not found.';
+              if (this.options.silent) {
+                console.error(errMsg);
+                return;
+              } else {
+                throw new Error(errMsg);
+              }
+            }
+          }
+        }
+        return out;
+      }
+      parseInline(tokens, renderer) {
+        renderer = renderer || this.renderer;
+        let out = "", i3, token, ret;
+        const l4 = tokens.length;
+        for (i3 = 0; i3 < l4; i3++) {
+          token = tokens[i3];
+          if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[token.type]) {
+            ret = this.options.extensions.renderers[token.type].call({ parser: this }, token);
+            if (ret !== false || !["escape", "html", "link", "image", "strong", "em", "codespan", "br", "del", "text"].includes(token.type)) {
+              out += ret || "";
+              continue;
+            }
+          }
+          switch (token.type) {
+            case "escape": {
+              out += renderer.text(token.text);
+              break;
+            }
+            case "html": {
+              out += renderer.html(token.text);
+              break;
+            }
+            case "link": {
+              out += renderer.link(token.href, token.title, this.parseInline(token.tokens, renderer));
+              break;
+            }
+            case "image": {
+              out += renderer.image(token.href, token.title, token.text);
+              break;
+            }
+            case "strong": {
+              out += renderer.strong(this.parseInline(token.tokens, renderer));
+              break;
+            }
+            case "em": {
+              out += renderer.em(this.parseInline(token.tokens, renderer));
+              break;
+            }
+            case "codespan": {
+              out += renderer.codespan(token.text);
+              break;
+            }
+            case "br": {
+              out += renderer.br();
+              break;
+            }
+            case "del": {
+              out += renderer.del(this.parseInline(token.tokens, renderer));
+              break;
+            }
+            case "text": {
+              out += renderer.text(token.text);
+              break;
+            }
+            default: {
+              const errMsg = 'Token with "' + token.type + '" type was not found.';
+              if (this.options.silent) {
+                console.error(errMsg);
+                return;
+              } else {
+                throw new Error(errMsg);
+              }
+            }
+          }
+        }
+        return out;
+      }
+    };
+    marked.options = marked.setOptions = function(opt) {
+      merge(marked.defaults, opt);
+      changeDefaults(marked.defaults);
+      return marked;
+    };
+    marked.getDefaults = getDefaults;
+    marked.defaults = defaults;
+    marked.use = function(...args) {
+      const opts = merge({}, ...args);
+      const extensions = marked.defaults.extensions || { renderers: {}, childTokens: {} };
+      let hasExtensions;
+      args.forEach((pack) => {
+        if (pack.extensions) {
+          hasExtensions = true;
+          pack.extensions.forEach((ext) => {
+            if (!ext.name) {
+              throw new Error("extension name required");
+            }
+            if (ext.renderer) {
+              const prevRenderer = extensions.renderers ? extensions.renderers[ext.name] : null;
+              if (prevRenderer) {
+                extensions.renderers[ext.name] = function(...args2) {
+                  let ret = ext.renderer.apply(this, args2);
+                  if (ret === false) {
+                    ret = prevRenderer.apply(this, args2);
+                  }
+                  return ret;
+                };
+              } else {
+                extensions.renderers[ext.name] = ext.renderer;
+              }
+            }
+            if (ext.tokenizer) {
+              if (!ext.level || ext.level !== "block" && ext.level !== "inline") {
+                throw new Error("extension level must be 'block' or 'inline'");
+              }
+              if (extensions[ext.level]) {
+                extensions[ext.level].unshift(ext.tokenizer);
+              } else {
+                extensions[ext.level] = [ext.tokenizer];
+              }
+              if (ext.start) {
+                if (ext.level === "block") {
+                  if (extensions.startBlock) {
+                    extensions.startBlock.push(ext.start);
+                  } else {
+                    extensions.startBlock = [ext.start];
+                  }
+                } else if (ext.level === "inline") {
+                  if (extensions.startInline) {
+                    extensions.startInline.push(ext.start);
+                  } else {
+                    extensions.startInline = [ext.start];
+                  }
+                }
+              }
+            }
+            if (ext.childTokens) {
+              extensions.childTokens[ext.name] = ext.childTokens;
+            }
+          });
+        }
+        if (pack.renderer) {
+          const renderer = marked.defaults.renderer || new Renderer();
+          for (const prop in pack.renderer) {
+            const prevRenderer = renderer[prop];
+            renderer[prop] = (...args2) => {
+              let ret = pack.renderer[prop].apply(renderer, args2);
+              if (ret === false) {
+                ret = prevRenderer.apply(renderer, args2);
+              }
+              return ret;
+            };
+          }
+          opts.renderer = renderer;
+        }
+        if (pack.tokenizer) {
+          const tokenizer = marked.defaults.tokenizer || new Tokenizer();
+          for (const prop in pack.tokenizer) {
+            const prevTokenizer = tokenizer[prop];
+            tokenizer[prop] = (...args2) => {
+              let ret = pack.tokenizer[prop].apply(tokenizer, args2);
+              if (ret === false) {
+                ret = prevTokenizer.apply(tokenizer, args2);
+              }
+              return ret;
+            };
+          }
+          opts.tokenizer = tokenizer;
+        }
+        if (pack.walkTokens) {
+          const walkTokens2 = marked.defaults.walkTokens;
+          opts.walkTokens = function(token) {
+            let values = [];
+            values.push(pack.walkTokens.call(this, token));
+            if (walkTokens2) {
+              values = values.concat(walkTokens2.call(this, token));
+            }
+            return values;
+          };
+        }
+        if (hasExtensions) {
+          opts.extensions = extensions;
+        }
+        marked.setOptions(opts);
+      });
+    };
+    marked.walkTokens = function(tokens, callback) {
+      let values = [];
+      for (const token of tokens) {
+        values = values.concat(callback.call(marked, token));
+        switch (token.type) {
+          case "table": {
+            for (const cell of token.header) {
+              values = values.concat(marked.walkTokens(cell.tokens, callback));
+            }
+            for (const row of token.rows) {
+              for (const cell of row) {
+                values = values.concat(marked.walkTokens(cell.tokens, callback));
+              }
+            }
+            break;
+          }
+          case "list": {
+            values = values.concat(marked.walkTokens(token.items, callback));
+            break;
+          }
+          default: {
+            if (marked.defaults.extensions && marked.defaults.extensions.childTokens && marked.defaults.extensions.childTokens[token.type]) {
+              marked.defaults.extensions.childTokens[token.type].forEach(function(childTokens) {
+                values = values.concat(marked.walkTokens(token[childTokens], callback));
+              });
+            } else if (token.tokens) {
+              values = values.concat(marked.walkTokens(token.tokens, callback));
+            }
+          }
+        }
+      }
+      return values;
+    };
+    marked.parseInline = function(src, opt) {
+      if (typeof src === "undefined" || src === null) {
+        throw new Error("marked.parseInline(): input parameter is undefined or null");
+      }
+      if (typeof src !== "string") {
+        throw new Error("marked.parseInline(): input parameter is of type " + Object.prototype.toString.call(src) + ", string expected");
+      }
+      opt = merge({}, marked.defaults, opt || {});
+      checkSanitizeDeprecation(opt);
+      try {
+        const tokens = Lexer.lexInline(src, opt);
+        if (opt.walkTokens) {
+          marked.walkTokens(tokens, opt.walkTokens);
+        }
+        return Parser.parseInline(tokens, opt);
+      } catch (e2) {
+        e2.message += "\nPlease report this to https://github.com/markedjs/marked.";
+        if (opt.silent) {
+          return "<p>An error occurred:</p><pre>" + escape(e2.message + "", true) + "</pre>";
+        }
+        throw e2;
+      }
+    };
+    marked.Parser = Parser;
+    marked.parser = Parser.parse;
+    marked.Renderer = Renderer;
+    marked.TextRenderer = TextRenderer;
+    marked.Lexer = Lexer;
+    marked.lexer = Lexer.lex;
+    marked.Tokenizer = Tokenizer;
+    marked.Slugger = Slugger;
+    marked.parse = marked;
+    options = marked.options;
+    setOptions = marked.setOptions;
+    use = marked.use;
+    walkTokens = marked.walkTokens;
+    parseInline = marked.parseInline;
+    parser = Parser.parse;
+    lexer = Lexer.lex;
+  }
+});
+
+// studio/src/notify.tsx
+var import_react245, hashNotification, notificationUniquenessChecker, notificationTypeChecker, NotificationContainer, NotificationTitle, NotificationMain, NotificationMessage, DismissButton, COLORS, IndicatorDot, createHandler, notify, ButtonContainer, Button3, NotifierContainer, NotificationScroller, EmptyState2, useEmptyNotificationsTooltip, Notifier, useNotifications;
+var init_notify = __esm({
+  "studio/src/notify.tsx"() {
+    import_react245 = __toModule(require_react());
+    init_headless();
+    init_styled_components_browser_esm();
+    init_css();
+    init_src();
+    init_getStudio();
+    init_marked_esm();
+    init_useTooltip();
+    init_MinimalTooltip();
+    hashNotification = ({ title, message }) => `${title} ${message}`;
+    notificationUniquenessChecker = (() => {
+      const map = new Map();
+      return {
+        add: (notification) => {
+          const key = hashNotification(notification);
+          if (map.has(key)) {
+            map.set(key, map.get(key) + 1);
+          } else {
+            map.set(key, 1);
+          }
+        },
+        delete: (notification) => {
+          const key = hashNotification(notification);
+          if (map.has(key) && map.get(key) > 1) {
+            map.set(key, map.get(key) - 1);
+          } else {
+            map.delete(key);
+          }
+        },
+        clear: () => {
+          map.clear();
+        },
+        check: (notification) => map.has(hashNotification(notification))
+      };
+    })();
+    notificationTypeChecker = (() => {
+      const map = new Map();
+      return {
+        add: (type) => {
+          if (map.has(type)) {
+            map.set(type, map.get(type) + 1);
+          } else {
+            map.set(type, 1);
+          }
+        },
+        delete: (type) => {
+          if (map.has(type) && map.get(type) > 1) {
+            map.set(type, map.get(type) - 1);
+          } else {
+            map.delete(type);
+          }
+        },
+        clear: () => {
+          map.clear();
+        },
+        check: (type) => map.has(type),
+        get types() {
+          return Array.of(...map.keys());
+        }
+      };
+    })();
+    NotificationContainer = styled_components_browser_esm_default.div`
+  width: 100%;
+  border-radius: 4px;
+  display: flex;
+  gap: 12px;
+  ${pointerEventsAutoInNormalMode};
+  background-color: black;
+  box-shadow: inset 0 0 0px 1px #4b4b4b;
+`;
+    NotificationTitle = styled_components_browser_esm_default.div`
+  font-size: 14px;
+  font-weight: bold;
+  color:#888888;
+`;
+    NotificationMain = styled_components_browser_esm_default.div`
+  flex: 1;
+  flex-direction: column;
+  width: 0;
+  display: flex;
+  padding: 16px 0;
+  gap: 12px;
+`;
+    NotificationMessage = styled_components_browser_esm_default.div`
+  color: #b4b4b4;
+  font-size: 12px;
+  line-height: 1.4;
+
+  a {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  strong {
+    font-weight: bold;
+    color: #d5d5d5;
+  }
+
+  p {
+    margin-bottom: 8px;
+  }
+
+  code {
+    font-family: monospace;
+    // background: rgba(0, 0, 0, 0.3);
+    background:rgb(201 201 201 / 30%);
+    padding: 1px 1px 2px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    white-space: pre-wrap;
+  }
+
+  pre > code {
+    white-space: pre;
+    display: block;
+    overflow: auto;
+    padding: 4px;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    margin-bottom: 8px;
+  }
+`;
+    DismissButton = styled_components_browser_esm_default.button`
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+`;
+    COLORS = {
+      info: "#3b82f6",
+      success: "#10b981",
+      warning: "#f59e0b",
+      error: "#ef4444"
+    };
+    IndicatorDot = styled_components_browser_esm_default.div`
+  display: flex;
+  justify-content: center;
+  margin-left: 12px;
+  padding-top: 21px;
+
+  ::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 999999px;
+    background-color: ${({ type }) => COLORS[type]};
+  }
+`;
+    createHandler = (type) => (title, message, docs = [], allowDuplicates = false) => {
+      if (allowDuplicates || !notificationUniquenessChecker.check({ title, message })) {
+        notificationUniquenessChecker.add({ title, message });
+        notificationTypeChecker.add(type);
+        ie2.custom((t3) => /* @__PURE__ */ import_react245.default.createElement(NotificationContainer, null, /* @__PURE__ */ import_react245.default.createElement(IndicatorDot, {
+          type
+        }), /* @__PURE__ */ import_react245.default.createElement(NotificationMain, null, /* @__PURE__ */ import_react245.default.createElement(NotificationTitle, null, title), /* @__PURE__ */ import_react245.default.createElement(NotificationMessage, {
+          dangerouslySetInnerHTML: {
+            __html: marked.parse(message)
+          }
+        }), docs.length > 0 && /* @__PURE__ */ import_react245.default.createElement(NotificationMessage, null, /* @__PURE__ */ import_react245.default.createElement("span", null, "Docs:", " ", docs.map((doc, i3) => /* @__PURE__ */ import_react245.default.createElement(import_react245.Fragment, {
+          key: i3
+        }, i3 > 0 && ", ", /* @__PURE__ */ import_react245.default.createElement("a", {
+          target: "_blank",
+          href: doc.url
+        }, doc.title)))))), /* @__PURE__ */ import_react245.default.createElement(DismissButton, {
+          onClick: () => {
+            ie2.remove(t3.id);
+            notificationUniquenessChecker.delete({ title, message });
+            notificationTypeChecker.delete(type);
+          }
+        }, "Close")), { duration: Infinity });
+      }
+    };
+    notify = {
+      warning: createHandler("warning"),
+      success: createHandler("success"),
+      info: createHandler("info"),
+      error: createHandler("error")
+    };
+    ButtonContainer = styled_components_browser_esm_default.div`
+  display: flex;
+  justify-content: ${({ align }) => align === "center" ? "center" : "flex-end"};
+  gap: 12px;
+`;
+    Button3 = styled_components_browser_esm_default.button`
+  position: relative;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  ${pointerEventsAutoInNormalMode};
+  // background-color: rgba(40, 43, 47, 0.8);
+  backgrond-color:white;
+  //box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
+  // backdrop-filter: blur(14px);
+  //border: none;
+  padding: 12px;
+  border: 1px solid #4b4b4b;
+  //color: #fff;
+  overflow: hidden;
+
+  ::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  :hover::before {
+    background: ${({ danger }) => danger ? "rgba(255, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)"};
+  }
+
+  @supports not (backdrop-filter: blur()) {
+    background: rgba(40, 43, 47, 0.95);
+  }
+`;
+    NotifierContainer = styled_components_browser_esm_default.div`
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: fixed;
+  right: 92px;
+  top: 50px;
+  width: 500px;
+  height: 85vh;
+  min-height: 400px;
+`;
+    NotificationScroller = styled_components_browser_esm_default.div`
+  overflow: hidden;
+  pointer-events: auto;
+  border-radius: 4px;
+
+  & > div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    overflow-y: scroll;
+    overflow-x: hiddien;
+    height: 100%;
+    ::-webkit-scrollbar {
+      width: 2px;
+      background-color: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        //background-color: #40aeff;
+        // background-color: rgb(0 0 0 / 80%);
+        background-color: transparent;
+        border-radius: 100px;
+    }
+    ::-webkit-scrollbar-track {
+        //box-shadow: inset 0 0 2px rgb(255 255 255 / 30%);
+        background-color: transparent;
+        border-radius: 100px;
+    }
+  }
+`;
+    EmptyState2 = styled_components_browser_esm_default.div`
+  width: fit-content;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  line-height: 1.4;
+`;
+    useEmptyNotificationsTooltip = () => {
+      const { hasNotifications } = useNotifications();
+      return useTooltip({ enabled: !hasNotifications }, () => /* @__PURE__ */ import_react245.default.createElement(MinimalTooltip_default, null, /* @__PURE__ */ import_react245.default.createElement(EmptyState2, null, /* @__PURE__ */ import_react245.default.createElement(NotificationTitle, null, "No notifications"), "Notifications will appear here when you get them.")));
+    };
+    Notifier = () => {
+      var _a2;
+      const { toasts, handlers } = H3();
+      const { startPause, endPause } = handlers;
+      const pinNotifications = (_a2 = useVal(getStudio().atomP.ahistoric.pinNotifications)) != null ? _a2 : false;
+      return /* @__PURE__ */ import_react245.default.createElement(NotifierContainer, null, !pinNotifications ? null : toasts.length > 0 && /* @__PURE__ */ import_react245.default.createElement(NotificationScroller, {
+        onMouseEnter: startPause,
+        onMouseLeave: endPause
+      }, /* @__PURE__ */ import_react245.default.createElement("div", null, toasts.map((toast) => {
+        return /* @__PURE__ */ import_react245.default.createElement("div", {
+          key: toast.id
+        }, toast.message(toast));
+      }))), /* @__PURE__ */ import_react245.default.createElement(ButtonContainer, {
+        align: "side"
+      }, pinNotifications && toasts.length > 0 && /* @__PURE__ */ import_react245.default.createElement(Button3, {
+        onClick: () => {
+          notificationTypeChecker.clear();
+          notificationUniquenessChecker.clear();
+          ie2.remove();
+        },
+        danger: true
+      }, "Clear")));
+    };
+    useNotifications = () => {
+      const { toasts } = H3();
+      return {
+        hasNotifications: toasts.length > 0
+      };
+    };
+  }
+});
+
 // studio/src/toolbars/GlobalToolbar.tsx
-var import_react240, import_dataverse79, Container59, NumberOfConflictsIndicator, SubContainer, HasUpdatesBadge, GroupDivider2, showedVisualTestingWarning, GlobalToolbar, GlobalToolbar_default;
+var import_react248, import_dataverse78, Container59, NumberOfConflictsIndicator, SubContainer, HasUpdatesBadge, GroupDivider2, showedVisualTestingWarning, GlobalToolbar, GlobalToolbar_default;
 var init_GlobalToolbar = __esm({
   "studio/src/toolbars/GlobalToolbar.tsx"() {
     init_src();
     init_getStudio();
-    import_react240 = __toModule(require_react());
+    import_react248 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_useTooltip();
     init_ErrorTooltip();
     init_BasicTooltip();
-    import_dataverse79 = __toModule(require("@theatre/dataverse"));
+    import_dataverse78 = __toModule(require("@theatre/dataverse"));
     init_ExtensionToolbar();
     init_PinButton();
     init_icons();
@@ -46532,6 +49179,7 @@ var init_GlobalToolbar = __esm({
     init_ToolbarIconButton();
     init_usePopover();
     init_MoreMenu();
+    init_notify();
     Container59 = styled_components_browser_esm_default.div`
   height: 36px;
   pointer-events: none;
@@ -46562,7 +49210,7 @@ var init_GlobalToolbar = __esm({
 `;
     HasUpdatesBadge = styled_components_browser_esm_default.div`
   position: absolute;
-  background: #40aaa4;
+  background: ${({ type }) => type === "info" ? "#40aaa4" : "#f59e0b"};
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -46578,12 +49226,12 @@ var init_GlobalToolbar = __esm({
 `;
     showedVisualTestingWarning = false;
     GlobalToolbar = () => {
-      var _a2, _b;
+      var _a2, _b, _c;
       const conflicts = usePrism(() => {
-        const ephemeralStateOfAllProjects = (0, import_dataverse79.val)(getStudio().atomP.ephemeral.coreByProject);
+        const ephemeralStateOfAllProjects = (0, import_dataverse78.val)(getStudio().atomP.ephemeral.coreByProject);
         return Object.entries(ephemeralStateOfAllProjects).map(([projectId, state]) => ({ projectId, state })).filter(({ state }) => state.loadingState.type === "browserStateIsNotBasedOnDiskState");
       }, []);
-      const [triggerTooltip, triggerButtonRef] = useTooltip({ enabled: conflicts.length > 0, enterDelay: conflicts.length > 0 ? 0 : 200 }, () => conflicts.length > 0 ? /* @__PURE__ */ import_react240.default.createElement(ErrorTooltip_default, null, conflicts.length === 1 ? `There is a state conflict in project "${conflicts[0].projectId}". Select the project in the outline below in order to fix it.` : `There are ${conflicts.length} projects that have state conflicts. They are highlighted in the outline below. `) : /* @__PURE__ */ import_react240.default.createElement(BasicTooltip_default, null, "Outline"));
+      const [triggerTooltip, triggerButtonRef] = useTooltip({ enabled: conflicts.length > 0, enterDelay: conflicts.length > 0 ? 0 : 200 }, () => conflicts.length > 0 ? /* @__PURE__ */ import_react248.default.createElement(ErrorTooltip_default, null, conflicts.length === 1 ? `There is a state conflict in project "${conflicts[0].projectId}". Select the project in the outline below in order to fix it.` : `There are ${conflicts.length} projects that have state conflicts. They are highlighted in the outline below. `) : /* @__PURE__ */ import_react248.default.createElement(BasicTooltip_default, null, "Outline"));
       const outlinePinned = (_a2 = useVal(getStudio().atomP.ahistoric.pinOutline)) != null ? _a2 : true;
       const detailsPinned = (_b = useVal(getStudio().atomP.ahistoric.pinDetails)) != null ? _b : true;
       const hasUpdates = useVal(getStudio().atomP.ahistoric.updateChecker.result.hasUpdates) === true;
@@ -46600,10 +49248,10 @@ var init_GlobalToolbar = __esm({
           verticalGap: 2
         };
       }, () => {
-        return /* @__PURE__ */ import_react240.default.createElement(MoreMenu_default, null);
+        return /* @__PURE__ */ import_react248.default.createElement(MoreMenu_default, null);
       });
-      const moreMenuTriggerRef = (0, import_react240.useRef)(null);
-      const showUpdatesBadge = (0, import_react240.useMemo)(() => {
+      const moreMenuTriggerRef = (0, import_react248.useRef)(null);
+      const showUpdatesBadge = (0, import_react248.useMemo)(() => {
         if (hasUpdates || window.__IS_VISUAL_REGRESSION_TESTING) {
           if (!showedVisualTestingWarning) {
             showedVisualTestingWarning = true;
@@ -46613,7 +49261,9 @@ var init_GlobalToolbar = __esm({
         }
         return hasUpdates;
       }, [hasUpdates]);
-      return /* @__PURE__ */ import_react240.default.createElement(Container59, null, /* @__PURE__ */ import_react240.default.createElement(SubContainer, null, triggerTooltip, /* @__PURE__ */ import_react240.default.createElement(PinButton_default, {
+      const { hasNotifications } = useNotifications();
+      const [notificationsTooltip, notificationsTriggerRef] = useEmptyNotificationsTooltip();
+      return /* @__PURE__ */ import_react248.default.createElement(Container59, null, /* @__PURE__ */ import_react248.default.createElement(SubContainer, null, triggerTooltip, /* @__PURE__ */ import_react248.default.createElement(PinButton_default, {
         ref: triggerButtonRef,
         "data-testid": "OutlinePanel-TriggerButton",
         onClick: () => {
@@ -46622,19 +49272,35 @@ var init_GlobalToolbar = __esm({
             stateEditors2.studio.ahistoric.setPinOutline(!((_a3 = drafts2.ahistoric.pinOutline) != null ? _a3 : true));
           });
         },
-        icon: /* @__PURE__ */ import_react240.default.createElement(Outline_default, null),
-        pinHintIcon: /* @__PURE__ */ import_react240.default.createElement(DoubleChevronRight_default, null),
-        unpinHintIcon: /* @__PURE__ */ import_react240.default.createElement(DoubleChevronLeft_default, null),
+        icon: /* @__PURE__ */ import_react248.default.createElement(Outline_default, null),
+        pinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronRight_default, null),
+        unpinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronLeft_default, null),
         pinned: outlinePinned
-      }), conflicts.length > 0 ? /* @__PURE__ */ import_react240.default.createElement(NumberOfConflictsIndicator, null, conflicts.length) : null, /* @__PURE__ */ import_react240.default.createElement(ExtensionToolbar_default, {
+      }), conflicts.length > 0 ? /* @__PURE__ */ import_react248.default.createElement(NumberOfConflictsIndicator, null, conflicts.length) : null, /* @__PURE__ */ import_react248.default.createElement(ExtensionToolbar_default, {
         showLeftDivider: true,
         toolbarId: "global"
-      })), /* @__PURE__ */ import_react240.default.createElement(SubContainer, null, moreMenu.node, /* @__PURE__ */ import_react240.default.createElement(ToolbarIconButton_default, {
+      })), /* @__PURE__ */ import_react248.default.createElement(SubContainer, null, notificationsTooltip, /* @__PURE__ */ import_react248.default.createElement(PinButton_default, {
+        ref: notificationsTriggerRef,
+        onClick: () => {
+          getStudio().transaction(({ stateEditors: stateEditors2, drafts: drafts2 }) => {
+            var _a3;
+            stateEditors2.studio.ahistoric.setPinNotifications(!((_a3 = drafts2.ahistoric.pinNotifications) != null ? _a3 : false));
+          });
+        },
+        icon: /* @__PURE__ */ import_react248.default.createElement(Bell_default, null),
+        pinHintIcon: /* @__PURE__ */ import_react248.default.createElement(Bell_default, null),
+        unpinHintIcon: /* @__PURE__ */ import_react248.default.createElement(Bell_default, null),
+        pinned: (_c = useVal(getStudio().atomP.ahistoric.pinNotifications)) != null ? _c : false
+      }, hasNotifications && /* @__PURE__ */ import_react248.default.createElement(HasUpdatesBadge, {
+        type: "warning"
+      })), moreMenu.node, /* @__PURE__ */ import_react248.default.createElement(ToolbarIconButton_default, {
         ref: moreMenuTriggerRef,
         onClick: (e2) => {
           moreMenu.toggle(e2, moreMenuTriggerRef.current);
         }
-      }, /* @__PURE__ */ import_react240.default.createElement(Ellipsis_default, null), showUpdatesBadge && /* @__PURE__ */ import_react240.default.createElement(HasUpdatesBadge, null)), /* @__PURE__ */ import_react240.default.createElement(PinButton_default, {
+      }, /* @__PURE__ */ import_react248.default.createElement(Ellipsis_default, null), showUpdatesBadge && /* @__PURE__ */ import_react248.default.createElement(HasUpdatesBadge, {
+        type: "info"
+      })), /* @__PURE__ */ import_react248.default.createElement(PinButton_default, {
         ref: triggerButtonRef,
         onClick: () => {
           getStudio().transaction(({ stateEditors: stateEditors2, drafts: drafts2 }) => {
@@ -46642,9 +49308,9 @@ var init_GlobalToolbar = __esm({
             stateEditors2.studio.ahistoric.setPinDetails(!((_a3 = drafts2.ahistoric.pinDetails) != null ? _a3 : true));
           });
         },
-        icon: /* @__PURE__ */ import_react240.default.createElement(Details_default, null),
-        pinHintIcon: /* @__PURE__ */ import_react240.default.createElement(DoubleChevronLeft_default, null),
-        unpinHintIcon: /* @__PURE__ */ import_react240.default.createElement(DoubleChevronRight_default, null),
+        icon: /* @__PURE__ */ import_react248.default.createElement(Details_default, null),
+        pinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronLeft_default, null),
+        unpinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronRight_default, null),
         pinned: detailsPinned
       })));
     };
@@ -46653,14 +49319,14 @@ var init_GlobalToolbar = __esm({
 });
 
 // studio/src/utils/renderInPortalInContext.tsx
-var import_dataverse80, import_react242, import_react_dom8, theAtom, lastId, getMounter, MountAll, Mount;
+var import_dataverse79, import_react250, import_react_dom8, theAtom, lastId, getMounter, MountAll, Mount;
 var init_renderInPortalInContext = __esm({
   "studio/src/utils/renderInPortalInContext.tsx"() {
-    import_dataverse80 = __toModule(require("@theatre/dataverse"));
+    import_dataverse79 = __toModule(require("@theatre/dataverse"));
     init_src();
-    import_react242 = __toModule(require_react());
+    import_react250 = __toModule(require_react());
     import_react_dom8 = __toModule(require_react_dom());
-    theAtom = new import_dataverse80.Atom({
+    theAtom = new import_dataverse79.Atom({
       set: {},
       byId: {}
     });
@@ -46687,7 +49353,7 @@ var init_renderInPortalInContext = __esm({
     };
     MountAll = () => {
       const ids = Object.keys(useVal(theAtom.pointer.set));
-      return /* @__PURE__ */ import_react242.default.createElement(import_react242.default.Fragment, null, ids.map((id) => /* @__PURE__ */ import_react242.default.createElement(Mount, {
+      return /* @__PURE__ */ import_react250.default.createElement(import_react250.default.Fragment, null, ids.map((id) => /* @__PURE__ */ import_react250.default.createElement(Mount, {
         key: "id-" + id,
         id
       })));
@@ -46695,7 +49361,7 @@ var init_renderInPortalInContext = __esm({
     Mount = ({ id }) => {
       const { comp, portalNode, props } = useVal(theAtom.pointer.byId[id]);
       const Comp = comp;
-      return (0, import_react_dom8.createPortal)(/* @__PURE__ */ import_react242.default.createElement(Comp, __spreadValues({}, props)), portalNode);
+      return (0, import_react_dom8.createPortal)(/* @__PURE__ */ import_react250.default.createElement(Comp, __spreadValues({}, props)), portalNode);
     };
   }
 });
@@ -46713,7 +49379,7 @@ function UIRoot() {
   const logger = uiRootLogger.getLogger().named("Theatre.js UIRoot");
   useKeyboardShortcuts();
   const visiblityState = useVal(studio3.atomP.ahistoric.visibilityState);
-  (0, import_react244.useEffect)(() => {
+  (0, import_react252.useEffect)(() => {
     if (visiblityState === "everythingIsHidden") {
       console.warn(`Theatre.js Studio is hidden. Use the keyboard shortcut 'alt + \\' to restore the studio, or call studio.ui.restore().`);
     }
@@ -46721,29 +49387,29 @@ function UIRoot() {
     };
   }, [visiblityState]);
   const inside = usePrism(() => {
-    const visiblityState2 = (0, import_dataverse81.val)(studio3.atomP.ahistoric.visibilityState);
-    const initialised = (0, import_dataverse81.val)(studio3.atomP.ephemeral.initialised);
-    return !initialised ? null : /* @__PURE__ */ import_react244.default.createElement(ProvideLogger, {
+    const visiblityState2 = (0, import_dataverse80.val)(studio3.atomP.ahistoric.visibilityState);
+    const initialised = (0, import_dataverse80.val)(studio3.atomP.ephemeral.initialised);
+    return !initialised ? null : /* @__PURE__ */ import_react252.default.createElement(ProvideLogger, {
       logger
-    }, /* @__PURE__ */ import_react244.default.createElement(TooltipContext_default, null, /* @__PURE__ */ import_react244.default.createElement(ProvidePointerCapturing, null, /* @__PURE__ */ import_react244.default.createElement(MountExtensionComponents, null), /* @__PURE__ */ import_react244.default.createElement(PortalContext.Provider, {
+    }, /* @__PURE__ */ import_react252.default.createElement(TooltipContext_default, null, /* @__PURE__ */ import_react252.default.createElement(ProvidePointerCapturing, null, /* @__PURE__ */ import_react252.default.createElement(MountExtensionComponents, null), /* @__PURE__ */ import_react252.default.createElement(PortalContext.Provider, {
       value: portalLayer
-    }, /* @__PURE__ */ import_react244.default.createElement(ProvideStyles, {
+    }, /* @__PURE__ */ import_react252.default.createElement(ProvideStyles, {
       target: window.__IS_VISUAL_REGRESSION_TESTING === true ? void 0 : getStudio().ui.containerShadow
-    }, /* @__PURE__ */ import_react244.default.createElement(import_react244.default.Fragment, null, /* @__PURE__ */ import_react244.default.createElement(MakeRootHostContainStatic, null), /* @__PURE__ */ import_react244.default.createElement(Container60, {
+    }, /* @__PURE__ */ import_react252.default.createElement(import_react252.default.Fragment, null, /* @__PURE__ */ import_react252.default.createElement(MakeRootHostContainStatic, null), /* @__PURE__ */ import_react252.default.createElement(Container60, {
       className: visiblityState2 === "everythingIsHidden" ? "invisible" : ""
-    }, /* @__PURE__ */ import_react244.default.createElement(PortalLayer, {
+    }, /* @__PURE__ */ import_react252.default.createElement(PortalLayer, {
       ref: portalLayerRef
-    }), /* @__PURE__ */ import_react244.default.createElement(GlobalToolbar_default, null), /* @__PURE__ */ import_react244.default.createElement(PanelsRoot_default, null))))))));
+    }), /* @__PURE__ */ import_react252.default.createElement(GlobalToolbar_default, null), /* @__PURE__ */ import_react252.default.createElement(PanelsRoot_default, null), /* @__PURE__ */ import_react252.default.createElement(Notifier, null))))))));
   }, [studio3, portalLayerRef, portalLayer]);
   return inside;
 }
-var import_dataverse81, import_react244, MakeRootHostContainStatic, Container60, _a, INTERNAL_LOGGING, MountExtensionComponents;
+var import_dataverse80, import_react252, MakeRootHostContainStatic, Container60, _a, INTERNAL_LOGGING, MountExtensionComponents;
 var init_UIRoot = __esm({
   "studio/src/UIRoot/UIRoot.tsx"() {
     init_getStudio();
     init_src();
-    import_dataverse81 = __toModule(require("@theatre/dataverse"));
-    import_react244 = __toModule(require_react());
+    import_dataverse80 = __toModule(require("@theatre/dataverse"));
+    import_react252 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_PanelsRoot();
     init_GlobalToolbar();
@@ -46757,6 +49423,7 @@ var init_UIRoot = __esm({
     init_css();
     init_logger2();
     init_useLogger();
+    init_notify();
     MakeRootHostContainStatic = typeof window !== "undefined" ? We`
   :host {
     contain: strict;
@@ -46765,8 +49432,7 @@ var init_UIRoot = __esm({
     Container60 = styled_components_browser_esm_default(PointerEventsHandler_default)`
   z-index: 50;
   position: fixed;
-  inset: 0px;
-
+  inset: 0;
   &.invisible {
     pointer-events: none !important;
     opacity: 0;
@@ -46775,7 +49441,7 @@ var init_UIRoot = __esm({
 `;
     INTERNAL_LOGGING = /Playground.+Theatre\.js/.test((_a = typeof document !== "undefined" ? document == null ? void 0 : document.title : null) != null ? _a : "");
     MountExtensionComponents = () => {
-      return /* @__PURE__ */ import_react244.default.createElement(MountAll, null);
+      return /* @__PURE__ */ import_react252.default.createElement(MountAll, null);
     };
   }
 });
@@ -46785,13 +49451,13 @@ var UI_exports = {};
 __export(UI_exports, {
   default: () => UI
 });
-var import_react245, import_react_dom9, import_dataverse82, UI;
+var import_react253, import_react_dom9, import_dataverse81, UI;
 var init_UI = __esm({
   "studio/src/UI.ts"() {
     init_UIRoot();
-    import_react245 = __toModule(require_react());
+    import_react253 = __toModule(require_react());
     import_react_dom9 = __toModule(require_react_dom());
-    import_dataverse82 = __toModule(require("@theatre/dataverse"));
+    import_dataverse81 = __toModule(require("@theatre/dataverse"));
     init_renderInPortalInContext();
     init_css();
     init_ExtensionToolbar();
@@ -46843,7 +49509,7 @@ var init_UI = __esm({
           this._renderTimeout = void 0;
           this._documentBodyUIIsRenderedIn = document.body;
           this._documentBodyUIIsRenderedIn.appendChild(this.containerEl);
-          import_react_dom9.default.render(import_react245.default.createElement(UIRoot), this.containerShadow);
+          import_react_dom9.default.render(import_react253.default.createElement(UIRoot), this.containerShadow);
         };
         this._renderTimeout = setTimeout(renderCallback, 10);
       }
@@ -46859,7 +49525,7 @@ var init_UI = __esm({
         });
       }
       get isHidden() {
-        return (0, import_dataverse82.val)(this.studio.atomP.ahistoric.visibilityState) === "everythingIsHidden";
+        return (0, import_dataverse81.val)(this.studio.atomP.ahistoric.visibilityState) === "everythingIsHidden";
       }
       renderToolset(toolsetId, htmlNode) {
         const s3 = getMounter();
@@ -46878,15 +49544,15 @@ __export(exports, {
 init_getStudio();
 
 // shared/src/utils/forEachDeep.ts
-function forEachDeep(m2, fn2, startingPath = []) {
-  if (typeof m2 === "object" && m2) {
-    for (const [key, value] of Object.entries(m2)) {
+function forEachDeep(m3, fn2, startingPath = []) {
+  if (typeof m3 === "object" && m3) {
+    for (const [key, value] of Object.entries(m3)) {
       forEachDeep(value, fn2, [...startingPath, key]);
     }
-  } else if (m2 === void 0 || m2 === null) {
+  } else if (m3 === void 0 || m3 === null) {
     return;
   } else {
-    fn2(m2, startingPath);
+    fn2(m3, startingPath);
   }
 }
 
@@ -47010,14 +49676,12 @@ var Scrub = class {
 };
 
 // studio/src/Studio.ts
-var import_dataverse83 = __toModule(require("@theatre/dataverse"));
-
-// shared/src/utils/identity.ts
-function identity(a3) {
-  return a3;
-}
+var import_dataverse82 = __toModule(require("@theatre/dataverse"));
 
 // studio/src/utils/redux/actionCreator.ts
+function identity(a4) {
+  return a4;
+}
 var actionCreator = (actionType, transformer = identity) => {
   const originalActionCreator = (payload) => ({ type: actionType, payload: transformer(payload) });
   originalActionCreator.type = actionType;
@@ -47069,9 +49733,9 @@ function stringify(arr) {
 var stringify_default = stringify;
 
 // ../node_modules/uuid/dist/esm-browser/v4.js
-function v4(options, buf, offset) {
-  options = options || {};
-  var rnds = options.random || (options.rng || rng)();
+function v4(options2, buf, offset) {
+  options2 = options2 || {};
+  var rnds = options2.random || (options2.rng || rng)();
   rnds[6] = rnds[6] & 15 | 64;
   rnds[8] = rnds[8] & 63 | 128;
   if (buf) {
@@ -47141,7 +49805,7 @@ function pushCommit(prevHistory, newInnerState, config) {
     innerState: newInnerState
   };
   if (prevHistory.currentCommitHash !== prevLastCommitHash) {
-    const indexOfCurrentCommitHash = prevHistory.listOfCommitHashes.findIndex((v3) => v3 === prevHistory.currentCommitHash);
+    const indexOfCurrentCommitHash = prevHistory.listOfCommitHashes.findIndex((v5) => v5 === prevHistory.currentCommitHash);
     const listOfCommitHashesToDiscard = prevHistory.listOfCommitHashes.slice(indexOfCurrentCommitHash + 1);
     listOfCommitHashesToDiscard.forEach((hash) => {
       delete newHistory.commitsByHash[hash];
@@ -47177,7 +49841,7 @@ function undo(prevHistory) {
   if (prevHistory.currentCommitHash === void 0) {
     return prevHistory;
   }
-  const indexOfCurrentCommitHash = prevHistory.listOfCommitHashes.findIndex((v3) => v3 === prevHistory.currentCommitHash);
+  const indexOfCurrentCommitHash = prevHistory.listOfCommitHashes.findIndex((v5) => v5 === prevHistory.currentCommitHash);
   if (indexOfCurrentCommitHash === -1) {
     throw new Error("This should never happen");
   }
@@ -47195,7 +49859,7 @@ function redo(prevHistory) {
   if (prevHistory.listOfCommitHashes.length === 0) {
     return prevHistory;
   }
-  const indexOfCurrentCommitHash = prevHistory.listOfCommitHashes.findIndex((v3) => v3 === prevHistory.currentCommitHash);
+  const indexOfCurrentCommitHash = prevHistory.listOfCommitHashes.findIndex((v5) => v5 === prevHistory.currentCommitHash);
   if (indexOfCurrentCommitHash === prevHistory.listOfCommitHashes.length - 1) {
     return prevHistory;
   }
@@ -47347,15 +50011,15 @@ var studioReducer = (prevState, action) => {
     if (_pushTemporaryAction.is(action)) {
       tempActions = [...tempActions, action];
     } else if (_commitTemporaryAction.is(action)) {
-      const toCommit = tempActions.find((a3) => a3.payload.id === action.payload);
+      const toCommit = tempActions.find((a4) => a4.payload.id === action.payload);
       if (!toCommit) {
         logger_default.error(`Comitting temp action group ${action.payload} isn't possible as this group doesn't exist`);
       } else {
         actionToPassInToPermanentReducer = toCommit.payload.originalAction;
-        tempActions = tempActions.filter((a3) => a3.payload.id !== action.payload);
+        tempActions = tempActions.filter((a4) => a4.payload.id !== action.payload);
       }
     } else if (_discardTemporaryAction.is(action)) {
-      tempActions = tempActions.filter((a3) => a3.payload.id !== action.payload);
+      tempActions = tempActions.filter((a4) => a4.payload.id !== action.payload);
     } else {
       actionToPassInToPermanentReducer = action;
     }
@@ -47391,8 +50055,7 @@ function removePathFromObject(base, path) {
   if (typeof base !== "object" || base === null)
     return;
   if (path.length === 0) {
-    const keys3 = Object.keys(base);
-    for (const key of keys3) {
+    for (const key of Object.keys(base)) {
       delete base[key];
     }
     return;
@@ -47413,11 +50076,11 @@ function removePathFromObject(base, path) {
   const keysReversed = path.slice().reverse();
   for (const key of keysReversed) {
     delete cur[key];
-    if (Object.keys(cur).length === 0) {
+    if (Object.keys(cur).length > 0) {
+      return;
+    } else {
       cur = childToParentMapping.get(cur);
       continue;
-    } else {
-      return;
     }
   }
 }
@@ -47562,10 +50225,10 @@ function M(n3, t3, r3) {
   }
   return e2.o;
 }
-function A(e2, i3, o3, a3, c3, s3) {
+function A(e2, i3, o3, a4, c3, s3) {
   if (c3 === o3 && n(5), t(c3)) {
-    var v3 = M(e2, c3, s3 && i3 && i3.i !== 3 && !u(i3.D, a3) ? s3.concat(a3) : void 0);
-    if (f(o3, a3, v3), !t(v3))
+    var v5 = M(e2, c3, s3 && i3 && i3.i !== 3 && !u(i3.D, a4) ? s3.concat(a4) : void 0);
+    if (f(o3, a4, v5), !t(v5))
       return;
     e2.m = false;
   }
@@ -47601,8 +50264,8 @@ function R(n3, t3, r3) {
   var e2 = s(t3) ? b("MapSet").N(t3, r3) : v(t3) ? b("MapSet").T(t3, r3) : n3.g ? function(n4, t4) {
     var r4 = Array.isArray(n4), e3 = { i: r4 ? 1 : 0, A: t4 ? t4.A : _(), P: false, I: false, D: {}, l: t4, t: n4, k: null, o: null, j: null, C: false }, i3 = e3, o3 = en;
     r4 && (i3 = [e3], o3 = on);
-    var u3 = Proxy.revocable(i3, o3), a3 = u3.revoke, f2 = u3.proxy;
-    return e3.k = f2, e3.j = a3, f2;
+    var u3 = Proxy.revocable(i3, o3), a4 = u3.revoke, f3 = u3.proxy;
+    return e3.k = f3, e3.j = a4, f3;
   }(t3, r3) : b("ES5").J(t3, r3);
   return (r3 ? r3.A : _()).p.push(e2), e2;
 }
@@ -47724,36 +50387,36 @@ var un = function() {
       if (typeof t4 == "function" && typeof i4 != "function") {
         var u3 = i4;
         i4 = t4;
-        var a3 = e3;
+        var a4 = e3;
         return function(n3) {
           var t5 = this;
           n3 === void 0 && (n3 = u3);
           for (var r3 = arguments.length, e4 = Array(r3 > 1 ? r3 - 1 : 0), o4 = 1; o4 < r3; o4++)
             e4[o4 - 1] = arguments[o4];
-          return a3.produce(n3, function(n4) {
+          return a4.produce(n3, function(n4) {
             var r4;
             return (r4 = i4).call.apply(r4, [t5, n4].concat(e4));
           });
         };
       }
-      var f2;
+      var f3;
       if (typeof i4 != "function" && n(6), o3 !== void 0 && typeof o3 != "function" && n(7), r(t4)) {
-        var c3 = w(e3), s3 = R(e3, t4, void 0), v3 = true;
+        var c3 = w(e3), s3 = R(e3, t4, void 0), v5 = true;
         try {
-          f2 = i4(s3), v3 = false;
+          f3 = i4(s3), v5 = false;
         } finally {
-          v3 ? O(c3) : g(c3);
+          v5 ? O(c3) : g(c3);
         }
-        return typeof Promise != "undefined" && f2 instanceof Promise ? f2.then(function(n3) {
+        return typeof Promise != "undefined" && f3 instanceof Promise ? f3.then(function(n3) {
           return j(c3, o3), P(n3, c3);
         }, function(n3) {
           throw O(c3), n3;
-        }) : (j(c3, o3), P(f2, c3));
+        }) : (j(c3, o3), P(f3, c3));
       }
       if (!t4 || typeof t4 != "object") {
-        if ((f2 = i4(t4)) === H)
+        if ((f3 = i4(t4)) === H)
           return;
-        return f2 === void 0 && (f2 = t4), e3.F && d(f2, true), f2;
+        return f3 === void 0 && (f3 = t4), e3.F && d(f3, true), f3;
       }
       n(21, t4);
     }, this.produceWithPatches = function(n3, t4) {
@@ -47887,11 +50550,11 @@ var stateEditors;
     (function(historic2) {
       let panelPositions;
       (function(panelPositions2) {
-        function setPanelPosition(p2) {
+        function setPanelPosition(p3) {
           var _a2;
-          const h3 = drafts().historic;
-          (_a2 = h3.panelPositions) != null ? _a2 : h3.panelPositions = {};
-          h3.panelPositions[p2.panelId] = p2.position;
+          const h4 = drafts().historic;
+          (_a2 = h4.panelPositions) != null ? _a2 : h4.panelPositions = {};
+          h4.panelPositions[p3.panelId] = p3.position;
         }
         panelPositions2.setPanelPosition = setPanelPosition;
       })(panelPositions = historic2.panelPositions || (historic2.panelPositions = {}));
@@ -47961,8 +50624,8 @@ var stateEditors;
               (_a2 = s3.graphEditor) != null ? _a2 : s3.graphEditor = { height: 0.5, isOpen: false };
               return s3.graphEditor;
             }
-            function setIsOpen(p2) {
-              _ensure3().isOpen = p2.isOpen;
+            function setIsOpen(p3) {
+              _ensure3().isOpen = p3.isOpen;
             }
             graphEditor2.setIsOpen = setIsOpen;
           })(graphEditor = sequenceEditor2.graphEditor || (sequenceEditor2.graphEditor = {}));
@@ -47972,44 +50635,44 @@ var stateEditors;
       (function(projects2) {
         let stateByProjectId;
         (function(stateByProjectId2) {
-          function _ensure(p2) {
+          function _ensure(p3) {
             const s3 = drafts().historic;
-            if (!s3.projects.stateByProjectId[p2.projectId]) {
-              s3.projects.stateByProjectId[p2.projectId] = {
+            if (!s3.projects.stateByProjectId[p3.projectId]) {
+              s3.projects.stateByProjectId[p3.projectId] = {
                 stateBySheetId: {}
               };
             }
-            return s3.projects.stateByProjectId[p2.projectId];
+            return s3.projects.stateByProjectId[p3.projectId];
           }
           stateByProjectId2._ensure = _ensure;
           let stateBySheetId;
           (function(stateBySheetId2) {
-            function _ensure2(p2) {
-              const projectState = stateEditors2.studio.historic.projects.stateByProjectId._ensure(p2);
-              if (!projectState.stateBySheetId[p2.sheetId]) {
-                projectState.stateBySheetId[p2.sheetId] = {
+            function _ensure2(p3) {
+              const projectState = stateEditors2.studio.historic.projects.stateByProjectId._ensure(p3);
+              if (!projectState.stateBySheetId[p3.sheetId]) {
+                projectState.stateBySheetId[p3.sheetId] = {
                   selectedInstanceId: void 0,
                   sequenceEditor: {
                     selectedPropsByObject: {}
                   }
                 };
               }
-              return projectState.stateBySheetId[p2.sheetId];
+              return projectState.stateBySheetId[p3.sheetId];
             }
             stateBySheetId2._ensure = _ensure2;
-            function setSelectedInstanceId(p2) {
-              stateEditors2.studio.historic.projects.stateByProjectId.stateBySheetId._ensure(p2).selectedInstanceId = p2.sheetInstanceId;
+            function setSelectedInstanceId(p3) {
+              stateEditors2.studio.historic.projects.stateByProjectId.stateBySheetId._ensure(p3).selectedInstanceId = p3.sheetInstanceId;
             }
             stateBySheetId2.setSelectedInstanceId = setSelectedInstanceId;
             let sequenceEditor;
             (function(sequenceEditor2) {
-              function addPropToGraphEditor(p2) {
-                const { selectedPropsByObject } = stateBySheetId2._ensure(p2).sequenceEditor;
-                if (!selectedPropsByObject[p2.objectKey]) {
-                  selectedPropsByObject[p2.objectKey] = {};
+              function addPropToGraphEditor(p3) {
+                const { selectedPropsByObject } = stateBySheetId2._ensure(p3).sequenceEditor;
+                if (!selectedPropsByObject[p3.objectKey]) {
+                  selectedPropsByObject[p3.objectKey] = {};
                 }
-                const selectedProps = selectedPropsByObject[p2.objectKey];
-                const path = encodePathToProp(p2.pathToProp);
+                const selectedProps = selectedPropsByObject[p3.objectKey];
+                const path = encodePathToProp(p3.pathToProp);
                 const possibleColors = new Set(Object.keys(graphEditorColors));
                 for (const [_3, selectedProps2] of Object.entries(D(selectedPropsByObject))) {
                   for (const [_4, takenColor] of Object.entries(selectedProps2)) {
@@ -48020,16 +50683,16 @@ var stateEditors;
                 selectedProps[path] = color2;
               }
               sequenceEditor2.addPropToGraphEditor = addPropToGraphEditor;
-              function removePropFromGraphEditor(p2) {
-                const { selectedPropsByObject } = stateBySheetId2._ensure(p2).sequenceEditor;
-                if (!selectedPropsByObject[p2.objectKey]) {
+              function removePropFromGraphEditor(p3) {
+                const { selectedPropsByObject } = stateBySheetId2._ensure(p3).sequenceEditor;
+                if (!selectedPropsByObject[p3.objectKey]) {
                   return;
                 }
-                const selectedProps = selectedPropsByObject[p2.objectKey];
-                const path = encodePathToProp(p2.pathToProp);
+                const selectedProps = selectedPropsByObject[p3.objectKey];
+                const path = encodePathToProp(p3.pathToProp);
                 if (selectedProps[path]) {
                   removePathFromObject(selectedPropsByObject, [
-                    p2.objectKey,
+                    p3.objectKey,
                     path
                   ]);
                 }
@@ -48042,14 +50705,14 @@ var stateEditors;
                 }
                 return sequenceEditor3.markerSet;
               }
-              function replaceMarkers(p2) {
-                const currentMarkerSet = _ensureMarkers(p2.sheetAddress);
-                const sanitizedMarkers = p2.markers.filter((marker) => {
+              function replaceMarkers(p3) {
+                const currentMarkerSet = _ensureMarkers(p3.sheetAddress);
+                const sanitizedMarkers = p3.markers.filter((marker) => {
                   if (!isFinite(marker.position))
                     return false;
                   return true;
                 }).map((marker) => __spreadProps(__spreadValues({}, marker), {
-                  position: p2.snappingFunction(marker.position)
+                  position: p3.snappingFunction(marker.position)
                 }));
                 const newMarkersById = keyBy_default(sanitizedMarkers, "id");
                 let markersThatArentBeingReplaced = pointableSetUtil.filter(currentMarkerSet, (marker) => marker && !newMarkersById[marker.id]);
@@ -48066,9 +50729,9 @@ var stateEditors;
                 ]));
               }
               sequenceEditor2.replaceMarkers = replaceMarkers;
-              function removeMarker(options) {
-                const currentMarkerSet = _ensureMarkers(options.sheetAddress);
-                Object.assign(currentMarkerSet, pointableSetUtil.remove(currentMarkerSet, options.markerId));
+              function removeMarker(options2) {
+                const currentMarkerSet = _ensureMarkers(options2.sheetAddress);
+                Object.assign(currentMarkerSet, pointableSetUtil.remove(currentMarkerSet, options2.markerId));
               }
               sequenceEditor2.removeMarker = removeMarker;
             })(sequenceEditor = stateBySheetId2.sequenceEditor || (stateBySheetId2.sequenceEditor = {}));
@@ -48086,48 +50749,48 @@ var stateEditors;
       (function(projects2) {
         let stateByProjectId;
         (function(stateByProjectId2) {
-          function _ensure(p2) {
+          function _ensure(p3) {
             const s3 = drafts().ephemeral;
-            if (!s3.projects.stateByProjectId[p2.projectId]) {
-              s3.projects.stateByProjectId[p2.projectId] = {
+            if (!s3.projects.stateByProjectId[p3.projectId]) {
+              s3.projects.stateByProjectId[p3.projectId] = {
                 stateBySheetId: {}
               };
             }
-            return s3.projects.stateByProjectId[p2.projectId];
+            return s3.projects.stateByProjectId[p3.projectId];
           }
           stateByProjectId2._ensure = _ensure;
           let stateBySheetId;
           (function(stateBySheetId2) {
-            function _ensure2(p2) {
-              const projectState = stateEditors2.studio.ephemeral.projects.stateByProjectId._ensure(p2);
-              if (!projectState.stateBySheetId[p2.sheetId]) {
-                projectState.stateBySheetId[p2.sheetId] = {
+            function _ensure2(p3) {
+              const projectState = stateEditors2.studio.ephemeral.projects.stateByProjectId._ensure(p3);
+              if (!projectState.stateBySheetId[p3.sheetId]) {
+                projectState.stateBySheetId[p3.sheetId] = {
                   stateByObjectKey: {}
                 };
               }
-              return projectState.stateBySheetId[p2.sheetId];
+              return projectState.stateBySheetId[p3.sheetId];
             }
             stateBySheetId2._ensure = _ensure2;
             let stateByObjectKey;
             (function(stateByObjectKey2) {
-              function _ensure3(p2) {
+              function _ensure3(p3) {
                 var _a2, _b;
-                const s3 = stateEditors2.studio.ephemeral.projects.stateByProjectId.stateBySheetId._ensure(p2).stateByObjectKey;
-                (_b = s3[_a2 = p2.objectKey]) != null ? _b : s3[_a2] = {};
-                return s3[p2.objectKey];
+                const s3 = stateEditors2.studio.ephemeral.projects.stateByProjectId.stateBySheetId._ensure(p3).stateByObjectKey;
+                (_b = s3[_a2 = p3.objectKey]) != null ? _b : s3[_a2] = {};
+                return s3[p3.objectKey];
               }
               stateByObjectKey2._ensure = _ensure3;
               let propsBeingScrubbed;
               (function(propsBeingScrubbed2) {
-                function _ensure4(p2) {
+                function _ensure4(p3) {
                   var _a2;
-                  const s3 = stateEditors2.studio.ephemeral.projects.stateByProjectId.stateBySheetId.stateByObjectKey._ensure(p2);
+                  const s3 = stateEditors2.studio.ephemeral.projects.stateByProjectId.stateBySheetId.stateByObjectKey._ensure(p3);
                   (_a2 = s3.valuesBeingScrubbed) != null ? _a2 : s3.valuesBeingScrubbed = {};
                   return s3.valuesBeingScrubbed;
                 }
                 propsBeingScrubbed2._ensure = _ensure4;
-                function flag(p2) {
-                  set_default(_ensure4(p2), p2.pathToProp, true);
+                function flag(p3) {
+                  set_default(_ensure4(p3), p3.pathToProp, true);
                 }
                 propsBeingScrubbed2.flag = flag;
               })(propsBeingScrubbed = stateByObjectKey2.propsBeingScrubbed || (stateByObjectKey2.propsBeingScrubbed = {}));
@@ -48146,6 +50809,10 @@ var stateEditors;
         drafts().ahistoric.pinDetails = pinDetails;
       }
       ahistoric2.setPinDetails = setPinDetails;
+      function setPinNotifications(pinNotifications) {
+        drafts().ahistoric.pinNotifications = pinNotifications;
+      }
+      ahistoric2.setPinNotifications = setPinNotifications;
       function setVisibilityState(visibilityState) {
         drafts().ahistoric.visibilityState = visibilityState;
       }
@@ -48170,30 +50837,30 @@ var stateEditors;
       (function(projects2) {
         let stateByProjectId;
         (function(stateByProjectId2) {
-          function _ensure(p2) {
+          function _ensure(p3) {
             const s3 = drafts().ahistoric;
-            if (!s3.projects.stateByProjectId[p2.projectId]) {
-              s3.projects.stateByProjectId[p2.projectId] = {
+            if (!s3.projects.stateByProjectId[p3.projectId]) {
+              s3.projects.stateByProjectId[p3.projectId] = {
                 stateBySheetId: {}
               };
             }
-            return s3.projects.stateByProjectId[p2.projectId];
+            return s3.projects.stateByProjectId[p3.projectId];
           }
           stateByProjectId2._ensure = _ensure;
           let stateBySheetId;
           (function(stateBySheetId2) {
-            function _ensure2(p2) {
-              const projectState = stateEditors2.studio.ahistoric.projects.stateByProjectId._ensure(p2);
-              if (!projectState.stateBySheetId[p2.sheetId]) {
-                projectState.stateBySheetId[p2.sheetId] = {};
+            function _ensure2(p3) {
+              const projectState = stateEditors2.studio.ahistoric.projects.stateByProjectId._ensure(p3);
+              if (!projectState.stateBySheetId[p3.sheetId]) {
+                projectState.stateBySheetId[p3.sheetId] = {};
               }
-              return projectState.stateBySheetId[p2.sheetId];
+              return projectState.stateBySheetId[p3.sheetId];
             }
             stateBySheetId2._ensure = _ensure2;
             let sequence;
             (function(sequence2) {
-              function _ensure3(p2) {
-                const sheetState = stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId._ensure(p2);
+              function _ensure3(p3) {
+                const sheetState = stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId._ensure(p3);
                 if (!sheetState.sequence) {
                   sheetState.sequence = {};
                 }
@@ -48202,36 +50869,36 @@ var stateEditors;
               sequence2._ensure = _ensure3;
               let focusRange;
               (function(focusRange2) {
-                function set2(p2) {
-                  stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p2).focusRange = { range: p2.range, enabled: p2.enabled };
+                function set2(p3) {
+                  stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p3).focusRange = { range: p3.range, enabled: p3.enabled };
                 }
                 focusRange2.set = set2;
-                function unset(p2) {
-                  stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p2).focusRange = void 0;
+                function unset(p3) {
+                  stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p3).focusRange = void 0;
                 }
                 focusRange2.unset = unset;
               })(focusRange = sequence2.focusRange || (sequence2.focusRange = {}));
               let clippedSpaceRange;
               (function(clippedSpaceRange2) {
-                function set2(p2) {
-                  stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p2).clippedSpaceRange = __spreadValues({}, p2.range);
+                function set2(p3) {
+                  stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p3).clippedSpaceRange = __spreadValues({}, p3.range);
                 }
                 clippedSpaceRange2.set = set2;
               })(clippedSpaceRange = sequence2.clippedSpaceRange || (sequence2.clippedSpaceRange = {}));
               let sequenceEditorCollapsableItems;
               (function(sequenceEditorCollapsableItems2) {
-                function _ensure4(p2) {
-                  const seq = stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p2);
+                function _ensure4(p3) {
+                  const seq = stateEditors2.studio.ahistoric.projects.stateByProjectId.stateBySheetId.sequence._ensure(p3);
                   let existing = seq.collapsableItems;
                   if (!existing) {
                     existing = seq.collapsableItems = pointableSetUtil.create();
                   }
                   return existing;
                 }
-                function set2(p2) {
-                  const collapsableSet = _ensure4(p2);
-                  Object.assign(collapsableSet, pointableSetUtil.add(collapsableSet, p2.studioSheetItemKey, {
-                    isCollapsed: p2.isCollapsed
+                function set2(p3) {
+                  const collapsableSet = _ensure4(p3);
+                  Object.assign(collapsableSet, pointableSetUtil.add(collapsableSet, p3.studioSheetItemKey, {
+                    isCollapsed: p3.isCollapsed
                   }));
                 }
                 sequenceEditorCollapsableItems2.set = set2;
@@ -48248,10 +50915,10 @@ var stateEditors;
     (function(historic2) {
       let revisionHistory;
       (function(revisionHistory2) {
-        function add(p2) {
-          const revisionHistory3 = drafts().historic.coreByProject[p2.projectId].revisionHistory;
+        function add(p3) {
+          const revisionHistory3 = drafts().historic.coreByProject[p3.projectId].revisionHistory;
           const maxNumOfRevisionsToKeep = 50;
-          revisionHistory3.unshift(p2.revision);
+          revisionHistory3.unshift(p3.revision);
           if (revisionHistory3.length > maxNumOfRevisionsToKeep) {
             revisionHistory3.length = maxNumOfRevisionsToKeep;
           }
@@ -48260,19 +50927,19 @@ var stateEditors;
       })(revisionHistory = historic2.revisionHistory || (historic2.revisionHistory = {}));
       let sheetsById;
       (function(sheetsById2) {
-        function _ensure(p2) {
-          const sheetsById3 = drafts().historic.coreByProject[p2.projectId].sheetsById;
-          if (!sheetsById3[p2.sheetId]) {
-            sheetsById3[p2.sheetId] = { staticOverrides: { byObject: {} } };
+        function _ensure(p3) {
+          const sheetsById3 = drafts().historic.coreByProject[p3.projectId].sheetsById;
+          if (!sheetsById3[p3.sheetId]) {
+            sheetsById3[p3.sheetId] = { staticOverrides: { byObject: {} } };
           }
-          return sheetsById3[p2.sheetId];
+          return sheetsById3[p3.sheetId];
         }
         sheetsById2._ensure = _ensure;
         let sequence;
         (function(sequence2) {
-          function _ensure2(p2) {
+          function _ensure2(p3) {
             var _a2;
-            const s3 = stateEditors2.coreByProject.historic.sheetsById._ensure(p2);
+            const s3 = stateEditors2.coreByProject.historic.sheetsById._ensure(p3);
             (_a2 = s3.sequence) != null ? _a2 : s3.sequence = {
               subUnitsPerUnit: 30,
               length: 10,
@@ -48282,48 +50949,48 @@ var stateEditors;
             return s3.sequence;
           }
           sequence2._ensure = _ensure2;
-          function setLength(p2) {
-            _ensure2(p2).length = clamp_default(parseFloat(p2.length.toFixed(2)), 0.01, Infinity);
+          function setLength(p3) {
+            _ensure2(p3).length = clamp_default(parseFloat(p3.length.toFixed(2)), 0.01, Infinity);
           }
           sequence2.setLength = setLength;
-          function _ensureTracksOfObject(p2) {
+          function _ensureTracksOfObject(p3) {
             var _a2, _b;
-            const s3 = stateEditors2.coreByProject.historic.sheetsById.sequence._ensure(p2).tracksByObject;
-            (_b = s3[_a2 = p2.objectKey]) != null ? _b : s3[_a2] = { trackData: {}, trackIdByPropPath: {} };
-            return s3[p2.objectKey];
+            const s3 = stateEditors2.coreByProject.historic.sheetsById.sequence._ensure(p3).tracksByObject;
+            (_b = s3[_a2 = p3.objectKey]) != null ? _b : s3[_a2] = { trackData: {}, trackIdByPropPath: {} };
+            return s3[p3.objectKey];
           }
-          function setPrimitivePropAsSequenced(p2, config) {
-            const tracks = _ensureTracksOfObject(p2);
-            const pathEncoded = encodePathToProp(p2.pathToProp);
+          function setPrimitivePropAsSequenced(p3, config) {
+            const tracks = _ensureTracksOfObject(p3);
+            const pathEncoded = encodePathToProp(p3.pathToProp);
             const possibleTrackId = tracks.trackIdByPropPath[pathEncoded];
             if (typeof possibleTrackId === "string")
               return;
             const trackId = generateSequenceTrackId();
             const track = {
               type: "BasicKeyframedTrack",
-              __debugName: `${p2.objectKey}:${pathEncoded}`,
+              __debugName: `${p3.objectKey}:${pathEncoded}`,
               keyframes: []
             };
             tracks.trackData[trackId] = track;
             tracks.trackIdByPropPath[pathEncoded] = trackId;
           }
           sequence2.setPrimitivePropAsSequenced = setPrimitivePropAsSequenced;
-          function setPrimitivePropAsStatic(p2) {
-            const tracks = _ensureTracksOfObject(p2);
-            const encodedPropPath = encodePathToProp(p2.pathToProp);
+          function setPrimitivePropAsStatic(p3) {
+            const tracks = _ensureTracksOfObject(p3);
+            const encodedPropPath = encodePathToProp(p3.pathToProp);
             const trackId = tracks.trackIdByPropPath[encodedPropPath];
             if (typeof trackId !== "string")
               return;
             delete tracks.trackIdByPropPath[encodedPropPath];
             delete tracks.trackData[trackId];
-            stateEditors2.coreByProject.historic.sheetsById.staticOverrides.byObject.setValueOfPrimitiveProp(p2);
+            stateEditors2.coreByProject.historic.sheetsById.staticOverrides.byObject.setValueOfPrimitiveProp(p3);
           }
           sequence2.setPrimitivePropAsStatic = setPrimitivePropAsStatic;
-          function setCompoundPropAsStatic(p2) {
-            const tracks = _ensureTracksOfObject(p2);
+          function setCompoundPropAsStatic(p3) {
+            const tracks = _ensureTracksOfObject(p3);
             for (const encodedPropPath of Object.keys(tracks.trackIdByPropPath)) {
               const propPath = JSON.parse(encodedPropPath);
-              const isSubOfTargetPath = p2.pathToProp.every((key, i3) => propPath[i3] === key);
+              const isSubOfTargetPath = p3.pathToProp.every((key, i3) => propPath[i3] === key);
               if (isSubOfTargetPath) {
                 const trackId = tracks.trackIdByPropPath[encodedPropPath];
                 if (typeof trackId !== "string")
@@ -48332,22 +50999,22 @@ var stateEditors;
                 delete tracks.trackData[trackId];
               }
             }
-            stateEditors2.coreByProject.historic.sheetsById.staticOverrides.byObject.setValueOfCompoundProp(p2);
+            stateEditors2.coreByProject.historic.sheetsById.staticOverrides.byObject.setValueOfCompoundProp(p3);
           }
           sequence2.setCompoundPropAsStatic = setCompoundPropAsStatic;
-          function _getTrack(p2) {
-            return _ensureTracksOfObject(p2).trackData[p2.trackId];
+          function _getTrack(p3) {
+            return _ensureTracksOfObject(p3).trackData[p3.trackId];
           }
-          function setKeyframeAtPosition(p2) {
-            const position2 = p2.snappingFunction(p2.position);
-            const track = _getTrack(p2);
+          function setKeyframeAtPosition(p3) {
+            const position2 = p3.snappingFunction(p3.position);
+            const track = _getTrack(p3);
             if (!track)
               return;
             const { keyframes } = track;
             const existingKeyframeIndex = keyframes.findIndex((kf) => kf.position === position2);
             if (existingKeyframeIndex !== -1) {
               const kf = keyframes[existingKeyframeIndex];
-              kf.value = p2.value;
+              kf.value = p3.value;
               return;
             }
             const indexOfLeftKeyframe = findLastIndex_default(keyframes, (kf) => kf.position < position2);
@@ -48356,8 +51023,8 @@ var stateEditors;
                 id: generateKeyframeId(),
                 position: position2,
                 connectedRight: true,
-                handles: p2.handles || [0.5, 1, 0.5, 0],
-                value: p2.value
+                handles: p3.handles || [0.5, 1, 0.5, 0],
+                value: p3.value
               });
               return;
             }
@@ -48366,67 +51033,67 @@ var stateEditors;
               id: generateKeyframeId(),
               position: position2,
               connectedRight: leftKeyframe.connectedRight,
-              handles: p2.handles || [0.5, 1, 0.5, 0],
-              value: p2.value
+              handles: p3.handles || [0.5, 1, 0.5, 0],
+              value: p3.value
             });
           }
           sequence2.setKeyframeAtPosition = setKeyframeAtPosition;
-          function unsetKeyframeAtPosition(p2) {
-            const track = _getTrack(p2);
+          function unsetKeyframeAtPosition(p3) {
+            const track = _getTrack(p3);
             if (!track)
               return;
             const { keyframes } = track;
-            const index = keyframes.findIndex((kf) => kf.position === p2.position);
+            const index = keyframes.findIndex((kf) => kf.position === p3.position);
             if (index === -1)
               return;
             keyframes.splice(index, 1);
           }
           sequence2.unsetKeyframeAtPosition = unsetKeyframeAtPosition;
-          function transformKeyframes(p2) {
-            const track = _getTrack(p2);
+          function transformKeyframes(p3) {
+            const track = _getTrack(p3);
             if (!track)
               return;
             const initialKeyframes = D(track.keyframes);
-            const selectedKeyframes = initialKeyframes.filter((kf) => p2.keyframeIds.includes(kf.id));
+            const selectedKeyframes = initialKeyframes.filter((kf) => p3.keyframeIds.includes(kf.id));
             const transformed = selectedKeyframes.map((untransformedKf) => {
               const oldPosition = untransformedKf.position;
-              const newPosition = p2.snappingFunction(transformNumber(oldPosition, p2));
+              const newPosition = p3.snappingFunction(transformNumber(oldPosition, p3));
               return __spreadProps(__spreadValues({}, untransformedKf), { position: newPosition });
             });
-            replaceKeyframes(__spreadProps(__spreadValues({}, p2), { keyframes: transformed }));
+            replaceKeyframes(__spreadProps(__spreadValues({}, p3), { keyframes: transformed }));
           }
           sequence2.transformKeyframes = transformKeyframes;
-          function setTweenBetweenKeyframes(p2) {
-            const track = _getTrack(p2);
+          function setTweenBetweenKeyframes(p3) {
+            const track = _getTrack(p3);
             if (!track)
               return;
             track.keyframes = track.keyframes.map((kf, i3) => {
               const prevKf = track.keyframes[i3 - 1];
-              const isBeingEdited = p2.keyframeIds.includes(kf.id);
-              const isAfterEditedKeyframe = p2.keyframeIds.includes(prevKf == null ? void 0 : prevKf.id);
+              const isBeingEdited = p3.keyframeIds.includes(kf.id);
+              const isAfterEditedKeyframe = p3.keyframeIds.includes(prevKf == null ? void 0 : prevKf.id);
               if (isBeingEdited && !isAfterEditedKeyframe) {
                 return __spreadProps(__spreadValues({}, kf), {
                   handles: [
                     kf.handles[0],
                     kf.handles[1],
-                    p2.handles[0],
-                    p2.handles[1]
+                    p3.handles[0],
+                    p3.handles[1]
                   ]
                 });
               } else if (isBeingEdited && isAfterEditedKeyframe) {
                 return __spreadProps(__spreadValues({}, kf), {
                   handles: [
-                    p2.handles[2],
-                    p2.handles[3],
-                    p2.handles[0],
-                    p2.handles[1]
+                    p3.handles[2],
+                    p3.handles[3],
+                    p3.handles[0],
+                    p3.handles[1]
                   ]
                 });
               } else if (isAfterEditedKeyframe) {
                 return __spreadProps(__spreadValues({}, kf), {
                   handles: [
-                    p2.handles[2],
-                    p2.handles[3],
+                    p3.handles[2],
+                    p3.handles[3],
                     kf.handles[2],
                     kf.handles[3]
                   ]
@@ -48437,19 +51104,19 @@ var stateEditors;
             });
           }
           sequence2.setTweenBetweenKeyframes = setTweenBetweenKeyframes;
-          function setHandlesForKeyframe(p2) {
-            const track = _getTrack(p2);
+          function setHandlesForKeyframe(p3) {
+            const track = _getTrack(p3);
             if (!track)
               return;
             track.keyframes = track.keyframes.map((kf) => {
               var _a2, _b, _c, _d, _e2, _f, _g, _h;
-              if (kf.id === p2.keyframeId) {
+              if (kf.id === p3.keyframeId) {
                 return __spreadProps(__spreadValues({}, kf), {
                   handles: [
-                    (_b = (_a2 = p2.end) == null ? void 0 : _a2[0]) != null ? _b : kf.handles[0],
-                    (_d = (_c = p2.end) == null ? void 0 : _c[1]) != null ? _d : kf.handles[1],
-                    (_f = (_e2 = p2.start) == null ? void 0 : _e2[0]) != null ? _f : kf.handles[2],
-                    (_h = (_g = p2.start) == null ? void 0 : _g[1]) != null ? _h : kf.handles[3]
+                    (_b = (_a2 = p3.end) == null ? void 0 : _a2[0]) != null ? _b : kf.handles[0],
+                    (_d = (_c = p3.end) == null ? void 0 : _c[1]) != null ? _d : kf.handles[1],
+                    (_f = (_e2 = p3.start) == null ? void 0 : _e2[0]) != null ? _f : kf.handles[2],
+                    (_h = (_g = p3.start) == null ? void 0 : _g[1]) != null ? _h : kf.handles[3]
                   ]
                 });
               } else
@@ -48457,25 +51124,25 @@ var stateEditors;
             });
           }
           sequence2.setHandlesForKeyframe = setHandlesForKeyframe;
-          function deleteKeyframes(p2) {
-            const track = _getTrack(p2);
+          function deleteKeyframes(p3) {
+            const track = _getTrack(p3);
             if (!track)
               return;
-            track.keyframes = track.keyframes.filter((kf) => p2.keyframeIds.indexOf(kf.id) === -1);
+            track.keyframes = track.keyframes.filter((kf) => p3.keyframeIds.indexOf(kf.id) === -1);
           }
           sequence2.deleteKeyframes = deleteKeyframes;
-          function replaceKeyframes(p2) {
-            const track = _getTrack(p2);
+          function replaceKeyframes(p3) {
+            const track = _getTrack(p3);
             if (!track)
               return;
             const initialKeyframes = D(track.keyframes);
-            const sanitizedKeyframes = p2.keyframes.filter((kf) => {
+            const sanitizedKeyframes = p3.keyframes.filter((kf) => {
               if (typeof kf.value === "number" && !isFinite(kf.value))
                 return false;
               if (!kf.handles.every((handleValue) => isFinite(handleValue)))
                 return false;
               return true;
-            }).map((kf) => __spreadProps(__spreadValues({}, kf), { position: p2.snappingFunction(kf.position) }));
+            }).map((kf) => __spreadProps(__spreadValues({}, kf), { position: p3.snappingFunction(kf.position) }));
             const newKeyframesById = keyBy_default(sanitizedKeyframes, "id");
             const unselected = initialKeyframes.filter((kf) => !newKeyframesById[kf.id]);
             const unselectedByPosition = keyBy_default(unselected, "position");
@@ -48494,27 +51161,27 @@ var stateEditors;
         (function(staticOverrides2) {
           let byObject;
           (function(byObject2) {
-            function _ensure2(p2) {
+            function _ensure2(p3) {
               var _a2, _b;
-              const byObject3 = stateEditors2.coreByProject.historic.sheetsById._ensure(p2).staticOverrides.byObject;
-              (_b = byObject3[_a2 = p2.objectKey]) != null ? _b : byObject3[_a2] = {};
-              return byObject3[p2.objectKey];
+              const byObject3 = stateEditors2.coreByProject.historic.sheetsById._ensure(p3).staticOverrides.byObject;
+              (_b = byObject3[_a2 = p3.objectKey]) != null ? _b : byObject3[_a2] = {};
+              return byObject3[p3.objectKey];
             }
-            function setValueOfCompoundProp(p2) {
-              const existingOverrides = _ensure2(p2);
-              set_default(existingOverrides, p2.pathToProp, p2.value);
+            function setValueOfCompoundProp(p3) {
+              const existingOverrides = _ensure2(p3);
+              set_default(existingOverrides, p3.pathToProp, p3.value);
             }
             byObject2.setValueOfCompoundProp = setValueOfCompoundProp;
-            function setValueOfPrimitiveProp(p2) {
-              const existingOverrides = _ensure2(p2);
-              set_default(existingOverrides, p2.pathToProp, p2.value);
+            function setValueOfPrimitiveProp(p3) {
+              const existingOverrides = _ensure2(p3);
+              set_default(existingOverrides, p3.pathToProp, p3.value);
             }
             byObject2.setValueOfPrimitiveProp = setValueOfPrimitiveProp;
-            function unsetValueOfPrimitiveProp(p2) {
-              const existingStaticOverrides = stateEditors2.coreByProject.historic.sheetsById._ensure(p2).staticOverrides.byObject[p2.objectKey];
+            function unsetValueOfPrimitiveProp(p3) {
+              const existingStaticOverrides = stateEditors2.coreByProject.historic.sheetsById._ensure(p3).staticOverrides.byObject[p3.objectKey];
               if (!existingStaticOverrides)
                 return;
-              removePathFromObject(existingStaticOverrides, p2.pathToProp);
+              removePathFromObject(existingStaticOverrides, p3.pathToProp);
             }
             byObject2.unsetValueOfPrimitiveProp = unsetValueOfPrimitiveProp;
           })(byObject = staticOverrides2.byObject || (staticOverrides2.byObject = {}));
@@ -48529,12 +51196,12 @@ function defer() {
   let resolve;
   let reject;
   const promise = new Promise((rs, rj) => {
-    resolve = (v3) => {
-      rs(v3);
+    resolve = (v5) => {
+      rs(v5);
       deferred.status = "resolved";
     };
-    reject = (v3) => {
-      rj(v3);
+    reject = (v5) => {
+      rj(v5);
       deferred.status = "rejected";
     };
   });
@@ -48548,16 +51215,16 @@ function defer() {
 }
 
 // studio/src/utils/redux/atomFromReduxStore.ts
-var import_dataverse68 = __toModule(require("@theatre/dataverse"));
+var import_dataverse67 = __toModule(require("@theatre/dataverse"));
 function atomFromReduxStore(store) {
   let lastState = store.getState();
-  const a3 = new import_dataverse68.Atom(lastState);
+  const a4 = new import_dataverse67.Atom(lastState);
   store.subscribe(() => {
     const newState = store.getState();
-    a3.setState(newState);
+    a4.setState(newState);
     lastState = newState;
   });
-  return a3;
+  return a4;
 }
 
 // studio/src/utils/redux/configureStore.ts
@@ -48732,9 +51399,9 @@ function compose() {
   if (funcs.length === 1) {
     return funcs[0];
   }
-  return funcs.reduce(function(a3, b3) {
+  return funcs.reduce(function(a4, b4) {
     return function() {
-      return a3(b3.apply(void 0, arguments));
+      return a4(b4.apply(void 0, arguments));
     };
   });
 }
@@ -48809,17 +51476,17 @@ init_generateDiskStateRevision();
 init_instanceTypes();
 init_get();
 init_getDeep();
-var import_dataverse69 = __toModule(require("@theatre/dataverse"));
-init_utils2();
+var import_dataverse68 = __toModule(require("@theatre/dataverse"));
+init_utils();
 init_lodash();
 init_userReadableTypeOfValue();
-function cloneDeepSerializableAndPrune(v3) {
-  if (typeof v3 === "boolean" || typeof v3 === "string" || typeof v3 === "number") {
-    return v3;
-  } else if (isPlainObject_default(v3)) {
+function cloneDeepSerializableAndPrune(v5) {
+  if (typeof v5 === "boolean" || typeof v5 === "string" || typeof v5 === "number") {
+    return v5;
+  } else if (isPlainObject_default(v5)) {
     const cloned = {};
     let clonedAtLeastOneProp = false;
-    for (const [key, val59] of Object.entries(v3)) {
+    for (const [key, val59] of Object.entries(v5)) {
       const clonedVal = cloneDeepSerializableAndPrune(val59);
       if (clonedVal !== void 0) {
         cloned[key] = val59;
@@ -48851,10 +51518,10 @@ function createTransactionPrivateApi(ensureRunning, stateEditors2, drafts2) {
       const _value = cloneDeepSerializableAndPrune(value);
       if (typeof _value === "undefined")
         return;
-      const { root: root3, path } = (0, import_dataverse69.getPointerParts)(pointer2);
+      const { root: root3, path } = (0, import_dataverse68.getPointerParts)(pointer2);
       if (isSheetObject(root3)) {
         const sequenceTracksTree = root3.template.getMapOfValidSequenceTracks_forStudio().getValue();
-        const propConfig = getPropConfigByPath(root3.template.config, path);
+        const propConfig = getPropConfigByPath(root3.template.staticConfig, path);
         if (!propConfig) {
           throw new Error(`Object ${root3.address.objectKey} does not have a prop at ${JSON.stringify(path)}`);
         }
@@ -48882,13 +51549,13 @@ function createTransactionPrivateApi(ensureRunning, stateEditors2, drafts2) {
           }
         };
         if (propConfig.type === "compound") {
-          const pathToTopPointer = (0, import_dataverse69.getPointerParts)(pointer2).path;
+          const pathToTopPointer = (0, import_dataverse68.getPointerParts)(pointer2).path;
           const lengthOfTopPointer = pathToTopPointer.length;
           forEachDeepSimplePropOfCompoundProp(propConfig, pathToTopPointer, (primitivePropConfig, pathToProp) => {
             const pathToPropInProvidedValue = pathToProp.slice(lengthOfTopPointer);
-            const v3 = getDeep(_value, pathToPropInProvidedValue);
-            if (typeof v3 !== "undefined") {
-              setStaticOrKeyframeProp(v3, primitivePropConfig, pathToProp);
+            const v5 = getDeep(_value, pathToPropInProvidedValue);
+            if (typeof v5 !== "undefined") {
+              setStaticOrKeyframeProp(v5, primitivePropConfig, pathToProp);
             } else {
               throw new Error(`Property object.props${pathToProp.map((key) => `[${JSON.stringify(key)}]`).join("")} is required but not provided`);
             }
@@ -48904,11 +51571,11 @@ function createTransactionPrivateApi(ensureRunning, stateEditors2, drafts2) {
     },
     unset: (pointer2) => {
       ensureRunning();
-      const { root: root3, path } = (0, import_dataverse69.getPointerParts)(pointer2);
+      const { root: root3, path } = (0, import_dataverse68.getPointerParts)(pointer2);
       if (isSheetObject(root3)) {
         const sequenceTracksTree = root3.template.getMapOfValidSequenceTracks_forStudio().getValue();
         const defaultValue = getDeep(root3.template.getDefaultValues().getValue(), path);
-        const propConfig = getPropConfigByPath(root3.template.config, path);
+        const propConfig = getPropConfigByPath(root3.template.staticConfig, path);
         const unsetStaticOrKeyframeProp = (value, path2) => {
           const propAddress = __spreadProps(__spreadValues({}, root3.address), { pathToProp: path2 });
           const trackId = get_default(sequenceTracksTree, path2);
@@ -48922,9 +51589,9 @@ function createTransactionPrivateApi(ensureRunning, stateEditors2, drafts2) {
           }
         };
         if (propConfig.type === "compound") {
-          forEachDeep(defaultValue, (v3, pathToProp) => {
-            unsetStaticOrKeyframeProp(v3, pathToProp);
-          }, (0, import_dataverse69.getPointerParts)(pointer2).path);
+          forEachDeep(defaultValue, (v5, pathToProp) => {
+            unsetStaticOrKeyframeProp(v5, pathToProp);
+          }, (0, import_dataverse68.getPointerParts)(pointer2).path);
         } else {
           unsetStaticOrKeyframeProp(defaultValue, path);
         }
@@ -49050,7 +51717,7 @@ var StudioStore = class {
 
 // studio/src/TheatreStudio.ts
 init_studioTicker();
-var import_dataverse70 = __toModule(require("@theatre/dataverse"));
+var import_dataverse69 = __toModule(require("@theatre/dataverse"));
 
 // shared/src/utils/SimpleCache.ts
 var SimpleCache = class {
@@ -49107,7 +51774,7 @@ var TheatreStudio = class {
     });
   }
   _getSelectionDerivation() {
-    return this._cache.get("_getStateDerivation()", () => (0, import_dataverse70.prism)(() => {
+    return this._cache.get("_getStateDerivation()", () => (0, import_dataverse69.prism)(() => {
       return getOutlineSelection().filter((s3) => s3.type === "Theatre_SheetObject" || s3.type === "Theatre_Sheet").map((s3) => s3.publicApi);
     }));
   }
@@ -49182,8 +51849,8 @@ var TheatreStudio = class {
 init_non_secure();
 
 // studio/src/PaneManager.ts
-var import_dataverse71 = __toModule(require("@theatre/dataverse"));
-init_utils();
+var import_dataverse70 = __toModule(require("@theatre/dataverse"));
+init_utils2();
 var PaneManager = class {
   constructor(_studio) {
     this._studio = _studio;
@@ -49197,12 +51864,12 @@ var PaneManager = class {
     });
   }
   _getAllPanes() {
-    return this._cache.get("_getAllPanels()", () => (0, import_dataverse71.prism)(() => {
-      const core = (0, import_dataverse71.val)(this._studio.coreP);
+    return this._cache.get("_getAllPanels()", () => (0, import_dataverse70.prism)(() => {
+      const core = (0, import_dataverse70.val)(this._studio.coreP);
       if (!core)
         return {};
-      const instanceDescriptors = (0, import_dataverse71.val)(this._studio.atomP.historic.panelInstanceDesceriptors);
-      const paneClasses = (0, import_dataverse71.val)(this._studio.atomP.ephemeral.extensions.paneClasses);
+      const instanceDescriptors = (0, import_dataverse70.val)(this._studio.atomP.historic.panelInstanceDesceriptors);
+      const paneClasses = (0, import_dataverse70.val)(this._studio.atomP.ephemeral.extensions.paneClasses);
       const instances = {};
       for (const instanceDescriptor of Object.values(instanceDescriptors)) {
         if (!instanceDescriptor)
@@ -49212,7 +51879,7 @@ var PaneManager = class {
           continue;
         const { instanceId } = instanceDescriptor;
         const { extensionId, classDefinition: definition } = panelClass;
-        const instance = import_dataverse71.prism.memo(`instance-${instanceDescriptor.instanceId}`, () => {
+        const instance = import_dataverse70.prism.memo(`instance-${instanceDescriptor.instanceId}`, () => {
           const inst = {
             extensionId,
             instanceId,
@@ -49233,8 +51900,8 @@ var PaneManager = class {
     if (!core) {
       throw new Error(`Can't create a pane because @theatre/core is not yet loaded`);
     }
-    const extensionId = (0, import_dataverse71.val)(this._studio.atomP.ephemeral.extensions.paneClasses[paneClass].extensionId);
-    const allPaneInstances = (0, import_dataverse71.val)(this._studio.atomP.historic.panelInstanceDesceriptors);
+    const extensionId = (0, import_dataverse70.val)(this._studio.atomP.ephemeral.extensions.paneClasses[paneClass].extensionId);
+    const allPaneInstances = (0, import_dataverse70.val)(this._studio.atomP.historic.panelInstanceDesceriptors);
     let instanceId;
     for (let i3 = 1; i3 < 1e3; i3++) {
       instanceId = `${paneClass} #${i3}`;
@@ -49264,14 +51931,14 @@ var PaneManager = class {
 };
 
 // studio/src/checkForUpdates.ts
-var import_dataverse72 = __toModule(require("@theatre/dataverse"));
+var import_dataverse71 = __toModule(require("@theatre/dataverse"));
 init_getStudio();
 var UPDATE_CHECK_INTERVAL = 30 * 60 * 1e3;
 var TIME_TO_WAIT_ON_ERROR = 1e3 * 60 * 60;
 function checkForUpdates() {
   return __async(this, null, function* () {
     while (true) {
-      const state = (0, import_dataverse72.val)(getStudio().atomP.ahistoric.updateChecker);
+      const state = (0, import_dataverse71.val)(getStudio().atomP.ahistoric.updateChecker);
       if (state) {
         if (state.result !== "error") {
           const lastChecked = state.lastChecked;
@@ -49283,7 +51950,7 @@ function checkForUpdates() {
         }
       }
       try {
-        const response = yield fetch(new Request(`https://updates.theatrejs.com/updates/${"0.5.0"}`));
+        const response = yield fetch(new Request(`https://updates.theatrejs.com/updates/${"0.5.1-rc.2"}`));
         if (response.ok) {
           const json = yield response.json();
           if (!isValidUpdateCheckerResponse(json)) {
@@ -49316,6 +51983,7 @@ function isValidUpdateCheckerResponse(json) {
 }
 
 // studio/src/Studio.ts
+var import_shallowequal2 = __toModule(require_shallowequal());
 var UIConstructorModule = typeof window !== "undefined" ? (init_UI(), UI_exports) : null;
 var STUDIO_NOT_INITIALIZED_MESSAGE = `You seem to have imported '@theatre/studio' but haven't initialized it. You can initialize the studio by:
 \`\`\`
@@ -49348,13 +52016,13 @@ var Studio = class {
     __publicField(this, "ui");
     __publicField(this, "publicApi");
     __publicField(this, "address");
-    __publicField(this, "_projectsProxy", new import_dataverse83.PointerProxy(new import_dataverse83.Atom({}).pointer));
+    __publicField(this, "_projectsProxy", new import_dataverse82.PointerProxy(new import_dataverse82.Atom({}).pointer));
     __publicField(this, "projectsP", this._projectsProxy.pointer);
     __publicField(this, "_store", new StudioStore());
     __publicField(this, "_corePrivateApi");
     __publicField(this, "_cache", new SimpleCache());
     __publicField(this, "paneManager");
-    __publicField(this, "_coreAtom", new import_dataverse83.Atom({}));
+    __publicField(this, "_coreAtom", new import_dataverse82.Atom({}));
     __publicField(this, "_initializedDeferred", defer());
     __publicField(this, "_initializeFnCalled", false);
     __publicField(this, "_didWarnAboutNotInitializing", false);
@@ -49378,7 +52046,7 @@ var Studio = class {
   initialize(opts) {
     return __async(this, null, function* () {
       if (this._initializeFnCalled) {
-        console.warn(`\`studio.initialize()\` is already called. You only need to call \`studio.initialize()\` once.`);
+        console.log(`\`studio.initialize()\` is already called. Ignoring subsequent calls.`);
         return this._initializedDeferred.promise;
       }
       this._initializeFnCalled = true;
@@ -49392,7 +52060,7 @@ var Studio = class {
       if (typeof (opts == null ? void 0 : opts.persistenceKey) === "string") {
         storeOpts.persistenceKey = opts.persistenceKey;
       }
-      if ((opts == null ? void 0 : opts.usePersistentStorage) === false) {
+      if ((opts == null ? void 0 : opts.usePersistentStorage) === false || typeof window === "undefined") {
         storeOpts.usePersistentStorage = false;
       }
       try {
@@ -49412,7 +52080,7 @@ var Studio = class {
     return this._initializedDeferred.promise;
   }
   _attachToIncomingProjects() {
-    const projectsD = (0, import_dataverse83.valueDerivation)(this.projectsP);
+    const projectsD = (0, import_dataverse82.valueDerivation)(this.projectsP);
     const attachToProjects = (projects) => {
       for (const project of Object.values(projects)) {
         if (!project.isAttachedToStudio) {
@@ -49464,6 +52132,10 @@ var Studio = class {
     this.transaction(({ drafts: drafts2 }) => {
       var _a2;
       if (drafts2.ephemeral.extensions.byId[extension.id]) {
+        const prevExtension = drafts2.ephemeral.extensions.byId[extension.id];
+        if (extension === prevExtension || (0, import_shallowequal2.default)(extension, prevExtension)) {
+          return;
+        }
         throw new Error(`Extension id "${extension.id}" is already defined`);
       }
       drafts2.ephemeral.extensions.byId[extension.id] = extension;
@@ -49506,6 +52178,7 @@ var Studio = class {
 // shared/src/globalVariableNames.ts
 var studioBundle = "__TheatreJS_StudioBundle";
 var coreBundle = "__TheatreJS_CoreBundle";
+var notifications = "__TheatreJS_Notifications";
 
 // studio/src/StudioBundle.ts
 var StudioBundle = class {
@@ -49530,15 +52203,16 @@ var StudioBundle = class {
 };
 
 // studio/src/uiComponents/toolbar/ToolbarDropdownSelect.tsx
-var import_react246 = __toModule(require_react());
+var import_react254 = __toModule(require_react());
 init_styled_components_browser_esm();
 var Container61 = styled_components_browser_esm_default.div``;
 var ToolbarDropdownSelect = (props) => {
-  return /* @__PURE__ */ import_react246.default.createElement(Container61, null);
+  return /* @__PURE__ */ import_react254.default.createElement(Container61, null);
 };
 var ToolbarDropdownSelect_default = ToolbarDropdownSelect;
 
 // studio/src/index.ts
+init_notify();
 var studioPrivateAPI = new Studio();
 setStudio(studioPrivateAPI);
 var studio2 = studioPrivateAPI.publicApi;
@@ -49565,6 +52239,11 @@ Note that it **is okay** to import '@theatre/studio' multiple times. But those i
   if (possibleCoreBundle && possibleCoreBundle !== null && possibleCoreBundle.type === "Theatre_CoreBundle") {
     studioBundle2.registerCoreBundle(possibleCoreBundle);
   }
+}
+if (typeof window !== "undefined") {
+  window[notifications] = {
+    notify
+  };
 }
 /*
 object-assign

@@ -6652,7 +6652,7 @@ var require_react_development = __commonJS({
           var dispatcher = resolveDispatcher();
           return dispatcher.useReducer(reducer, initialArg, init);
         }
-        function useRef42(initialValue) {
+        function useRef43(initialValue) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useRef(initialValue);
         }
@@ -6664,11 +6664,11 @@ var require_react_development = __commonJS({
           var dispatcher = resolveDispatcher();
           return dispatcher.useLayoutEffect(create, deps);
         }
-        function useCallback24(callback, deps) {
+        function useCallback26(callback, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useCallback(callback, deps);
         }
-        function useMemo49(create, deps) {
+        function useMemo50(create, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useMemo(create, deps);
         }
@@ -7223,15 +7223,15 @@ var require_react_development = __commonJS({
         exports2.isValidElement = isValidElement;
         exports2.lazy = lazy2;
         exports2.memo = memo2;
-        exports2.useCallback = useCallback24;
+        exports2.useCallback = useCallback26;
         exports2.useContext = useContext18;
         exports2.useDebugValue = useDebugValue4;
         exports2.useEffect = useEffect30;
         exports2.useImperativeHandle = useImperativeHandle;
         exports2.useLayoutEffect = useLayoutEffect22;
-        exports2.useMemo = useMemo49;
+        exports2.useMemo = useMemo50;
         exports2.useReducer = useReducer;
-        exports2.useRef = useRef42;
+        exports2.useRef = useRef43;
         exports2.useState = useState36;
         exports2.version = ReactVersion;
       })();
@@ -8040,11 +8040,11 @@ var require_react_dom_development = __commonJS({
     if (true) {
       (function() {
         "use strict";
-        var React149 = require_react();
+        var React153 = require_react();
         var _assign = require_object_assign();
         var Scheduler = require_scheduler();
         var tracing = require_tracing();
-        var ReactSharedInternals = React149.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React153.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         function warn(format4) {
           {
             for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -8076,7 +8076,7 @@ var require_react_dom_development = __commonJS({
             Function.prototype.apply.call(console[level], console, argsWithFormat);
           }
         }
-        if (!React149) {
+        if (!React153) {
           {
             throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
           }
@@ -9292,7 +9292,7 @@ var require_react_dom_development = __commonJS({
         var didWarnInvalidChild = false;
         function flattenChildren(children) {
           var content = "";
-          React149.Children.forEach(children, function(child) {
+          React153.Children.forEach(children, function(child) {
             if (child == null) {
               return;
             }
@@ -9303,7 +9303,7 @@ var require_react_dom_development = __commonJS({
         function validateProps(element, props) {
           {
             if (typeof props.children === "object" && props.children !== null) {
-              React149.Children.forEach(props.children, function(child) {
+              React153.Children.forEach(props.children, function(child) {
                 if (child == null) {
                   return;
                 }
@@ -16496,7 +16496,7 @@ var require_react_dom_development = __commonJS({
         }
         var fakeInternalInstance = {};
         var isArray2 = Array.isArray;
-        var emptyRefsObject = new React149.Component().refs;
+        var emptyRefsObject = new React153.Component().refs;
         var didWarnAboutStateAssignmentForComponent;
         var didWarnAboutUninitializedState;
         var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -34449,7 +34449,7 @@ var init_Item = __esm({
   }
 
   &:hover{
-    color:${(props) => props.enabled ? "white" : "#00000017"};
+    color:${(props) => props.enabled ? "white" : "#ffffff29"};
   }
   
   
@@ -35069,7 +35069,8 @@ var init_BasicSwitch = __esm({
   width: 100%;
 `;
     Label = styled_components_browser_esm_default.label`
-  padding: 0 0.5em;
+  // padding: 0 0.5em;
+  padding: 0;
   background: transparent;
   /* background: #373748; */
   display: flex;
@@ -36583,6 +36584,316 @@ var init_RgbaPropEditor = __esm({
   }
 });
 
+// studio/src/uiComponents/form/BasicFileSrcInput.tsx
+var import_react101, TextHolder, Container21, MediaContainer, Image, Video, RemoveBtn, imgExt, videoExt, gltfExt, BasicFileSrcInput, BasicFileSrcInput_default;
+var init_BasicFileSrcInput = __esm({
+  "studio/src/uiComponents/form/BasicFileSrcInput.tsx"() {
+    init_styled_components_browser_esm();
+    import_react101 = __toModule(require_react());
+    init_useRefAndState();
+    TextHolder = styled_components_browser_esm_default.div`
+  line-height: 30px;
+  padding-left: 6px;
+  padding:right:6px;
+  cursor:pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border:1px solid transparent;
+  color:white;
+  opacity:${(props) => props.isSelect ? "1" : "0.5"};
+  
+  &:hover{
+    border:1px solid #4b4b4b;
+    opacity:0.8;
+  }
+  &:active{
+    border:1px solid #40aeff;
+    opacity:0.8;
+  }
+
+`;
+    Container21 = styled_components_browser_esm_default.div`
+width: 100%;
+
+`;
+    MediaContainer = styled_components_browser_esm_default.div`
+  width: calc(100% - 2px);
+  margin-top: 4px;
+  margin-bottom: 4px;
+  // background-color: rgba(127,127,127,1.0);
+  // background-image: linear-gradient(45deg,#b0b0b0 25%,transparent 25%),linear-gradient(-45deg,#b0b0b0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#b0b0b0 75%),linear-gradient(-45deg,transparent 75%,#b0b0b0 75%);
+  background-size: 20px 20px;
+  background-position: 0 0,0 10px,10px -10px,-10px 0px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #4b4b4b;
+  height: 80px;
+  position:relative;
+`;
+    Image = styled_components_browser_esm_default.img`
+  // width: calc(100% - 20px);
+  // max-height: 60px;
+  // margin: 10px;
+  // object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
+`;
+    Video = styled_components_browser_esm_default.video`
+  width: 100%;
+  // height: 80px;
+  height: 100%;
+  cursor: pointer;
+  object-fit: contain;
+`;
+    RemoveBtn = styled_components_browser_esm_default.div`
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  cursor: pointer;
+  background: #4b4b4b;
+  padding: 4px;
+  line-height: 15px;
+  border-radius: 4px;
+  z-index:1;
+`;
+    imgExt = ["jpg", "png"];
+    videoExt = ["mp4", "web"];
+    gltfExt = ["gltf", "glb"];
+    BasicFileSrcInput = (props) => {
+      const [stateRef] = useRefAndState({ mode: "init" });
+      const propsRef = (0, import_react101.useRef)(props);
+      propsRef.current = props;
+      const fileInputRef = (0, import_react101.useRef)(null);
+      const callbacks = (0, import_react101.useMemo)(() => {
+        const fileChange = (e2) => {
+          const target = e2.target;
+          if (target.files && target.files.length === 1) {
+            const file = target.files[0];
+            const fileBlobUrl = URL.createObjectURL(file);
+            const fileExt = file.name.split(".")[file.name.split(".").length - 1];
+            if (imgExt.includes(fileExt)) {
+              const finalResult = {
+                src: fileBlobUrl,
+                fileName: file.name
+              };
+              stateRef.current = {
+                mode: "selected_file",
+                currentFileObject: finalResult
+              };
+              propsRef.current.temporarilySetValue(finalResult);
+            }
+            if (videoExt.includes(fileExt)) {
+              const finalResult = {
+                src: fileBlobUrl,
+                fileName: file.name
+              };
+              stateRef.current = {
+                mode: "selected_file",
+                currentFileObject: finalResult
+              };
+              propsRef.current.temporarilySetValue(finalResult);
+            }
+          }
+        };
+        const textOnClick = (e2) => {
+          if (fileInputRef.current)
+            fileInputRef.current.click();
+        };
+        const removeOnClick = (e2) => {
+          const finalResult = {
+            src: "",
+            fileName: ""
+          };
+          stateRef.current = {
+            mode: "empty"
+          };
+          if (fileInputRef.current)
+            fileInputRef.current.value = "";
+          propsRef.current.temporarilySetValue(finalResult);
+        };
+        return {
+          fileChange,
+          textOnClick,
+          removeOnClick
+        };
+      }, []);
+      return /* @__PURE__ */ import_react101.default.createElement(import_react101.default.Fragment, null, /* @__PURE__ */ import_react101.default.createElement(Container21, null, /* @__PURE__ */ import_react101.default.createElement(TextHolder, {
+        isSelect: props.value.fileName != null && props.value.fileName != "",
+        onClick: callbacks.textOnClick
+      }, props.value.fileName ? props.value.fileName : "select file"), props.value.fileName ? /* @__PURE__ */ import_react101.default.createElement(MediaContainer, null, stateRef.current.mode === "empty" ? /* @__PURE__ */ import_react101.default.createElement(import_react101.default.Fragment, null) : /* @__PURE__ */ import_react101.default.createElement(RemoveBtn, {
+        onClick: callbacks.removeOnClick
+      }, "remove"), imgExt.includes(props.value.fileName.split(".")[props.value.fileName.split(".").length - 1]) ? /* @__PURE__ */ import_react101.default.createElement(Image, {
+        src: props.value.src
+      }) : videoExt.includes(props.value.fileName.split(".")[props.value.fileName.split(".").length - 1]) ? /* @__PURE__ */ import_react101.default.createElement(import_react101.default.Fragment, null, /* @__PURE__ */ import_react101.default.createElement(Video, {
+        src: props.value.src,
+        onClick: (e2) => {
+          if (e2.target.paused) {
+            e2.target.play();
+          } else {
+            e2.target.pause();
+          }
+        },
+        muted: true,
+        loop: true,
+        autoPlay: false
+      })) : gltfExt.includes(props.value.fileName.split(".")[props.value.fileName.split(".").length - 1]) ? /* @__PURE__ */ import_react101.default.createElement(import_react101.default.Fragment, null) : /* @__PURE__ */ import_react101.default.createElement(import_react101.default.Fragment, null)) : /* @__PURE__ */ import_react101.default.createElement(import_react101.default.Fragment, null), /* @__PURE__ */ import_react101.default.createElement("input", {
+        key: "file_input",
+        type: "file",
+        style: { display: "none" },
+        ref: fileInputRef,
+        onChange: callbacks.fileChange,
+        multiple: false,
+        accept: "image/png, image/gif, image/jpeg, video/mp4, video/webm"
+      })));
+    };
+    BasicFileSrcInput_default = BasicFileSrcInput;
+  }
+});
+
+// studio/src/propEditors/simpleEditors/FileSrcPropEditor.tsx
+function FileSrcPropEditor({
+  editingTools,
+  value
+}) {
+  return /* @__PURE__ */ import_react102.default.createElement(BasicFileSrcInput_default, {
+    value,
+    permanentlySetValue: editingTools.permanentlySetValue,
+    temporarilySetValue: editingTools.temporarilySetValue,
+    discardTemporaryValue: editingTools.discardTemporaryValue
+  });
+}
+var import_react102, FileSrcPropEditor_default;
+var init_FileSrcPropEditor = __esm({
+  "studio/src/propEditors/simpleEditors/FileSrcPropEditor.tsx"() {
+    import_react102 = __toModule(require_react());
+    init_BasicFileSrcInput();
+    FileSrcPropEditor_default = FileSrcPropEditor;
+  }
+});
+
+// studio/src/uiComponents/form/BasicNumberSelect.tsx
+function BasicNumberSelect({
+  value,
+  onChange,
+  options: options2,
+  className,
+  autoFocus
+}) {
+  const _onChange = (0, import_react103.useCallback)((el) => {
+    onChange(Number(el.target.value));
+  }, [onChange]);
+  return /* @__PURE__ */ import_react103.default.createElement(Container22, null, /* @__PURE__ */ import_react103.default.createElement(Select2, {
+    className,
+    value,
+    onChange: _onChange,
+    autoFocus
+  }, Object.keys(options2).map((key, i3) => /* @__PURE__ */ import_react103.default.createElement(Option2, {
+    key: "option-" + i3,
+    value: key
+  }, options2[key]))), /* @__PURE__ */ import_react103.default.createElement(IconContainer2, null, /* @__PURE__ */ import_react103.default.createElement(CgSelect, null)));
+}
+var import_react103, Container22, IconContainer2, Select2, Option2, BasicNumberSelect_default;
+var init_BasicNumberSelect = __esm({
+  "studio/src/uiComponents/form/BasicNumberSelect.tsx"() {
+    import_react103 = __toModule(require_react());
+    init_styled_components_browser_esm();
+    init_all();
+    Container22 = styled_components_browser_esm_default.div`
+  width: 100%;
+  position: relative;
+`;
+    IconContainer2 = styled_components_browser_esm_default.div`
+  position: absolute;
+  right: 0px;
+  top: 0;
+  bottom: 0;
+  width: 1.5em;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  pointer-events: none;
+`;
+    Select2 = styled_components_browser_esm_default.select`
+  appearance: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.9);
+  cursor:pointer;
+  padding: 1px 6px;
+  font: inherit;
+  outline: none;
+  text-align: left;
+  width: 100%;
+  /*
+  looks like putting percentages in the height of a select box doesn't work in Firefox. Not sure why.
+  So we're hard-coding the height to 26px, unlike all other inputs that use a relative height.
+  */
+  height: 26px /* calc(100% - 4px); */;
+
+  @supports (-moz-appearance: none) {
+    /* Ugly hack to remove the extra left padding that shows up only in Firefox */
+    text-indent: -2px;
+  }
+
+  &:hover{
+    border-color: #4b4b4b;
+  }
+  &:focus {
+    border-color:#40aeff;
+  }
+`;
+    Option2 = styled_components_browser_esm_default.option`
+  border: none;
+  border-radius:0px;
+  min-width: 100%;
+  background-color: #1e1e1e;
+  box-shadow: 0 5px 17px rgba(0, 0, 0, 0.2),
+  0 2px 7px rgba(0, 0, 0, 0.15), inset 0 0 0 0.5px #000000,
+  0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+  overflow-y: auto;
+  font-family:'Inter', 'Helvetica', sans-serif;
+`;
+    BasicNumberSelect_default = BasicNumberSelect;
+  }
+});
+
+// studio/src/propEditors/simpleEditors/NumberLiteralPropEditor.tsx
+function NumberLiteralPropEditor({
+  propConfig,
+  editingTools,
+  value,
+  autoFocus
+}) {
+  const onChange = (0, import_react104.useCallback)((val59) => {
+    editingTools.permanentlySetValue(val59);
+  }, [propConfig, editingTools]);
+  return propConfig.as === "menu" ? /* @__PURE__ */ import_react104.default.createElement(BasicNumberSelect_default, {
+    value,
+    onChange,
+    options: propConfig.valuesAndLabels,
+    autoFocus
+  }) : /* @__PURE__ */ import_react104.default.createElement(BasicNumberSelect_default, {
+    value,
+    onChange,
+    options: propConfig.valuesAndLabels,
+    autoFocus
+  });
+}
+var import_react104, NumberLiteralPropEditor_default;
+var init_NumberLiteralPropEditor = __esm({
+  "studio/src/propEditors/simpleEditors/NumberLiteralPropEditor.tsx"() {
+    import_react104 = __toModule(require_react());
+    init_BasicNumberSelect();
+    NumberLiteralPropEditor_default = NumberLiteralPropEditor;
+  }
+});
+
 // studio/src/propEditors/simpleEditors/simplePropEditorByPropType.ts
 var simplePropEditorByPropType;
 var init_simplePropEditorByPropType = __esm({
@@ -36592,12 +36903,16 @@ var init_simplePropEditorByPropType = __esm({
     init_StringLiteralPropEditor();
     init_StringPropEditor();
     init_RgbaPropEditor();
+    init_FileSrcPropEditor();
+    init_NumberLiteralPropEditor();
     simplePropEditorByPropType = {
       number: NumberPropEditor_default,
       string: StringPropEditor_default,
       boolean: BooleanPropEditor_default,
       stringLiteral: StringLiteralPropEditor_default,
-      rgba: RgbaPropEditor_default
+      rgba: RgbaPropEditor_default,
+      filesrc: FileSrcPropEditor_default,
+      numberLiteral: NumberLiteralPropEditor_default
     };
   }
 });
@@ -36618,7 +36933,7 @@ function useEditingToolsForCompoundProp(pointerToProp, obj, propConfig) {
         type: "AllStatic",
         beingScrubbed: false,
         contextMenuItems: [],
-        controlIndicators: /* @__PURE__ */ import_react102.default.createElement(DefaultValueIndicator_default, {
+        controlIndicators: /* @__PURE__ */ import_react106.default.createElement(DefaultValueIndicator_default, {
           hasStaticOverride: false
         })
       };
@@ -36629,7 +36944,7 @@ function useEditingToolsForCompoundProp(pointerToProp, obj, propConfig) {
     const common = {
       beingScrubbed: someDescendantsBeingScrubbed,
       contextMenuItems,
-      controlIndicators: /* @__PURE__ */ import_react102.default.createElement(import_react102.default.Fragment, null)
+      controlIndicators: /* @__PURE__ */ import_react106.default.createElement(import_react106.default.Fragment, null)
     };
     const validSequencedTracks = (0, import_dataverse27.val)(obj.template.getMapOfValidSequenceTracks_forStudio());
     const possibleSequenceTrackIds = getDeep(validSequencedTracks, pathToProp);
@@ -36692,7 +37007,7 @@ function useEditingToolsForCompoundProp(pointerToProp, obj, propConfig) {
       });
     }
     if (hasOneOrMoreSequencedTracks) {
-      const controlIndicators = import_dataverse27.prism.memo(`controlIndicators`, () => /* @__PURE__ */ import_react102.default.createElement(ControlIndicators, __spreadValues({}, {
+      const controlIndicators = import_dataverse27.prism.memo(`controlIndicators`, () => /* @__PURE__ */ import_react106.default.createElement(ControlIndicators, __spreadValues({}, {
         pointerToProp,
         obj,
         possibleSequenceTrackIds,
@@ -36706,7 +37021,7 @@ function useEditingToolsForCompoundProp(pointerToProp, obj, propConfig) {
     } else {
       return __spreadProps(__spreadValues({}, common), {
         type: "AllStatic",
-        controlIndicators: /* @__PURE__ */ import_react102.default.createElement(DefaultValueIndicator_default, {
+        controlIndicators: /* @__PURE__ */ import_react106.default.createElement(DefaultValueIndicator_default, {
           hasStaticOverride: false
         })
       });
@@ -36791,10 +37106,10 @@ function ControlIndicators({
         }
       } : void 0
     };
-    return /* @__PURE__ */ import_react102.default.createElement(NextPrevKeyframeCursors_default, __spreadValues({}, pr));
+    return /* @__PURE__ */ import_react106.default.createElement(NextPrevKeyframeCursors_default, __spreadValues({}, pr));
   }, [pointerToProp, obj, possibleSequenceTrackIds, listOfDescendantTrackIds]);
 }
-var import_dataverse27, import_react102;
+var import_dataverse27, import_react106;
 var init_useEditingToolsForCompoundProp = __esm({
   "studio/src/propEditors/useEditingToolsForCompoundProp.tsx"() {
     init_getStudio();
@@ -36802,7 +37117,7 @@ var init_useEditingToolsForCompoundProp = __esm({
     init_src();
     import_dataverse27 = __toModule(require("@theatre/dataverse"));
     init_get();
-    import_react102 = __toModule(require_react());
+    import_react106 = __toModule(require_react());
     init_DefaultValueIndicator();
     init_utils();
     init_ids();
@@ -36894,7 +37209,7 @@ function deriveAllD(obj) {
   });
 }
 function deriver(Component) {
-  const finalComp = import_react104.default.memo(import_react104.default.forwardRef(function deriverRender(props, ref) {
+  const finalComp = import_react108.default.memo(import_react108.default.forwardRef(function deriverRender(props, ref) {
     let observableArr = [];
     const observables = {};
     const normalProps = {
@@ -36909,21 +37224,21 @@ function deriver(Component) {
         normalProps[key] = value;
       }
     }
-    const initialCount = (0, import_react104.useRef)(observableArr.length);
+    const initialCount = (0, import_react108.useRef)(observableArr.length);
     invariant(initialCount.current === observableArr.length, `expect same number of observable props on every invocation of deriver wrapped component.`, { initial: initialCount.current, count: observableArr.length });
-    const allD = (0, import_react104.useMemo)(() => deriveAllD(observables), observableArr);
+    const allD = (0, import_react108.useMemo)(() => deriveAllD(observables), observableArr);
     const observedPropState = useDerivation(allD);
-    return observedPropState && import_react104.default.createElement(Component, __spreadValues(__spreadValues({}, normalProps), observedPropState));
+    return observedPropState && import_react108.default.createElement(Component, __spreadValues(__spreadValues({}, normalProps), observedPropState));
   }));
   finalComp.displayName = `deriver(${Component.displayName})`;
   return finalComp;
 }
-var import_dataverse28, import_react104;
+var import_dataverse28, import_react108;
 var init_derive_utils = __esm({
   "studio/src/utils/derive-utils.tsx"() {
     import_dataverse28 = __toModule(require("@theatre/dataverse"));
     init_src();
-    import_react104 = __toModule(require_react());
+    import_react108 = __toModule(require_react());
     init_invariant();
   }
 });
@@ -36957,21 +37272,21 @@ function DetailCompoundPropEditor({
     menuItems: tools.contextMenuItems
   });
   const lastSubPropIsComposite = compositeSubs.length > 0;
-  const isPropHighlightedD = (0, import_react105.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
+  const isPropHighlightedD = (0, import_react109.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
     pathToProp: (0, import_dataverse29.getPointerParts)(pointerToProp).path
   })), [pointerToProp]);
-  return /* @__PURE__ */ import_react105.default.createElement(Container21, null, contextMenu, /* @__PURE__ */ import_react105.default.createElement(Header, {
+  return /* @__PURE__ */ import_react109.default.createElement(Container23, null, contextMenu, /* @__PURE__ */ import_react109.default.createElement(Header, {
     isHighlighted: isPropHighlightedD,
     style: { "--depth": visualIndentation - 1 }
-  }, /* @__PURE__ */ import_react105.default.createElement(Padding, null, tools.controlIndicators, /* @__PURE__ */ import_react105.default.createElement(PropName, {
+  }, /* @__PURE__ */ import_react109.default.createElement(Padding, null, tools.controlIndicators, /* @__PURE__ */ import_react109.default.createElement(PropName, {
     isHighlighted: isPropHighlightedD,
     ref: propNameContainerRef
-  }, propName || "Props"))), /* @__PURE__ */ import_react105.default.createElement(SubProps, {
+  }, propName || "Props"))), /* @__PURE__ */ import_react109.default.createElement(SubProps, {
     style: { "--depth": visualIndentation },
     depth: visualIndentation,
     lastSubIsComposite: lastSubPropIsComposite
   }, [...nonCompositeSubs, ...compositeSubs].map(([subPropKey, subPropConfig]) => {
-    return /* @__PURE__ */ import_react105.default.createElement(DeterminePropEditorForDetail_default, {
+    return /* @__PURE__ */ import_react109.default.createElement(DeterminePropEditorForDetail_default, {
       key: "prop-" + subPropKey,
       propConfig: subPropConfig,
       pointerToProp: pointerToProp[subPropKey],
@@ -36980,14 +37295,14 @@ function DetailCompoundPropEditor({
     });
   })));
 }
-var import_dataverse29, import_react105, Container21, Header, Padding, PropName, color, SubProps, DetailCompoundPropEditor_default;
+var import_dataverse29, import_react109, Container23, Header, Padding, PropName, color, SubProps, DetailCompoundPropEditor_default;
 var init_DetailCompoundPropEditor = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail/DetailCompoundPropEditor.tsx"() {
     init_utils();
     import_dataverse29 = __toModule(require("@theatre/dataverse"));
     init_last();
     init_polished_esm();
-    import_react105 = __toModule(require_react());
+    import_react109 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_css();
     init_useRefAndState();
@@ -36997,7 +37312,7 @@ var init_DetailCompoundPropEditor = __esm({
     init_whatPropIsHighlighted();
     init_derive_utils();
     init_getDetailRowHighlightBackground();
-    Container21 = styled_components_browser_esm_default.div`
+    Container23 = styled_components_browser_esm_default.div`
   --step: 15px;
   --left-pad: 15px;
   ${pointerEventsAutoInNormalMode};
@@ -37045,7 +37360,7 @@ var init_DetailCompoundPropEditor = __esm({
   /* background: ${({ depth }) => curriedDarken(depth * 0.03, color)}; */
   /* padding: ${(props) => props.lastSubIsComposite ? 0 : "4px"} 0; */
 `;
-    DetailCompoundPropEditor_default = import_react105.default.memo(DetailCompoundPropEditor);
+    DetailCompoundPropEditor_default = import_react109.default.memo(DetailCompoundPropEditor);
   }
 });
 
@@ -37063,30 +37378,31 @@ function SingleRowPropEditor({
   const [contextMenu] = useContextMenu(propNameContainer, {
     menuItems: editingTools.contextMenuItems
   });
-  return /* @__PURE__ */ import_react106.default.createElement(Container22, {
+  return /* @__PURE__ */ import_react110.default.createElement(Container24, {
     isHighlighted: isPropHighlightedD
-  }, contextMenu, /* @__PURE__ */ import_react106.default.createElement(Left2, null, /* @__PURE__ */ import_react106.default.createElement(ControlsContainer, null, editingTools.controlIndicators), /* @__PURE__ */ import_react106.default.createElement(PropNameContainer, {
+  }, contextMenu, /* @__PURE__ */ import_react110.default.createElement(Left2, null, /* @__PURE__ */ import_react110.default.createElement(ControlsContainer, null, editingTools.controlIndicators), /* @__PURE__ */ import_react110.default.createElement(PropNameContainer, {
     isHighlighted: isPropHighlightedD,
     ref: propNameContainerRef,
     title: ["obj", "props", ...(0, import_dataverse30.getPointerParts)(pointerToProp).path].join(".")
-  }, label)), /* @__PURE__ */ import_react106.default.createElement(InputContainer, null, children));
+  }, /* @__PURE__ */ import_react110.default.createElement(PropsName, null, label))), /* @__PURE__ */ import_react110.default.createElement(InputContainer, null, children));
 }
-var import_dataverse30, import_react106, Container22, Left2, PropNameContainer, ControlsContainer, InputContainer;
+var import_dataverse30, import_react110, Container24, Left2, PropNameContainer, PropsName, ControlsContainer, InputContainer;
 var init_SingleRowPropEditor = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail/SingleRowPropEditor.tsx"() {
     import_dataverse30 = __toModule(require("@theatre/dataverse"));
     init_useContextMenu();
     init_useRefAndState();
     init_lodash();
-    import_react106 = __toModule(require_react());
+    import_react110 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_css();
     init_derive_utils();
     init_rowIndentationFormulaCSS();
     init_getDetailRowHighlightBackground();
-    Container22 = deriver(styled_components_browser_esm_default.div`
+    Container24 = deriver(styled_components_browser_esm_default.div`
   display: flex;
-  height: 30px;
+  // height: 30px;
+  min-height: 30px;
   justify-content: flex-start;
   align-items: stretch;
   // We cannot calculate both the container (details panel) width and the descendant
@@ -37097,7 +37413,8 @@ var init_SingleRowPropEditor = __esm({
   // The correct solution for tabulated UIs with dynamic container widths is to use
   // CSS grid. For now I fixed this issue by just giving a great enough width
   // to the details panel so most things don't break.
-  --right-width: 60%;
+  // --right-width: 60%;
+  --right-width: 50%;
   position: relative;
   ${pointerEventsAutoInNormalMode};
 
@@ -37110,7 +37427,9 @@ var init_SingleRowPropEditor = __esm({
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: stretch;
+  // align-items: stretch;
+  align-items: baseline;
+  line-height: 30px;
   gap: 4px;
   flex-grow: 0;
   flex-shrink: 0;
@@ -37129,7 +37448,7 @@ var init_SingleRowPropEditor = __esm({
   cursor: pointer;
   font-family: 'Inter','Helvetica',sans-serif;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 300;
   color: rgba(255,255,255,0.5);
   
   
@@ -37141,6 +37460,9 @@ var init_SingleRowPropEditor = __esm({
   //   color: white;
   // }
 `);
+    PropsName = styled_components_browser_esm_default.div`
+  position:relative;
+`;
     ControlsContainer = styled_components_browser_esm_default.div`
   flex-basis: 8px;
   flex: 0 0;
@@ -37154,7 +37476,9 @@ var init_SingleRowPropEditor = __esm({
   justify-content: stretch;
   padding: 0 8px 0 2px;
   box-sizing: border-box;
-  height: 100%;
+  //height: 100%;
+  min-height:30px;
+  position: relative;
   width: var(--right-width);
   flex-shrink: 0;
   flex-grow: 0;
@@ -37170,53 +37494,53 @@ function DetailSimplePropEditor({
   SimpleEditorComponent: EditorComponent
 }) {
   const editingTools = useEditingToolsForSimplePropInDetailsPanel(pointerToProp, obj, propConfig);
-  const isPropHighlightedD = (0, import_react107.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
+  const isPropHighlightedD = (0, import_react111.useMemo)(() => whatPropIsHighlighted.getIsPropHighlightedD(__spreadProps(__spreadValues({}, obj.address), {
     pathToProp: (0, import_dataverse31.getPointerParts)(pointerToProp).path
   })), [pointerToProp]);
-  return /* @__PURE__ */ import_react107.default.createElement(SingleRowPropEditor, __spreadValues({}, {
+  return /* @__PURE__ */ import_react111.default.createElement(SingleRowPropEditor, __spreadValues({}, {
     editingTools,
     propConfig,
     pointerToProp,
     isPropHighlightedD
-  }), /* @__PURE__ */ import_react107.default.createElement(EditorComponent, {
+  }), /* @__PURE__ */ import_react111.default.createElement(EditorComponent, {
     editingTools,
     propConfig,
     value: editingTools.value
   }));
 }
-var import_react107, import_dataverse31, DetailSimplePropEditor_default;
+var import_react111, import_dataverse31, DetailSimplePropEditor_default;
 var init_DetailSimplePropEditor = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail/DetailSimplePropEditor.tsx"() {
-    import_react107 = __toModule(require_react());
+    import_react111 = __toModule(require_react());
     init_useEditingToolsForSimpleProp();
     init_SingleRowPropEditor();
     import_dataverse31 = __toModule(require("@theatre/dataverse"));
     init_whatPropIsHighlighted();
-    DetailSimplePropEditor_default = import_react107.default.memo(DetailSimplePropEditor);
+    DetailSimplePropEditor_default = import_react111.default.memo(DetailSimplePropEditor);
   }
 });
 
 // studio/src/panels/DetailPanel/DeterminePropEditorForDetail.tsx
-var import_react108, DeterminePropEditorForDetail, DeterminePropEditorForDetail_default;
+var import_react112, DeterminePropEditorForDetail, DeterminePropEditorForDetail_default;
 var init_DeterminePropEditorForDetail = __esm({
   "studio/src/panels/DetailPanel/DeterminePropEditorForDetail.tsx"() {
-    import_react108 = __toModule(require_react());
+    import_react112 = __toModule(require_react());
     init_simplePropEditorByPropType();
     init_DetailCompoundPropEditor();
     init_DetailSimplePropEditor();
     DeterminePropEditorForDetail = ({ propConfig, visualIndentation, pointerToProp, obj }) => {
       if (propConfig.type === "compound") {
-        return /* @__PURE__ */ import_react108.default.createElement(DetailCompoundPropEditor_default, {
+        return /* @__PURE__ */ import_react112.default.createElement(DetailCompoundPropEditor_default, {
           obj,
           visualIndentation,
           pointerToProp,
           propConfig
         });
       } else if (propConfig.type === "enum") {
-        return /* @__PURE__ */ import_react108.default.createElement(import_react108.default.Fragment, null);
+        return /* @__PURE__ */ import_react112.default.createElement(import_react112.default.Fragment, null);
       } else {
         const PropEditor = simplePropEditorByPropType[propConfig.type];
-        return /* @__PURE__ */ import_react108.default.createElement(DetailSimplePropEditor_default, {
+        return /* @__PURE__ */ import_react112.default.createElement(DetailSimplePropEditor_default, {
           SimpleEditorComponent: PropEditor,
           obj,
           visualIndentation,
@@ -37230,17 +37554,17 @@ var init_DeterminePropEditorForDetail = __esm({
 });
 
 // studio/src/panels/DetailPanel/ObjectDetails.tsx
-var import_react109, ObjectDetails, ObjectDetails_default;
+var import_react113, ObjectDetails, ObjectDetails_default;
 var init_ObjectDetails = __esm({
   "studio/src/panels/DetailPanel/ObjectDetails.tsx"() {
-    import_react109 = __toModule(require_react());
+    import_react113 = __toModule(require_react());
     init_DeterminePropEditorForDetail();
     init_src();
     ObjectDetails = ({ objects }) => {
       const obj = objects[0];
-      const key = (0, import_react109.useMemo)(() => JSON.stringify(obj.address), [obj]);
+      const key = (0, import_react113.useMemo)(() => JSON.stringify(obj.address), [obj]);
       const config = useVal(obj.template.configPointer);
-      return /* @__PURE__ */ import_react109.default.createElement(DeterminePropEditorForDetail_default, {
+      return /* @__PURE__ */ import_react113.default.createElement(DeterminePropEditorForDetail_default, {
         key,
         obj,
         pointerToProp: obj.propsP,
@@ -37327,22 +37651,22 @@ var init_generateDiskStateRevision = __esm({
 });
 
 // studio/src/uiComponents/Popover/TooltipContext.tsx
-var import_dataverse32, import_react111, ctx, lastTooltipId, useTooltipOpenState, TooltipContext, TooltipContext_default;
+var import_dataverse32, import_react115, ctx, lastTooltipId, useTooltipOpenState, TooltipContext, TooltipContext_default;
 var init_TooltipContext = __esm({
   "studio/src/uiComponents/Popover/TooltipContext.tsx"() {
     import_dataverse32 = __toModule(require("@theatre/dataverse"));
     init_useRefAndState();
-    import_react111 = __toModule(require_react());
-    ctx = (0, import_react111.createContext)(null);
+    import_react115 = __toModule(require_react());
+    ctx = (0, import_react115.createContext)(null);
     lastTooltipId = 0;
     useTooltipOpenState = () => {
-      const id = (0, import_react111.useMemo)(() => lastTooltipId++, []);
-      const { cur, set: set2 } = (0, import_react111.useContext)(ctx);
+      const id = (0, import_react115.useMemo)(() => lastTooltipId++, []);
+      const { cur, set: set2 } = (0, import_react115.useContext)(ctx);
       const [isOpenRef, isOpen] = useRefAndState(false);
-      const setIsOpen = (0, import_react111.useCallback)((shouldOpen, delay) => {
+      const setIsOpen = (0, import_react115.useCallback)((shouldOpen, delay) => {
         set2(shouldOpen ? id : -1, delay);
       }, []);
-      (0, import_react111.useEffect)(() => {
+      (0, import_react115.useEffect)(() => {
         return cur.changesWithoutValues().tap(() => {
           const flag = cur.getValue() === id;
           if (isOpenRef.current !== flag)
@@ -37352,9 +37676,9 @@ var init_TooltipContext = __esm({
       return [isOpen, setIsOpen];
     };
     TooltipContext = ({ children }) => {
-      const currentTooltipId = (0, import_react111.useMemo)(() => new import_dataverse32.Box(-1), []);
+      const currentTooltipId = (0, import_react115.useMemo)(() => new import_dataverse32.Box(-1), []);
       const cur = currentTooltipId.derivation;
-      const set2 = (0, import_react111.useMemo)(() => {
+      const set2 = (0, import_react115.useMemo)(() => {
         let lastTimeout = void 0;
         return (id, delay) => {
           const overridingPreviousTimeout = lastTimeout !== void 0;
@@ -37372,7 +37696,7 @@ var init_TooltipContext = __esm({
           }
         };
       }, []);
-      return /* @__PURE__ */ import_react111.default.createElement(ctx.Provider, {
+      return /* @__PURE__ */ import_react115.default.createElement(ctx.Provider, {
         value: { cur, set: set2 }
       }, children);
     };
@@ -37385,7 +37709,7 @@ function useTooltip(opts, render) {
   const enabled = opts.enabled !== false;
   const [isOpen, setIsOpen] = useTooltipOpenState();
   const [targetRef, targetNode] = useRefAndState(null);
-  (0, import_react113.useEffect)(() => {
+  (0, import_react117.useEffect)(() => {
     if (!enabled) {
       return;
     }
@@ -37407,23 +37731,23 @@ function useTooltip(opts, render) {
       target.removeEventListener("mouseleave", onMouseLeave);
     };
   }, [targetRef, enabled, opts.enterDelay, opts.exitDelay]);
-  const portalLayer = (0, import_react112.useContext)(PortalContext);
-  const node = enabled && isOpen && targetNode ? (0, import_react_dom7.createPortal)(/* @__PURE__ */ import_react114.default.createElement(TooltipWrapper_default, {
+  const portalLayer = (0, import_react116.useContext)(PortalContext);
+  const node = enabled && isOpen && targetNode ? (0, import_react_dom7.createPortal)(/* @__PURE__ */ import_react118.default.createElement(TooltipWrapper_default, {
     children: render,
     target: targetNode,
     onClickOutside: noop_default2,
     verticalPlacement: opts.verticalPlacement,
     verticalGap: opts.verticalGap
-  }), portalLayer) : /* @__PURE__ */ import_react114.default.createElement(import_react114.default.Fragment, null);
+  }), portalLayer) : /* @__PURE__ */ import_react118.default.createElement(import_react118.default.Fragment, null);
   return [node, targetRef, isOpen];
 }
-var import_react112, import_react113, import_react114, import_react_dom7;
+var import_react116, import_react117, import_react118, import_react_dom7;
 var init_useTooltip = __esm({
   "studio/src/uiComponents/Popover/useTooltip.tsx"() {
     init_useRefAndState();
-    import_react112 = __toModule(require_react());
-    import_react113 = __toModule(require_react());
-    import_react114 = __toModule(require_react());
+    import_react116 = __toModule(require_react());
+    import_react117 = __toModule(require_react());
+    import_react118 = __toModule(require_react());
     init_TooltipWrapper();
     import_react_dom7 = __toModule(require_react_dom());
     init_TooltipContext();
@@ -37452,18 +37776,18 @@ var init_BasicTooltip = __esm({
 });
 
 // studio/src/panels/DetailPanel/ProjectDetails/StateConflictRow.tsx
-var import_react116, Container23, Message, ChooseStateRow, StateConflictRow, InConflict, StateConflictRow_default;
+var import_react120, Container25, Message, ChooseStateRow, StateConflictRow, InConflict, StateConflictRow_default;
 var init_StateConflictRow = __esm({
   "studio/src/panels/DetailPanel/ProjectDetails/StateConflictRow.tsx"() {
     init_src();
     init_getStudio();
-    import_react116 = __toModule(require_react());
+    import_react120 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_generateDiskStateRevision();
     init_useTooltip();
     init_BasicTooltip();
     init_DetailPanelButton();
-    Container23 = styled_components_browser_esm_default.div`
+    Container25 = styled_components_browser_esm_default.div`
   padding: 8px 10px;
   position: relative;
   background-color: #6d232352;
@@ -37493,7 +37817,7 @@ var init_StateConflictRow = __esm({
       if (!loadingState)
         return null;
       if (loadingState.type === "browserStateIsNotBasedOnDiskState") {
-        return /* @__PURE__ */ import_react116.default.createElement(InConflict, {
+        return /* @__PURE__ */ import_react120.default.createElement(InConflict, {
           loadingState,
           projectId
         });
@@ -37525,15 +37849,15 @@ var init_StateConflictRow = __esm({
           };
         });
       };
-      const [browserStateNode, browserStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react116.default.createElement(BasicTooltip_default, null, "The browser's state will override the disk state."));
-      const [diskStateNode, diskStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react116.default.createElement(BasicTooltip_default, null, "The disk's state will override the browser's state."));
-      return /* @__PURE__ */ import_react116.default.createElement(Container23, null, /* @__PURE__ */ import_react116.default.createElement(Message, null, "Browser state is not based on disk state.", " ", /* @__PURE__ */ import_react116.default.createElement("a", {
+      const [browserStateNode, browserStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react120.default.createElement(BasicTooltip_default, null, "The browser's state will override the disk state."));
+      const [diskStateNode, diskStateRef] = useTooltip({}, () => /* @__PURE__ */ import_react120.default.createElement(BasicTooltip_default, null, "The disk's state will override the browser's state."));
+      return /* @__PURE__ */ import_react120.default.createElement(Container25, null, /* @__PURE__ */ import_react120.default.createElement(Message, null, "Browser state is not based on disk state.", " ", /* @__PURE__ */ import_react120.default.createElement("a", {
         href: "https://www.theatrejs.com/docs/latest/manual/projects#state",
         target: "_blank"
-      }, "Learn more.")), /* @__PURE__ */ import_react116.default.createElement(ChooseStateRow, null, browserStateNode, /* @__PURE__ */ import_react116.default.createElement(DetailPanelButton_default, {
+      }, "Learn more.")), /* @__PURE__ */ import_react120.default.createElement(ChooseStateRow, null, browserStateNode, /* @__PURE__ */ import_react120.default.createElement(DetailPanelButton_default, {
         onClick: useBrowserState,
         ref: browserStateRef
-      }, "Use browser's state"), diskStateNode, /* @__PURE__ */ import_react116.default.createElement(DetailPanelButton_default, {
+      }, "Use browser's state"), diskStateNode, /* @__PURE__ */ import_react120.default.createElement(DetailPanelButton_default, {
         onClick: useOnDiskState,
         ref: diskStateRef
       }, "Use disk state")));
@@ -37543,17 +37867,17 @@ var init_StateConflictRow = __esm({
 });
 
 // studio/src/panels/DetailPanel/ProjectDetails.tsx
-var import_react117, Container24, TheExportRow, ExportTooltip, ProjectDetails, ProjectDetails_default;
+var import_react121, Container26, TheExportRow, ExportTooltip, ProjectDetails, ProjectDetails_default;
 var init_ProjectDetails = __esm({
   "studio/src/panels/DetailPanel/ProjectDetails.tsx"() {
     init_getStudio();
     init_BasicPopover();
     init_usePopover();
-    import_react117 = __toModule(require_react());
+    import_react121 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DetailPanelButton();
     init_StateConflictRow();
-    Container24 = styled_components_browser_esm_default.div``;
+    Container26 = styled_components_browser_esm_default.div``;
     TheExportRow = styled_components_browser_esm_default.div`
   padding: 8px 10px;
   display: flex;
@@ -37561,7 +37885,7 @@ var init_ProjectDetails = __esm({
   align-items: stretch;
 `;
     ExportTooltip = styled_components_browser_esm_default(BasicPopover_default)`
-  width: 280px;
+  width: 320px;
   padding: 1em;
 `;
     ProjectDetails = ({ projects }) => {
@@ -37569,8 +37893,8 @@ var init_ProjectDetails = __esm({
       const projectId = project.address.projectId;
       const slugifiedProjectId = projectId.replace(/[^\w\d'_\-]+/g, " ").trim();
       const suggestedFileName = `${slugifiedProjectId}.theatre-project-state.json`;
-      const [downloaded, setDownloaded] = (0, import_react117.useState)(false);
-      const exportProject = (0, import_react117.useCallback)(() => {
+      const [downloaded, setDownloaded] = (0, import_react121.useState)(false);
+      const exportProject = (0, import_react121.useCallback)(() => {
         const str = JSON.stringify(getStudio().createContentOfSaveFile(project.address.projectId), null, 2);
         const file = new File([str], suggestedFileName, {
           type: "application/json"
@@ -37591,13 +37915,13 @@ var init_ProjectDetails = __esm({
           URL.revokeObjectURL(objUrl);
         }, 4e4);
       }, [project, suggestedFileName]);
-      const exportTooltip = usePopover({ debugName: "ProjectDetails", pointerDistanceThreshold: 50 }, () => /* @__PURE__ */ import_react117.default.createElement(ExportTooltip, null, "This will create a JSON file with the state of your project. You can commit this file to your git repo and include it in your production bundle.", /* @__PURE__ */ import_react117.default.createElement("a", {
+      const exportTooltip = usePopover({ debugName: "ProjectDetails", pointerDistanceThreshold: 50 }, () => /* @__PURE__ */ import_react121.default.createElement(ExportTooltip, null, "This will create a JSON file with the state of your project. You can commit this file to your git repo and include it in your production bundle.", /* @__PURE__ */ import_react121.default.createElement("a", {
         href: "https://www.theatrejs.com/docs/latest/manual/projects#state",
         target: "_blank"
       }, "Here is a quick guide on how to export to production.")));
-      return /* @__PURE__ */ import_react117.default.createElement(import_react117.default.Fragment, null, exportTooltip.node, /* @__PURE__ */ import_react117.default.createElement(Container24, null, /* @__PURE__ */ import_react117.default.createElement(StateConflictRow_default, {
+      return /* @__PURE__ */ import_react121.default.createElement(import_react121.default.Fragment, null, exportTooltip.node, /* @__PURE__ */ import_react121.default.createElement(Container26, null, /* @__PURE__ */ import_react121.default.createElement(StateConflictRow_default, {
         projectId
-      }), /* @__PURE__ */ import_react117.default.createElement(TheExportRow, null, /* @__PURE__ */ import_react117.default.createElement(DetailPanelButton_default, {
+      }), /* @__PURE__ */ import_react121.default.createElement(TheExportRow, null, /* @__PURE__ */ import_react121.default.createElement(DetailPanelButton_default, {
         onMouseEnter: (e2) => exportTooltip.open(e2, e2.target),
         onClick: !downloaded ? exportProject : void 0,
         disabled: downloaded
@@ -37609,8 +37933,8 @@ var init_ProjectDetails = __esm({
 
 // studio/src/uiComponents/useHotspot.ts
 function useHotspot(spot) {
-  const [active, setActive] = (0, import_react118.useState)(false);
-  (0, import_react118.useEffect)(() => {
+  const [active, setActive] = (0, import_react122.useState)(false);
+  (0, import_react122.useEffect)(() => {
     const hoverListener = (e2) => {
       const threshold = active ? 200 : 50;
       const topBuffer = 56;
@@ -37634,107 +37958,15 @@ function useHotspot(spot) {
   }, [active]);
   return active;
 }
-var import_react118;
+var import_react122;
 var init_useHotspot = __esm({
   "studio/src/uiComponents/useHotspot.ts"() {
-    import_react118 = __toModule(require_react());
+    import_react122 = __toModule(require_react());
   }
 });
 
 // studio/src/uiComponents/icons/Outline.tsx
 function Outline(props) {
-  return /* @__PURE__ */ React58.createElement("svg", __spreadValues({
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React58.createElement("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M1.775 2.781a.5.5 0 01.5.5v1.7H4.67c.108-.957.92-1.7 1.905-1.7h6.608a1.917 1.917 0 110 3.834H6.574c-.78 0-1.452-.466-1.751-1.135H2.275v5.03h2.39a2.032 2.032 0 012.023-1.854h6.38a2.031 2.031 0 110 4.063h-6.38c-.83 0-1.543-.497-1.858-1.21H1.775a.5.5 0 01-.5-.5V3.281a.5.5 0 01.5-.5zm4.799 1.5h6.608a.917.917 0 110 1.834H6.574a.917.917 0 110-1.834zm.114 5.875h6.38a1.031 1.031 0 110 2.063h-6.38a1.032 1.032 0 110-2.063z",
-    fill: "currentColor"
-  }));
-}
-var React58, Outline_default;
-var init_Outline = __esm({
-  "studio/src/uiComponents/icons/Outline.tsx"() {
-    React58 = __toModule(require_react());
-    Outline_default = Outline;
-  }
-});
-
-// studio/src/uiComponents/icons/ChevronDown.tsx
-function ChevronDown(props) {
-  return /* @__PURE__ */ React59.createElement("svg", __spreadValues({
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React59.createElement("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M8 10.5L4 6.654 5.2 5.5 8 8.385 10.8 5.5 12 6.654 8 10.5z",
-    fill: "currentColor"
-  }));
-}
-var React59, ChevronDown_default;
-var init_ChevronDown = __esm({
-  "studio/src/uiComponents/icons/ChevronDown.tsx"() {
-    React59 = __toModule(require_react());
-    ChevronDown_default = ChevronDown;
-  }
-});
-
-// studio/src/uiComponents/icons/Details.tsx
-function Details(props) {
-  return /* @__PURE__ */ React60.createElement("svg", __spreadValues({
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React60.createElement("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M3.5 3c-1.072 0-1.969.904-1.969 1.969 0 1 .929 1.968 1.969 1.968h9A1.969 1.969 0 1012.5 3h-9zm9 1H5.531v1.938H12.5A.969.969 0 0012.5 4zM3.5 9.14a1.969 1.969 0 000 3.938h9a1.969 1.969 0 100-3.937h-9zm9 1H8.406v1.938H12.5a.969.969 0 100-1.937z",
-    fill: "currentColor"
-  }));
-}
-var React60, Details_default;
-var init_Details = __esm({
-  "studio/src/uiComponents/icons/Details.tsx"() {
-    React60 = __toModule(require_react());
-    Details_default = Details;
-  }
-});
-
-// studio/src/uiComponents/icons/Ellipsis.tsx
-function Ellipsis(props) {
-  return /* @__PURE__ */ React61.createElement("svg", __spreadValues({
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React61.createElement("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M.166 7.994a2.26 2.26 0 114.518 0 2.26 2.26 0 01-4.518 0zM2.425 6.91a1.085 1.085 0 100 2.17 1.085 1.085 0 000-2.17zM5.74 7.994a2.26 2.26 0 114.519 0 2.26 2.26 0 01-4.519 0zM8 6.91a1.085 1.085 0 100 2.17 1.085 1.085 0 000-2.17zM13.575 5.735a2.26 2.26 0 100 4.519 2.26 2.26 0 000-4.52zm-1.086 2.26a1.085 1.085 0 112.171 0 1.085 1.085 0 01-2.17 0z",
-    fill: "currentColor"
-  }));
-}
-var React61, Ellipsis_default;
-var init_Ellipsis = __esm({
-  "studio/src/uiComponents/icons/Ellipsis.tsx"() {
-    React61 = __toModule(require_react());
-    Ellipsis_default = Ellipsis;
-  }
-});
-
-// studio/src/uiComponents/icons/Package.tsx
-function Package(props) {
   return /* @__PURE__ */ React62.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
@@ -37742,20 +37974,22 @@ function Package(props) {
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
   }, props), /* @__PURE__ */ React62.createElement("path", {
-    d: "M8.339 4.5l-2.055.644 4.451 1.393v2.748l-2.966.928-2.504-.783V6.738l2.42.758 2.055-.644-4.458-1.395L4 5.858v4.463L7.768 11.5 12 10.175V5.646L8.339 4.5z",
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M1.775 2.781a.5.5 0 01.5.5v1.7H4.67c.108-.957.92-1.7 1.905-1.7h6.608a1.917 1.917 0 110 3.834H6.574c-.78 0-1.452-.466-1.751-1.135H2.275v5.03h2.39a2.032 2.032 0 012.023-1.854h6.38a2.031 2.031 0 110 4.063h-6.38c-.83 0-1.543-.497-1.858-1.21H1.775a.5.5 0 01-.5-.5V3.281a.5.5 0 01.5-.5zm4.799 1.5h6.608a.917.917 0 110 1.834H6.574a.917.917 0 110-1.834zm.114 5.875h6.38a1.031 1.031 0 110 2.063h-6.38a1.032 1.032 0 110-2.063z",
     fill: "currentColor"
   }));
 }
-var React62, Package_default;
-var init_Package = __esm({
-  "studio/src/uiComponents/icons/Package.tsx"() {
+var React62, Outline_default;
+var init_Outline = __esm({
+  "studio/src/uiComponents/icons/Outline.tsx"() {
     React62 = __toModule(require_react());
-    Package_default = Package;
+    Outline_default = Outline;
   }
 });
 
-// studio/src/uiComponents/icons/Bell.tsx
-function Bell(props) {
+// studio/src/uiComponents/icons/ChevronDown.tsx
+function ChevronDown(props) {
   return /* @__PURE__ */ React63.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
@@ -37763,14 +37997,104 @@ function Bell(props) {
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
   }, props), /* @__PURE__ */ React63.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M8 10.5L4 6.654 5.2 5.5 8 8.385 10.8 5.5 12 6.654 8 10.5z",
+    fill: "currentColor"
+  }));
+}
+var React63, ChevronDown_default;
+var init_ChevronDown = __esm({
+  "studio/src/uiComponents/icons/ChevronDown.tsx"() {
+    React63 = __toModule(require_react());
+    ChevronDown_default = ChevronDown;
+  }
+});
+
+// studio/src/uiComponents/icons/Details.tsx
+function Details(props) {
+  return /* @__PURE__ */ React64.createElement("svg", __spreadValues({
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), /* @__PURE__ */ React64.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M3.5 3c-1.072 0-1.969.904-1.969 1.969 0 1 .929 1.968 1.969 1.968h9A1.969 1.969 0 1012.5 3h-9zm9 1H5.531v1.938H12.5A.969.969 0 0012.5 4zM3.5 9.14a1.969 1.969 0 000 3.938h9a1.969 1.969 0 100-3.937h-9zm9 1H8.406v1.938H12.5a.969.969 0 100-1.937z",
+    fill: "currentColor"
+  }));
+}
+var React64, Details_default;
+var init_Details = __esm({
+  "studio/src/uiComponents/icons/Details.tsx"() {
+    React64 = __toModule(require_react());
+    Details_default = Details;
+  }
+});
+
+// studio/src/uiComponents/icons/Ellipsis.tsx
+function Ellipsis(props) {
+  return /* @__PURE__ */ React65.createElement("svg", __spreadValues({
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), /* @__PURE__ */ React65.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M.166 7.994a2.26 2.26 0 114.518 0 2.26 2.26 0 01-4.518 0zM2.425 6.91a1.085 1.085 0 100 2.17 1.085 1.085 0 000-2.17zM5.74 7.994a2.26 2.26 0 114.519 0 2.26 2.26 0 01-4.519 0zM8 6.91a1.085 1.085 0 100 2.17 1.085 1.085 0 000-2.17zM13.575 5.735a2.26 2.26 0 100 4.519 2.26 2.26 0 000-4.52zm-1.086 2.26a1.085 1.085 0 112.171 0 1.085 1.085 0 01-2.17 0z",
+    fill: "currentColor"
+  }));
+}
+var React65, Ellipsis_default;
+var init_Ellipsis = __esm({
+  "studio/src/uiComponents/icons/Ellipsis.tsx"() {
+    React65 = __toModule(require_react());
+    Ellipsis_default = Ellipsis;
+  }
+});
+
+// studio/src/uiComponents/icons/Package.tsx
+function Package(props) {
+  return /* @__PURE__ */ React66.createElement("svg", __spreadValues({
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), /* @__PURE__ */ React66.createElement("path", {
+    d: "M8.339 4.5l-2.055.644 4.451 1.393v2.748l-2.966.928-2.504-.783V6.738l2.42.758 2.055-.644-4.458-1.395L4 5.858v4.463L7.768 11.5 12 10.175V5.646L8.339 4.5z",
+    fill: "currentColor"
+  }));
+}
+var React66, Package_default;
+var init_Package = __esm({
+  "studio/src/uiComponents/icons/Package.tsx"() {
+    React66 = __toModule(require_react());
+    Package_default = Package;
+  }
+});
+
+// studio/src/uiComponents/icons/Bell.tsx
+function Bell(props) {
+  return /* @__PURE__ */ React67.createElement("svg", __spreadValues({
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), /* @__PURE__ */ React67.createElement("path", {
     d: "M8 1.57c-.416 0-.752.36-.752.804v.482c-1.715.372-3.006 1.994-3.006 3.938v.473c0 1.18-.407 2.32-1.14 3.205l-.173.208a.85.85 0 00-.125.864.75.75 0 00.686.475h9.019a.752.752 0 00.686-.475.845.845 0 00-.125-.864l-.174-.208a5.026 5.026 0 01-1.139-3.205v-.473c0-1.944-1.291-3.566-3.006-3.938v-.482c0-.445-.336-.804-.752-.804zm1.063 12.39c.282-.301.44-.71.44-1.138H6.496c0 .428.158.837.44 1.138.281.302.664.47 1.063.47.4 0 .783-.168 1.064-.47z",
     fill: "currentColor"
   }));
 }
-var React63, Bell_default;
+var React67, Bell_default;
 var init_Bell = __esm({
   "studio/src/uiComponents/icons/Bell.tsx"() {
-    React63 = __toModule(require_react());
+    React67 = __toModule(require_react());
     Bell_default = Bell;
   }
 });
@@ -37788,13 +38112,13 @@ var init_icons = __esm({
 });
 
 // studio/src/panels/DetailPanel/EmptyState.tsx
-var import_react119, Container25, Message2, Icon2, LinkToDoc, EmptyState, EmptyState_default;
+var import_react123, Container27, Message2, Icon2, LinkToDoc, EmptyState, EmptyState_default;
 var init_EmptyState = __esm({
   "studio/src/panels/DetailPanel/EmptyState.tsx"() {
-    import_react119 = __toModule(require_react());
+    import_react123 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_icons();
-    Container25 = styled_components_browser_esm_default.div`
+    Container27 = styled_components_browser_esm_default.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -37817,7 +38141,7 @@ var init_EmptyState = __esm({
   text-underline-offset: 3px;
 `;
     EmptyState = () => {
-      return /* @__PURE__ */ import_react119.default.createElement(Container25, null, /* @__PURE__ */ import_react119.default.createElement(Message2, null, /* @__PURE__ */ import_react119.default.createElement(Icon2, null, /* @__PURE__ */ import_react119.default.createElement(Outline_default, null)), /* @__PURE__ */ import_react119.default.createElement("div", null, "Please select an object from the ", /* @__PURE__ */ import_react119.default.createElement("u", null, "Outline Menu"), " to see its properties.")), /* @__PURE__ */ import_react119.default.createElement(LinkToDoc, {
+      return /* @__PURE__ */ import_react123.default.createElement(Container27, null, /* @__PURE__ */ import_react123.default.createElement(Message2, null, /* @__PURE__ */ import_react123.default.createElement(Icon2, null, /* @__PURE__ */ import_react123.default.createElement(Outline_default, null)), /* @__PURE__ */ import_react123.default.createElement("div", null, "Please select an object from the ", /* @__PURE__ */ import_react123.default.createElement("u", null, "Outline Menu"), " to see its properties.")), /* @__PURE__ */ import_react123.default.createElement(LinkToDoc, {
         href: "https://www.theatrejs.com/docs/latest/manual/objects",
         target: "_blank"
       }, "Learn more about Objects"));
@@ -37827,12 +38151,12 @@ var init_EmptyState = __esm({
 });
 
 // studio/src/panels/DetailPanel/DetailPanel.tsx
-var import_react121, import_dataverse33, headerHeight, Container26, BeforePadding, Title, Header2, Body, contextMenuShownContext, DetailPanel, DetailPanel_default, isDetailPanelHotspotActiveB, isDetailPanelHoveredB, shouldShowDetailD;
+var import_react125, import_dataverse33, headerHeight, Container28, BeforePadding, Title, Header2, Body, contextMenuShownContext, DetailPanel, DetailPanel_default, isDetailPanelHotspotActiveB, isDetailPanelHoveredB, shouldShowDetailD;
 var init_DetailPanel = __esm({
   "studio/src/panels/DetailPanel/DetailPanel.tsx"() {
     init_selectors();
     init_src();
-    import_react121 = __toModule(require_react());
+    import_react125 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_instanceTypes();
     init_common();
@@ -37846,7 +38170,7 @@ var init_DetailPanel = __esm({
     init_useLockSet();
     init_usePresence();
     headerHeight = `32px`;
-    Container26 = styled_components_browser_esm_default.div`
+    Container28 = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
   // background-color: rgba(40, 43, 47, 0.8);
   //background-color: white;
@@ -37856,7 +38180,7 @@ var init_DetailPanel = __esm({
   // top: 50px;
   // top:0px;
   // Temporary, see comment about CSS grid in SingleRowPropEditor.
-  width: 280px;
+  width: 320px;
   //padding-top: 40px;
   right: 8px;
   top: 8px;
@@ -37949,29 +38273,29 @@ var init_DetailPanel = __esm({
       border-radius: 100px;
   }
 `;
-    contextMenuShownContext = (0, import_react121.createContext)([false, () => () => {
+    contextMenuShownContext = (0, import_react125.createContext)([false, () => () => {
     }]);
     DetailPanel = (props) => {
       const pin = useVal(getStudio().atomP.ahistoric.pinDetails) !== false;
       const hotspotActive = useHotspot("right");
-      (0, import_react121.useLayoutEffect)(() => {
+      (0, import_react125.useLayoutEffect)(() => {
         isDetailPanelHotspotActiveB.set(hotspotActive);
       }, [hotspotActive]);
-      (0, import_react121.useEffect)(() => {
+      (0, import_react125.useEffect)(() => {
         return () => {
           isDetailPanelHoveredB.set(false);
           isDetailPanelHotspotActiveB.set(false);
         };
       }, []);
-      const [isContextMenuShown] = (0, import_react121.useContext)(contextMenuShownContext);
+      const [isContextMenuShown] = (0, import_react125.useContext)(contextMenuShownContext);
       const showDetailsPanel = pin || isContextMenuShown;
-      const [containerElt, setContainerElt] = (0, import_react121.useState)(null);
+      const [containerElt, setContainerElt] = (0, import_react125.useState)(null);
       usePresenceListenersOnRootElement(containerElt);
       return usePrism(() => {
         const selection = getOutlineSelection();
         const obj = selection.find(isSheetObject);
         if (obj) {
-          return /* @__PURE__ */ import_react121.default.createElement(Container26, {
+          return /* @__PURE__ */ import_react125.default.createElement(Container28, {
             "data-testid": "DetailPanel-Object",
             pin: showDetailsPanel,
             ref: setContainerElt,
@@ -37981,23 +38305,23 @@ var init_DetailPanel = __esm({
             onMouseLeave: () => {
               isDetailPanelHoveredB.set(false);
             }
-          }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
+          }, /* @__PURE__ */ import_react125.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react125.default.createElement(Header2, null, /* @__PURE__ */ import_react125.default.createElement(Title, {
             title: `${obj.sheet.address.sheetId}: ${obj.sheet.address.sheetInstanceId} > ${obj.address.objectKey}`
-          }, /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetId, " "), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Punctuation, null, "\xA0\u2192\xA0"), /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, obj.address.objectKey))), /* @__PURE__ */ import_react121.default.createElement(Body, null, /* @__PURE__ */ import_react121.default.createElement(ObjectDetails_default, {
+          }, /* @__PURE__ */ import_react125.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetId, " "), /* @__PURE__ */ import_react125.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react125.default.createElement(TitleBar_Piece, null, obj.sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react125.default.createElement(TitleBar_Punctuation, null, "\xA0\u2192\xA0"), /* @__PURE__ */ import_react125.default.createElement(TitleBar_Piece, null, obj.address.objectKey))), /* @__PURE__ */ import_react125.default.createElement(Body, null, /* @__PURE__ */ import_react125.default.createElement(ObjectDetails_default, {
             objects: [obj]
           })));
         }
         const project = selection.find(isProject);
         if (project) {
-          return /* @__PURE__ */ import_react121.default.createElement(Container26, {
+          return /* @__PURE__ */ import_react125.default.createElement(Container28, {
             pin: showDetailsPanel
-          }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement(Header2, null, /* @__PURE__ */ import_react121.default.createElement(Title, {
+          }, /* @__PURE__ */ import_react125.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react125.default.createElement(Header2, null, /* @__PURE__ */ import_react125.default.createElement(Title, {
             title: `${project.address.projectId}`
-          }, /* @__PURE__ */ import_react121.default.createElement(TitleBar_Piece, null, project.address.projectId, " "))), /* @__PURE__ */ import_react121.default.createElement(Body, null, /* @__PURE__ */ import_react121.default.createElement(ProjectDetails_default, {
+          }, /* @__PURE__ */ import_react125.default.createElement(TitleBar_Piece, null, project.address.projectId, " "))), /* @__PURE__ */ import_react125.default.createElement(Body, null, /* @__PURE__ */ import_react125.default.createElement(ProjectDetails_default, {
             projects: [project]
           })));
         }
-        return /* @__PURE__ */ import_react121.default.createElement(Container26, {
+        return /* @__PURE__ */ import_react125.default.createElement(Container28, {
           pin: showDetailsPanel,
           onMouseEnter: () => {
             isDetailPanelHoveredB.set(true);
@@ -38005,21 +38329,21 @@ var init_DetailPanel = __esm({
           onMouseLeave: () => {
             isDetailPanelHoveredB.set(false);
           }
-        }, /* @__PURE__ */ import_react121.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react121.default.createElement("div", {
+        }, /* @__PURE__ */ import_react125.default.createElement(BeforePadding, null), /* @__PURE__ */ import_react125.default.createElement("div", {
           style: {
             border: "1px solid #4b4b4b",
             borderRadius: "0px 0px 12px 12px",
             height: "calc(100% - 43px)",
             background: "black"
           }
-        }, /* @__PURE__ */ import_react121.default.createElement(EmptyState_default, null)));
+        }, /* @__PURE__ */ import_react125.default.createElement(EmptyState_default, null)));
       }, [showDetailsPanel]);
     };
     DetailPanel_default = () => {
       const lockSet = useLockSet();
-      return /* @__PURE__ */ import_react121.default.createElement(contextMenuShownContext.Provider, {
+      return /* @__PURE__ */ import_react125.default.createElement(contextMenuShownContext.Provider, {
         value: lockSet
-      }, /* @__PURE__ */ import_react121.default.createElement(DetailPanel, null));
+      }, /* @__PURE__ */ import_react125.default.createElement(DetailPanel, null));
     };
     isDetailPanelHotspotActiveB = new import_dataverse33.Box(false);
     isDetailPanelHoveredB = new import_dataverse33.Box(false);
@@ -38034,8 +38358,8 @@ var init_DetailPanel = __esm({
 // studio/src/uiComponents/simpleContextMenu/useContextMenu.tsx
 function useContextMenu(target, opts) {
   const [status, close] = useRequestContextMenu_default(target, opts);
-  const [, addContextMenu] = (0, import_react122.useContext)(contextMenuShownContext);
-  (0, import_react122.useEffect)(() => {
+  const [, addContextMenu] = (0, import_react126.useContext)(contextMenuShownContext);
+  (0, import_react126.useEffect)(() => {
     var _a2;
     let removeContextMenu;
     if (status.isOpen) {
@@ -38044,7 +38368,7 @@ function useContextMenu(target, opts) {
     }
     return () => removeContextMenu == null ? void 0 : removeContextMenu();
   }, [status.isOpen, opts.onOpen]);
-  const node = !status.isOpen ? emptyNode : /* @__PURE__ */ import_react122.default.createElement(ContextMenu_default, {
+  const node = !status.isOpen ? emptyNode : /* @__PURE__ */ import_react126.default.createElement(ContextMenu_default, {
     items: opts.menuItems,
     displayName: opts.displayName,
     clickPoint: status.event,
@@ -38052,14 +38376,14 @@ function useContextMenu(target, opts) {
   });
   return [node, close, status.isOpen];
 }
-var import_react122, emptyNode;
+var import_react126, emptyNode;
 var init_useContextMenu = __esm({
   "studio/src/uiComponents/simpleContextMenu/useContextMenu.tsx"() {
-    import_react122 = __toModule(require_react());
+    import_react126 = __toModule(require_react());
     init_ContextMenu();
     init_useRequestContextMenu();
     init_DetailPanel();
-    emptyNode = /* @__PURE__ */ import_react122.default.createElement(import_react122.default.Fragment, null);
+    emptyNode = /* @__PURE__ */ import_react126.default.createElement(import_react126.default.Fragment, null);
   }
 });
 
@@ -38078,7 +38402,7 @@ function clampRange(range, referenceRange) {
   }
   return [start + overflow, end + overflow];
 }
-var import_dataverse34, import_react124, focusRangeStripTheme, stripWidth, RangeStrip, FocusRangeStrip, FocusRangeStrip_default;
+var import_dataverse34, import_react128, focusRangeStripTheme, stripWidth, RangeStrip, FocusRangeStrip, FocusRangeStrip_default;
 var init_FocusRangeStrip = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeStrip.tsx"() {
     import_dataverse34 = __toModule(require("@theatre/dataverse"));
@@ -38089,7 +38413,7 @@ var init_FocusRangeStrip = __esm({
     init_useContextMenu();
     init_useDrag();
     init_useRefAndState();
-    import_react124 = __toModule(require_react());
+    import_react128 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     focusRangeStripTheme = {
@@ -38149,7 +38473,7 @@ var init_FocusRangeStrip = __esm({
   }
 `;
     FocusRangeStrip = ({ layoutP }) => {
-      const existingRangeD = (0, import_react124.useMemo)(() => (0, import_dataverse34.prism)(() => {
+      const existingRangeD = (0, import_react128.useMemo)(() => (0, import_dataverse34.prism)(() => {
         const { projectId, sheetId } = (0, import_dataverse34.val)(layoutP.sheet).address;
         const existingRange = (0, import_dataverse34.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange;
@@ -38186,7 +38510,7 @@ var init_FocusRangeStrip = __esm({
       });
       const scaledSpaceToUnitSpace = useVal(layoutP.scaledSpace.toUnitSpace);
       const sheet = useVal(layoutP.sheet);
-      const gestureHandlers = (0, import_react124.useMemo)(() => {
+      const gestureHandlers = (0, import_react128.useMemo)(() => {
         let newStartPosition, newEndPosition;
         return {
           debugName: "FocusRangeStrip",
@@ -38263,8 +38587,8 @@ var init_FocusRangeStrip = __esm({
           scaleX = (endX - startX) / stripWidth;
         }
         if (!existingRange)
-          return /* @__PURE__ */ import_react124.default.createElement(import_react124.default.Fragment, null);
-        return /* @__PURE__ */ import_react124.default.createElement(import_react124.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react124.default.createElement(RangeStrip, {
+          return /* @__PURE__ */ import_react128.default.createElement(import_react128.default.Fragment, null);
+        return /* @__PURE__ */ import_react128.default.createElement(import_react128.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react128.default.createElement(RangeStrip, {
           id: "range-strip",
           enabled: existingRange.enabled,
           className: `${isDragging ? "dragging" : ""} ${existingRange.enabled ? "enabled" : ""}`,
@@ -38280,7 +38604,7 @@ var init_FocusRangeStrip = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeThumb.tsx
-var import_dataverse35, import_react126, TheDiv, ColoredMargin, OuterColoredMargin, FocusRangeThumb, FocusRangeThumb_default;
+var import_dataverse35, import_react130, TheDiv, ColoredMargin, OuterColoredMargin, FocusRangeThumb, FocusRangeThumb_default;
 var init_FocusRangeThumb = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeThumb.tsx"() {
     import_dataverse35 = __toModule(require("@theatre/dataverse"));
@@ -38290,7 +38614,7 @@ var init_FocusRangeThumb = __esm({
     init_PointerEventsHandler();
     init_useDrag();
     init_useRefAndState();
-    import_react126 = __toModule(require_react());
+    import_react130 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_FocusRangeStrip();
@@ -38394,12 +38718,12 @@ var init_FocusRangeThumb = __esm({
     FocusRangeThumb = ({ layoutP, thumbType }) => {
       var _a2;
       const [hitZoneRef, hitZoneNode] = useRefAndState(null);
-      const existingRangeD = (0, import_react126.useMemo)(() => (0, import_dataverse35.prism)(() => {
+      const existingRangeD = (0, import_react130.useMemo)(() => (0, import_dataverse35.prism)(() => {
         const { projectId, sheetId } = (0, import_dataverse35.val)(layoutP.sheet).address;
         const existingRange2 = (0, import_dataverse35.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange2;
       }), [layoutP]);
-      const gestureHandlers = (0, import_react126.useMemo)(() => {
+      const gestureHandlers = (0, import_react130.useMemo)(() => {
         return {
           debugName: "FocusRangeThumb",
           onDragStart() {
@@ -38471,7 +38795,7 @@ var init_FocusRangeThumb = __esm({
         if (posInClippedSpace < 0 || (0, import_dataverse35.val)(layoutP.clippedSpace.width) < posInClippedSpace) {
           posInClippedSpace = -1e4;
         }
-        return /* @__PURE__ */ import_react126.default.createElement(TheDiv, __spreadProps(__spreadValues(__spreadValues({
+        return /* @__PURE__ */ import_react130.default.createElement(TheDiv, __spreadProps(__spreadValues(__spreadValues({
           ref: hitZoneRef
         }, DopeSnap_default.includePositionSnapAttrs(position2)), includeLockFrameStampAttrs(position2)), {
           className: `${isDragging && "dragging"} ${enabled && "enabled"}`,
@@ -38480,20 +38804,20 @@ var init_FocusRangeThumb = __esm({
           style: {
             transform: `translate3d(${posInClippedSpace}px, 0, 0)`
           }
-        }), /* @__PURE__ */ import_react126.default.createElement(ColoredMargin, {
+        }), /* @__PURE__ */ import_react130.default.createElement(ColoredMargin, {
           type: thumbType,
           enabled
-        }), /* @__PURE__ */ import_react126.default.createElement(OuterColoredMargin, {
+        }), /* @__PURE__ */ import_react130.default.createElement(OuterColoredMargin, {
           type: thumbType
-        }), /* @__PURE__ */ import_react126.default.createElement("svg", {
+        }), /* @__PURE__ */ import_react130.default.createElement("svg", {
           viewBox: "0 0 9 18",
           xmlns: "http://www.w3.org/2000/svg"
-        }, /* @__PURE__ */ import_react126.default.createElement("line", {
+        }, /* @__PURE__ */ import_react130.default.createElement("line", {
           x1: "4",
           y1: "6",
           x2: "4",
           y2: "12"
-        }), /* @__PURE__ */ import_react126.default.createElement("line", {
+        }), /* @__PURE__ */ import_react130.default.createElement("line", {
           x1: "6",
           y1: "6",
           x2: "6",
@@ -38507,9 +38831,9 @@ var init_FocusRangeThumb = __esm({
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeZone.tsx
 function usePanelDragZoneGestureHandlers(layoutP, panelStuffRef) {
-  const [mode, setMode] = (0, import_react128.useState)("none");
+  const [mode, setMode] = (0, import_react132.useState)("none");
   useCssCursorLock(mode !== "none", "dragging", mode === "creating" ? "ew-resize" : "move");
-  return (0, import_react128.useMemo)(() => {
+  return (0, import_react132.useMemo)(() => {
     const focusRangeCreationGestureHandlers = () => {
       return {
         debugName: "FocusRangeZone/focusRangeCreationGestureHandlers",
@@ -38628,7 +38952,7 @@ function usePanelDragZoneGestureHandlers(layoutP, panelStuffRef) {
     };
   }, [layoutP, panelStuffRef]);
 }
-var import_dataverse36, import_react128, Container27, FocusRangeZone, FocusRangeZone_default;
+var import_dataverse36, import_react132, Container29, FocusRangeZone, FocusRangeZone_default;
 var init_FocusRangeZone = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FocusRangeZone/FocusRangeZone.tsx"() {
     import_dataverse36 = __toModule(require("@theatre/dataverse"));
@@ -38642,12 +38966,12 @@ var init_FocusRangeZone = __esm({
     init_useKeyDown();
     init_useRefAndState();
     init_lodash();
-    import_react128 = __toModule(require_react());
+    import_react132 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FocusRangeStrip();
     init_FocusRangeThumb();
     init_common();
-    Container27 = styled_components_browser_esm_default.div`
+    Container29 = styled_components_browser_esm_default.div`
   position: absolute;
   height: ${() => topStripHeight}px;
   left: 0;
@@ -38659,9 +38983,9 @@ var init_FocusRangeZone = __esm({
     FocusRangeZone = ({ layoutP }) => {
       const [containerRef, containerNode] = useRefAndState(null);
       const panelStuff = usePanel();
-      const panelStuffRef = (0, import_react128.useRef)(panelStuff);
+      const panelStuffRef = (0, import_react132.useRef)(panelStuff);
       panelStuffRef.current = panelStuff;
-      const existingRangeD = (0, import_react128.useMemo)(() => (0, import_dataverse36.prism)(() => {
+      const existingRangeD = (0, import_react132.useMemo)(() => (0, import_dataverse36.prism)(() => {
         const { projectId, sheetId } = (0, import_dataverse36.val)(layoutP.sheet).address;
         const existingRange = (0, import_dataverse36.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange;
@@ -38669,22 +38993,22 @@ var init_FocusRangeZone = __esm({
       useDrag(containerNode, usePanelDragZoneGestureHandlers(layoutP, panelStuffRef));
       const isShiftDown = useKeyDown("Shift");
       const isPointerHovering = useHoverWithoutDescendants(containerNode);
-      (0, import_react128.useEffect)(() => {
+      (0, import_react132.useEffect)(() => {
         if (!isShiftDown && isPointerHovering) {
           const unlock = panelStuffRef.current.addBoundsHighlightLock();
           return unlock;
         }
       }, [!isShiftDown && isPointerHovering]);
       return usePrism(() => {
-        return /* @__PURE__ */ import_react128.default.createElement(Container27, {
+        return /* @__PURE__ */ import_react132.default.createElement(Container29, {
           ref: containerRef,
           isShiftDown
-        }, /* @__PURE__ */ import_react128.default.createElement(FocusRangeStrip_default, {
+        }, /* @__PURE__ */ import_react132.default.createElement(FocusRangeStrip_default, {
           layoutP
-        }), /* @__PURE__ */ import_react128.default.createElement(FocusRangeThumb_default, {
+        }), /* @__PURE__ */ import_react132.default.createElement(FocusRangeThumb_default, {
           thumbType: "start",
           layoutP
-        }), /* @__PURE__ */ import_react128.default.createElement(FocusRangeThumb_default, {
+        }), /* @__PURE__ */ import_react132.default.createElement(FocusRangeThumb_default, {
           thumbType: "end",
           layoutP
         }));
@@ -38695,11 +39019,11 @@ var init_FocusRangeZone = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/TopStrip.tsx
-var import_react130, topStripHeight, topStripTheme, Container28, TopStrip, TopStrip_default;
+var import_react134, topStripHeight, topStripTheme, Container30, TopStrip, TopStrip_default;
 var init_TopStrip = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/TopStrip.tsx"() {
     init_src();
-    import_react130 = __toModule(require_react());
+    import_react134 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_StampsGrid();
     init_FrameStampPositionProvider();
@@ -38710,7 +39034,7 @@ var init_TopStrip = __esm({
       backgroundColor: `rgba(0,0,0,0.99)`,
       borderColor: `rgba(225, 225, 225, 0.1)`
     };
-    Container28 = styled_components_browser_esm_default.div`
+    Container30 = styled_components_browser_esm_default.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -38725,11 +39049,11 @@ var init_TopStrip = __esm({
       layoutP
     }) => {
       const width = useVal(layoutP.rightDims.width);
-      return /* @__PURE__ */ import_react130.default.createElement(import_react130.default.Fragment, null, /* @__PURE__ */ import_react130.default.createElement(Container28, __spreadValues({}, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react130.default.createElement(StampsGrid_default, {
+      return /* @__PURE__ */ import_react134.default.createElement(import_react134.default.Fragment, null, /* @__PURE__ */ import_react134.default.createElement(Container30, __spreadValues({}, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react134.default.createElement(StampsGrid_default, {
         layoutP,
         width,
         height: topStripHeight
-      }), /* @__PURE__ */ import_react130.default.createElement(FocusRangeZone_default, {
+      }), /* @__PURE__ */ import_react134.default.createElement(FocusRangeZone_default, {
         layoutP
       })));
     };
@@ -38738,17 +39062,17 @@ var init_TopStrip = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthEditorPopover.tsx
-var import_react131, greaterThanZero, Container29, Label2, nudge, LengthEditorPopover, LengthEditorPopover_default;
+var import_react135, greaterThanZero, Container31, Label2, nudge, LengthEditorPopover, LengthEditorPopover_default;
 var init_LengthEditorPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthEditorPopover.tsx"() {
-    import_react131 = __toModule(require_react());
+    import_react135 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_src();
     init_getStudio();
     init_BasicNumberInput();
     init_propNameTextCSS();
     greaterThanZero = (v5) => isFinite(v5) && v5 > 0;
-    Container29 = styled_components_browser_esm_default.div`
+    Container31 = styled_components_browser_esm_default.div`
   display: flex;
   gap: 8px;
   padding: 4px 8px;
@@ -38762,7 +39086,7 @@ var init_LengthEditorPopover = __esm({
     nudge = ({ deltaX }) => deltaX * 0.25;
     LengthEditorPopover = ({ layoutP }) => {
       const sheet = useVal(layoutP.sheet);
-      const fns = (0, import_react131.useMemo)(() => {
+      const fns = (0, import_react135.useMemo)(() => {
         let tempTransaction;
         return {
           temporarilySetValue(newLength) {
@@ -38795,14 +39119,14 @@ var init_LengthEditorPopover = __esm({
           }
         };
       }, [layoutP, sheet]);
-      const inputRef = (0, import_react131.useRef)(null);
-      (0, import_react131.useLayoutEffect)(() => {
+      const inputRef = (0, import_react135.useRef)(null);
+      (0, import_react135.useLayoutEffect)(() => {
         inputRef.current.focus();
       }, []);
       return usePrism(() => {
         const sequence = sheet.getSequence();
         const sequenceLength = sequence.length;
-        return /* @__PURE__ */ import_react131.default.createElement(Container29, null, /* @__PURE__ */ import_react131.default.createElement(Label2, null, "Sequence length"), /* @__PURE__ */ import_react131.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
+        return /* @__PURE__ */ import_react135.default.createElement(Container31, null, /* @__PURE__ */ import_react135.default.createElement(Label2, null, "Sequence length"), /* @__PURE__ */ import_react135.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
           value: sequenceLength
         }, fns), {
           isValid: greaterThanZero,
@@ -38817,9 +39141,9 @@ var init_LengthEditorPopover = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthIndicator.tsx
 function useDragBulge(node, props) {
-  const propsRef = (0, import_react134.useRef)(props);
+  const propsRef = (0, import_react138.useRef)(props);
   propsRef.current = props;
-  const gestureHandlers = (0, import_react134.useMemo)(() => {
+  const gestureHandlers = (0, import_react138.useMemo)(() => {
     return {
       debugName: "LengthIndicator/useDragBulge",
       lockCSSCursorTo: "ew-resize",
@@ -38861,12 +39185,12 @@ function useDragBulge(node, props) {
   useLockFrameStampPosition(isDragging, -1);
   return [isDragging];
 }
-var import_dataverse37, import_react134, coverWidth, colors, Strip, ThumbContainer, Tooltip, Tumb, Cover, RENDER_OUT_OF_VIEW_X, LengthIndicator, LengthIndicator_default;
+var import_dataverse37, import_react138, coverWidth, colors, Strip, ThumbContainer, Tooltip, Tumb, Cover, RENDER_OUT_OF_VIEW_X, LengthIndicator, LengthIndicator_default;
 var init_LengthIndicator = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/LengthIndicator/LengthIndicator.tsx"() {
     init_src();
     import_dataverse37 = __toModule(require("@theatre/dataverse"));
-    import_react134 = __toModule(require_react());
+    import_react138 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
     init_TopStrip();
@@ -38991,7 +39315,7 @@ var init_LengthIndicator = __esm({
         toggle: togglePopover,
         close: closePopover
       } = usePopover({ debugName: "LengthIndicator" }, () => {
-        return /* @__PURE__ */ import_react134.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react134.default.createElement(LengthEditorPopover_default, {
+        return /* @__PURE__ */ import_react138.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react138.default.createElement(LengthEditorPopover_default, {
           layoutP,
           onRequestClose: closePopover
         }));
@@ -39015,18 +39339,18 @@ var init_LengthIndicator = __esm({
           translateX = startX;
           scaleX = (endX - startX) / coverWidth;
         }
-        return /* @__PURE__ */ import_react134.default.createElement(import_react134.default.Fragment, null, popoverNode, /* @__PURE__ */ import_react134.default.createElement(Strip, {
+        return /* @__PURE__ */ import_react138.default.createElement(import_react138.default.Fragment, null, popoverNode, /* @__PURE__ */ import_react138.default.createElement(Strip, {
           style: {
             height: height2 + "px",
             transform: `translateX(${translateX === 0 ? RENDER_OUT_OF_VIEW_X : translateX}px)`
           },
           className: isDragging ? "dragging" : ""
-        }, /* @__PURE__ */ import_react134.default.createElement(ThumbContainer, null, /* @__PURE__ */ import_react134.default.createElement(Tumb, __spreadValues({
+        }, /* @__PURE__ */ import_react138.default.createElement(ThumbContainer, null, /* @__PURE__ */ import_react138.default.createElement(Tumb, __spreadValues({
           ref: nodeRef,
           onClick: (e2) => {
             togglePopover(e2, node);
           }
-        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react134.default.createElement(GoChevronLeft, null), /* @__PURE__ */ import_react134.default.createElement(GoChevronRight, null)), /* @__PURE__ */ import_react134.default.createElement(Tooltip, null, "Sequence length:", " ", sequence.positionFormatter.formatBasic(sequenceLength)))), /* @__PURE__ */ import_react134.default.createElement(Cover, {
+        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react138.default.createElement(GoChevronLeft, null), /* @__PURE__ */ import_react138.default.createElement(GoChevronRight, null)), /* @__PURE__ */ import_react138.default.createElement(Tooltip, null, "Sequence length:", " ", sequence.positionFormatter.formatBasic(sequenceLength)))), /* @__PURE__ */ import_react138.default.createElement(Cover, {
           title: "Length",
           style: {
             height: height2 + "px",
@@ -39040,18 +39364,18 @@ var init_LengthIndicator = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/FrameStamp.tsx
-var import_dataverse38, import_react136, Container30, Label3, Line, FrameStamp, FrameStamp_default;
+var import_dataverse38, import_react140, Container32, Label3, Line, FrameStamp, FrameStamp_default;
 var init_FrameStamp = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/FrameStamp.tsx"() {
     init_src();
     import_dataverse38 = __toModule(require("@theatre/dataverse"));
-    import_react136 = __toModule(require_react());
+    import_react140 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_StampsGrid();
     init_SequenceEditorPanel();
     init_TopStrip();
     init_FrameStampPositionProvider();
-    Container30 = styled_components_browser_esm_default.div`
+    Container32 = styled_components_browser_esm_default.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -39080,7 +39404,7 @@ var init_FrameStamp = __esm({
   background: rgba(100, 100, 100, 0.2);
   pointer-events: none;
 `;
-    FrameStamp = import_react136.default.memo(({ layoutP }) => {
+    FrameStamp = import_react140.default.memo(({ layoutP }) => {
       const [posInUnitSpace, posType] = useVal(useFrameStampPositionD());
       const unitSpaceToClippedSpace = useVal(layoutP.clippedSpace.fromUnitSpace);
       const { sequence, formatter, clippedSpaceWidth } = usePrism(() => {
@@ -39089,17 +39413,17 @@ var init_FrameStamp = __esm({
         return { sequence: sequence2, formatter: sequence2.positionFormatter, clippedSpaceWidth: clippedSpaceWidth2 };
       }, [layoutP]);
       if (posInUnitSpace == -1) {
-        return /* @__PURE__ */ import_react136.default.createElement(import_react136.default.Fragment, null);
+        return /* @__PURE__ */ import_react140.default.createElement(import_react140.default.Fragment, null);
       }
       const snappedPosInUnitSpace = posType === FrameStampPositionType.free ? sequence.closestGridPosition(posInUnitSpace) : posInUnitSpace;
       const posInClippedSpace = unitSpaceToClippedSpace(snappedPosInUnitSpace);
       const isVisible2 = posInClippedSpace >= 0 && posInClippedSpace <= clippedSpaceWidth;
-      return /* @__PURE__ */ import_react136.default.createElement(import_react136.default.Fragment, null, /* @__PURE__ */ import_react136.default.createElement(Container30, null, /* @__PURE__ */ import_react136.default.createElement(Label3, {
+      return /* @__PURE__ */ import_react140.default.createElement(import_react140.default.Fragment, null, /* @__PURE__ */ import_react140.default.createElement(Container32, null, /* @__PURE__ */ import_react140.default.createElement(Label3, {
         style: {
           opacity: isVisible2 ? 1 : 0,
           transform: `translate3d(calc(${posInClippedSpace}px - 50%), 0, 0)`
         }
-      }, formatter.formatForPlayhead(snappedPosInUnitSpace)), /* @__PURE__ */ import_react136.default.createElement(Line, {
+      }, formatter.formatForPlayhead(snappedPosInUnitSpace)), /* @__PURE__ */ import_react140.default.createElement(Line, {
         posType,
         style: {
           opacity: isVisible2 ? 1 : 0,
@@ -39112,20 +39436,20 @@ var init_FrameStamp = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/HorizontalScrollbar.tsx
-var import_dataverse39, import_react138, Container31, TimeThread, RangeBar, RangeHandle, RangeStartHandle, RangeEndHandle, Tooltip2, HorizontalScrollbar, HorizontalScrollbar_default;
+var import_dataverse39, import_react142, Container33, TimeThread, RangeBar, RangeHandle, RangeStartHandle, RangeEndHandle, Tooltip2, HorizontalScrollbar, HorizontalScrollbar_default;
 var init_HorizontalScrollbar = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/HorizontalScrollbar.tsx"() {
     init_src();
     import_dataverse39 = __toModule(require("@theatre/dataverse"));
     init_mapValues();
     init_polished_esm();
-    import_react138 = __toModule(require_react());
+    import_react142 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
     init_FrameStampPositionProvider();
     init_css();
     init_useDrag();
-    Container31 = styled_components_browser_esm_default.div`
+    Container33 = styled_components_browser_esm_default.div`
   --threadHeight: 6px;
   --bg-inactive: #32353b;
   --bg-active: #5b5c5d;
@@ -39223,8 +39547,8 @@ var init_HorizontalScrollbar = __esm({
   }
 `;
     HorizontalScrollbar = ({ layoutP }) => {
-      const unitPosToHumanReadablePos = (0, import_react138.useCallback)((n3) => n3.toFixed(2), []);
-      const relevantValuesD = (0, import_react138.useMemo)(() => (0, import_dataverse39.prism)(() => {
+      const unitPosToHumanReadablePos = (0, import_react142.useCallback)((n3) => n3.toFixed(2), []);
+      const relevantValuesD = (0, import_react142.useMemo)(() => (0, import_dataverse39.prism)(() => {
         const rightWidth = (0, import_dataverse39.val)(layoutP.rightDims.width) - 25;
         const clippedSpaceRange2 = (0, import_dataverse39.val)(layoutP.clippedSpace.range);
         const sequenceLength = (0, import_dataverse39.val)(layoutP.sheet).getSequence().length;
@@ -39242,8 +39566,8 @@ var init_HorizontalScrollbar = __esm({
         };
       }), [layoutP]);
       const { rangeStartX, rangeEndX, clippedSpaceRange, bottom } = useVal(relevantValuesD);
-      const [beingDragged, setBeingDragged] = (0, import_react138.useState)("nothing");
-      const handles = (0, import_react138.useMemo)(() => {
+      const [beingDragged, setBeingDragged] = (0, import_react142.useState)("nothing");
+      const handles = (0, import_react142.useMemo)(() => {
         let valuesBeforeDrag = (0, import_dataverse39.val)(relevantValuesD);
         let noteValuesBeforeDrag = () => {
           valuesBeforeDrag = (0, import_dataverse39.val)(relevantValuesD);
@@ -39316,41 +39640,41 @@ var init_HorizontalScrollbar = __esm({
         };
         return self2;
       }, [layoutP, relevantValuesD]);
-      const [rangeDragNode, setRangeDragNode] = (0, import_react138.useState)(null);
+      const [rangeDragNode, setRangeDragNode] = (0, import_react142.useState)(null);
       useDrag(rangeDragNode, {
         debugName: "HorizontalScrollbar/onRangeDrag",
         onDragStart: handles.onRangeDragStart,
         lockCSSCursorTo: "ew-resize"
       });
-      const [rangeStartDragNode, setRangeStartDragNode] = (0, import_react138.useState)(null);
+      const [rangeStartDragNode, setRangeStartDragNode] = (0, import_react142.useState)(null);
       useDrag(rangeStartDragNode, {
         debugName: "HorizontalScrollbar/onRangeStartDrag",
         onDragStart: handles.onRangeStartDragStart,
         lockCSSCursorTo: "w-resize"
       });
-      const [rangeEndDragNode, setRangeEndDragNode] = (0, import_react138.useState)(null);
+      const [rangeEndDragNode, setRangeEndDragNode] = (0, import_react142.useState)(null);
       useDrag(rangeEndDragNode, {
         debugName: "HorizontalScrollbar/onRangeEndDrag",
         onDragStart: handles.onRangeEndDragStart,
         lockCSSCursorTo: "e-resize"
       });
-      return /* @__PURE__ */ import_react138.default.createElement(Container31, __spreadValues({
+      return /* @__PURE__ */ import_react142.default.createElement(Container33, __spreadValues({
         style: { bottom: bottom + 8 + "px" }
-      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react138.default.createElement(TimeThread, null, /* @__PURE__ */ import_react138.default.createElement(RangeBar, {
+      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react142.default.createElement(TimeThread, null, /* @__PURE__ */ import_react142.default.createElement(RangeBar, {
         ref: setRangeDragNode,
         style: {
           width: `${rangeEndX - rangeStartX}px`,
           transform: `translate3d(${rangeStartX}px, 0, 0)`
         }
-      }), /* @__PURE__ */ import_react138.default.createElement(RangeStartHandle, {
+      }), /* @__PURE__ */ import_react142.default.createElement(RangeStartHandle, {
         ref: setRangeStartDragNode,
         style: { transform: `translate3d(${rangeStartX}px, 0, 0)` }
-      }, /* @__PURE__ */ import_react138.default.createElement(Tooltip2, {
+      }, /* @__PURE__ */ import_react142.default.createElement(Tooltip2, {
         active: beingDragged === "both" || beingDragged === "start"
-      }, unitPosToHumanReadablePos(clippedSpaceRange.start))), /* @__PURE__ */ import_react138.default.createElement(RangeEndHandle, {
+      }, unitPosToHumanReadablePos(clippedSpaceRange.start))), /* @__PURE__ */ import_react142.default.createElement(RangeEndHandle, {
         ref: setRangeEndDragNode,
         style: { transform: `translate3d(${rangeEndX}px, 0, 0)` }
-      }, /* @__PURE__ */ import_react138.default.createElement(Tooltip2, {
+      }, /* @__PURE__ */ import_react142.default.createElement(Tooltip2, {
         active: beingDragged === "both" || beingDragged === "end"
       }, unitPosToHumanReadablePos(clippedSpaceRange.end)))));
     };
@@ -39359,17 +39683,17 @@ var init_HorizontalScrollbar = __esm({
 });
 
 // studio/src/uiComponents/RoomToClick.tsx
-var import_react139, Container32, RoomToClick, RoomToClick_default;
+var import_react143, Container34, RoomToClick, RoomToClick_default;
 var init_RoomToClick = __esm({
   "studio/src/uiComponents/RoomToClick.tsx"() {
-    import_react139 = __toModule(require_react());
+    import_react143 = __toModule(require_react());
     init_styled_components_browser_esm();
-    Container32 = styled_components_browser_esm_default.div`
+    Container34 = styled_components_browser_esm_default.div`
   position: absolute;
   inset: ${(props) => props.room * -1}px;
 `;
     RoomToClick = (props) => {
-      return /* @__PURE__ */ import_react139.default.createElement(Container32, {
+      return /* @__PURE__ */ import_react143.default.createElement(Container34, {
         room: props.room
       });
     };
@@ -39378,19 +39702,19 @@ var init_RoomToClick = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/PlayheadPositionPopover.tsx
-var import_react141, import_react142, import_dataverse40, greaterThanOrEqualToZero, Container33, Label4, nudge2, PlayheadPositionPopover, PlayheadPositionPopover_default;
+var import_react145, import_react146, import_dataverse40, greaterThanOrEqualToZero, Container35, Label4, nudge2, PlayheadPositionPopover, PlayheadPositionPopover_default;
 var init_PlayheadPositionPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/PlayheadPositionPopover.tsx"() {
     init_styled_components_browser_esm();
     init_src();
     init_BasicNumberInput();
     init_propNameTextCSS();
-    import_react141 = __toModule(require_react());
-    import_react142 = __toModule(require_react());
+    import_react145 = __toModule(require_react());
+    import_react146 = __toModule(require_react());
     import_dataverse40 = __toModule(require("@theatre/dataverse"));
     init_clamp();
     greaterThanOrEqualToZero = (v5) => isFinite(v5) && v5 >= 0;
-    Container33 = styled_components_browser_esm_default.div`
+    Container35 = styled_components_browser_esm_default.div`
   display: flex;
   gap: 8px;
   padding: 4px 8px;
@@ -39405,7 +39729,7 @@ var init_PlayheadPositionPopover = __esm({
     PlayheadPositionPopover = ({ layoutP }) => {
       const sheet = (0, import_dataverse40.val)(layoutP.sheet);
       const sequence = sheet.getSequence();
-      const fns = (0, import_react141.useMemo)(() => {
+      const fns = (0, import_react145.useMemo)(() => {
         let tempPosition;
         const originalPosition = sequence.position;
         return {
@@ -39430,13 +39754,13 @@ var init_PlayheadPositionPopover = __esm({
           }
         };
       }, [layoutP, sequence]);
-      const inputRef = (0, import_react141.useRef)(null);
-      (0, import_react141.useLayoutEffect)(() => {
+      const inputRef = (0, import_react145.useRef)(null);
+      (0, import_react145.useLayoutEffect)(() => {
         inputRef.current.focus();
       }, []);
       return usePrism(() => {
         const sequence2 = sheet.getSequence();
-        return /* @__PURE__ */ import_react142.default.createElement(Container33, null, /* @__PURE__ */ import_react142.default.createElement(Label4, null, "Sequence position"), /* @__PURE__ */ import_react142.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
+        return /* @__PURE__ */ import_react146.default.createElement(Container35, null, /* @__PURE__ */ import_react146.default.createElement(Label4, null, "Sequence position"), /* @__PURE__ */ import_react146.default.createElement(BasicNumberInput_default, __spreadProps(__spreadValues({
           value: Number(sequence2.position.toFixed(3))
         }, fns), {
           isValid: greaterThanOrEqualToZero,
@@ -39475,7 +39799,7 @@ var init_keyboardUtils = __esm({
 // studio/src/UIRoot/useKeyboardShortcuts.ts
 function useKeyboardShortcuts() {
   const studio3 = getStudio();
-  (0, import_react143.useEffect)(() => {
+  (0, import_react147.useEffect)(() => {
     const handleKeyDown = (e2) => {
       const target = e2.composedPath()[0];
       if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) {
@@ -39553,10 +39877,10 @@ function useKeyboardShortcuts() {
     };
   }, []);
 }
-var import_react143, import_dataverse41, getPlaybackStateBox, getIsPlayheadAttachedToFocusRange;
+var import_react147, import_dataverse41, getPlaybackStateBox, getIsPlayheadAttachedToFocusRange;
 var init_useKeyboardShortcuts = __esm({
   "studio/src/UIRoot/useKeyboardShortcuts.ts"() {
-    import_react143 = __toModule(require_react());
+    import_react147 = __toModule(require_react());
     init_getStudio();
     init_keyboardUtils();
     init_selectors();
@@ -39680,11 +40004,11 @@ function collectKeyframeSnapPositions(tracksByObject, shouldIncludeKeyframe) {
     ]))
   ]));
 }
-var import_dataverse42, import_react144, HitZone, Container34, KeyframeSnapTarget, KeyframeSnapTarget_default, stateB, snapPositionsStateD;
+var import_dataverse42, import_react148, HitZone, Container36, KeyframeSnapTarget, KeyframeSnapTarget_default, stateB, snapPositionsStateD;
 var init_KeyframeSnapTarget = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/KeyframeSnapTarget.tsx"() {
     import_dataverse42 = __toModule(require("@theatre/dataverse"));
-    import_react144 = __toModule(require_react());
+    import_react148 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DopeSnapHitZoneUI();
     HitZone = styled_components_browser_esm_default.div`
@@ -39697,16 +40021,16 @@ var init_KeyframeSnapTarget = __esm({
     ${DopeSnapHitZoneUI.CSS_WHEN_SOMETHING_DRAGGING}
   }
 `;
-    Container34 = styled_components_browser_esm_default.div`
+    Container36 = styled_components_browser_esm_default.div`
   position: absolute;
 `;
     KeyframeSnapTarget = (props) => {
-      return /* @__PURE__ */ import_react144.default.createElement(Container34, {
+      return /* @__PURE__ */ import_react148.default.createElement(Container36, {
         style: {
           top: `${props.leaf.nodeHeight / 2}px`,
           left: `calc(${(0, import_dataverse42.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${props.position}px))`
         }
-      }, /* @__PURE__ */ import_react144.default.createElement(HitZone, __spreadValues({}, DopeSnapHitZoneUI.reactProps({
+      }, /* @__PURE__ */ import_react148.default.createElement(HitZone, __spreadValues({}, DopeSnapHitZoneUI.reactProps({
         isDragging: false,
         position: props.position
       }))));
@@ -39745,7 +40069,7 @@ function usePlayheadContextMenu(node, options2) {
     }
   });
 }
-var import_dataverse43, import_react146, Container35, Rod, Thumb, Squinch, Tooltip3, Playhead, Playhead_default;
+var import_dataverse43, import_react150, Container37, Rod, Thumb, Squinch, Tooltip3, Playhead, Playhead_default;
 var init_Playhead = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/Playhead.tsx"() {
     init_RoomToClick();
@@ -39754,7 +40078,7 @@ var init_Playhead = __esm({
     init_src();
     import_dataverse43 = __toModule(require("@theatre/dataverse"));
     init_clamp();
-    import_react146 = __toModule(require_react());
+    import_react150 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
     init_FrameStampPositionProvider();
@@ -39769,7 +40093,7 @@ var init_Playhead = __esm({
     init_ids();
     init_DopeSnap();
     init_KeyframeSnapTarget();
-    Container35 = styled_components_browser_esm_default.div`
+    Container37 = styled_components_browser_esm_default.div`
   // --thumbColor: #00e0ff;
   --thumbColor:#40aeff;
   position: absolute;
@@ -39817,18 +40141,18 @@ var init_Playhead = __esm({
 
   ${pointerEventsAutoInNormalMode};
 
-  ${Container35}.seeking > & {
+  ${Container37}.seeking > & {
     pointer-events: none !important;
   }
 
   #pointer-root.draggingPositionInSequenceEditor
-    ${Container35}:not(.seeking)
+    ${Container37}:not(.seeking)
     > & {
     pointer-events: auto;
     cursor: var(${lockedCursorCssVarName});
   }
 
-  ${Container35}.playheadattachedtofocusrange > & {
+  ${Container37}.playheadattachedtofocusrange > & {
     top: -8px;
     --sunblock-color: #005662;
     &:before,
@@ -39869,7 +40193,7 @@ var init_Playhead = __esm({
   border-left: 1px solid transparent;
   pointer-events: none;
 
-  /* ${Container35}.playheadattachedtofocusrange & {
+  /* ${Container37}.playheadattachedtofocusrange & {
     top: 10px;
     &:before,
     &:after {
@@ -39918,7 +40242,7 @@ var init_Playhead = __esm({
   font-size: 10px;
   line-height: 18px;
   text-align: center;
-  ${Thumb}:hover &, ${Container35}.seeking & {
+  ${Thumb}:hover &, ${Container37}.seeking & {
     display: block;
   }
 `;
@@ -39931,12 +40255,12 @@ var init_Playhead = __esm({
         toggle: togglePopover,
         close: closePopover
       } = usePopover({ debugName: "Playhead" }, () => {
-        return /* @__PURE__ */ import_react146.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react146.default.createElement(PlayheadPositionPopover_default, {
+        return /* @__PURE__ */ import_react150.default.createElement(BasicPopover_default, null, /* @__PURE__ */ import_react150.default.createElement(PlayheadPositionPopover_default, {
           layoutP,
           onRequestClose: closePopover
         }));
       });
-      const gestureHandlers = (0, import_react146.useMemo)(() => {
+      const gestureHandlers = (0, import_react150.useMemo)(() => {
         return {
           debugName: "RightOverlay/Playhead",
           onDragStart() {
@@ -39978,15 +40302,15 @@ var init_Playhead = __esm({
         const posInUnitSpace = sequence.positionDerivation.getValue();
         const posInClippedSpace = (0, import_dataverse43.val)(layoutP.clippedSpace.fromUnitSpace)(posInUnitSpace);
         const isVisible2 = posInClippedSpace >= 0 && posInClippedSpace <= (0, import_dataverse43.val)(layoutP.clippedSpace.width);
-        return /* @__PURE__ */ import_react146.default.createElement(import_react146.default.Fragment, null, contextMenu, popoverNode, /* @__PURE__ */ import_react146.default.createElement(Container35, __spreadValues({
+        return /* @__PURE__ */ import_react150.default.createElement(import_react150.default.Fragment, null, contextMenu, popoverNode, /* @__PURE__ */ import_react150.default.createElement(Container37, __spreadValues({
           isVisible: isVisible2,
           style: { transform: `translate3d(${posInClippedSpace}px, 0, 0)` },
           className: `${isSeeking && "seeking"} ${isPlayheadAttachedToFocusRange && "playheadattachedtofocusrange"}`
-        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react146.default.createElement(Thumb, __spreadValues({
+        }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react150.default.createElement(Thumb, __spreadValues({
           ref: thumbRef
-        }, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), /* @__PURE__ */ import_react146.default.createElement(RoomToClick_default, {
+        }, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), /* @__PURE__ */ import_react150.default.createElement(RoomToClick_default, {
           room: 8
-        }), /* @__PURE__ */ import_react146.default.createElement(Squinch, null), /* @__PURE__ */ import_react146.default.createElement(Tooltip3, null, sequence.positionFormatter.formatForPlayhead(sequence.closestGridPosition(posInUnitSpace)))), /* @__PURE__ */ import_react146.default.createElement(Rod, __spreadProps(__spreadValues({}, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), {
+        }), /* @__PURE__ */ import_react150.default.createElement(Squinch, null), /* @__PURE__ */ import_react150.default.createElement(Tooltip3, null, sequence.positionFormatter.formatForPlayhead(sequence.closestGridPosition(posInUnitSpace)))), /* @__PURE__ */ import_react150.default.createElement(Rod, __spreadProps(__spreadValues({}, DopeSnap_default.includePositionSnapAttrs(posInUnitSpace)), {
           className: isSeeking ? "seeking" : ""
         }))));
       }, [layoutP, thumbRef, popoverNode]);
@@ -39996,14 +40320,14 @@ var init_Playhead = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/FocusRangeCurtains.tsx
-var import_dataverse44, import_react148, divWidth, Curtain, FocusRangeCurtains, FocusRangeCurtains_default;
+var import_dataverse44, import_react152, divWidth, Curtain, FocusRangeCurtains, FocusRangeCurtains_default;
 var init_FocusRangeCurtains = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/FocusRangeCurtains.tsx"() {
     import_dataverse44 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
     init_TopStrip();
-    import_react148 = __toModule(require_react());
+    import_react152 = __toModule(require_react());
     init_styled_components_browser_esm();
     divWidth = 1e3;
     Curtain = styled_components_browser_esm_default.div`
@@ -40017,7 +40341,7 @@ var init_FocusRangeCurtains = __esm({
   background-color: ${(props) => props.enabled ? "#000000" : "transparent"};
 `;
     FocusRangeCurtains = ({ layoutP }) => {
-      const existingRangeD = (0, import_react148.useMemo)(() => (0, import_dataverse44.prism)(() => {
+      const existingRangeD = (0, import_react152.useMemo)(() => (0, import_dataverse44.prism)(() => {
         const { projectId, sheetId } = (0, import_dataverse44.val)(layoutP.sheet).address;
         const existingRange = (0, import_dataverse44.val)(getStudio().atomP.ahistoric.projects.stateByProjectId[projectId].stateBySheetId[sheetId].sequence.focusRange);
         return existingRange;
@@ -40063,7 +40387,7 @@ var init_FocusRangeCurtains = __esm({
           }
           els2.push({ translateX, scaleX });
         }
-        return /* @__PURE__ */ import_react148.default.createElement(import_react148.default.Fragment, null, els2.map(({ translateX, scaleX }, i3) => /* @__PURE__ */ import_react148.default.createElement(Curtain, {
+        return /* @__PURE__ */ import_react152.default.createElement(import_react152.default.Fragment, null, els2.map(({ translateX, scaleX }, i3) => /* @__PURE__ */ import_react152.default.createElement(Curtain, {
           key: `curtain-${i3}`,
           enabled: true,
           style: {
@@ -40098,9 +40422,9 @@ function useMarkerContextMenu(node, options2) {
   });
 }
 function useDragMarker(node, props) {
-  const propsRef = (0, import_react150.useRef)(props);
+  const propsRef = (0, import_react154.useRef)(props);
   propsRef.current = props;
-  const useDragOpts = (0, import_react150.useMemo)(() => {
+  const useDragOpts = (0, import_react154.useMemo)(() => {
     return {
       debugName: `MarkerDot/useDragMarker (${props.marker.id})`,
       onDragStart(_event) {
@@ -40140,7 +40464,7 @@ function useDragMarker(node, props) {
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor draggingMarker", "ew-resize");
   return [isDragging];
 }
-var import_dataverse45, import_react150, MARKER_SIZE_W_PX, MARKER_SIZE_H_PX, MARKER_HOVER_SIZE_W_PX, MARKER_HOVER_SIZE_H_PX, MarkerDotContainer, MarkerVisualDotSVGContainer, MarkerVisualDot, HitZone2, MarkerDot, MarkerDot_default, MarkerDotVisible;
+var import_dataverse45, import_react154, MARKER_SIZE_W_PX, MARKER_SIZE_H_PX, MARKER_HOVER_SIZE_W_PX, MARKER_HOVER_SIZE_H_PX, MarkerDotContainer, MarkerVisualDotSVGContainer, MarkerVisualDot, HitZone2, MarkerDot, MarkerDot_default, MarkerDotVisible;
 var init_MarkerDot = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/MarkerDot.tsx"() {
     import_dataverse45 = __toModule(require("@theatre/dataverse"));
@@ -40149,7 +40473,7 @@ var init_MarkerDot = __esm({
     init_PointerEventsHandler();
     init_useContextMenu();
     init_useRefAndState();
-    import_react150 = __toModule(require_react());
+    import_react154 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_useDrag();
@@ -40173,14 +40497,14 @@ var init_MarkerDot = __esm({
   ${absoluteDims(MARKER_SIZE_W_PX, MARKER_SIZE_H_PX)}
   pointer-events: none;
 `;
-    MarkerVisualDot = import_react150.default.memo(() => /* @__PURE__ */ import_react150.default.createElement(MarkerVisualDotSVGContainer, {
-      children: /* @__PURE__ */ import_react150.default.createElement("svg", {
+    MarkerVisualDot = import_react154.default.memo(() => /* @__PURE__ */ import_react154.default.createElement(MarkerVisualDotSVGContainer, {
+      children: /* @__PURE__ */ import_react154.default.createElement("svg", {
         width: "100%",
         height: "100%",
         viewBox: "0 0 12 12",
         fill: "none",
         xmlns: "http://www.w3.org/2000/svg"
-      }, /* @__PURE__ */ import_react150.default.createElement("path", {
+      }, /* @__PURE__ */ import_react154.default.createElement("path", {
         d: "M12 5H0V7H2.71973L5.96237 10.2426L9.20501 7H12V5Z",
         fill: "#40AAA4"
       }))
@@ -40226,11 +40550,11 @@ var init_MarkerDot = __esm({
       const outsideClipDims = clippedSpaceMarkerX <= 0 || clippedSpaceMarkerX > clippedSpaceWidth;
       const translateX = outsideClipDims ? -1e4 : clippedSpaceMarkerX;
       const scale = outsideClipDims ? 0 : 1;
-      return /* @__PURE__ */ import_react150.default.createElement(MarkerDotContainer, {
+      return /* @__PURE__ */ import_react154.default.createElement(MarkerDotContainer, {
         style: {
           transform: `translateX(${translateX}px) scale(${scale})`
         }
-      }, /* @__PURE__ */ import_react150.default.createElement(MarkerDotVisible, {
+      }, /* @__PURE__ */ import_react154.default.createElement(MarkerDotVisible, {
         marker,
         layoutP
       }));
@@ -40250,23 +40574,23 @@ var init_MarkerDot = __esm({
         layoutP,
         marker
       });
-      return /* @__PURE__ */ import_react150.default.createElement(import_react150.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react150.default.createElement(HitZone2, __spreadValues({
+      return /* @__PURE__ */ import_react154.default.createElement(import_react154.default.Fragment, null, contextMenu, /* @__PURE__ */ import_react154.default.createElement(HitZone2, __spreadValues({
         ref: markRef
       }, DopeSnapHitZoneUI.reactProps({
         isDragging,
         position: marker.position
-      }))), /* @__PURE__ */ import_react150.default.createElement(MarkerVisualDot, null));
+      }))), /* @__PURE__ */ import_react154.default.createElement(MarkerVisualDot, null));
     };
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/Markers.tsx
-var import_react152, Markers, Markers_default;
+var import_react156, Markers, Markers_default;
 var init_Markers = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/Markers.tsx"() {
     init_src();
     init_getStudio();
-    import_react152 = __toModule(require_react());
+    import_react156 = __toModule(require_react());
     init_MarkerDot();
     Markers = ({
       layoutP
@@ -40274,7 +40598,7 @@ var init_Markers = __esm({
       const sheetAddress = useVal(layoutP.sheet.address);
       const markerSetP = getStudio().atomP.historic.projects.stateByProjectId[sheetAddress.projectId].stateBySheetId[sheetAddress.sheetId].sequenceEditor.markerSet;
       const markerAllIds = useVal(markerSetP.allIds);
-      return /* @__PURE__ */ import_react152.default.createElement(import_react152.default.Fragment, null, markerAllIds && Object.keys(markerAllIds).map((markerId) => /* @__PURE__ */ import_react152.default.createElement(MarkerDot_default, {
+      return /* @__PURE__ */ import_react156.default.createElement(import_react156.default.Fragment, null, markerAllIds && Object.keys(markerAllIds).map((markerId) => /* @__PURE__ */ import_react156.default.createElement(MarkerDot_default, {
         key: markerId,
         layoutP,
         markerId
@@ -40285,13 +40609,13 @@ var init_Markers = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/RightOverlay/RightOverlay.tsx
-var import_dataverse46, import_react154, Container36, RightOverlay, RightOverlay_default;
+var import_dataverse46, import_react158, Container38, RightOverlay, RightOverlay_default;
 var init_RightOverlay = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/RightOverlay.tsx"() {
     init_SequenceEditorPanel();
     init_src();
     import_dataverse46 = __toModule(require("@theatre/dataverse"));
-    import_react154 = __toModule(require_react());
+    import_react158 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_LengthIndicator();
     init_FrameStamp();
@@ -40300,7 +40624,7 @@ var init_RightOverlay = __esm({
     init_TopStrip();
     init_FocusRangeCurtains();
     init_Markers();
-    Container36 = styled_components_browser_esm_default.div`
+    Container38 = styled_components_browser_esm_default.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -40313,21 +40637,21 @@ var init_RightOverlay = __esm({
     RightOverlay = ({ layoutP }) => {
       return usePrism(() => {
         const width = (0, import_dataverse46.val)(layoutP.rightDims.width);
-        return /* @__PURE__ */ import_react154.default.createElement(Container36, {
+        return /* @__PURE__ */ import_react158.default.createElement(Container38, {
           style: { width: width + "px" }
-        }, /* @__PURE__ */ import_react154.default.createElement(Playhead_default, {
+        }, /* @__PURE__ */ import_react158.default.createElement(Playhead_default, {
           layoutP
-        }), /* @__PURE__ */ import_react154.default.createElement(HorizontalScrollbar_default, {
+        }), /* @__PURE__ */ import_react158.default.createElement(HorizontalScrollbar_default, {
           layoutP
-        }), /* @__PURE__ */ import_react154.default.createElement(FrameStamp_default, {
+        }), /* @__PURE__ */ import_react158.default.createElement(FrameStamp_default, {
           layoutP
-        }), /* @__PURE__ */ import_react154.default.createElement(TopStrip_default, {
+        }), /* @__PURE__ */ import_react158.default.createElement(TopStrip_default, {
           layoutP
-        }), /* @__PURE__ */ import_react154.default.createElement(Markers_default, {
+        }), /* @__PURE__ */ import_react158.default.createElement(Markers_default, {
           layoutP
-        }), /* @__PURE__ */ import_react154.default.createElement(LengthIndicator_default, {
+        }), /* @__PURE__ */ import_react158.default.createElement(LengthIndicator_default, {
           layoutP
-        }), /* @__PURE__ */ import_react154.default.createElement(FocusRangeCurtains_default, {
+        }), /* @__PURE__ */ import_react158.default.createElement(FocusRangeCurtains_default, {
           layoutP
         }));
       }, [layoutP]);
@@ -40337,27 +40661,27 @@ var init_RightOverlay = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelDragZone.tsx
-var import_react155, Container37, PanelDragZone, PanelDragZone_default;
+var import_react159, Container39, PanelDragZone, PanelDragZone_default;
 var init_PanelDragZone = __esm({
   "studio/src/panels/BasePanel/PanelDragZone.tsx"() {
     init_useRefAndState();
     init_getStudio();
     init_useDrag();
-    import_react155 = __toModule(require_react());
+    import_react159 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasePanel();
     init_PointerEventsHandler();
     init_lodash();
     init_common();
-    Container37 = styled_components_browser_esm_default.div`
+    Container39 = styled_components_browser_esm_default.div`
   cursor: move;
 `;
     PanelDragZone = (props) => {
       const panelStuff = usePanel();
-      const panelStuffRef = (0, import_react155.useRef)(panelStuff);
+      const panelStuffRef = (0, import_react159.useRef)(panelStuff);
       panelStuffRef.current = panelStuff;
       const [ref, node] = useRefAndState(null);
-      const dragOpts = (0, import_react155.useMemo)(() => {
+      const dragOpts = (0, import_react159.useMemo)(() => {
         return {
           debugName: "PanelDragZone",
           lockCursorTo: "move",
@@ -40397,7 +40721,7 @@ var init_PanelDragZone = __esm({
       }, []);
       const [isDragging] = useDrag(node, dragOpts);
       useCssCursorLock(isDragging, "dragging", "move");
-      const [onMouseEnter, onMouseLeave] = (0, import_react155.useMemo)(() => {
+      const [onMouseEnter, onMouseLeave] = (0, import_react159.useMemo)(() => {
         let unlock;
         return [
           function onMouseEnter2() {
@@ -40417,7 +40741,7 @@ var init_PanelDragZone = __esm({
           }
         ];
       }, []);
-      return /* @__PURE__ */ import_react155.default.createElement(Container37, __spreadProps(__spreadValues({}, props), {
+      return /* @__PURE__ */ import_react159.default.createElement(Container39, __spreadProps(__spreadValues({}, props), {
         ref,
         onMouseEnter,
         onMouseLeave
@@ -40428,14 +40752,14 @@ var init_PanelDragZone = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelResizeHandle.tsx
-var import_react156, Base, Side, Horizontal, Top, Bottom, Vertical, Left3, Right, Angle, TopLeft, TopRight, BottomLeft, BottomRight, els, cursors, PanelResizeHandle, PanelResizeHandle_default;
+var import_react160, Base, Side, Horizontal, Top, Bottom, Vertical, Left3, Right, Angle, TopLeft, TopRight, BottomLeft, BottomRight, els, cursors, PanelResizeHandle, PanelResizeHandle_default;
 var init_PanelResizeHandle = __esm({
   "studio/src/panels/BasePanel/PanelResizeHandle.tsx"() {
     init_useRefAndState();
     init_getStudio();
     init_useDrag();
     init_polished_esm();
-    import_react156 = __toModule(require_react());
+    import_react160 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasePanel();
     init_css();
@@ -40545,10 +40869,10 @@ var init_PanelResizeHandle = __esm({
     };
     PanelResizeHandle = ({ which }) => {
       const panelStuff = usePanel();
-      const panelStuffRef = (0, import_react156.useRef)(panelStuff);
+      const panelStuffRef = (0, import_react160.useRef)(panelStuff);
       panelStuffRef.current = panelStuff;
       const [ref, node] = useRefAndState(null);
-      const dragOpts = (0, import_react156.useMemo)(() => {
+      const dragOpts = (0, import_react160.useMemo)(() => {
         return {
           debugName: "PanelResizeHandle",
           lockCursorTo: cursors[which],
@@ -40604,7 +40928,7 @@ var init_PanelResizeHandle = __esm({
       const [isDragging] = useDrag(node, dragOpts);
       const Comp = els[which];
       const isOnCorner = which.length <= 6;
-      return /* @__PURE__ */ import_react156.default.createElement(Comp, {
+      return /* @__PURE__ */ import_react160.default.createElement(Comp, {
         ref,
         className: [
           isDragging ? "isDragging" : "",
@@ -40618,27 +40942,27 @@ var init_PanelResizeHandle = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelResizers.tsx
-var import_react157, PanelResizers, PanelResizers_default;
+var import_react161, PanelResizers, PanelResizers_default;
 var init_PanelResizers = __esm({
   "studio/src/panels/BasePanel/PanelResizers.tsx"() {
-    import_react157 = __toModule(require_react());
+    import_react161 = __toModule(require_react());
     init_PanelResizeHandle();
     PanelResizers = (props) => {
-      return /* @__PURE__ */ import_react157.default.createElement(import_react157.default.Fragment, null, /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      return /* @__PURE__ */ import_react161.default.createElement(import_react161.default.Fragment, null, /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "Bottom"
-      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "Top"
-      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "Left"
-      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "Right"
-      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "TopLeft"
-      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "TopRight"
-      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "BottomLeft"
-      }), /* @__PURE__ */ import_react157.default.createElement(PanelResizeHandle_default, {
+      }), /* @__PURE__ */ import_react161.default.createElement(PanelResizeHandle_default, {
         which: "BottomRight"
       }));
     };
@@ -40647,15 +40971,15 @@ var init_PanelResizers = __esm({
 });
 
 // studio/src/panels/BasePanel/PanelWrapper.tsx
-var import_react158, Container38, PanelWrapper, PanelWrapper_default;
+var import_react162, Container40, PanelWrapper, PanelWrapper_default;
 var init_PanelWrapper = __esm({
   "studio/src/panels/BasePanel/PanelWrapper.tsx"() {
     init_css();
-    import_react158 = __toModule(require_react());
+    import_react162 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasePanel();
     init_PanelResizers();
-    Container38 = styled_components_browser_esm_default.div`
+    Container40 = styled_components_browser_esm_default.div`
   position: absolute;
   user-select: none;
   box-sizing: border-box;
@@ -40666,10 +40990,10 @@ var init_PanelWrapper = __esm({
   border: 1px solid #4b4b4b;
   z-index: 1000;
 `;
-    PanelWrapper = import_react158.default.forwardRef((props, ref) => {
+    PanelWrapper = import_react162.default.forwardRef((props, ref) => {
       const stuff = usePanel();
       const _a2 = props, { style, children } = _a2, otherProps = __objRest(_a2, ["style", "children"]);
-      return /* @__PURE__ */ import_react158.default.createElement(Container38, __spreadProps(__spreadValues({
+      return /* @__PURE__ */ import_react162.default.createElement(Container40, __spreadProps(__spreadValues({
         ref
       }, otherProps), {
         style: __spreadValues({
@@ -40678,24 +41002,24 @@ var init_PanelWrapper = __esm({
           top: stuff.dims.top + "px",
           left: stuff.dims.left + "px"
         }, style != null ? style : {})
-      }), /* @__PURE__ */ import_react158.default.createElement(PanelResizers_default, null), children);
+      }), /* @__PURE__ */ import_react162.default.createElement(PanelResizers_default, null), children);
     });
     PanelWrapper_default = PanelWrapper;
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditorToggle.tsx
-var import_dataverse47, import_react160, Container39, GraphEditorToggle, GraphEditorToggle_default;
+var import_dataverse47, import_react164, Container41, GraphEditorToggle, GraphEditorToggle_default;
 var init_GraphEditorToggle = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditorToggle.tsx"() {
     import_dataverse47 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
-    import_react160 = __toModule(require_react());
+    import_react164 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_all();
     init_FrameStampPositionProvider();
-    Container39 = styled_components_browser_esm_default.button`
+    Container41 = styled_components_browser_esm_default.button`
   outline: none;
   background-color: #32353b;
   border: 1px solid #4b4b4b;
@@ -40737,7 +41061,7 @@ var init_GraphEditorToggle = __esm({
 `;
     GraphEditorToggle = ({ layoutP }) => {
       const isOpen = useVal(layoutP.graphEditorDims.isOpen);
-      const toggle = (0, import_react160.useCallback)(() => {
+      const toggle = (0, import_react164.useCallback)(() => {
         const isOpen2 = (0, import_dataverse47.val)(layoutP.graphEditorDims.isOpen);
         getStudio().transaction(({ stateEditors: stateEditors2 }) => {
           stateEditors2.studio.historic.panels.sequenceEditor.graphEditor.setIsOpen({
@@ -40745,25 +41069,25 @@ var init_GraphEditorToggle = __esm({
           });
         });
       }, [layoutP]);
-      return /* @__PURE__ */ import_react160.default.createElement(Container39, __spreadValues({
+      return /* @__PURE__ */ import_react164.default.createElement(Container41, __spreadValues({
         onClick: toggle,
         title: "Toggle graph editor",
         className: isOpen ? "open" : ""
-      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react160.default.createElement(VscTriangleUp, null));
+      }, includeLockFrameStampAttrs("hide")), /* @__PURE__ */ import_react164.default.createElement(VscTriangleUp, null));
     };
     GraphEditorToggle_default = GraphEditorToggle;
   }
 });
 
 // studio/src/panels/SequenceEditorPanel/SequenceEditorPanel.tsx
-var import_dataverse48, import_react162, Container40, LeftBackground, zIndexes, Header_Container, defaultPosition, minDims, SequenceEditorPanel, Content, Header3, SequenceEditorPanel_default, preventHorizontalWheelEvents;
+var import_dataverse48, import_react166, Container42, LeftBackground, zIndexes, Header_Container, defaultPosition, minDims, SequenceEditorPanel, Content, Header3, SequenceEditorPanel_default, preventHorizontalWheelEvents;
 var init_SequenceEditorPanel = __esm({
   "studio/src/panels/SequenceEditorPanel/SequenceEditorPanel.tsx"() {
     init_selectors();
     init_src();
     init_valToAtom();
     import_dataverse48 = __toModule(require("@theatre/dataverse"));
-    import_react162 = __toModule(require_react());
+    import_react166 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DopeSheet();
     init_GraphEditor();
@@ -40778,7 +41102,7 @@ var init_SequenceEditorPanel = __esm({
     init_GraphEditorToggle();
     init_common();
     init_usePresence();
-    Container40 = styled_components_browser_esm_default(PanelWrapper_default)`
+    Container42 = styled_components_browser_esm_default(PanelWrapper_default)`
   z-index: ${panelZIndexes.sequenceEditorPanel};
   // box-shadow: 2px 2px 0 rgb(0 0 0 / 11%);
   // box-shadow:0px 2px 10px #0000002b;
@@ -40829,15 +41153,15 @@ var init_SequenceEditorPanel = __esm({
     };
     minDims = { width: 800, height: 200 };
     SequenceEditorPanel = (props) => {
-      return /* @__PURE__ */ import_react162.default.createElement(BasePanel_default, {
+      return /* @__PURE__ */ import_react166.default.createElement(BasePanel_default, {
         panelId: "sequenceEditor",
         defaultPosition,
         minDims
-      }, /* @__PURE__ */ import_react162.default.createElement(Content, null));
+      }, /* @__PURE__ */ import_react166.default.createElement(Content, null));
     };
     Content = () => {
       const { dims } = usePanel();
-      const [containerNode, setContainerNode] = (0, import_react162.useState)(null);
+      const [containerNode, setContainerNode] = (0, import_react166.useState)(null);
       usePresenceListenersOnRootElement(containerNode);
       return usePrism(() => {
         const panelSize = import_dataverse48.prism.memo("panelSize", () => {
@@ -40855,42 +41179,42 @@ var init_SequenceEditorPanel = __esm({
         const selectedSheets = uniq_default(getOutlineSelection().filter((s3) => isSheet(s3) || isSheetObject(s3)).map((s3) => isSheetObject(s3) ? s3.sheet : s3));
         const selectedTemplates = uniq_default(selectedSheets.map((s3) => s3.template));
         if (selectedTemplates.length !== 1)
-          return /* @__PURE__ */ import_react162.default.createElement(import_react162.default.Fragment, null);
+          return /* @__PURE__ */ import_react166.default.createElement(import_react166.default.Fragment, null);
         const sheet = selectedSheets[0];
         if (!sheet)
-          return /* @__PURE__ */ import_react162.default.createElement(import_react162.default.Fragment, null);
+          return /* @__PURE__ */ import_react166.default.createElement(import_react166.default.Fragment, null);
         const panelSizeP = valToAtom("panelSizeP", panelSize).pointer;
         const key = import_dataverse48.prism.memo("key", () => JSON.stringify(sheet.address), [sheet]);
         const layoutP = import_dataverse48.prism.memo("layout", () => {
           return sequenceEditorPanelLayout(sheet, panelSizeP);
         }, [sheet, panelSizeP]).getValue();
         if ((0, import_dataverse48.val)(layoutP.tree.children).length === 0)
-          return /* @__PURE__ */ import_react162.default.createElement(import_react162.default.Fragment, null);
+          return /* @__PURE__ */ import_react166.default.createElement(import_react166.default.Fragment, null);
         const containerRef = import_dataverse48.prism.memo("containerRef", preventHorizontalWheelEvents, []);
         const graphEditorAvailable = (0, import_dataverse48.val)(layoutP.graphEditorDims.isAvailable);
         const graphEditorOpen = (0, import_dataverse48.val)(layoutP.graphEditorDims.isOpen);
-        return /* @__PURE__ */ import_react162.default.createElement(Container40, {
+        return /* @__PURE__ */ import_react166.default.createElement(Container42, {
           ref: (elt) => {
             containerRef(elt);
             if (elt !== containerNode) {
               setContainerNode(elt);
             }
           }
-        }, /* @__PURE__ */ import_react162.default.createElement(LeftBackground, {
+        }, /* @__PURE__ */ import_react166.default.createElement(LeftBackground, {
           style: { width: `${(0, import_dataverse48.val)(layoutP.leftDims.width)}px` }
-        }), /* @__PURE__ */ import_react162.default.createElement(FrameStampPositionProvider_default, {
+        }), /* @__PURE__ */ import_react166.default.createElement(FrameStampPositionProvider_default, {
           layoutP
-        }, /* @__PURE__ */ import_react162.default.createElement(Header3, {
+        }, /* @__PURE__ */ import_react166.default.createElement(Header3, {
           layoutP
-        }), /* @__PURE__ */ import_react162.default.createElement(DopeSheet_default, {
+        }), /* @__PURE__ */ import_react166.default.createElement(DopeSheet_default, {
           key: key + "-dopeSheet",
           layoutP
-        }), graphEditorOpen && /* @__PURE__ */ import_react162.default.createElement(GraphEditor_default, {
+        }), graphEditorOpen && /* @__PURE__ */ import_react166.default.createElement(GraphEditor_default, {
           key: key + "-graphEditor",
           layoutP
-        }), graphEditorAvailable && /* @__PURE__ */ import_react162.default.createElement(GraphEditorToggle_default, {
+        }), graphEditorAvailable && /* @__PURE__ */ import_react166.default.createElement(GraphEditorToggle_default, {
           layoutP
-        }), /* @__PURE__ */ import_react162.default.createElement(RightOverlay_default, {
+        }), /* @__PURE__ */ import_react166.default.createElement(RightOverlay_default, {
           layoutP
         })));
       }, [dims, containerNode]);
@@ -40900,11 +41224,11 @@ var init_SequenceEditorPanel = __esm({
     }) => {
       return usePrism(() => {
         const sheet = (0, import_dataverse48.val)(layoutP.sheet);
-        return /* @__PURE__ */ import_react162.default.createElement(Header_Container, {
+        return /* @__PURE__ */ import_react166.default.createElement(Header_Container, {
           style: {
             width: (0, import_dataverse48.val)(layoutP.leftDims.width)
           }
-        }, /* @__PURE__ */ import_react162.default.createElement(TitleBar, null, /* @__PURE__ */ import_react162.default.createElement(TitleBar_Piece, null, sheet.address.sheetId, " "), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Piece, null, sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Punctuation, null, "\xA0", ">", "\xA0"), /* @__PURE__ */ import_react162.default.createElement(TitleBar_Piece, null, "Sequence")));
+        }, /* @__PURE__ */ import_react166.default.createElement(TitleBar, null, /* @__PURE__ */ import_react166.default.createElement(TitleBar_Piece, null, sheet.address.sheetId, " "), /* @__PURE__ */ import_react166.default.createElement(TitleBar_Punctuation, null, ":", "\xA0"), /* @__PURE__ */ import_react166.default.createElement(TitleBar_Piece, null, sheet.address.sheetInstanceId, " "), /* @__PURE__ */ import_react166.default.createElement(TitleBar_Punctuation, null, "\xA0", ">", "\xA0"), /* @__PURE__ */ import_react166.default.createElement(TitleBar_Piece, null, "Sequence")));
       }, [layoutP]);
     };
     SequenceEditorPanel_default = SequenceEditorPanel;
@@ -40934,14 +41258,14 @@ var init_SequenceEditorPanel = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/VerticalScrollContainer.tsx
-var import_react163, Container41, ctx2, useReceiveVerticalWheelEvent, VerticalScrollContainer, VerticalScrollContainer_default;
+var import_react167, Container43, ctx2, useReceiveVerticalWheelEvent, VerticalScrollContainer, VerticalScrollContainer_default;
 var init_VerticalScrollContainer = __esm({
   "studio/src/panels/SequenceEditorPanel/VerticalScrollContainer.tsx"() {
     init_noop2();
-    import_react163 = __toModule(require_react());
+    import_react167 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SequenceEditorPanel();
-    Container41 = styled_components_browser_esm_default.div`
+    Container43 = styled_components_browser_esm_default.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -40957,16 +41281,16 @@ var init_VerticalScrollContainer = __esm({
 
   scrollbar-width: none;
 `;
-    ctx2 = (0, import_react163.createContext)(noop_default2);
-    useReceiveVerticalWheelEvent = () => (0, import_react163.useContext)(ctx2);
+    ctx2 = (0, import_react167.createContext)(noop_default2);
+    useReceiveVerticalWheelEvent = () => (0, import_react167.useContext)(ctx2);
     VerticalScrollContainer = (props) => {
-      const ref = (0, import_react163.useRef)(null);
-      const receiveVerticalWheelEvent = (0, import_react163.useCallback)((event) => {
+      const ref = (0, import_react167.useRef)(null);
+      const receiveVerticalWheelEvent = (0, import_react167.useCallback)((event) => {
         ref.current.scrollBy(0, event.deltaY);
       }, []);
-      return /* @__PURE__ */ import_react163.default.createElement(ctx2.Provider, {
+      return /* @__PURE__ */ import_react167.default.createElement(ctx2.Provider, {
         value: receiveVerticalWheelEvent
-      }, /* @__PURE__ */ import_react163.default.createElement(Container41, {
+      }, /* @__PURE__ */ import_react167.default.createElement(Container43, {
         ref
       }, props.children));
     };
@@ -40976,7 +41300,7 @@ var init_VerticalScrollContainer = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/HorizontallyScrollableArea.tsx
 function useDragPlayheadHandlers(layoutP, containerEl) {
-  const handlers = (0, import_react165.useMemo)(() => {
+  const handlers = (0, import_react169.useMemo)(() => {
     return {
       debugName: "HorizontallyScrollableArea",
       onDragStart(event) {
@@ -41022,7 +41346,7 @@ function useDragPlayheadHandlers(layoutP, containerEl) {
 }
 function useHandlePanAndZoom(layoutP, node) {
   const receiveVerticalWheelEvent = useReceiveVerticalWheelEvent();
-  (0, import_react165.useLayoutEffect)(() => {
+  (0, import_react169.useLayoutEffect)(() => {
     if (!node)
       return;
     const receiveWheelEvent = (event) => {
@@ -41075,7 +41399,7 @@ function useHandlePanAndZoom(layoutP, node) {
       node.removeEventListener("wheel", receiveWheelEvent, listenerOptions);
     };
   }, [node, layoutP]);
-  useDrag(node, (0, import_react165.useMemo)(() => {
+  useDrag(node, (0, import_react169.useMemo)(() => {
     return {
       onDragStart(e2) {
         const oldRange = (0, import_dataverse49.val)(layoutP.clippedSpace.range);
@@ -41105,7 +41429,7 @@ function normalizeRange(range, minMax) {
   return mapValues_default(range, (pos) => normalize(pos, minMax));
 }
 function useUpdateScrollFromClippedSpaceRange(layoutP, node) {
-  (0, import_react165.useLayoutEffect)(() => {
+  (0, import_react169.useLayoutEffect)(() => {
     if (!node)
       return;
     const d3 = (0, import_dataverse49.prism)(() => {
@@ -41126,7 +41450,7 @@ function useUpdateScrollFromClippedSpaceRange(layoutP, node) {
     };
   }, [layoutP, node]);
 }
-var import_dataverse49, import_react165, Container42, HorizontallyScrollableArea, HorizontallyScrollableArea_default;
+var import_dataverse49, import_react169, Container44, HorizontallyScrollableArea, HorizontallyScrollableArea_default;
 var init_HorizontallyScrollableArea = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/HorizontallyScrollableArea.tsx"() {
     init_useDrag();
@@ -41134,14 +41458,14 @@ var init_HorizontallyScrollableArea = __esm({
     init_src();
     import_dataverse49 = __toModule(require("@theatre/dataverse"));
     init_lodash();
-    import_react165 = __toModule(require_react());
+    import_react169 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_VerticalScrollContainer();
     init_css();
     init_PointerEventsHandler();
     init_DopeSnap();
     init_KeyframeSnapTarget();
-    Container42 = styled_components_browser_esm_default.div`
+    Container44 = styled_components_browser_esm_default.div`
   position: absolute;
 
   right: 0;
@@ -41157,7 +41481,7 @@ var init_HorizontallyScrollableArea = __esm({
     display: none;
   }
 `;
-    HorizontallyScrollableArea = import_react165.default.memo(({ layoutP, children, height: height2 }) => {
+    HorizontallyScrollableArea = import_react169.default.memo(({ layoutP, children, height: height2 }) => {
       const { width, unitSpaceToScaledSpaceMultiplier } = usePrism(() => ({
         width: (0, import_dataverse49.val)(layoutP.rightDims.width),
         unitSpaceToScaledSpaceMultiplier: (0, import_dataverse49.val)(layoutP.scaledSpace.fromUnitSpace)(1)
@@ -41166,7 +41490,7 @@ var init_HorizontallyScrollableArea = __esm({
       useHandlePanAndZoom(layoutP, containerNode);
       useDragPlayheadHandlers(layoutP, containerNode);
       useUpdateScrollFromClippedSpaceRange(layoutP, containerNode);
-      return /* @__PURE__ */ import_react165.default.createElement(Container42, {
+      return /* @__PURE__ */ import_react169.default.createElement(Container44, {
         ref: containerRef,
         style: {
           width: width + "px",
@@ -41180,10 +41504,10 @@ var init_HorizontallyScrollableArea = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Row.tsx
-var import_react166, RightRowContainer, RightRowNodeWrapper, RightRowChildren, RightRow, Row_default;
+var import_react170, RightRowContainer, RightRowNodeWrapper, RightRowChildren, RightRow, Row_default;
 var init_Row = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Row.tsx"() {
-    import_react166 = __toModule(require_react());
+    import_react170 = __toModule(require_react());
     init_styled_components_browser_esm();
     RightRowContainer = styled_components_browser_esm_default.li`
   margin: 0;
@@ -41219,10 +41543,10 @@ var init_Row = __esm({
 `;
     RightRow = ({ leaf, children, node, isCollapsed }) => {
       const hasChildren = Array.isArray(children) && children.length > 0;
-      return leaf.shouldRender ? /* @__PURE__ */ import_react166.default.createElement(RightRowContainer, null, /* @__PURE__ */ import_react166.default.createElement(RightRowNodeWrapper, {
+      return leaf.shouldRender ? /* @__PURE__ */ import_react170.default.createElement(RightRowContainer, null, /* @__PURE__ */ import_react170.default.createElement(RightRowNodeWrapper, {
         style: { height: leaf.nodeHeight + "px" },
         isEven: leaf.n % 2 === 0
-      }, node), hasChildren && /* @__PURE__ */ import_react166.default.createElement(RightRowChildren, null, children)) : null;
+      }, node), hasChildren && /* @__PURE__ */ import_react170.default.createElement(RightRowChildren, null, children)) : null;
     };
     Row_default = RightRow;
   }
@@ -41305,16 +41629,16 @@ var require_fuzzy = __commonJS({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useFreezableMemo.ts
 function useFreezableMemo(fn2, deps) {
-  const [isFrozen, setFreeze] = (0, import_react167.useState)(false);
-  const freezableDeps = (0, import_react167.useRef)(deps);
+  const [isFrozen, setFreeze] = (0, import_react171.useState)(false);
+  const freezableDeps = (0, import_react171.useRef)(deps);
   if (!isFrozen)
     freezableDeps.current = deps;
-  return (0, import_react167.useMemo)(() => fn2(setFreeze), freezableDeps.current);
+  return (0, import_react171.useMemo)(() => fn2(setFreeze), freezableDeps.current);
 }
-var import_react167;
+var import_react171;
 var init_useFreezableMemo = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useFreezableMemo.ts"() {
-    import_react167 = __toModule(require_react());
+    import_react171 = __toModule(require_react());
   }
 });
 
@@ -41349,10 +41673,10 @@ function useKeyframeDrag(svgNode, node, props, setHandles) {
   }), [svgNode, props.onCurveChange, props.onCancelCurveChange]);
   useDrag(node, handlers);
 }
-var import_react168, VIEWBOX_PADDING, VIEWBOX_SIZE, PATTERN_DOT_SIZE, PATTERN_DOT_COUNT, PATTERN_GRID_SIZE, CURVE_START_OVERSHOOT_COLOR, CURVE_START_COLOR, CURVE_MID_START_COLOR, CURVE_MID_COLOR, CURVE_MID_END_COLOR, CURVE_END_COLOR, CURVE_END_OVERSHOOT_COLOR, CONTROL_COLOR, HANDLE_COLOR, HANDLE_HOVER_COLOR, BACKGROUND_CURVE_COLORS, Circle, HitZone3, CurveSegmentEditor, CurveSegmentEditor_default;
+var import_react172, VIEWBOX_PADDING, VIEWBOX_SIZE, PATTERN_DOT_SIZE, PATTERN_DOT_COUNT, PATTERN_GRID_SIZE, CURVE_START_OVERSHOOT_COLOR, CURVE_START_COLOR, CURVE_MID_START_COLOR, CURVE_MID_COLOR, CURVE_MID_END_COLOR, CURVE_END_COLOR, CURVE_END_OVERSHOOT_COLOR, CONTROL_COLOR, HANDLE_COLOR, HANDLE_HOVER_COLOR, BACKGROUND_CURVE_COLORS, Circle, HitZone3, CurveSegmentEditor, CurveSegmentEditor_default;
 var init_CurveSegmentEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/CurveSegmentEditor.tsx"() {
-    import_react168 = __toModule(require_react());
+    import_react172 = __toModule(require_react());
     init_useDrag();
     init_useRefAndState();
     init_clamp();
@@ -41427,7 +41751,7 @@ var init_CurveSegmentEditor = __esm({
         return [left.handles[2], left.handles[3], handleX, handleY];
       });
       const curvePathDAttrValue = (connection) => `M0 ${toExtremumSpace(1)} C${connection.left.handles[2]} ${toExtremumSpace(1 - connection.left.handles[3])} ${connection.right.handles[0]} ${toExtremumSpace(1 - connection.right.handles[1])} 1 ${toExtremumSpace(0)}`;
-      return /* @__PURE__ */ import_react168.default.createElement("svg", {
+      return /* @__PURE__ */ import_react172.default.createElement("svg", {
         height: "100%",
         width: "100%",
         ref: refSVG,
@@ -41435,119 +41759,119 @@ var init_CurveSegmentEditor = __esm({
         xmlns: "http://www.w3.org/2000/svg",
         preserveAspectRatio: "none",
         fill: "none"
-      }, /* @__PURE__ */ import_react168.default.createElement("linearGradient", {
+      }, /* @__PURE__ */ import_react172.default.createElement("linearGradient", {
         id: "myGradient",
         gradientTransform: "rotate(90)"
-      }, /* @__PURE__ */ import_react168.default.createElement("stop", {
+      }, /* @__PURE__ */ import_react172.default.createElement("stop", {
         offset: toExtremumSpace(-1),
         stopColor: CURVE_END_OVERSHOOT_COLOR
-      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react172.default.createElement("stop", {
         offset: toExtremumSpace(0),
         stopColor: CURVE_END_COLOR
-      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react172.default.createElement("stop", {
         offset: toExtremumSpace(0.3),
         stopColor: CURVE_MID_END_COLOR
-      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react172.default.createElement("stop", {
         offset: toExtremumSpace(0.5),
         stopColor: CURVE_MID_COLOR
-      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react172.default.createElement("stop", {
         offset: toExtremumSpace(0.7),
         stopColor: CURVE_MID_START_COLOR
-      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react172.default.createElement("stop", {
         offset: toExtremumSpace(1),
         stopColor: CURVE_START_COLOR
-      }), /* @__PURE__ */ import_react168.default.createElement("stop", {
+      }), /* @__PURE__ */ import_react172.default.createElement("stop", {
         offset: toExtremumSpace(2),
         stopColor: CURVE_START_OVERSHOOT_COLOR
-      })), /* @__PURE__ */ import_react168.default.createElement("pattern", {
+      })), /* @__PURE__ */ import_react172.default.createElement("pattern", {
         id: "dot-background-pattern-1",
         width: PATTERN_GRID_SIZE,
         height: PATTERN_GRID_SIZE / h4,
         y: -minY / h4
-      }, /* @__PURE__ */ import_react168.default.createElement("rect", {
+      }, /* @__PURE__ */ import_react172.default.createElement("rect", {
         width: PATTERN_DOT_SIZE,
         height: PATTERN_DOT_SIZE,
         fill: CONTROL_COLOR,
         opacity: 0.3
-      })), /* @__PURE__ */ import_react168.default.createElement("rect", {
+      })), /* @__PURE__ */ import_react172.default.createElement("rect", {
         x: 0,
         y: 0,
         width: "1",
         height: 1,
         fill: "url(#dot-background-pattern-1)"
-      }), /* @__PURE__ */ import_react168.default.createElement("pattern", {
+      }), /* @__PURE__ */ import_react172.default.createElement("pattern", {
         id: "dot-background-pattern-2",
         width: PATTERN_GRID_SIZE,
         height: PATTERN_GRID_SIZE
-      }, /* @__PURE__ */ import_react168.default.createElement("rect", {
+      }, /* @__PURE__ */ import_react172.default.createElement("rect", {
         width: PATTERN_DOT_SIZE,
         height: PATTERN_DOT_SIZE,
         fill: CONTROL_COLOR
-      })), /* @__PURE__ */ import_react168.default.createElement("rect", {
+      })), /* @__PURE__ */ import_react172.default.createElement("rect", {
         x: 0,
         y: toExtremumSpace(0),
         width: "1",
         height: toExtremumSpace(1) - toExtremumSpace(0),
         fill: "url(#dot-background-pattern-2)"
-      }), /* @__PURE__ */ import_react168.default.createElement("line", {
+      }), /* @__PURE__ */ import_react172.default.createElement("line", {
         x1: 0,
         y1: toExtremumSpace(1),
         x2: left.handles[2],
         y2: toExtremumSpace(1 - left.handles[3]),
         stroke: CONTROL_COLOR,
         strokeWidth: "0.01"
-      }), /* @__PURE__ */ import_react168.default.createElement("line", {
+      }), /* @__PURE__ */ import_react172.default.createElement("line", {
         x1: 1,
         y1: toExtremumSpace(0),
         x2: right.handles[0],
         y2: toExtremumSpace(1 - right.handles[1]),
         stroke: CONTROL_COLOR,
         strokeWidth: "0.01"
-      }), /* @__PURE__ */ import_react168.default.createElement("path", {
+      }), /* @__PURE__ */ import_react172.default.createElement("path", {
         d: curvePathDAttrValue(props.curveConnection),
         stroke: "none",
         fill: "url('#myGradient')",
         opacity: "0.1"
-      }), backgroundConnections.map((connection, i3) => /* @__PURE__ */ import_react168.default.createElement("path", {
+      }), backgroundConnections.map((connection, i3) => /* @__PURE__ */ import_react172.default.createElement("path", {
         key: connection.objectKey + "/" + connection.left.id,
         d: curvePathDAttrValue(connection),
         stroke: BACKGROUND_CURVE_COLORS[i3 % BACKGROUND_CURVE_COLORS.length],
         opacity: 0.6,
         strokeWidth: "0.01"
-      })), /* @__PURE__ */ import_react168.default.createElement("path", {
+      })), /* @__PURE__ */ import_react172.default.createElement("path", {
         d: curvePathDAttrValue(props.curveConnection),
         stroke: "url('#myGradient')",
         strokeWidth: "0.02"
-      }), /* @__PURE__ */ import_react168.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react172.default.createElement("circle", {
         cx: 0,
         cy: toExtremumSpace(1),
         r: "0.025",
         stroke: CURVE_START_COLOR,
         strokeWidth: "0.02",
         fill: COLOR_BASE
-      }), /* @__PURE__ */ import_react168.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react172.default.createElement("circle", {
         cx: 1,
         cy: toExtremumSpace(0),
         r: "0.025",
         stroke: CURVE_END_COLOR,
         strokeWidth: "0.02",
         fill: COLOR_BASE
-      }), /* @__PURE__ */ import_react168.default.createElement(HitZone3, {
+      }), /* @__PURE__ */ import_react172.default.createElement(HitZone3, {
         ref: refLeft,
         cx: left.handles[2],
         cy: toExtremumSpace(1 - left.handles[3]),
         fill: CURVE_START_COLOR,
         opacity: 0.2
-      }), /* @__PURE__ */ import_react168.default.createElement(Circle, {
+      }), /* @__PURE__ */ import_react172.default.createElement(Circle, {
         cx: left.handles[2],
         cy: toExtremumSpace(1 - left.handles[3])
-      }), /* @__PURE__ */ import_react168.default.createElement(HitZone3, {
+      }), /* @__PURE__ */ import_react172.default.createElement(HitZone3, {
         ref: refRight,
         cx: right.handles[0],
         cy: toExtremumSpace(1 - right.handles[1]),
         fill: CURVE_END_COLOR,
         opacity: 0.2
-      }), /* @__PURE__ */ import_react168.default.createElement(Circle, {
+      }), /* @__PURE__ */ import_react172.default.createElement(Circle, {
         cx: right.handles[0],
         cy: toExtremumSpace(1 - right.handles[1])
       }));
@@ -41621,10 +41945,10 @@ var init_shared = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/SVGCurveSegment.tsx
-var import_react169, VIEWBOX_PADDING2, SVG_CIRCLE_RADIUS, VIEWBOX_SIZE2, SELECTED_CURVE_COLOR, CURVE_COLOR, CONTROL_COLOR2, CONTROL_HITZONE_COLOR, toVerticalSVGSpace, SVGCurveSegment, SVGCurveSegment_default;
+var import_react173, VIEWBOX_PADDING2, SVG_CIRCLE_RADIUS, VIEWBOX_SIZE2, SELECTED_CURVE_COLOR, CURVE_COLOR, CONTROL_COLOR2, CONTROL_HITZONE_COLOR, toVerticalSVGSpace, SVGCurveSegment, SVGCurveSegment_default;
 var init_SVGCurveSegment = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/SVGCurveSegment.tsx"() {
-    import_react169 = __toModule(require_react());
+    import_react173 = __toModule(require_react());
     VIEWBOX_PADDING2 = 0.75;
     SVG_CIRCLE_RADIUS = 0.1;
     VIEWBOX_SIZE2 = 1 + VIEWBOX_PADDING2 * 2;
@@ -41636,62 +41960,62 @@ var init_SVGCurveSegment = __esm({
     SVGCurveSegment = (props) => {
       const { easing, isSelected } = props;
       if (!easing)
-        return /* @__PURE__ */ import_react169.default.createElement(import_react169.default.Fragment, null);
+        return /* @__PURE__ */ import_react173.default.createElement(import_react173.default.Fragment, null);
       const curveColor = isSelected ? SELECTED_CURVE_COLOR : CURVE_COLOR;
       const leftControlPoint = [easing[0], toVerticalSVGSpace(easing[1])];
       const rightControlPoint = [easing[2], toVerticalSVGSpace(easing[3])];
       const SVG_VIEWBOX_ATTR = `${-VIEWBOX_PADDING2} ${-VIEWBOX_PADDING2} ${VIEWBOX_SIZE2} ${VIEWBOX_SIZE2}`;
-      return /* @__PURE__ */ import_react169.default.createElement("svg", {
+      return /* @__PURE__ */ import_react173.default.createElement("svg", {
         height: "100%",
         width: "100%",
         viewBox: SVG_VIEWBOX_ATTR,
         fill: "none",
         xmlns: "http://www.w3.org/2000/svg"
-      }, /* @__PURE__ */ import_react169.default.createElement("line", {
+      }, /* @__PURE__ */ import_react173.default.createElement("line", {
         x1: "0",
         y1: "1",
         x2: leftControlPoint[0],
         y2: leftControlPoint[1],
         stroke: CONTROL_COLOR2,
         strokeWidth: "0.1"
-      }), /* @__PURE__ */ import_react169.default.createElement("line", {
+      }), /* @__PURE__ */ import_react173.default.createElement("line", {
         x1: "1",
         y1: "0",
         x2: rightControlPoint[0],
         y2: rightControlPoint[1],
         stroke: CONTROL_COLOR2,
         strokeWidth: "0.1"
-      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react173.default.createElement("circle", {
         cx: leftControlPoint[0],
         cy: leftControlPoint[1],
         r: 0.1,
         fill: CONTROL_HITZONE_COLOR
-      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react173.default.createElement("circle", {
         cx: rightControlPoint[0],
         cy: rightControlPoint[1],
         r: 0.1,
         fill: CONTROL_HITZONE_COLOR
-      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react173.default.createElement("circle", {
         cx: leftControlPoint[0],
         cy: leftControlPoint[1],
         r: SVG_CIRCLE_RADIUS,
         fill: CONTROL_COLOR2
-      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react173.default.createElement("circle", {
         cx: rightControlPoint[0],
         cy: rightControlPoint[1],
         r: SVG_CIRCLE_RADIUS,
         fill: CONTROL_COLOR2
-      }), /* @__PURE__ */ import_react169.default.createElement("path", {
+      }), /* @__PURE__ */ import_react173.default.createElement("path", {
         d: `M0 1 C${leftControlPoint[0]} ${leftControlPoint[1]} ${rightControlPoint[0]} 
       ${rightControlPoint[1]} 1 0`,
         stroke: curveColor,
         strokeWidth: "0.08"
-      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react173.default.createElement("circle", {
         cx: 0,
         cy: 1,
         r: SVG_CIRCLE_RADIUS,
         fill: curveColor
-      }), /* @__PURE__ */ import_react169.default.createElement("circle", {
+      }), /* @__PURE__ */ import_react173.default.createElement("circle", {
         cx: 1,
         cy: 0,
         r: SVG_CIRCLE_RADIUS,
@@ -41703,11 +42027,11 @@ var init_SVGCurveSegment = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/EasingOption.tsx
-var import_react170, Wrapper, EasingTooltip, EasingOption, EasingOption_default;
+var import_react174, Wrapper, EasingTooltip, EasingOption, EasingOption_default;
 var init_EasingOption = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/EasingOption.tsx"() {
     init_useTooltip();
-    import_react170 = __toModule(require_react());
+    import_react174 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_shared();
     init_SVGCurveSegment();
@@ -41754,13 +42078,13 @@ var init_EasingOption = __esm({
   //box-shadow: none;
   //box-shadow: 0px 2px 10px #0000002b;
 `;
-    EasingOption = import_react170.default.forwardRef((props, ref) => {
-      const [tooltip, tooltipHostRef] = useTooltip({ enabled: true, verticalPlacement: props.tooltipPlacement, verticalGap: 0 }, () => /* @__PURE__ */ import_react170.default.createElement(EasingTooltip, {
+    EasingOption = import_react174.default.forwardRef((props, ref) => {
+      const [tooltip, tooltipHostRef] = useTooltip({ enabled: true, verticalPlacement: props.tooltipPlacement, verticalGap: 0 }, () => /* @__PURE__ */ import_react174.default.createElement(EasingTooltip, {
         showPopoverEdgeTriangle: false
       }, props.easing.label));
-      return /* @__PURE__ */ import_react170.default.createElement(Wrapper, __spreadValues({
+      return /* @__PURE__ */ import_react174.default.createElement(Wrapper, __spreadValues({
         ref: react_merge_refs_esm_default([tooltipHostRef, ref])
-      }, props), tooltip, /* @__PURE__ */ import_react170.default.createElement(SVGCurveSegment_default, {
+      }, props), tooltip, /* @__PURE__ */ import_react174.default.createElement(SVGCurveSegment_default, {
         easing: handlesFromCssCubicBezierArgs(props.easing.value),
         isSelected: props.isSelected
       }));
@@ -41772,7 +42096,7 @@ var init_EasingOption = __esm({
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useUIOptionGrid.tsx
 function useUIOptionGrid(options2) {
   var _a2;
-  const [selectionIndex, setSelectionIndex] = (0, import_react171.useState)(null);
+  const [selectionIndex, setSelectionIndex] = (0, import_react175.useState)(null);
   const moveCursorVertical = (vdir) => {
     if (selectionIndex === null) {
       if (options2.items.length > 0) {
@@ -41835,10 +42159,10 @@ function useUIOptionGrid(options2) {
     currentSelection: (_a2 = options2.items[selectionIndex != null ? selectionIndex : -1]) != null ? _a2 : null
   };
 }
-var import_react171, Outcome;
+var import_react175, Outcome;
 var init_useUIOptionGrid = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/useUIOptionGrid.tsx"() {
-    import_react171 = __toModule(require_react());
+    import_react175 = __toModule(require_react());
     init_CurveEditorPopover();
     (function(Outcome2) {
       Outcome2[Outcome2["Handled"] = 1] = "Handled";
@@ -41904,11 +42228,11 @@ function areConnectedKeyframesTheSameAs({
 }) {
   return ({ left: left2, right: right2 }) => left1.handles[2] !== left2.handles[2] || left1.handles[3] !== left2.handles[3] || right1.handles[0] !== right2.handles[0] || right1.handles[1] !== right2.handles[1];
 }
-var import_dataverse50, import_react172, import_fuzzy, PRESET_COLUMNS, PRESET_SIZE, APPROX_TOOLTIP_HEIGHT, Grid, OptionsContainer, SearchBox, CurveEditorContainer, NoResultsFoundContainer, TextInputMode, CurveEditorPopover, CurveEditorPopover_default, isCurveEditorOpenD, isConnectionEditingInCurvePopover, getLock;
+var import_dataverse50, import_react176, import_fuzzy, PRESET_COLUMNS, PRESET_SIZE, APPROX_TOOLTIP_HEIGHT, Grid, OptionsContainer, SearchBox, CurveEditorContainer, NoResultsFoundContainer, TextInputMode, CurveEditorPopover, CurveEditorPopover_default, isCurveEditorOpenD, isConnectionEditingInCurvePopover, getLock;
 var init_CurveEditorPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/CurveEditorPopover/CurveEditorPopover.tsx"() {
     import_dataverse50 = __toModule(require("@theatre/dataverse"));
-    import_react172 = __toModule(require_react());
+    import_react176 = __toModule(require_react());
     init_styled_components_browser_esm();
     import_fuzzy = __toModule(require_fuzzy());
     init_getStudio();
@@ -41992,9 +42316,9 @@ var init_CurveEditorPopover = __esm({
       TextInputMode2[TextInputMode2["multipleValues"] = 3] = "multipleValues";
     })(TextInputMode || (TextInputMode = {}));
     CurveEditorPopover = (props) => {
-      const allConnections = (0, import_react172.useMemo)(() => [props.curveConnection, ...props.additionalConnections], [props.curveConnection, ...props.additionalConnections]);
-      const tempTransaction = (0, import_react172.useRef)(null);
-      (0, import_react172.useEffect)(() => {
+      const allConnections = (0, import_react176.useMemo)(() => [props.curveConnection, ...props.additionalConnections], [props.curveConnection, ...props.additionalConnections]);
+      const tempTransaction = (0, import_react176.useRef)(null);
+      (0, import_react176.useEffect)(() => {
         const unlock = getLock(allConnections);
         return () => {
           var _a2;
@@ -42008,13 +42332,13 @@ var init_CurveEditorPopover = __esm({
         props.curveConnection.right.handles[0],
         props.curveConnection.right.handles[1]
       ];
-      const inputRef = (0, import_react172.useRef)(null);
-      (0, import_react172.useLayoutEffect)(() => {
+      const inputRef = (0, import_react176.useRef)(null);
+      (0, import_react176.useLayoutEffect)(() => {
         var _a2, _b;
         (_a2 = inputRef.current) == null ? void 0 : _a2.select();
         (_b = inputRef.current) == null ? void 0 : _b.focus();
       }, [inputRef.current]);
-      const [inputValue, setInputValue] = (0, import_react172.useState)(cssCubicBezierArgsFromHandles(easing));
+      const [inputValue, setInputValue] = (0, import_react176.useState)(cssCubicBezierArgsFromHandles(easing));
       const onInputChange = (e2) => {
         setTextInputMode(1);
         setInputValue(e2.target.value);
@@ -42037,8 +42361,8 @@ var init_CurveEditorPopover = __esm({
           props.onRequestClose("key Enter");
         }
       };
-      const [textInputMode, setTextInputMode] = (0, import_react172.useState)(0);
-      (0, import_react172.useEffect)(() => {
+      const [textInputMode, setTextInputMode] = (0, import_react176.useState)(0);
+      (0, import_react176.useEffect)(() => {
         if (textInputMode === 2) {
           setInputValue(cssCubicBezierArgsFromHandles(easing));
         } else if (textInputMode === 3) {
@@ -42046,9 +42370,9 @@ var init_CurveEditorPopover = __esm({
             setInputValue("");
         }
       }, allConnections);
-      const [edit2, setEdit] = (0, import_react172.useState)(cssCubicBezierArgsFromHandles(easing));
-      const [preview, setPreview] = (0, import_react172.useState)(null);
-      (0, import_react172.useEffect)(() => {
+      const [edit2, setEdit] = (0, import_react176.useState)(cssCubicBezierArgsFromHandles(easing));
+      const [preview, setPreview] = (0, import_react176.useState)(null);
+      (0, import_react176.useEffect)(() => {
         var _a2;
         if (textInputMode !== 0 && textInputMode !== 3)
           setTempValue(tempTransaction, allConnections, (_a2 = preview != null ? preview : edit2) != null ? _a2 : "");
@@ -42067,7 +42391,7 @@ var init_CurveEditorPopover = __esm({
       };
       const onCancelCurveChange = () => {
       };
-      const displayedPresets = (0, import_react172.useMemo)(() => {
+      const displayedPresets = (0, import_react176.useMemo)(() => {
         const isInputValueAQuery = /^[A-Za-z]/.test(inputValue);
         if (isInputValueAQuery) {
           return import_fuzzy.default.filter(inputValue, EASING_PRESETS, {
@@ -42077,7 +42401,7 @@ var init_CurveEditorPopover = __esm({
           return EASING_PRESETS;
         }
       }, [inputValue]);
-      (0, import_react172.useEffect)(() => {
+      (0, import_react176.useEffect)(() => {
         if (textInputMode === 1 && displayedPresets[0])
           setEdit(displayedPresets[0].value);
       }, [displayedPresets]);
@@ -42102,13 +42426,13 @@ var init_CurveEditorPopover = __esm({
         props.onRequestClose("selected easing option");
         return Outcome.Handled;
       };
-      const optionsRef = (0, import_react172.useRef)(EASING_PRESETS.reduce((acc, curr) => {
+      const optionsRef = (0, import_react176.useRef)(EASING_PRESETS.reduce((acc, curr) => {
         acc[curr.label] = { current: null };
         return acc;
       }, {}));
       const [optionsContainerRef, optionsContainer] = useRefAndState(null);
-      const [optionsScrollPosition, setOptionsScrollPosition] = (0, import_react172.useState)(0);
-      (0, import_react172.useEffect)(() => {
+      const [optionsScrollPosition, setOptionsScrollPosition] = (0, import_react176.useState)(0);
+      (0, import_react176.useEffect)(() => {
         const listener = () => {
           var _a2;
           setOptionsScrollPosition((_a2 = optionsContainer == null ? void 0 : optionsContainer.scrollTop) != null ? _a2 : 0);
@@ -42131,7 +42455,7 @@ var init_CurveEditorPopover = __esm({
         },
         renderItem: ({ item: preset, select }) => {
           var _a2, _b;
-          return /* @__PURE__ */ import_react172.default.createElement(EasingOption_default, {
+          return /* @__PURE__ */ import_react176.default.createElement(EasingOption_default, {
             key: preset.label,
             easing: preset,
             tabIndex: 0,
@@ -42145,7 +42469,7 @@ var init_CurveEditorPopover = __esm({
           });
         }
       });
-      (0, import_react172.useLayoutEffect)(() => {
+      (0, import_react176.useLayoutEffect)(() => {
         var _a2, _b;
         if (grid.currentSelection !== null && document.activeElement !== inputRef.current) {
           const maybePresetEl = (_b = (_a2 = optionsRef.current) == null ? void 0 : _a2[grid.currentSelection.label]) == null ? void 0 : _b.current;
@@ -42157,22 +42481,22 @@ var init_CurveEditorPopover = __esm({
           }
         }
       }, [grid.currentSelection]);
-      return /* @__PURE__ */ import_react172.default.createElement(Grid, null, /* @__PURE__ */ import_react172.default.createElement(SearchBox, {
+      return /* @__PURE__ */ import_react176.default.createElement(Grid, null, /* @__PURE__ */ import_react176.default.createElement(SearchBox, {
         value: inputValue,
         placeholder: textInputMode === 3 ? "Multiple easings selected" : "Search presets...",
         onPaste: setTimeoutFunction(onInputChange),
         onChange: onInputChange,
         ref: inputRef,
         onKeyDown: onSearchKeyDown
-      }), /* @__PURE__ */ import_react172.default.createElement(OptionsContainer, {
+      }), /* @__PURE__ */ import_react176.default.createElement(OptionsContainer, {
         ref: optionsContainerRef,
         onKeyDown: (evt) => grid.onParentEltKeyDown(evt)
-      }, grid.gridItems, grid.gridItems.length === 0 ? /* @__PURE__ */ import_react172.default.createElement(NoResultsFoundContainer, null, "No results found") : void 0), /* @__PURE__ */ import_react172.default.createElement(CurveEditorContainer, {
+      }, grid.gridItems, grid.gridItems.length === 0 ? /* @__PURE__ */ import_react176.default.createElement(NoResultsFoundContainer, null, "No results found") : void 0), /* @__PURE__ */ import_react176.default.createElement(CurveEditorContainer, {
         onClick: () => {
           var _a2;
           return (_a2 = inputRef.current) == null ? void 0 : _a2.focus();
         }
-      }, /* @__PURE__ */ import_react172.default.createElement(CurveSegmentEditor_default, {
+      }, /* @__PURE__ */ import_react176.default.createElement(CurveSegmentEditor_default, {
         curveConnection: props.curveConnection,
         backgroundConnections: props.additionalConnections,
         onCurveChange,
@@ -42319,7 +42643,7 @@ var init_selections = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useTempTransactionEditingTools.tsx
 function useTempTransactionEditingTools(writeTx) {
-  return (0, import_react173.useMemo)(() => createTempTransactionEditingTools(writeTx), []);
+  return (0, import_react177.useMemo)(() => createTempTransactionEditingTools(writeTx), []);
 }
 function createTempTransactionEditingTools(writeTx) {
   let currentTransaction = null;
@@ -42340,11 +42664,11 @@ function createTempTransactionEditingTools(writeTx) {
     }
   };
 }
-var import_react173;
+var import_react177;
 var init_useTempTransactionEditingTools = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useTempTransactionEditingTools.tsx"() {
     init_getStudio();
-    import_react173 = __toModule(require_react());
+    import_react177 = __toModule(require_react());
   }
 });
 
@@ -42352,9 +42676,9 @@ var init_useTempTransactionEditingTools = __esm({
 function DeterminePropEditorForKeyframeTree(p3) {
   var _a2;
   if (p3.type === "sheetObject") {
-    return /* @__PURE__ */ import_react174.default.createElement(import_react174.default.Fragment, null, /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropLabel, {
+    return /* @__PURE__ */ import_react178.default.createElement(import_react178.default.Fragment, null, /* @__PURE__ */ import_react178.default.createElement(SingleKeyframePropLabel, {
       style: { paddingLeft: `${p3.indent * INDENT_PX}px` }
-    }, p3.sheetObject.address.objectKey), p3.children.map((c3, i3) => /* @__PURE__ */ import_react174.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
+    }, p3.sheetObject.address.objectKey), p3.children.map((c3, i3) => /* @__PURE__ */ import_react178.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
       key: i3
     }, c3), {
       autoFocusInput: p3.autoFocusInput && i3 === 0,
@@ -42362,16 +42686,16 @@ function DeterminePropEditorForKeyframeTree(p3) {
     }))));
   } else if (p3.type === "propWithChildren") {
     const label = (_a2 = p3.propConfig.label) != null ? _a2 : last_default(p3.pathToProp);
-    return /* @__PURE__ */ import_react174.default.createElement(import_react174.default.Fragment, null, /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropLabel, {
+    return /* @__PURE__ */ import_react178.default.createElement(import_react178.default.Fragment, null, /* @__PURE__ */ import_react178.default.createElement(SingleKeyframePropLabel, {
       style: { paddingLeft: `${p3.indent * INDENT_PX}px` }
-    }, label), p3.children.map((c3, i3) => /* @__PURE__ */ import_react174.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
+    }, label), p3.children.map((c3, i3) => /* @__PURE__ */ import_react178.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
       key: i3
     }, c3), {
       autoFocusInput: p3.autoFocusInput && i3 === 0,
       indent: p3.indent + 1
     }))));
   } else {
-    return /* @__PURE__ */ import_react174.default.createElement(PrimitivePropEditor, __spreadProps(__spreadValues({}, p3), {
+    return /* @__PURE__ */ import_react178.default.createElement(PrimitivePropEditor, __spreadProps(__spreadValues({}, p3), {
       autoFocusInput: p3.autoFocusInput,
       indent: p3.indent
     }));
@@ -42382,12 +42706,12 @@ function PrimitivePropEditor(p3) {
   const label = (_a2 = p3.propConfig.label) != null ? _a2 : last_default(p3.pathToProp);
   const editingTools = useEditingToolsForKeyframeEditorPopover(p3);
   if (p3.propConfig.type === "enum") {
-    return /* @__PURE__ */ import_react174.default.createElement(import_react174.default.Fragment, null);
+    return /* @__PURE__ */ import_react178.default.createElement(import_react178.default.Fragment, null);
   } else {
     const PropEditor = simplePropEditorByPropType[p3.propConfig.type];
-    return /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropEditorContainer, null, /* @__PURE__ */ import_react174.default.createElement(SingleKeyframePropLabel, null, /* @__PURE__ */ import_react174.default.createElement("span", {
+    return /* @__PURE__ */ import_react178.default.createElement(SingleKeyframePropEditorContainer, null, /* @__PURE__ */ import_react178.default.createElement(SingleKeyframePropLabel, null, /* @__PURE__ */ import_react178.default.createElement("span", {
       style: { paddingLeft: `${p3.indent * INDENT_PX}px` }
-    }, label)), /* @__PURE__ */ import_react174.default.createElement(SingleKeyframeSimplePropEditorContainer, null, /* @__PURE__ */ import_react174.default.createElement(PropEditor, {
+    }, label)), /* @__PURE__ */ import_react178.default.createElement(SingleKeyframeSimplePropEditorContainer, null, /* @__PURE__ */ import_react178.default.createElement(PropEditor, {
       editingTools,
       propConfig: p3.propConfig,
       value: valueInProp(p3.keyframe.value, p3.propConfig),
@@ -42406,10 +42730,10 @@ function useEditingToolsForKeyframeEditorPopover(props) {
     }));
   });
 }
-var import_react174, SingleKeyframePropEditorContainer, SingleKeyframePropLabel, INDENT_PX, SingleKeyframeSimplePropEditorContainer;
+var import_react178, SingleKeyframePropEditorContainer, SingleKeyframePropLabel, INDENT_PX, SingleKeyframeSimplePropEditorContainer;
 var init_DeterminePropEditorForSingleKeyframe = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/DeterminePropEditorForSingleKeyframe.tsx"() {
-    import_react174 = __toModule(require_react());
+    import_react178 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_simplePropEditorByPropType();
     init_last();
@@ -42448,21 +42772,21 @@ var init_DeterminePropEditorForSingleKeyframe = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useSingleKeyframeInlineEditorPopover.tsx
 function useKeyframeInlineEditorPopover(props) {
-  return usePopover({ debugName: "useKeyframeInlineEditorPopover" }, () => /* @__PURE__ */ import_react175.default.createElement(BasicPopover_default, {
+  return usePopover({ debugName: "useKeyframeInlineEditorPopover" }, () => /* @__PURE__ */ import_react179.default.createElement(BasicPopover_default, {
     showPopoverEdgeTriangle: true
-  }, /* @__PURE__ */ import_react175.default.createElement("div", {
+  }, /* @__PURE__ */ import_react179.default.createElement("div", {
     style: { margin: "1px 2px 1px 10px" }
-  }, !Array.isArray(props) ? void 0 : props.map((prop, i3) => /* @__PURE__ */ import_react175.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
+  }, !Array.isArray(props) ? void 0 : props.map((prop, i3) => /* @__PURE__ */ import_react179.default.createElement(DeterminePropEditorForKeyframeTree, __spreadProps(__spreadValues({
     key: i3
   }, prop), {
     autoFocusInput: i3 === 0,
     indent: 0
   }))))));
 }
-var import_react175;
+var import_react179;
 var init_useSingleKeyframeInlineEditorPopover = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/useSingleKeyframeInlineEditorPopover.tsx"() {
-    import_react175 = __toModule(require_react());
+    import_react179 = __toModule(require_react());
     init_usePopover();
     init_BasicPopover();
     init_DeterminePropEditorForSingleKeyframe();
@@ -42515,10 +42839,10 @@ function useSingleKeyframeContextMenu(target, logger, props) {
   });
 }
 function useDragForSingleKeyframeDot(node, props, options2) {
-  const propsRef = (0, import_react176.useRef)(props);
+  const propsRef = (0, import_react180.useRef)(props);
   propsRef.current = props;
   const { onClickFromDrag } = options2;
-  const useDragOpts = (0, import_react176.useMemo)(() => {
+  const useDragOpts = (0, import_react180.useMemo)(() => {
     return {
       debugName: "KeyframeDot/useDragKeyframe",
       onDragStart(event) {
@@ -42585,10 +42909,10 @@ function useDragForSingleKeyframeDot(node, props, options2) {
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor", "ew-resize");
   return [isDragging];
 }
-var import_react176, import_dataverse52, DOT_SIZE_PX, DOT_HOVER_SIZE_PX, dotTheme, selectBacgroundForDiamond, Diamond, HitZone4, SingleKeyframeDot, SingleKeyframeDot_default;
+var import_react180, import_dataverse52, DOT_SIZE_PX, DOT_HOVER_SIZE_PX, dotTheme, selectBacgroundForDiamond, Diamond, HitZone4, SingleKeyframeDot, SingleKeyframeDot_default;
 var init_SingleKeyframeDot = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/SingleKeyframeDot.tsx"() {
-    import_react176 = __toModule(require_react());
+    import_react180 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_getStudio();
     init_useContextMenu();
@@ -42679,10 +43003,10 @@ var init_SingleKeyframeDot = __esm({
           toggleEditor(dragStartEvent, ref.current);
         }
       });
-      return /* @__PURE__ */ import_react176.default.createElement(import_react176.default.Fragment, null, /* @__PURE__ */ import_react176.default.createElement(HitZone4, __spreadValues({
+      return /* @__PURE__ */ import_react180.default.createElement(import_react180.default.Fragment, null, /* @__PURE__ */ import_react180.default.createElement(HitZone4, __spreadValues({
         ref,
         isInlineEditorPopoverOpen
-      }, presence.attrs)), /* @__PURE__ */ import_react176.default.createElement(Diamond, {
+      }, presence.attrs)), /* @__PURE__ */ import_react180.default.createElement(Diamond, {
         isSelected: !!props.selection,
         isInlineEditorPopoverOpen,
         flag: presence.flag
@@ -42693,11 +43017,11 @@ var init_SingleKeyframeDot = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/keyframeRowUI/ConnectorLine.tsx
-var import_react177, CONNECTOR_HEIGHT, CONNECTOR_WIDTH_UNSCALED, CONNECTOR_THEME, Container43, ConnectorLine;
+var import_react181, CONNECTOR_HEIGHT, CONNECTOR_WIDTH_UNSCALED, CONNECTOR_THEME, Container45, ConnectorLine;
 var init_ConnectorLine = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/keyframeRowUI/ConnectorLine.tsx"() {
     init_polished_esm();
-    import_react177 = __toModule(require_react());
+    import_react181 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SingleKeyframeDot();
     CONNECTOR_HEIGHT = DOT_SIZE_PX / 2 + 1;
@@ -42714,7 +43038,7 @@ var init_ConnectorLine = __esm({
         return values.isPopoverOpen ? curriedSaturate(0.2, curriedLighten(0.2, base)) : curriedSaturate(0.1, curriedLighten(0.1, base));
       }
     };
-    Container43 = styled_components_browser_esm_default.div`
+    Container45 = styled_components_browser_esm_default.div`
   position: absolute;
   background: ${CONNECTOR_THEME.barColor};
   height: ${CONNECTOR_HEIGHT}px;
@@ -42740,12 +43064,12 @@ var init_ConnectorLine = __esm({
     background: ${CONNECTOR_THEME.hoverColor};
   }
 `;
-    ConnectorLine = import_react177.default.forwardRef((props, ref) => {
+    ConnectorLine = import_react181.default.forwardRef((props, ref) => {
       const themeValues = {
         isPopoverOpen: props.isPopoverOpen,
         isSelected: props.isSelected
       };
-      return /* @__PURE__ */ import_react177.default.createElement(Container43, __spreadProps(__spreadValues({}, themeValues), {
+      return /* @__PURE__ */ import_react181.default.createElement(Container45, __spreadProps(__spreadValues({}, themeValues), {
         ref,
         style: {
           transform: `scaleX(calc(var(--unitSpaceToScaledSpaceMultiplier) * ${props.connectorLengthInUnitSpace / CONNECTOR_WIDTH_UNSCALED}))`
@@ -42761,9 +43085,9 @@ var init_ConnectorLine = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/BasicKeyframeConnector.tsx
 function useDragKeyframe(node, props) {
-  const propsRef = (0, import_react179.useRef)(props);
+  const propsRef = (0, import_react183.useRef)(props);
   propsRef.current = props;
-  const gestureHandlers = (0, import_react179.useMemo)(() => {
+  const gestureHandlers = (0, import_react183.useMemo)(() => {
     return {
       debugName: "useDragKeyframe",
       lockCSSCursorTo: "ew-resize",
@@ -42861,7 +43185,7 @@ function useConnectorContextMenu(props, node, cur, next) {
     }
   });
 }
-var import_dataverse53, import_react178, import_react179, POPOVER_MARGIN, EasingPopover, BasicKeyframeConnector, BasicKeyframeConnector_default, SingleCurveEditorPopover;
+var import_dataverse53, import_react182, import_react183, POPOVER_MARGIN, EasingPopover, BasicKeyframeConnector, BasicKeyframeConnector_default, SingleCurveEditorPopover;
 var init_BasicKeyframeConnector = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/BasicKeyframeConnector.tsx"() {
     init_getStudio();
@@ -42869,8 +43193,8 @@ var init_BasicKeyframeConnector = __esm({
     init_useDrag();
     init_useRefAndState();
     import_dataverse53 = __toModule(require("@theatre/dataverse"));
-    import_react178 = __toModule(require_react());
-    import_react179 = __toModule(require_react());
+    import_react182 = __toModule(require_react());
+    import_react183 = __toModule(require_react());
     init_usePopover();
     init_BasicPopover();
     init_CurveEditorPopover();
@@ -42903,7 +43227,7 @@ var init_BasicKeyframeConnector = __esm({
             maxX: rightDims.screenX + rightDims.width - POPOVER_MARGIN
           }
         };
-      }, () => /* @__PURE__ */ import_react178.default.createElement(SingleCurveEditorPopover, __spreadProps(__spreadValues({}, props), {
+      }, () => /* @__PURE__ */ import_react182.default.createElement(SingleCurveEditorPopover, __spreadProps(__spreadValues({}, props), {
         closePopover
       })));
       const [contextMenu] = useConnectorContextMenu(props, node, cur, next);
@@ -42918,7 +43242,7 @@ var init_BasicKeyframeConnector = __esm({
         isPopoverOpen: isInCurveEditorPopoverSelection,
         isSelected: props.selection !== void 0
       };
-      return /* @__PURE__ */ import_react178.default.createElement(import_react178.default.Fragment, null, /* @__PURE__ */ import_react178.default.createElement(ConnectorLine, __spreadProps(__spreadValues({
+      return /* @__PURE__ */ import_react182.default.createElement(import_react182.default.Fragment, null, /* @__PURE__ */ import_react182.default.createElement(ConnectorLine, __spreadProps(__spreadValues({
         ref: nodeRef,
         connectorLengthInUnitSpace
       }, themeValues), {
@@ -42929,7 +43253,7 @@ var init_BasicKeyframeConnector = __esm({
       }), popoverNode), contextMenu);
     };
     BasicKeyframeConnector_default = BasicKeyframeConnector;
-    SingleCurveEditorPopover = import_react178.default.forwardRef((props, ref) => {
+    SingleCurveEditorPopover = import_react182.default.forwardRef((props, ref) => {
       const {
         index,
         track: { data: trackData },
@@ -42945,10 +43269,10 @@ var init_BasicKeyframeConnector = __esm({
         right: next,
         trackId
       }, address);
-      return /* @__PURE__ */ import_react178.default.createElement(EasingPopover, {
+      return /* @__PURE__ */ import_react182.default.createElement(EasingPopover, {
         showPopoverEdgeTriangle: false,
         ref
-      }, /* @__PURE__ */ import_react178.default.createElement(CurveEditorPopover_default, {
+      }, /* @__PURE__ */ import_react182.default.createElement(CurveEditorPopover_default, {
         curveConnection,
         additionalConnections: selectedConnections,
         onRequestClose: props.closePopover
@@ -42958,19 +43282,19 @@ var init_BasicKeyframeConnector = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/SingleKeyframeEditor.tsx
-var import_dataverse54, import_react181, SingleKeyframeEditorContainer, noConnector, SingleKeyframeEditor, SingleKeyframeEditor_default;
+var import_dataverse54, import_react185, SingleKeyframeEditorContainer, noConnector, SingleKeyframeEditor, SingleKeyframeEditor_default;
 var init_SingleKeyframeEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/KeyframeEditor/SingleKeyframeEditor.tsx"() {
     import_dataverse54 = __toModule(require("@theatre/dataverse"));
-    import_react181 = __toModule(require_react());
+    import_react185 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_BasicKeyframeConnector();
     init_SingleKeyframeDot();
     SingleKeyframeEditorContainer = styled_components_browser_esm_default.div`
   position: absolute;
 `;
-    noConnector = /* @__PURE__ */ import_react181.default.createElement(import_react181.default.Fragment, null);
-    SingleKeyframeEditor = import_react181.default.memo((props) => {
+    noConnector = /* @__PURE__ */ import_react185.default.createElement(import_react185.default.Fragment, null);
+    SingleKeyframeEditor = import_react185.default.memo((props) => {
       const {
         index,
         track: { data: trackData }
@@ -42978,14 +43302,14 @@ var init_SingleKeyframeEditor = __esm({
       const cur = trackData.keyframes[index];
       const next = trackData.keyframes[index + 1];
       const connected = cur.connectedRight && !!next;
-      return /* @__PURE__ */ import_react181.default.createElement(SingleKeyframeEditorContainer, {
+      return /* @__PURE__ */ import_react185.default.createElement(SingleKeyframeEditorContainer, {
         style: {
           top: `${props.leaf.nodeHeight / 2}px`,
           left: `calc(${(0, import_dataverse54.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position}px))`
         }
-      }, /* @__PURE__ */ import_react181.default.createElement(SingleKeyframeDot_default, __spreadProps(__spreadValues({}, props), {
+      }, /* @__PURE__ */ import_react185.default.createElement(SingleKeyframeDot_default, __spreadProps(__spreadValues({}, props), {
         itemKey: props.itemKey
-      })), connected ? /* @__PURE__ */ import_react181.default.createElement(BasicKeyframeConnector_default, __spreadValues({}, props)) : noConnector);
+      })), connected ? /* @__PURE__ */ import_react185.default.createElement(BasicKeyframeConnector_default, __spreadValues({}, props)) : noConnector);
     });
     SingleKeyframeEditor_default = SingleKeyframeEditor;
   }
@@ -43038,12 +43362,12 @@ function earliestKeyframe(keyframes) {
   }
   return curEarliest;
 }
-var import_dataverse55, import_react183, Container44, BasicKeyframedTrack, BasicKeyframedTrack_default;
+var import_dataverse55, import_react187, Container46, BasicKeyframedTrack, BasicKeyframedTrack_default;
 var init_BasicKeyframedTrack = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/BasicKeyframedTrack/BasicKeyframedTrack.tsx"() {
     init_src();
     import_dataverse55 = __toModule(require("@theatre/dataverse"));
-    import_react183 = __toModule(require_react());
+    import_react187 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SingleKeyframeEditor();
     init_useContextMenu();
@@ -43052,12 +43376,12 @@ var init_BasicKeyframedTrack = __esm({
     init_addresses();
     init_KeyframeSnapTarget();
     init_ids();
-    Container44 = styled_components_browser_esm_default.div`
+    Container46 = styled_components_browser_esm_default.div`
   position: relative;
   height: 100%;
   width: 100%;
 `;
-    BasicKeyframedTrack = import_react183.default.memo((props) => {
+    BasicKeyframedTrack = import_react187.default.memo((props) => {
       var _a2;
       const { layoutP, trackData, leaf } = props;
       const [containerRef, containerNode] = useRefAndState(null);
@@ -43080,12 +43404,12 @@ var init_BasicKeyframedTrack = __esm({
       const snapPositionsState = useVal(snapPositionsStateD);
       const snapPositions = snapPositionsState.mode === "snapToSome" ? (_a2 = snapPositionsState.positions[leaf.sheetObject.address.objectKey]) == null ? void 0 : _a2[leaf.trackId] : [];
       const snapToAllKeyframes = snapPositionsState.mode === "snapToAll";
-      const track = (0, import_react183.useMemo)(() => ({
+      const track = (0, import_react187.useMemo)(() => ({
         data: trackData,
         id: leaf.trackId,
         sheetObject: props.leaf.sheetObject
       }), [trackData, leaf.trackId]);
-      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react183.default.createElement(SingleKeyframeEditor_default, {
+      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react187.default.createElement(SingleKeyframeEditor_default, {
         key: "keyframe-" + kf.id,
         itemKey: createStudioSheetItemKey.forTrackKeyframe(leaf.sheetObject, leaf.trackId, kf.id),
         keyframe: kf,
@@ -43095,24 +43419,24 @@ var init_BasicKeyframedTrack = __esm({
         leaf,
         selection: selectedKeyframeIds[kf.id] === true ? selection : void 0
       }));
-      const snapTargets = snapPositions.map((position2) => /* @__PURE__ */ import_react183.default.createElement(KeyframeSnapTarget_default, {
+      const snapTargets = snapPositions.map((position2) => /* @__PURE__ */ import_react187.default.createElement(KeyframeSnapTarget_default, {
         key: "snap-target-" + position2,
         layoutP,
         leaf,
         position: position2
       }));
-      const additionalSnapTargets = !snapToAllKeyframes ? null : trackData.keyframes.map((kf) => /* @__PURE__ */ import_react183.default.createElement(KeyframeSnapTarget_default, {
+      const additionalSnapTargets = !snapToAllKeyframes ? null : trackData.keyframes.map((kf) => /* @__PURE__ */ import_react187.default.createElement(KeyframeSnapTarget_default, {
         key: `additionalSnapTarget-${kf.id}`,
         layoutP,
         leaf,
         position: kf.position
       }));
-      return /* @__PURE__ */ import_react183.default.createElement(Container44, {
+      return /* @__PURE__ */ import_react187.default.createElement(Container46, {
         ref: containerRef,
         style: {
           background: isOpen ? "#121212 " : "unset"
         }
-      }, keyframeEditors, snapTargets, /* @__PURE__ */ import_react183.default.createElement(import_react183.default.Fragment, null, additionalSnapTargets), contextMenu);
+      }, keyframeEditors, snapTargets, /* @__PURE__ */ import_react187.default.createElement(import_react187.default.Fragment, null, additionalSnapTargets), contextMenu);
     });
     BasicKeyframedTrack.displayName = `BasicKeyframedTrack`;
     BasicKeyframedTrack_default = BasicKeyframedTrack;
@@ -43120,13 +43444,13 @@ var init_BasicKeyframedTrack = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PrimitivePropRow.tsx
-var import_dataverse56, import_react185, PrimitivePropRow2, PrimitivePropRow_default2;
+var import_dataverse56, import_react189, PrimitivePropRow2, PrimitivePropRow_default2;
 var init_PrimitivePropRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PrimitivePropRow.tsx"() {
     init_getStudio();
     init_src();
     import_dataverse56 = __toModule(require("@theatre/dataverse"));
-    import_react185 = __toModule(require_react());
+    import_react189 = __toModule(require_react());
     init_Row();
     init_BasicKeyframedTrack();
     init_useLogger();
@@ -43138,18 +43462,18 @@ var init_PrimitivePropRow2 = __esm({
         const trackData = (0, import_dataverse56.val)(getStudio().atomP.historic.coreByProject[sheetObject.address.projectId].sheetsById[sheetObject.address.sheetId].sequence.tracksByObject[sheetObject.address.objectKey].trackData[trackId]);
         if ((trackData == null ? void 0 : trackData.type) !== "BasicKeyframedTrack") {
           logger.errorDev(`trackData type ${trackData == null ? void 0 : trackData.type} is not yet supported on the sequence editor`);
-          return /* @__PURE__ */ import_react185.default.createElement(Row_default, {
+          return /* @__PURE__ */ import_react189.default.createElement(Row_default, {
             leaf,
             isCollapsed: false,
-            node: /* @__PURE__ */ import_react185.default.createElement("div", null)
+            node: /* @__PURE__ */ import_react189.default.createElement("div", null)
           });
         } else {
-          const node = /* @__PURE__ */ import_react185.default.createElement(BasicKeyframedTrack_default, {
+          const node = /* @__PURE__ */ import_react189.default.createElement(BasicKeyframedTrack_default, {
             layoutP,
             trackData,
             leaf
           });
-          return /* @__PURE__ */ import_react185.default.createElement(Row_default, {
+          return /* @__PURE__ */ import_react189.default.createElement(Row_default, {
             leaf,
             isCollapsed: false,
             node
@@ -43234,9 +43558,9 @@ var init_useAggregateKeyframeEditorUtils = __esm({
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeConnector.tsx
 function useDragKeyframe2(node, editorProps) {
-  const propsRef = (0, import_react187.useRef)(editorProps);
+  const propsRef = (0, import_react191.useRef)(editorProps);
   propsRef.current = editorProps;
-  const gestureHandlers = (0, import_react187.useMemo)(() => {
+  const gestureHandlers = (0, import_react191.useMemo)(() => {
     return {
       debugName: "useDragKeyframe",
       lockCSSCursorTo: "ew-resize",
@@ -43350,11 +43674,11 @@ function useConnectorContextMenu2(props, node) {
     }
   });
 }
-var import_dataverse58, import_react187, POPOVER_MARGIN_PX, EasingPopoverWrapper, AggregateCurveEditorPopover, AggregateKeyframeConnector;
+var import_dataverse58, import_react191, POPOVER_MARGIN_PX, EasingPopoverWrapper, AggregateCurveEditorPopover, AggregateKeyframeConnector;
 var init_AggregateKeyframeConnector = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeConnector.tsx"() {
     import_dataverse58 = __toModule(require("@theatre/dataverse"));
-    import_react187 = __toModule(require_react());
+    import_react191 = __toModule(require_react());
     init_ConnectorLine();
     init_AggregatedKeyframeTrack();
     init_usePopover();
@@ -43373,12 +43697,12 @@ var init_AggregateKeyframeConnector = __esm({
   --popover-outer-stroke: transparent;
   --popover-inner-stroke: rgba(26, 28, 30, 0.97);
 `;
-    AggregateCurveEditorPopover = import_react187.default.forwardRef((props, ref) => {
+    AggregateCurveEditorPopover = import_react191.default.forwardRef((props, ref) => {
       const { allConnections } = useAggregateKeyframeEditorUtils(props);
-      return /* @__PURE__ */ import_react187.default.createElement(EasingPopoverWrapper, {
+      return /* @__PURE__ */ import_react191.default.createElement(EasingPopoverWrapper, {
         showPopoverEdgeTriangle: false,
         ref
-      }, /* @__PURE__ */ import_react187.default.createElement(CurveEditorPopover_default, {
+      }, /* @__PURE__ */ import_react191.default.createElement(CurveEditorPopover_default, {
         curveConnection: allConnections[0],
         additionalConnections: allConnections,
         onRequestClose: props.closePopover
@@ -43403,12 +43727,12 @@ var init_AggregateKeyframeConnector = __esm({
           }
         };
       }, () => {
-        return /* @__PURE__ */ import_react187.default.createElement(AggregateCurveEditorPopover, __spreadProps(__spreadValues({}, editorProps), {
+        return /* @__PURE__ */ import_react191.default.createElement(AggregateCurveEditorPopover, __spreadProps(__spreadValues({}, editorProps), {
           closePopover
         }));
       });
       const { connected, isAggregateEditingInCurvePopover } = props.utils;
-      return connected || isDragging ? /* @__PURE__ */ import_react187.default.createElement(import_react187.default.Fragment, null, /* @__PURE__ */ import_react187.default.createElement(ConnectorLine, {
+      return connected || isDragging ? /* @__PURE__ */ import_react191.default.createElement(import_react191.default.Fragment, null, /* @__PURE__ */ import_react191.default.createElement(ConnectorLine, {
         ref: nodeRef,
         connectorLengthInUnitSpace: connected ? connected.length : 0,
         isSelected: connected ? connected.selected : false,
@@ -43417,7 +43741,7 @@ var init_AggregateKeyframeConnector = __esm({
           if (node)
             togglePopover(e2, node);
         }
-      }), popoverNode, contextMenu) : /* @__PURE__ */ import_react187.default.createElement(import_react187.default.Fragment, null);
+      }), popoverNode, contextMenu) : /* @__PURE__ */ import_react191.default.createElement(import_react191.default.Fragment, null);
     };
   }
 });
@@ -43428,12 +43752,12 @@ function AggregateKeyframeVisualDot(props) {
     isSelected: props.isSelected,
     flag: props.flag
   };
-  return /* @__PURE__ */ import_react188.default.createElement(DotContainer, null, props.isAllHere ? /* @__PURE__ */ import_react188.default.createElement(AggregateDotAllHereSvg, __spreadValues({}, theme4)) : /* @__PURE__ */ import_react188.default.createElement(AggregateDotSomeHereSvg, __spreadValues({}, theme4)));
+  return /* @__PURE__ */ import_react192.default.createElement(DotContainer, null, props.isAllHere ? /* @__PURE__ */ import_react192.default.createElement(AggregateDotAllHereSvg, __spreadValues({}, theme4)) : /* @__PURE__ */ import_react192.default.createElement(AggregateDotSomeHereSvg, __spreadValues({}, theme4)));
 }
-var import_react188, DOT_SIZE_PX2, DOT_HOVER_SIZE_PX2, DotContainer, HitZone5, SELECTED_COLOR, DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR, selectionColorAll, selectionColorSome, AggregateDotAllHereSvg, AggregateDotSomeHereSvg;
+var import_react192, DOT_SIZE_PX2, DOT_HOVER_SIZE_PX2, DotContainer, HitZone5, SELECTED_COLOR, DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR, selectionColorAll, selectionColorSome, AggregateDotAllHereSvg, AggregateDotSomeHereSvg;
 var init_AggregateKeyframeVisualDot = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeVisualDot.tsx"() {
-    import_react188 = __toModule(require_react());
+    import_react192 = __toModule(require_react());
     init_AggregatedKeyframeTrack();
     init_usePresence();
     init_styled_components_browser_esm();
@@ -43467,13 +43791,13 @@ var init_AggregateKeyframeVisualDot = __esm({
     DEFAULT_SECONDARY_COLOR = "#0d99ff";
     selectionColorAll = (theme4) => theme4.isSelected === AggregateKeyframePositionIsSelected.AllSelected ? SELECTED_COLOR : theme4.isSelected === AggregateKeyframePositionIsSelected.AtLeastOneUnselected ? DEFAULT_PRIMARY_COLOR : DEFAULT_SECONDARY_COLOR;
     selectionColorSome = (theme4) => theme4.isSelected === AggregateKeyframePositionIsSelected.AllSelected ? SELECTED_COLOR : theme4.isSelected === AggregateKeyframePositionIsSelected.AtLeastOneUnselected ? DEFAULT_PRIMARY_COLOR : DEFAULT_SECONDARY_COLOR;
-    AggregateDotAllHereSvg = (theme4) => /* @__PURE__ */ import_react188.default.createElement("svg", {
+    AggregateDotAllHereSvg = (theme4) => /* @__PURE__ */ import_react192.default.createElement("svg", {
       width: "100%",
       height: "100%",
       viewBox: "0 0 16 16",
       fill: "none",
       xmlns: "http://www.w3.org/2000/svg"
-    }, /* @__PURE__ */ import_react188.default.createElement("rect", {
+    }, /* @__PURE__ */ import_react192.default.createElement("rect", {
       x: "4.46443",
       y: "10.0078",
       width: "5",
@@ -43481,7 +43805,7 @@ var init_AggregateKeyframeVisualDot = __esm({
       transform: "rotate(-45 4.46443 10.0078)",
       fill: "#212327",
       stroke: selectionColorSome(theme4)
-    }), /* @__PURE__ */ import_react188.default.createElement("rect", {
+    }), /* @__PURE__ */ import_react192.default.createElement("rect", {
       x: "3.75732",
       y: "6.01953",
       width: "6",
@@ -43491,13 +43815,13 @@ var init_AggregateKeyframeVisualDot = __esm({
       stroke: theme4.flag === PresenceFlag.Primary ? "white" : void 0,
       strokeWidth: theme4.flag === PresenceFlag.Primary ? "2px" : void 0
     }));
-    AggregateDotSomeHereSvg = (theme4) => /* @__PURE__ */ import_react188.default.createElement("svg", {
+    AggregateDotSomeHereSvg = (theme4) => /* @__PURE__ */ import_react192.default.createElement("svg", {
       width: "100%",
       height: "100%",
       viewBox: "0 0 16 16",
       fill: "none",
       xmlns: "http://www.w3.org/2000/svg"
-    }, /* @__PURE__ */ import_react188.default.createElement("rect", {
+    }, /* @__PURE__ */ import_react192.default.createElement("rect", {
       x: "4.46443",
       y: "8",
       width: "5",
@@ -43558,11 +43882,11 @@ function AggregateKeyframeDot(props) {
   ]);
   const [ref, node] = useRefAndState(null);
   const [contextMenu] = useAggregateKeyframeContextMenu(props, node);
-  return /* @__PURE__ */ import_react189.default.createElement(import_react189.default.Fragment, null, /* @__PURE__ */ import_react189.default.createElement(HitZone5, __spreadProps(__spreadValues(__spreadValues({
+  return /* @__PURE__ */ import_react193.default.createElement(import_react193.default.Fragment, null, /* @__PURE__ */ import_react193.default.createElement(HitZone5, __spreadProps(__spreadValues(__spreadValues({
     ref
   }, presence.attrs), DopeSnap_default.includePositionSnapAttrs(cur.position)), {
     onClick: (e2) => props.editorProps.viewModel.type !== "sheet" ? inlineEditorPopover.open(e2, ref.current) : null
-  })), /* @__PURE__ */ import_react189.default.createElement(AggregateKeyframeVisualDot, {
+  })), /* @__PURE__ */ import_react193.default.createElement(AggregateKeyframeVisualDot, {
     flag: presence.flag,
     isAllHere: cur.allHere,
     isSelected: cur.selected
@@ -43631,10 +43955,10 @@ function useAggregateKeyframeContextMenu(props, target) {
     }
   });
 }
-var import_react189, isOptionsTreeNodeNotNull;
+var import_react193, isOptionsTreeNodeNotNull;
 var init_AggregateKeyframeDot = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeDot.tsx"() {
-    import_react189 = __toModule(require_react());
+    import_react193 = __toModule(require_react());
     init_useRefAndState();
     init_usePresence();
     init_useContextMenu();
@@ -43649,11 +43973,11 @@ var init_AggregateKeyframeDot = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeEditor.tsx
-var import_dataverse59, import_react190, AggregateKeyframeEditorContainer, AggregateKeyframeEditor, AggregateKeyframeEditor_default;
+var import_dataverse59, import_react194, AggregateKeyframeEditorContainer, AggregateKeyframeEditor, AggregateKeyframeEditor_default;
 var init_AggregateKeyframeEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregateKeyframeEditor/AggregateKeyframeEditor.tsx"() {
     import_dataverse59 = __toModule(require("@theatre/dataverse"));
-    import_react190 = __toModule(require_react());
+    import_react194 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_AggregateKeyframeConnector();
     init_useAggregateKeyframeEditorUtils();
@@ -43661,17 +43985,17 @@ var init_AggregateKeyframeEditor = __esm({
     AggregateKeyframeEditorContainer = styled_components_browser_esm_default.div`
   position: absolute;
 `;
-    AggregateKeyframeEditor = import_react190.default.memo((props) => {
+    AggregateKeyframeEditor = import_react194.default.memo((props) => {
       const utils2 = useAggregateKeyframeEditorUtils(props);
-      return /* @__PURE__ */ import_react190.default.createElement(AggregateKeyframeEditorContainer, {
+      return /* @__PURE__ */ import_react194.default.createElement(AggregateKeyframeEditorContainer, {
         style: {
           top: `${props.viewModel.nodeHeight / 2}px`,
           left: `calc(${(0, import_dataverse59.val)(props.layoutP.scaledSpace.leftPadding)}px + calc(var(--unitSpaceToScaledSpaceMultiplier) * ${utils2.cur.position}px))`
         }
-      }, /* @__PURE__ */ import_react190.default.createElement(AggregateKeyframeDot, {
+      }, /* @__PURE__ */ import_react194.default.createElement(AggregateKeyframeDot, {
         editorProps: props,
         utils: utils2
-      }), /* @__PURE__ */ import_react190.default.createElement(AggregateKeyframeConnector, {
+      }), /* @__PURE__ */ import_react194.default.createElement(AggregateKeyframeConnector, {
         editorProps: props,
         utils: utils2
       }));
@@ -43696,7 +44020,7 @@ function AggregatedKeyframeTrack_memo(props) {
   const [containerRef, containerNode] = useRefAndState(null);
   const { selectedPositions, selection } = useCollectedSelectedPositions(layoutP, aggregatedKeyframes);
   const [contextMenu, _3, isOpen] = useAggregatedKeyframeTrackContextMenu(containerNode, props, () => logger._debug("see aggregatedKeyframes", props.aggregatedKeyframes));
-  const posKfs = (0, import_react192.useMemo)(() => [...aggregatedKeyframes.byPosition.entries()].sort((a4, b4) => a4[0] - b4[0]).map(([position2, keyframes]) => ({
+  const posKfs = (0, import_react196.useMemo)(() => [...aggregatedKeyframes.byPosition.entries()].sort((a4, b4) => a4[0] - b4[0]).map(([position2, keyframes]) => ({
     position: position2,
     keyframes,
     selected: selectedPositions.get(position2),
@@ -43705,14 +44029,14 @@ function AggregatedKeyframeTrack_memo(props) {
   const snapPositionsState = useVal(snapPositionsStateD);
   const snapToAllKeyframes = snapPositionsState.mode === "snapToAll";
   const snapPositions = snapPositionsState.mode === "snapToSome" ? snapPositionsState.positions : emptyObject;
-  const aggregateSnapPositions = (0, import_react192.useMemo)(() => viewModel.type === "sheet" ? collectAggregateSnapPositionsSheet(viewModel, snapPositions) : collectAggregateSnapPositionsObjectOrCompound(viewModel, snapPositions), [snapPositions]);
-  const snapTargets = aggregateSnapPositions.map((position2) => /* @__PURE__ */ import_react192.default.createElement(KeyframeSnapTarget_default, {
+  const aggregateSnapPositions = (0, import_react196.useMemo)(() => viewModel.type === "sheet" ? collectAggregateSnapPositionsSheet(viewModel, snapPositions) : collectAggregateSnapPositionsObjectOrCompound(viewModel, snapPositions), [snapPositions]);
+  const snapTargets = aggregateSnapPositions.map((position2) => /* @__PURE__ */ import_react196.default.createElement(KeyframeSnapTarget_default, {
     key: "snap-target-" + position2,
     layoutP,
     leaf: viewModel,
     position: position2
   }));
-  const keyframeEditorProps = (0, import_react192.useMemo)(() => posKfs.map(({ position: position2, keyframes }, index) => ({
+  const keyframeEditorProps = (0, import_react196.useMemo)(() => posKfs.map(({ position: position2, keyframes }, index) => ({
     position: position2,
     editorProps: {
       index,
@@ -43729,14 +44053,14 @@ function AggregatedKeyframeTrack_memo(props) {
     onClickFromDrag(dragStartEvent) {
     }
   });
-  const keyframeEditors = keyframeEditorProps.map((props2, i3) => /* @__PURE__ */ import_react192.default.createElement(import_react192.Fragment, {
+  const keyframeEditors = keyframeEditorProps.map((props2, i3) => /* @__PURE__ */ import_react196.default.createElement(import_react196.Fragment, {
     key: "agg-" + posKfs[i3].keyframes[0].kf.id
-  }, snapToAllKeyframes && /* @__PURE__ */ import_react192.default.createElement(KeyframeSnapTarget_default, {
+  }, snapToAllKeyframes && /* @__PURE__ */ import_react196.default.createElement(KeyframeSnapTarget_default, {
     layoutP,
     leaf: viewModel,
     position: props2.position
-  }), /* @__PURE__ */ import_react192.default.createElement(AggregateKeyframeEditor_default, __spreadValues({}, props2.editorProps))));
-  return /* @__PURE__ */ import_react192.default.createElement(AggregatedKeyframeTrackContainer, {
+  }), /* @__PURE__ */ import_react196.default.createElement(AggregateKeyframeEditor_default, __spreadValues({}, props2.editorProps))));
+  return /* @__PURE__ */ import_react196.default.createElement(AggregatedKeyframeTrackContainer, {
     ref: containerRef,
     style: {
       background: isOpen ? "#121212 " : "unset"
@@ -43929,7 +44253,7 @@ function earliestKeyframe2(keyframes) {
 function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, options2) {
   const logger = useLogger("useDragForAggregateKeyframeDot");
   const frameStampLock = useLockFrameStampPositionRef();
-  const useDragOpts = (0, import_react192.useMemo)(() => {
+  const useDragOpts = (0, import_react196.useMemo)(() => {
     return {
       debugName: "AggregateKeyframeDot/useDragKeyframe",
       onDragStart(event) {
@@ -44006,12 +44330,12 @@ function useDragForAggregateKeyframeDot(containerNode, getPropsForPosition, opti
   useCssCursorLock(isDragging, "draggingPositionInSequenceEditor", "ew-resize");
   return [isDragging];
 }
-var import_dataverse60, import_react192, AggregatedKeyframeTrackContainer, EMPTY_SELECTION, AggregatedKeyframeTrack, AggregatedKeyframeTrack_default, AggregateKeyframePositionIsSelected, AllSelected, AtLeastOneUnselected, NoneSelected;
+var import_dataverse60, import_react196, AggregatedKeyframeTrackContainer, EMPTY_SELECTION, AggregatedKeyframeTrack, AggregatedKeyframeTrack_default, AggregateKeyframePositionIsSelected, AllSelected, AtLeastOneUnselected, NoneSelected;
 var init_AggregatedKeyframeTrack = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/AggregatedKeyframeTrack/AggregatedKeyframeTrack.tsx"() {
     init_src();
     import_dataverse60 = __toModule(require("@theatre/dataverse"));
-    import_react192 = __toModule(require_react());
+    import_react196 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_useContextMenu();
     init_useRefAndState();
@@ -44038,7 +44362,7 @@ var init_AggregatedKeyframeTrack = __esm({
       selectedPositions: new Map(),
       selection: void 0
     });
-    AggregatedKeyframeTrack = import_react192.default.memo(AggregatedKeyframeTrack_memo);
+    AggregatedKeyframeTrack = import_react196.default.memo(AggregatedKeyframeTrack_memo);
     AggregatedKeyframeTrack_default = AggregatedKeyframeTrack;
     (function(AggregateKeyframePositionIsSelected2) {
       AggregateKeyframePositionIsSelected2[AggregateKeyframePositionIsSelected2["AllSelected"] = 0] = "AllSelected";
@@ -44050,21 +44374,21 @@ var init_AggregatedKeyframeTrack = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PropWithChildrenRow.tsx
-var import_react194, decideRowByPropType2, RightPropWithChildrenRow;
+var import_react198, decideRowByPropType2, RightPropWithChildrenRow;
 var init_PropWithChildrenRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/PropWithChildrenRow.tsx"() {
     init_src();
-    import_react194 = __toModule(require_react());
+    import_react198 = __toModule(require_react());
     init_PrimitivePropRow2();
     init_Row();
     init_AggregatedKeyframeTrack();
     init_collectAggregateKeyframes();
     init_useLogger();
-    decideRowByPropType2 = (leaf, layoutP) => leaf.type === "propWithChildren" ? /* @__PURE__ */ import_react194.default.createElement(RightPropWithChildrenRow, {
+    decideRowByPropType2 = (leaf, layoutP) => leaf.type === "propWithChildren" ? /* @__PURE__ */ import_react198.default.createElement(RightPropWithChildrenRow, {
       layoutP,
       viewModel: leaf,
       key: "prop" + leaf.pathToProp[leaf.pathToProp.length - 1]
-    }) : /* @__PURE__ */ import_react194.default.createElement(PrimitivePropRow_default2, {
+    }) : /* @__PURE__ */ import_react198.default.createElement(PrimitivePropRow_default2, {
       layoutP,
       leaf,
       key: "prop" + leaf.pathToProp[leaf.pathToProp.length - 1]
@@ -44073,14 +44397,14 @@ var init_PropWithChildrenRow2 = __esm({
       const logger = useLogger("RightPropWithChildrenRow", viewModel.pathToProp.join());
       return usePrism(() => {
         const aggregatedKeyframes = collectAggregateKeyframesInPrism(viewModel);
-        const node = /* @__PURE__ */ import_react194.default.createElement(AggregatedKeyframeTrack_default, {
+        const node = /* @__PURE__ */ import_react198.default.createElement(AggregatedKeyframeTrack_default, {
           layoutP,
           aggregatedKeyframes,
           viewModel
         });
-        return /* @__PURE__ */ import_react194.default.createElement(ProvideLogger, {
+        return /* @__PURE__ */ import_react198.default.createElement(ProvideLogger, {
           logger
-        }, /* @__PURE__ */ import_react194.default.createElement(Row_default, {
+        }, /* @__PURE__ */ import_react198.default.createElement(Row_default, {
           leaf: viewModel,
           node,
           isCollapsed: viewModel.isCollapsed
@@ -44091,11 +44415,11 @@ var init_PropWithChildrenRow2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetObjectRow.tsx
-var import_react196, RightSheetObjectRow, SheetObjectRow_default2;
+var import_react200, RightSheetObjectRow, SheetObjectRow_default2;
 var init_SheetObjectRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetObjectRow.tsx"() {
     init_src();
-    import_react196 = __toModule(require_react());
+    import_react200 = __toModule(require_react());
     init_PropWithChildrenRow2();
     init_Row();
     init_collectAggregateKeyframes();
@@ -44103,12 +44427,12 @@ var init_SheetObjectRow2 = __esm({
     RightSheetObjectRow = ({ leaf, layoutP }) => {
       return usePrism(() => {
         const aggregatedKeyframes = collectAggregateKeyframesInPrism(leaf);
-        const node = /* @__PURE__ */ import_react196.default.createElement(AggregatedKeyframeTrack_default, {
+        const node = /* @__PURE__ */ import_react200.default.createElement(AggregatedKeyframeTrack_default, {
           layoutP,
           aggregatedKeyframes,
           viewModel: leaf
         });
-        return /* @__PURE__ */ import_react196.default.createElement(Row_default, {
+        return /* @__PURE__ */ import_react200.default.createElement(Row_default, {
           leaf,
           node,
           isCollapsed: leaf.isCollapsed
@@ -44120,11 +44444,11 @@ var init_SheetObjectRow2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetRow.tsx
-var import_react198, SheetRow2, SheetRow_default2;
+var import_react202, SheetRow2, SheetRow_default2;
 var init_SheetRow2 = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/SheetRow.tsx"() {
     init_src();
-    import_react198 = __toModule(require_react());
+    import_react202 = __toModule(require_react());
     init_SheetObjectRow2();
     init_Row();
     init_collectAggregateKeyframes();
@@ -44132,16 +44456,16 @@ var init_SheetRow2 = __esm({
     SheetRow2 = ({ leaf, layoutP }) => {
       return usePrism(() => {
         const aggregatedKeyframes = collectAggregateKeyframesInPrism(leaf);
-        const node = /* @__PURE__ */ import_react198.default.createElement(AggregatedKeyframeTrack_default, {
+        const node = /* @__PURE__ */ import_react202.default.createElement(AggregatedKeyframeTrack_default, {
           layoutP,
           aggregatedKeyframes,
           viewModel: leaf
         });
-        return /* @__PURE__ */ import_react198.default.createElement(Row_default, {
+        return /* @__PURE__ */ import_react202.default.createElement(Row_default, {
           leaf,
           node,
           isCollapsed: leaf.isCollapsed
-        }, leaf.children.map((sheetObjectLeaf) => /* @__PURE__ */ import_react198.default.createElement(SheetObjectRow_default2, {
+        }, leaf.children.map((sheetObjectLeaf) => /* @__PURE__ */ import_react202.default.createElement(SheetObjectRow_default2, {
           layoutP,
           key: "sheetObject-" + sheetObjectLeaf.sheetObject.address.objectKey,
           leaf: sheetObjectLeaf
@@ -44153,12 +44477,12 @@ var init_SheetRow2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Right.tsx
-var import_dataverse61, import_react200, contentWidth, ListContainer2, Right2, Right_default;
+var import_dataverse61, import_react204, contentWidth, ListContainer2, Right2, Right_default;
 var init_Right = __esm({
   "studio/src/panels/SequenceEditorPanel/DopeSheet/Right/Right.tsx"() {
     init_src();
     import_dataverse61 = __toModule(require("@theatre/dataverse"));
-    import_react200 = __toModule(require_react());
+    import_react204 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_DopeSheetSelectionView();
     init_HorizontallyScrollableArea();
@@ -44176,15 +44500,15 @@ var init_Right = __esm({
       return usePrism(() => {
         const tree = (0, import_dataverse61.val)(layoutP.tree);
         const height2 = (0, import_dataverse61.val)(layoutP.tree.top) + Math.max((0, import_dataverse61.val)(layoutP.tree.heightIncludingChildren), (0, import_dataverse61.val)(layoutP.dopeSheetDims.height));
-        return /* @__PURE__ */ import_react200.default.createElement(import_react200.default.Fragment, null, /* @__PURE__ */ import_react200.default.createElement(HorizontallyScrollableArea_default, {
+        return /* @__PURE__ */ import_react204.default.createElement(import_react204.default.Fragment, null, /* @__PURE__ */ import_react204.default.createElement(HorizontallyScrollableArea_default, {
           layoutP,
           height: height2
-        }, /* @__PURE__ */ import_react200.default.createElement(DopeSheetSelectionView_default, {
+        }, /* @__PURE__ */ import_react204.default.createElement(DopeSheetSelectionView_default, {
           layoutP,
           height: height2
-        }, /* @__PURE__ */ import_react200.default.createElement(ListContainer2, {
+        }, /* @__PURE__ */ import_react204.default.createElement(ListContainer2, {
           style: { top: tree.top + "px" }
-        }, /* @__PURE__ */ import_react200.default.createElement(SheetRow_default2, {
+        }, /* @__PURE__ */ import_react204.default.createElement(SheetRow_default2, {
           leaf: tree,
           layoutP
         })))));
@@ -44231,14 +44555,14 @@ function useConnectorContextMenu3(node, props) {
     }
   });
 }
-var import_react201, SVGPath, Curve, Curve_default;
+var import_react205, SVGPath, Curve, Curve_default;
 var init_Curve = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/Curve.tsx"() {
     init_utils();
     init_getStudio();
     init_useContextMenu();
     init_useRefAndState();
-    import_react201 = __toModule(require_react());
+    import_react205 = __toModule(require_react());
     init_styled_components_browser_esm();
     SVGPath = styled_components_browser_esm_default.path`
   stroke-width: 2;
@@ -44264,7 +44588,7 @@ var init_Curve = __esm({
       const x22 = next.handles[0];
       const y22 = next.handles[1];
       const pathD = `M 0 0 C ${x1} ${y1} ${x22} ${y22} 1 1`;
-      return /* @__PURE__ */ import_react201.default.createElement(import_react201.default.Fragment, null, /* @__PURE__ */ import_react201.default.createElement(SVGPath, {
+      return /* @__PURE__ */ import_react205.default.createElement(import_react205.default.Fragment, null, /* @__PURE__ */ import_react205.default.createElement(SVGPath, {
         ref: nodeRef,
         d: pathD,
         style: {
@@ -44278,9 +44602,9 @@ var init_Curve = __esm({
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/CurveHandle.tsx
 function useOurDrags(node, props) {
-  const propsRef = (0, import_react202.useRef)(props);
+  const propsRef = (0, import_react206.useRef)(props);
   propsRef.current = props;
-  const handlers = (0, import_react202.useMemo)(() => {
+  const handlers = (0, import_react206.useMemo)(() => {
     return {
       debugName: "CurveHandler/useOurDrags",
       lockCSSCursorTo: "move",
@@ -44384,7 +44708,7 @@ function useOurContextMenu(node, props) {
     }
   });
 }
-var import_dataverse62, import_react202, Circle2, HitZone6, Line2, CurveHandle, CurveHandle_default;
+var import_dataverse62, import_react206, Circle2, HitZone6, Line2, CurveHandle, CurveHandle_default;
 var init_CurveHandle = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/CurveHandle.tsx"() {
     init_getStudio();
@@ -44393,7 +44717,7 @@ var init_CurveHandle = __esm({
     init_useRefAndState();
     import_dataverse62 = __toModule(require("@theatre/dataverse"));
     init_lodash();
-    import_react202 = __toModule(require_react());
+    import_react206 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Curve();
     init_css();
@@ -44440,18 +44764,18 @@ var init_CurveHandle = __esm({
       const valInExtremumSpace = props.extremumSpace.fromValueSpace(value);
       const heightInExtremumSpace = valInExtremumSpace - props.extremumSpace.fromValueSpace(props.which === "left" ? curValue : nextValue);
       const lineTransform = transformBox(props.which === "left" ? cur.position : next.position, props.extremumSpace.fromValueSpace(props.which === "left" ? curValue : nextValue), posInUnitSpace - (props.which === "left" ? cur.position : next.position), heightInExtremumSpace);
-      return /* @__PURE__ */ import_react202.default.createElement("g", null, /* @__PURE__ */ import_react202.default.createElement(HitZone6, {
+      return /* @__PURE__ */ import_react206.default.createElement("g", null, /* @__PURE__ */ import_react206.default.createElement(HitZone6, {
         ref,
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${posInUnitSpace} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${valInExtremumSpace}) * 1px)`
         }
-      }), /* @__PURE__ */ import_react202.default.createElement(Circle2, {
+      }), /* @__PURE__ */ import_react206.default.createElement(Circle2, {
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${posInUnitSpace} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${valInExtremumSpace}) * 1px)`
         }
-      }), /* @__PURE__ */ import_react202.default.createElement(Line2, {
+      }), /* @__PURE__ */ import_react206.default.createElement(Line2, {
         d: "M 0 0 L 1 1",
         style: {
           transform: lineTransform
@@ -44464,11 +44788,11 @@ var init_CurveHandle = __esm({
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotScalar.tsx
 function useDragKeyframe3(options2) {
-  const [isDragging, setIsDragging] = (0, import_react203.useState)(false);
+  const [isDragging, setIsDragging] = (0, import_react207.useState)(false);
   useLockFrameStampPosition(isDragging, options2.props.keyframe.position);
-  const propsRef = (0, import_react203.useRef)(options2.props);
+  const propsRef = (0, import_react207.useRef)(options2.props);
   propsRef.current = options2.props;
-  const gestureHandlers = (0, import_react203.useMemo)(() => {
+  const gestureHandlers = (0, import_react207.useMemo)(() => {
     return {
       debugName: "GraphEditorDotScalar/useDragKeyframe",
       lockCSSCursorTo: "move",
@@ -44571,7 +44895,7 @@ function preserveLeftHandle(leftHandleInKeyframeDeltaSpace, originalValueOfMoved
   const newHandleYInKeyframeDeltaSpace = diffOfNewHandleYToNeighbouringKeyframe / (newValueOfMovedKeyframe - newValueOfNeighbouringKeyframe);
   return newHandleYInKeyframeDeltaSpace;
 }
-var import_dataverse63, import_react203, Circle3, HitZone7, GraphEditorDotScalar, GraphEditorDotScalar_default;
+var import_dataverse63, import_react207, Circle3, HitZone7, GraphEditorDotScalar, GraphEditorDotScalar_default;
 var init_GraphEditorDotScalar = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotScalar.tsx"() {
     init_getStudio();
@@ -44579,7 +44903,7 @@ var init_GraphEditorDotScalar = __esm({
     init_useDrag();
     init_useRefAndState();
     import_dataverse63 = __toModule(require("@theatre/dataverse"));
-    import_react203 = __toModule(require_react());
+    import_react207 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_FrameStampPositionProvider();
@@ -44642,7 +44966,7 @@ var init_GraphEditorDotScalar = __esm({
         props,
         onDetectedClick: (event) => inlineEditorPopover.toggle(event, event.target instanceof Element ? event.target : node)
       });
-      return /* @__PURE__ */ import_react203.default.createElement(import_react203.default.Fragment, null, /* @__PURE__ */ import_react203.default.createElement(HitZone7, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
+      return /* @__PURE__ */ import_react207.default.createElement(import_react207.default.Fragment, null, /* @__PURE__ */ import_react207.default.createElement(HitZone7, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
         ref,
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
@@ -44650,7 +44974,7 @@ var init_GraphEditorDotScalar = __esm({
         }
       }, includeLockFrameStampAttrs(cur.position)), DopeSnap_default.includePositionSnapAttrs(cur.position)), presence.attrs), {
         className: isDragging ? "beingDragged" : ""
-      })), /* @__PURE__ */ import_react203.default.createElement(Circle3, {
+      })), /* @__PURE__ */ import_react207.default.createElement(Circle3, {
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${cyInExtremumSpace}) * 1px)`,
@@ -44664,11 +44988,11 @@ var init_GraphEditorDotScalar = __esm({
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotNonScalar.tsx
 function useDragKeyframe4(options2) {
-  const [isDragging, setIsDragging] = (0, import_react204.useState)(false);
+  const [isDragging, setIsDragging] = (0, import_react208.useState)(false);
   useLockFrameStampPosition(isDragging, options2.props.keyframe.position);
-  const propsRef = (0, import_react204.useRef)(options2.props);
+  const propsRef = (0, import_react208.useRef)(options2.props);
   propsRef.current = options2.props;
-  const gestureHandlers = (0, import_react204.useMemo)(() => {
+  const gestureHandlers = (0, import_react208.useMemo)(() => {
     return {
       debugName: "GraphEditorDotNonScalar/useDragKeyframe",
       lockCSSCursorTo: "ew-resize",
@@ -44735,7 +45059,7 @@ function useKeyframeContextMenu2(node, props) {
     }
   });
 }
-var import_dataverse64, import_react204, Circle4, HitZone8, GraphEditorDotNonScalar, GraphEditorDotNonScalar_default;
+var import_dataverse64, import_react208, Circle4, HitZone8, GraphEditorDotNonScalar, GraphEditorDotNonScalar_default;
 var init_GraphEditorDotNonScalar = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorDotNonScalar.tsx"() {
     init_getStudio();
@@ -44743,7 +45067,7 @@ var init_GraphEditorDotNonScalar = __esm({
     init_useDrag();
     init_useRefAndState();
     import_dataverse64 = __toModule(require("@theatre/dataverse"));
-    import_react204 = __toModule(require_react());
+    import_react208 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_FrameStampPositionProvider();
     init_FrameStampPositionProvider();
@@ -44806,7 +45130,7 @@ var init_GraphEditorDotNonScalar = __esm({
         onDetectedClick: (event) => inlineEditorPopover.toggle(event, event.target instanceof Element ? event.target : node)
       });
       const cyInExtremumSpace = props.extremumSpace.fromValueSpace(curValue);
-      return /* @__PURE__ */ import_react204.default.createElement(import_react204.default.Fragment, null, /* @__PURE__ */ import_react204.default.createElement(HitZone8, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
+      return /* @__PURE__ */ import_react208.default.createElement(import_react208.default.Fragment, null, /* @__PURE__ */ import_react208.default.createElement(HitZone8, __spreadProps(__spreadValues(__spreadValues(__spreadValues({
         ref,
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
@@ -44814,7 +45138,7 @@ var init_GraphEditorDotNonScalar = __esm({
         }
       }, presence.attrs), includeLockFrameStampAttrs(cur.position)), DopeSnap_default.includePositionSnapAttrs(cur.position)), {
         className: isDragging ? "beingDragged" : ""
-      })), /* @__PURE__ */ import_react204.default.createElement(Circle4, {
+      })), /* @__PURE__ */ import_react208.default.createElement(Circle4, {
         style: {
           cx: `calc(var(--unitSpaceToScaledSpaceMultiplier) * ${cur.position} * 1px)`,
           cy: `calc((var(--graphEditorVerticalSpace) - var(--graphEditorVerticalSpace) * ${cyInExtremumSpace}) * 1px)`,
@@ -44827,10 +45151,10 @@ var init_GraphEditorDotNonScalar = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorNonScalarDash.tsx
-var import_react205, SVGPath2, GraphEditorNonScalarDash, GraphEditorNonScalarDash_default;
+var import_react209, SVGPath2, GraphEditorNonScalarDash, GraphEditorNonScalarDash_default;
 var init_GraphEditorNonScalarDash = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/GraphEditorNonScalarDash.tsx"() {
-    import_react205 = __toModule(require_react());
+    import_react209 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Curve();
     SVGPath2 = styled_components_browser_esm_default.path`
@@ -44845,7 +45169,7 @@ var init_GraphEditorNonScalarDash = __esm({
       const { index, trackData } = props;
       const pathD = `M 0 0 L 1 1`;
       const transform = transformBox(trackData.keyframes[index].position, props.extremumSpace.fromValueSpace(0), 0, props.extremumSpace.fromValueSpace(1) - props.extremumSpace.fromValueSpace(0));
-      return /* @__PURE__ */ import_react205.default.createElement(import_react205.default.Fragment, null, /* @__PURE__ */ import_react205.default.createElement(SVGPath2, {
+      return /* @__PURE__ */ import_react209.default.createElement(import_react209.default.Fragment, null, /* @__PURE__ */ import_react209.default.createElement(SVGPath2, {
         d: pathD,
         style: {
           transform
@@ -44857,35 +45181,35 @@ var init_GraphEditorNonScalarDash = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/KeyframeEditor.tsx
-var import_react206, Container45, noConnector2, KeyframeEditor, KeyframeEditor_default;
+var import_react210, Container47, noConnector2, KeyframeEditor, KeyframeEditor_default;
 var init_KeyframeEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/KeyframeEditor/KeyframeEditor.tsx"() {
-    import_react206 = __toModule(require_react());
+    import_react210 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Curve();
     init_CurveHandle();
     init_GraphEditorDotScalar();
     init_GraphEditorDotNonScalar();
     init_GraphEditorNonScalarDash();
-    Container45 = styled_components_browser_esm_default.g`
+    Container47 = styled_components_browser_esm_default.g`
   /* position: absolute; */
 `;
-    noConnector2 = /* @__PURE__ */ import_react206.default.createElement(import_react206.default.Fragment, null);
+    noConnector2 = /* @__PURE__ */ import_react210.default.createElement(import_react210.default.Fragment, null);
     KeyframeEditor = (props) => {
       const { index, trackData, isScalar } = props;
       const cur = trackData.keyframes[index];
       const next = trackData.keyframes[index + 1];
       const connected = cur.connectedRight && !!next;
       const shouldShowCurve = connected && next.value !== cur.value;
-      return /* @__PURE__ */ import_react206.default.createElement(Container45, null, shouldShowCurve ? /* @__PURE__ */ import_react206.default.createElement(import_react206.default.Fragment, null, /* @__PURE__ */ import_react206.default.createElement(Curve_default, __spreadValues({}, props)), /* @__PURE__ */ import_react206.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
+      return /* @__PURE__ */ import_react210.default.createElement(Container47, null, shouldShowCurve ? /* @__PURE__ */ import_react210.default.createElement(import_react210.default.Fragment, null, /* @__PURE__ */ import_react210.default.createElement(Curve_default, __spreadValues({}, props)), /* @__PURE__ */ import_react210.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
         which: "left"
-      })), /* @__PURE__ */ import_react206.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
+      })), /* @__PURE__ */ import_react210.default.createElement(CurveHandle_default, __spreadProps(__spreadValues({}, props), {
         which: "right"
-      }))) : noConnector2, isScalar ? /* @__PURE__ */ import_react206.default.createElement(GraphEditorDotScalar_default, __spreadValues({}, props)) : /* @__PURE__ */ import_react206.default.createElement(import_react206.default.Fragment, null, /* @__PURE__ */ import_react206.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
+      }))) : noConnector2, isScalar ? /* @__PURE__ */ import_react210.default.createElement(GraphEditorDotScalar_default, __spreadValues({}, props)) : /* @__PURE__ */ import_react210.default.createElement(import_react210.default.Fragment, null, /* @__PURE__ */ import_react210.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
         which: "left"
-      })), /* @__PURE__ */ import_react206.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
+      })), /* @__PURE__ */ import_react210.default.createElement(GraphEditorDotNonScalar_default, __spreadProps(__spreadValues({}, props), {
         which: "right"
-      })), /* @__PURE__ */ import_react206.default.createElement(GraphEditorNonScalarDash_default, __spreadValues({}, props))));
+      })), /* @__PURE__ */ import_react210.default.createElement(GraphEditorNonScalarDash_default, __spreadValues({}, props))));
     };
     KeyframeEditor_default = KeyframeEditor;
   }
@@ -44929,23 +45253,23 @@ function calculateNonScalarExtremums(keyframes) {
   });
   return [min, max];
 }
-var import_react207, BasicKeyframedTrack2, BasicKeyframedTrack_default2;
+var import_react211, BasicKeyframedTrack2, BasicKeyframedTrack_default2;
 var init_BasicKeyframedTrack2 = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/BasicKeyframedTrack/BasicKeyframedTrack.tsx"() {
     init_ids();
-    import_react207 = __toModule(require_react());
+    import_react211 = __toModule(require_react());
     init_GraphEditor();
     init_KeyframeEditor();
     init_utils();
     init_src();
-    BasicKeyframedTrack2 = import_react207.default.memo(({ layoutP, trackData, sheetObject, trackId, color: color2, pathToProp }) => {
+    BasicKeyframedTrack2 = import_react211.default.memo(({ layoutP, trackData, sheetObject, trackId, color: color2, pathToProp }) => {
       const propConfig = getPropConfigByPath(useVal(sheetObject.template.configPointer), pathToProp);
       if (isPropConfigComposite(propConfig)) {
         console.error(`Composite prop types cannot be keyframed`);
-        return /* @__PURE__ */ import_react207.default.createElement(import_react207.default.Fragment, null);
+        return /* @__PURE__ */ import_react211.default.createElement(import_react211.default.Fragment, null);
       }
-      const [areExtremumsLocked, setAreExtremumsLocked] = (0, import_react207.useState)(false);
-      const lockExtremums = (0, import_react207.useMemo)(() => {
+      const [areExtremumsLocked, setAreExtremumsLocked] = (0, import_react211.useState)(false);
+      const lockExtremums = (0, import_react211.useMemo)(() => {
         const locks = new Set();
         return function lockExtremums2() {
           const shouldLock = locks.size === 0;
@@ -44961,7 +45285,7 @@ var init_BasicKeyframedTrack2 = __esm({
           return unlock;
         };
       }, []);
-      const extremumSpace = (0, import_react207.useMemo)(() => {
+      const extremumSpace = (0, import_react211.useMemo)(() => {
         const extremums = propConfig.type === "number" ? calculateScalarExtremums(trackData.keyframes, propConfig) : calculateNonScalarExtremums(trackData.keyframes);
         const fromValueSpace = (val59) => (val59 - extremums[0]) / (extremums[1] - extremums[0]);
         const toValueSpace = (ex) => extremums[0] + deltaToValueSpace(ex);
@@ -44973,11 +45297,11 @@ var init_BasicKeyframedTrack2 = __esm({
           lock: lockExtremums
         };
       }, [trackData.keyframes]);
-      const cachedExtremumSpace = (0, import_react207.useRef)(void 0);
+      const cachedExtremumSpace = (0, import_react211.useRef)(void 0);
       if (!areExtremumsLocked) {
         cachedExtremumSpace.current = extremumSpace;
       }
-      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react207.default.createElement(KeyframeEditor_default, {
+      const keyframeEditors = trackData.keyframes.map((kf, index) => /* @__PURE__ */ import_react211.default.createElement(KeyframeEditor_default, {
         pathToProp,
         propConfig,
         itemKey: createStudioSheetItemKey.forTrackKeyframe(sheetObject, trackId, kf.id),
@@ -44992,7 +45316,7 @@ var init_BasicKeyframedTrack2 = __esm({
         extremumSpace: cachedExtremumSpace.current,
         color: color2
       }));
-      return /* @__PURE__ */ import_react207.default.createElement("g", {
+      return /* @__PURE__ */ import_react211.default.createElement("g", {
         style: {
           "--main-color": graphEditorColors[color2].iconColor
         }
@@ -45003,13 +45327,13 @@ var init_BasicKeyframedTrack2 = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/PrimitivePropGraph.tsx
-var import_dataverse65, import_react210, PrimitivePropGraph, PrimitivePropGraph_default;
+var import_dataverse65, import_react214, PrimitivePropGraph, PrimitivePropGraph_default;
 var init_PrimitivePropGraph = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/PrimitivePropGraph.tsx"() {
     init_getStudio();
     init_src();
     import_dataverse65 = __toModule(require("@theatre/dataverse"));
-    import_react210 = __toModule(require_react());
+    import_react214 = __toModule(require_react());
     init_BasicKeyframedTrack2();
     PrimitivePropGraph = (props) => {
       return usePrism(() => {
@@ -45017,9 +45341,9 @@ var init_PrimitivePropGraph = __esm({
         const trackData = (0, import_dataverse65.val)(getStudio().atomP.historic.coreByProject[sheetObject.address.projectId].sheetsById[sheetObject.address.sheetId].sequence.tracksByObject[sheetObject.address.objectKey].trackData[trackId]);
         if ((trackData == null ? void 0 : trackData.type) !== "BasicKeyframedTrack") {
           console.error(`trackData type ${trackData == null ? void 0 : trackData.type} is not yet supported on the graph editor`);
-          return /* @__PURE__ */ import_react210.default.createElement(import_react210.default.Fragment, null);
+          return /* @__PURE__ */ import_react214.default.createElement(import_react214.default.Fragment, null);
         } else {
-          return /* @__PURE__ */ import_react210.default.createElement(BasicKeyframedTrack_default2, __spreadProps(__spreadValues({}, props), {
+          return /* @__PURE__ */ import_react214.default.createElement(BasicKeyframedTrack_default2, __spreadProps(__spreadValues({}, props), {
             trackData
           }));
         }
@@ -45030,7 +45354,7 @@ var init_PrimitivePropGraph = __esm({
 });
 
 // studio/src/panels/SequenceEditorPanel/GraphEditor/GraphEditor.tsx
-var import_dataverse66, import_react212, graphEditorColors, Container46, SVGContainer, GraphEditor, GraphEditor_default;
+var import_dataverse66, import_react216, graphEditorColors, Container48, SVGContainer, GraphEditor, GraphEditor_default;
 var init_GraphEditor = __esm({
   "studio/src/panels/SequenceEditorPanel/GraphEditor/GraphEditor.tsx"() {
     init_getStudio();
@@ -45038,7 +45362,7 @@ var init_GraphEditor = __esm({
     init_getDeep();
     init_src();
     import_dataverse66 = __toModule(require("@theatre/dataverse"));
-    import_react212 = __toModule(require_react());
+    import_react216 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Right();
     init_HorizontallyScrollableArea();
@@ -45053,7 +45377,7 @@ var init_GraphEditor = __esm({
       "5": { iconColor: "#b90808" },
       "6": { iconColor: "#b4bf0e" }
     };
-    Container46 = styled_components_browser_esm_default.div`
+    Container48 = styled_components_browser_esm_default.div`
   position: absolute;
   right: 0;
   bottom: 0;
@@ -45085,7 +45409,7 @@ var init_GraphEditor = __esm({
               const possibleSequenceTrackId = getDeep(validSequenceTracks, pathToProp);
               if (!possibleSequenceTrackId)
                 continue;
-              graphs.push(/* @__PURE__ */ import_react212.default.createElement(PrimitivePropGraph_default, {
+              graphs.push(/* @__PURE__ */ import_react216.default.createElement(PrimitivePropGraph_default, {
                 key: `graph-${objectKey}-${encodedPathToProp}`,
                 sheetObject,
                 pathToProp,
@@ -45097,25 +45421,25 @@ var init_GraphEditor = __esm({
           }
         }
         const width = (0, import_dataverse66.val)(layoutP.rightDims.width);
-        return /* @__PURE__ */ import_react212.default.createElement(Container46, {
+        return /* @__PURE__ */ import_react216.default.createElement(Container48, {
           style: {
             width: width + "px",
             height: height2 + "px",
             "--unitSpaceToScaledSpaceMultiplier": unitSpaceToScaledSpaceMultiplier,
             "--graphEditorVerticalSpace": `${(0, import_dataverse66.val)(layoutP.graphEditorVerticalSpace.space)}`
           }
-        }, /* @__PURE__ */ import_react212.default.createElement(FrameGrid_default, {
+        }, /* @__PURE__ */ import_react216.default.createElement(FrameGrid_default, {
           layoutP,
           width,
           height: height2
-        }), /* @__PURE__ */ import_react212.default.createElement(HorizontallyScrollableArea_default, {
+        }), /* @__PURE__ */ import_react216.default.createElement(HorizontallyScrollableArea_default, {
           layoutP,
           height: height2
-        }, /* @__PURE__ */ import_react212.default.createElement(SVGContainer, {
+        }, /* @__PURE__ */ import_react216.default.createElement(SVGContainer, {
           width: contentWidth,
           height: height2,
           viewBox: `0 0 ${contentWidth} ${height2}`
-        }, /* @__PURE__ */ import_react212.default.createElement("g", {
+        }, /* @__PURE__ */ import_react216.default.createElement("g", {
           style: {
             transform: `translate(${(0, import_dataverse66.val)(layoutP.scaledSpace.leftPadding)}px, ${(0, import_dataverse66.val)(layoutP.graphEditorDims.padding.top)}px)`
           }
@@ -45166,14 +45490,14 @@ var init_userReadableTypeOfValue = __esm({
 });
 
 // studio/src/panels/OutlinePanel/BaseItem.tsx
-var import_react213, Container47, BaseHeader2, Header4, outlineItemFont, Head_Label, Head_IconContainer, Head_Icon_WithDescendants, ChildrenContainer, BaseItem, BaseItem_default;
+var import_react217, Container49, BaseHeader2, Header4, outlineItemFont, Head_Label, Head_IconContainer, Head_Icon_WithDescendants, ChildrenContainer, BaseItem, BaseItem_default;
 var init_BaseItem = __esm({
   "studio/src/panels/OutlinePanel/BaseItem.tsx"() {
-    import_react213 = __toModule(require_react());
+    import_react217 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_css();
     init_icons();
-    Container47 = styled_components_browser_esm_default.li`
+    Container49 = styled_components_browser_esm_default.li`
   margin: 0;
   padding: 0;
   list-style: none;
@@ -45270,25 +45594,25 @@ var init_BaseItem = __esm({
 `;
     BaseItem = ({ label, children, depth, select, selectionStatus, labelDecoration }) => {
       const canContainChildren = children !== void 0;
-      return /* @__PURE__ */ import_react213.default.createElement(Container47, {
+      return /* @__PURE__ */ import_react217.default.createElement(Container49, {
         style: { "--depth": depth }
-      }, /* @__PURE__ */ import_react213.default.createElement(Header4, {
+      }, /* @__PURE__ */ import_react217.default.createElement(Header4, {
         className: selectionStatus,
         onClick: select
-      }, /* @__PURE__ */ import_react213.default.createElement(Head_IconContainer, null, canContainChildren ? /* @__PURE__ */ import_react213.default.createElement(Head_Icon_WithDescendants, {
+      }, /* @__PURE__ */ import_react217.default.createElement(Head_IconContainer, null, canContainChildren ? /* @__PURE__ */ import_react217.default.createElement(Head_Icon_WithDescendants, {
         isOpen: true
-      }, /* @__PURE__ */ import_react213.default.createElement(ChevronDown_default, null)) : /* @__PURE__ */ import_react213.default.createElement(Package_default, null)), /* @__PURE__ */ import_react213.default.createElement(Head_Label, null, /* @__PURE__ */ import_react213.default.createElement("span", null, label)), labelDecoration), canContainChildren && /* @__PURE__ */ import_react213.default.createElement(ChildrenContainer, null, children));
+      }, /* @__PURE__ */ import_react217.default.createElement(ChevronDown_default, null)) : /* @__PURE__ */ import_react217.default.createElement(Package_default, null)), /* @__PURE__ */ import_react217.default.createElement(Head_Label, null, /* @__PURE__ */ import_react217.default.createElement("span", null, label)), labelDecoration), canContainChildren && /* @__PURE__ */ import_react217.default.createElement(ChildrenContainer, null, children));
     };
     BaseItem_default = BaseItem;
   }
 });
 
 // studio/src/panels/OutlinePanel/ObjectsList/ObjectItem.tsx
-var import_react214, ObjectItem;
+var import_react218, ObjectItem;
 var init_ObjectItem = __esm({
   "studio/src/panels/OutlinePanel/ObjectsList/ObjectItem.tsx"() {
     init_getStudio();
-    import_react214 = __toModule(require_react());
+    import_react218 = __toModule(require_react());
     init_BaseItem();
     init_src();
     init_selectors();
@@ -45299,7 +45623,7 @@ var init_ObjectItem = __esm({
         });
       };
       const selection = usePrism(() => getOutlineSelection(), []);
-      return /* @__PURE__ */ import_react214.default.createElement(BaseItem_default, {
+      return /* @__PURE__ */ import_react218.default.createElement(BaseItem_default, {
         select,
         label: overrideLabel != null ? overrideLabel : sheetObject.address.objectKey,
         depth,
@@ -45360,21 +45684,21 @@ var init_NamespacedObjects = __esm({
 
 // studio/src/panels/OutlinePanel/ObjectsList/ObjectsList.tsx
 function NamespaceTree(props) {
-  return /* @__PURE__ */ import_react217.default.createElement(import_react217.default.Fragment, null, [...props.namespace.entries()].map(([label, { object, nested }]) => {
-    const nestedChildrenElt = nested && /* @__PURE__ */ import_react217.default.createElement(NamespaceTree, {
+  return /* @__PURE__ */ import_react221.default.createElement(import_react221.default.Fragment, null, [...props.namespace.entries()].map(([label, { object, nested }]) => {
+    const nestedChildrenElt = nested && /* @__PURE__ */ import_react221.default.createElement(NamespaceTree, {
       namespace: nested,
       key: "namespaceTree(" + label + ")",
       visualIndentation: props.visualIndentation + 1
     });
-    const sameNameElt = object && /* @__PURE__ */ import_react217.default.createElement(ObjectItem, {
+    const sameNameElt = object && /* @__PURE__ */ import_react221.default.createElement(ObjectItem, {
       depth: props.visualIndentation,
       key: "objectPath(" + object.address.objectKey + ")",
       sheetObject: object,
       overrideLabel: label
     });
-    return /* @__PURE__ */ import_react217.default.createElement(import_react217.default.Fragment, {
+    return /* @__PURE__ */ import_react221.default.createElement(import_react221.default.Fragment, {
       key: `${label} - ${props.visualIndentation}`
-    }, sameNameElt, nestedChildrenElt && /* @__PURE__ */ import_react217.default.createElement(BaseItem_default, {
+    }, sameNameElt, nestedChildrenElt && /* @__PURE__ */ import_react221.default.createElement(BaseItem_default, {
       selectionStatus: "not-selectable",
       label,
       key: `baseItem(${label})`,
@@ -45383,12 +45707,12 @@ function NamespaceTree(props) {
     }));
   }));
 }
-var import_dataverse72, import_react217, Li, ObjectsList, ObjectsList_default;
+var import_dataverse72, import_react221, Li, ObjectsList, ObjectsList_default;
 var init_ObjectsList = __esm({
   "studio/src/panels/OutlinePanel/ObjectsList/ObjectsList.tsx"() {
     init_src();
     import_dataverse72 = __toModule(require("@theatre/dataverse"));
-    import_react217 = __toModule(require_react());
+    import_react221 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_ObjectItem();
     init_BaseItem();
@@ -45404,7 +45728,7 @@ var init_ObjectsList = __esm({
         objects.forEach((object) => {
           addToNamespace(rootObject, object);
         });
-        return /* @__PURE__ */ import_react217.default.createElement(NamespaceTree, {
+        return /* @__PURE__ */ import_react221.default.createElement(NamespaceTree, {
           namespace: rootObject,
           visualIndentation: depth
         });
@@ -45415,37 +45739,37 @@ var init_ObjectsList = __esm({
 });
 
 // studio/src/panels/OutlinePanel/SheetsList/SheetInstanceItem.tsx
-var import_react219, Head, Container48, Body2, SheetInstanceItem;
+var import_react223, Head, Container50, Body2, SheetInstanceItem;
 var init_SheetInstanceItem = __esm({
   "studio/src/panels/OutlinePanel/SheetsList/SheetInstanceItem.tsx"() {
     init_getStudio();
     init_selectors();
     init_src();
-    import_react219 = __toModule(require_react());
+    import_react223 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_ObjectsList();
     init_BaseItem();
     Head = styled_components_browser_esm_default.div`
   display: flex;
 `;
-    Container48 = styled_components_browser_esm_default.li`
+    Container50 = styled_components_browser_esm_default.li`
   color: ${(props) => props.isSelected ? "white" : "hsl(1, 1%, 80%)"};
 `;
     Body2 = styled_components_browser_esm_default.div``;
     SheetInstanceItem = ({ sheet, depth }) => {
-      const setSelectedSheet = (0, import_react219.useCallback)(() => {
+      const setSelectedSheet = (0, import_react223.useCallback)(() => {
         getStudio().transaction(({ stateEditors: stateEditors2 }) => {
           stateEditors2.studio.historic.panels.outline.selection.set([sheet]);
         });
       }, [sheet]);
       return usePrism(() => {
         const selection = getOutlineSelection();
-        return /* @__PURE__ */ import_react219.default.createElement(BaseItem_default, {
+        return /* @__PURE__ */ import_react223.default.createElement(BaseItem_default, {
           depth,
           select: setSelectedSheet,
           selectionStatus: selection.some((s3) => s3 === sheet) ? "selected" : selection.some((s3) => s3.type === "Theatre_SheetObject" && s3.sheet === sheet) ? "descendant-is-selected" : "not-selected",
-          label: /* @__PURE__ */ import_react219.default.createElement(Head, null, sheet.address.sheetId, ": ", sheet.address.sheetInstanceId)
-        }, /* @__PURE__ */ import_react219.default.createElement(Body2, null, /* @__PURE__ */ import_react219.default.createElement(ObjectsList_default, {
+          label: /* @__PURE__ */ import_react223.default.createElement(Head, null, sheet.address.sheetId, ": ", sheet.address.sheetInstanceId)
+        }, /* @__PURE__ */ import_react223.default.createElement(Body2, null, /* @__PURE__ */ import_react223.default.createElement(ObjectsList_default, {
           depth: depth + 1,
           sheet,
           key: "objectList" + sheet.address.sheetInstanceId
@@ -45456,18 +45780,18 @@ var init_SheetInstanceItem = __esm({
 });
 
 // studio/src/panels/OutlinePanel/SheetsList/SheetItem.tsx
-var import_dataverse73, import_react221, Head2, Container49, Body3, SheetItem;
+var import_dataverse73, import_react225, Head2, Container51, Body3, SheetItem;
 var init_SheetItem = __esm({
   "studio/src/panels/OutlinePanel/SheetsList/SheetItem.tsx"() {
     init_src();
     import_dataverse73 = __toModule(require("@theatre/dataverse"));
-    import_react221 = __toModule(require_react());
+    import_react225 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_SheetInstanceItem();
     Head2 = styled_components_browser_esm_default.div`
   display: flex;
 `;
-    Container49 = styled_components_browser_esm_default.li`
+    Container51 = styled_components_browser_esm_default.li`
   color: ${(props) => props.isSelected ? "white" : "hsl(1, 1%, 80%)"};
 `;
     Body3 = styled_components_browser_esm_default.div``;
@@ -45475,10 +45799,10 @@ var init_SheetItem = __esm({
       return usePrism(() => {
         const template = (0, import_dataverse73.val)(project.sheetTemplatesP[sheetId]);
         if (!template)
-          return /* @__PURE__ */ import_react221.default.createElement(import_react221.default.Fragment, null);
+          return /* @__PURE__ */ import_react225.default.createElement(import_react225.default.Fragment, null);
         const allInstances = (0, import_dataverse73.val)(template.instancesP);
-        return /* @__PURE__ */ import_react221.default.createElement(import_react221.default.Fragment, null, Object.entries(allInstances).map(([_3, inst]) => {
-          return /* @__PURE__ */ import_react221.default.createElement(SheetInstanceItem, {
+        return /* @__PURE__ */ import_react225.default.createElement(import_react225.default.Fragment, null, Object.entries(allInstances).map(([_3, inst]) => {
+          return /* @__PURE__ */ import_react225.default.createElement(SheetInstanceItem, {
             key: inst.address.sheetInstanceId,
             sheet: inst,
             depth
@@ -45490,20 +45814,20 @@ var init_SheetItem = __esm({
 });
 
 // studio/src/panels/OutlinePanel/SheetsList/SheetsList.tsx
-var import_react223, SheetsList, SheetsList_default;
+var import_react227, SheetsList, SheetsList_default;
 var init_SheetsList = __esm({
   "studio/src/panels/OutlinePanel/SheetsList/SheetsList.tsx"() {
     init_selectors();
     init_src();
-    import_react223 = __toModule(require_react());
+    import_react227 = __toModule(require_react());
     init_SheetItem();
     SheetsList = ({ project, depth }) => {
       return usePrism(() => {
         if (!project)
           return null;
         const registeredSheetIds = getRegisteredSheetIds(project);
-        return /* @__PURE__ */ import_react223.default.createElement(import_react223.default.Fragment, null, registeredSheetIds.map((sheetId) => {
-          return /* @__PURE__ */ import_react223.default.createElement(SheetItem, {
+        return /* @__PURE__ */ import_react227.default.createElement(import_react227.default.Fragment, null, registeredSheetIds.map((sheetId) => {
+          return /* @__PURE__ */ import_react227.default.createElement(SheetItem, {
             depth,
             sheetId,
             key: `sheet-${sheetId}`,
@@ -45517,10 +45841,10 @@ var init_SheetsList = __esm({
 });
 
 // studio/src/panels/OutlinePanel/ProjectsList/ProjectListItem.tsx
-var import_react224, import_dataverse74, ConflictNotice, ProjectListItem, ProjectListItem_default;
+var import_react228, import_dataverse74, ConflictNotice, ProjectListItem, ProjectListItem_default;
 var init_ProjectListItem = __esm({
   "studio/src/panels/OutlinePanel/ProjectsList/ProjectListItem.tsx"() {
-    import_react224 = __toModule(require_react());
+    import_react228 = __toModule(require_react());
     init_BaseItem();
     init_SheetsList();
     init_getStudio();
@@ -45544,16 +45868,16 @@ var init_ProjectListItem = __esm({
         const loadingState = (0, import_dataverse74.val)(getStudio().atomP.ephemeral.coreByProject[projectId].loadingState);
         return (loadingState == null ? void 0 : loadingState.type) === "browserStateIsNotBasedOnDiskState";
       }, [project]);
-      const select = (0, import_react224.useCallback)(() => {
+      const select = (0, import_react228.useCallback)(() => {
         getStudio().transaction(({ stateEditors: stateEditors2 }) => {
           stateEditors2.studio.historic.panels.outline.selection.set([project]);
         });
       }, [project]);
-      return /* @__PURE__ */ import_react224.default.createElement(BaseItem_default, {
+      return /* @__PURE__ */ import_react228.default.createElement(BaseItem_default, {
         depth,
         label: project.address.projectId,
-        labelDecoration: hasConflict ? /* @__PURE__ */ import_react224.default.createElement(ConflictNotice, null, "Has Conflicts") : null,
-        children: /* @__PURE__ */ import_react224.default.createElement(SheetsList_default, {
+        labelDecoration: hasConflict ? /* @__PURE__ */ import_react228.default.createElement(ConflictNotice, null, "Has Conflicts") : null,
+        children: /* @__PURE__ */ import_react228.default.createElement(SheetsList_default, {
           project,
           depth: depth + 1
         }),
@@ -45566,16 +45890,16 @@ var init_ProjectListItem = __esm({
 });
 
 // studio/src/panels/OutlinePanel/ProjectsList/ProjectsList.tsx
-var import_dataverse75, import_react227, Container50, ProjectsList, ProjectsList_default;
+var import_dataverse75, import_react231, Container52, ProjectsList, ProjectsList_default;
 var init_ProjectsList = __esm({
   "studio/src/panels/OutlinePanel/ProjectsList/ProjectsList.tsx"() {
     import_dataverse75 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
-    import_react227 = __toModule(require_react());
+    import_react231 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_ProjectListItem();
-    Container50 = styled_components_browser_esm_default.ul`
+    Container52 = styled_components_browser_esm_default.ul`
   list-style: none;
   margin: 0;
   padding: 0;
@@ -45605,9 +45929,9 @@ var init_ProjectsList = __esm({
     ProjectsList = (props) => {
       return usePrism(() => {
         const projects = (0, import_dataverse75.val)(getStudio().projectsP);
-        return /* @__PURE__ */ import_react227.default.createElement(Container50, null, Object.keys(projects).map((projectId) => {
+        return /* @__PURE__ */ import_react231.default.createElement(Container52, null, Object.keys(projects).map((projectId) => {
           const project = projects[projectId];
-          return /* @__PURE__ */ import_react227.default.createElement(ProjectListItem_default, {
+          return /* @__PURE__ */ import_react231.default.createElement(ProjectListItem_default, {
             depth: 0,
             project,
             key: `projectListItem-${projectId}`
@@ -45620,10 +45944,10 @@ var init_ProjectsList = __esm({
 });
 
 // studio/src/panels/OutlinePanel/OutlinePanel.tsx
-var import_react228, import_dataverse76, headerHeight2, Container51, BeforePadding2, OutlinePanel, OutlinePanel_default, isOutlinePanelHotspotActiveB, isOutlinePanelHoveredB, shouldShowOutlineD;
+var import_react232, import_dataverse76, headerHeight2, Container53, BeforePadding2, OutlinePanel, OutlinePanel_default, isOutlinePanelHotspotActiveB, isOutlinePanelHoveredB, shouldShowOutlineD;
 var init_OutlinePanel = __esm({
   "studio/src/panels/OutlinePanel/OutlinePanel.tsx"() {
-    import_react228 = __toModule(require_react());
+    import_react232 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_common();
     init_ProjectsList();
@@ -45633,7 +45957,7 @@ var init_OutlinePanel = __esm({
     import_dataverse76 = __toModule(require("@theatre/dataverse"));
     init_css();
     headerHeight2 = `44px`;
-    Container51 = styled_components_browser_esm_default.div`
+    Container53 = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
   //background-color: white;
   position: absolute;
@@ -45691,16 +46015,16 @@ var init_OutlinePanel = __esm({
       const pin = (_a2 = useVal(getStudio().atomP.ahistoric.pinOutline)) != null ? _a2 : true;
       const show = useVal(shouldShowOutlineD);
       const active = useHotspot("left");
-      (0, import_react228.useLayoutEffect)(() => {
+      (0, import_react232.useLayoutEffect)(() => {
         isOutlinePanelHotspotActiveB.set(active);
       }, [active]);
-      (0, import_react228.useEffect)(() => {
+      (0, import_react232.useEffect)(() => {
         return () => {
           isOutlinePanelHoveredB.set(false);
           isOutlinePanelHotspotActiveB.set(false);
         };
       }, []);
-      return /* @__PURE__ */ import_react228.default.createElement(Container51, {
+      return /* @__PURE__ */ import_react232.default.createElement(Container53, {
         pin,
         onMouseEnter: () => {
           isOutlinePanelHoveredB.set(true);
@@ -45708,7 +46032,7 @@ var init_OutlinePanel = __esm({
         onMouseLeave: () => {
           isOutlinePanelHoveredB.set(false);
         }
-      }, /* @__PURE__ */ import_react228.default.createElement(BeforePadding2, null), /* @__PURE__ */ import_react228.default.createElement(ProjectsList_default, null));
+      }, /* @__PURE__ */ import_react232.default.createElement(BeforePadding2, null), /* @__PURE__ */ import_react232.default.createElement(ProjectsList_default, null));
     };
     OutlinePanel_default = OutlinePanel;
     isOutlinePanelHotspotActiveB = new import_dataverse76.Box(false);
@@ -45726,7 +46050,7 @@ var require_react_error_boundary_umd = __commonJS({
   "../node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports2, module2) {
     (function(global2, factory) {
       typeof exports2 === "object" && typeof module2 !== "undefined" ? factory(exports2, require_react()) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
-    })(exports2, function(exports3, React149) {
+    })(exports2, function(exports3, React153) {
       "use strict";
       function _interopNamespace(e2) {
         if (e2 && e2.__esModule)
@@ -45748,7 +46072,7 @@ var require_react_error_boundary_umd = __commonJS({
         n3["default"] = e2;
         return Object.freeze(n3);
       }
-      var React__namespace = /* @__PURE__ */ _interopNamespace(React149);
+      var React__namespace = /* @__PURE__ */ _interopNamespace(React153);
       function _setPrototypeOf2(o3, p3) {
         _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf3(o4, p4) {
           o4.__proto__ = p4;
@@ -45875,10 +46199,10 @@ var require_react_error_boundary_umd = __commonJS({
 });
 
 // studio/src/panels/BasePanel/ExtensionPaneWrapper.tsx
-var import_react230, import_react_error_boundary, defaultPosition2, minDims2, ExtensionPaneWrapper, Container52, Title2, PaneTools, ClosePanelButton, F23, ErrorContainer, ErrorFallback, Content2, ExtensionPaneWrapper_default;
+var import_react234, import_react_error_boundary, defaultPosition2, minDims2, ExtensionPaneWrapper, Container54, Title2, PaneTools, ClosePanelButton, F23, ErrorContainer, ErrorFallback, Content2, ExtensionPaneWrapper_default;
 var init_ExtensionPaneWrapper = __esm({
   "studio/src/panels/BasePanel/ExtensionPaneWrapper.tsx"() {
-    import_react230 = __toModule(require_react());
+    import_react234 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_common();
     init_BasePanel();
@@ -45898,15 +46222,15 @@ var init_ExtensionPaneWrapper = __esm({
     };
     minDims2 = { width: 300, height: 300 };
     ExtensionPaneWrapper = ({ paneInstance }) => {
-      return /* @__PURE__ */ import_react230.default.createElement(BasePanel_default, {
+      return /* @__PURE__ */ import_react234.default.createElement(BasePanel_default, {
         panelId: `pane-${paneInstance.instanceId}`,
         defaultPosition: defaultPosition2,
         minDims: minDims2
-      }, /* @__PURE__ */ import_react230.default.createElement(Content2, {
+      }, /* @__PURE__ */ import_react234.default.createElement(Content2, {
         paneInstance
       }));
     };
-    Container52 = styled_components_browser_esm_default(PanelWrapper_default)`
+    Container54 = styled_components_browser_esm_default(PanelWrapper_default)`
   display: flex;
   flex-direction: column;
 
@@ -45976,14 +46300,14 @@ var init_ExtensionPaneWrapper = __esm({
   }
 `;
     ErrorFallback = (props) => {
-      return /* @__PURE__ */ import_react230.default.createElement(ErrorContainer, null, "An Error occured rendering this pane. Open the console for more info.", /* @__PURE__ */ import_react230.default.createElement("pre", null, JSON.stringify({ message: props.error.message, stack: props.error.stack }, null, 2)));
+      return /* @__PURE__ */ import_react234.default.createElement(ErrorContainer, null, "An Error occured rendering this pane. Open the console for more info.", /* @__PURE__ */ import_react234.default.createElement("pre", null, JSON.stringify({ message: props.error.message, stack: props.error.stack }, null, 2)));
     };
     Content2 = ({
       paneInstance
     }) => {
-      const [mountingPoint, setMountingPoint] = (0, import_react230.useState)(null);
+      const [mountingPoint, setMountingPoint] = (0, import_react234.useState)(null);
       const mount = paneInstance.definition.mount;
-      (0, import_react230.useLayoutEffect)(() => {
+      (0, import_react234.useLayoutEffect)(() => {
         if (!mountingPoint)
           return;
         const unmount = mount({
@@ -45994,15 +46318,15 @@ var init_ExtensionPaneWrapper = __esm({
           return unmount;
         }
       }, [mountingPoint, mount, paneInstance.instanceId]);
-      const closePane = (0, import_react230.useCallback)(() => {
+      const closePane = (0, import_react234.useCallback)(() => {
         getStudio().paneManager.destroyPane(paneInstance.instanceId);
       }, [paneInstance]);
-      return /* @__PURE__ */ import_react230.default.createElement(Container52, null, /* @__PURE__ */ import_react230.default.createElement(PanelDragZone_default, null, /* @__PURE__ */ import_react230.default.createElement(TitleBar, null, /* @__PURE__ */ import_react230.default.createElement(PaneTools, null, /* @__PURE__ */ import_react230.default.createElement(ClosePanelButton, {
+      return /* @__PURE__ */ import_react234.default.createElement(Container54, null, /* @__PURE__ */ import_react234.default.createElement(PanelDragZone_default, null, /* @__PURE__ */ import_react234.default.createElement(TitleBar, null, /* @__PURE__ */ import_react234.default.createElement(PaneTools, null, /* @__PURE__ */ import_react234.default.createElement(ClosePanelButton, {
         onClick: closePane,
         title: "Close Pane"
-      }, /* @__PURE__ */ import_react230.default.createElement(IoClose, null))), /* @__PURE__ */ import_react230.default.createElement(Title2, null, paneInstance.instanceId))), /* @__PURE__ */ import_react230.default.createElement(import_react_error_boundary.ErrorBoundary, {
+      }, /* @__PURE__ */ import_react234.default.createElement(IoClose, null))), /* @__PURE__ */ import_react234.default.createElement(Title2, null, paneInstance.instanceId))), /* @__PURE__ */ import_react234.default.createElement(import_react_error_boundary.ErrorBoundary, {
         FallbackComponent: ErrorFallback
-      }, /* @__PURE__ */ import_react230.default.createElement(F23, {
+      }, /* @__PURE__ */ import_react234.default.createElement(F23, {
         ref: setMountingPoint
       })));
     };
@@ -46011,12 +46335,12 @@ var init_ExtensionPaneWrapper = __esm({
 });
 
 // studio/src/UIRoot/PanelsRoot.tsx
-var import_react231, PanelsRoot, PanelsRoot_default;
+var import_react235, PanelsRoot, PanelsRoot_default;
 var init_PanelsRoot = __esm({
   "studio/src/UIRoot/PanelsRoot.tsx"() {
     init_OutlinePanel();
     init_DetailPanel();
-    import_react231 = __toModule(require_react());
+    import_react235 = __toModule(require_react());
     init_getStudio();
     init_src();
     init_ExtensionPaneWrapper();
@@ -46024,12 +46348,12 @@ var init_PanelsRoot = __esm({
     PanelsRoot = () => {
       const panes = useVal(getStudio().paneManager.allPanesD);
       const paneEls = Object.entries(panes).map(([instanceId, paneInstance]) => {
-        return /* @__PURE__ */ import_react231.default.createElement(ExtensionPaneWrapper_default, {
+        return /* @__PURE__ */ import_react235.default.createElement(ExtensionPaneWrapper_default, {
           key: `pane-${instanceId}`,
           paneInstance
         });
       });
-      return /* @__PURE__ */ import_react231.default.createElement(import_react231.default.Fragment, null, paneEls, /* @__PURE__ */ import_react231.default.createElement(OutlinePanel_default, null), /* @__PURE__ */ import_react231.default.createElement(DetailPanel_default, null), /* @__PURE__ */ import_react231.default.createElement(SequenceEditorPanel_default, null));
+      return /* @__PURE__ */ import_react235.default.createElement(import_react235.default.Fragment, null, paneEls, /* @__PURE__ */ import_react235.default.createElement(OutlinePanel_default, null), /* @__PURE__ */ import_react235.default.createElement(DetailPanel_default, null), /* @__PURE__ */ import_react235.default.createElement(SequenceEditorPanel_default, null));
     };
     PanelsRoot_default = PanelsRoot;
   }
@@ -46175,32 +46499,32 @@ var init_MinimalTooltip = __esm({
 });
 
 // studio/src/uiComponents/toolbar/ToolbarSwitchSelectContainer.ts
-var Container53, ToolbarSwitchSelectContainer_default;
+var Container55, ToolbarSwitchSelectContainer_default;
 var init_ToolbarSwitchSelectContainer = __esm({
   "studio/src/uiComponents/toolbar/ToolbarSwitchSelectContainer.ts"() {
     init_styled_components_browser_esm();
     init_es2();
-    Container53 = styled_components_browser_esm_default(Group)`
+    Container55 = styled_components_browser_esm_default(Group)`
   display: flex;
   height: fit-content;
   border-radius: 2px;
 `;
-    ToolbarSwitchSelectContainer_default = Container53;
+    ToolbarSwitchSelectContainer_default = Container55;
   }
 });
 
 // studio/src/uiComponents/toolbar/ToolbarIconButton.tsx
-var import_react233, Container54, ToolbarIconButton, ToolbarIconButton_default;
+var import_react237, Container56, ToolbarIconButton, ToolbarIconButton_default;
 var init_ToolbarIconButton = __esm({
   "studio/src/uiComponents/toolbar/ToolbarIconButton.tsx"() {
     init_styled_components_browser_esm();
     init_css();
-    import_react233 = __toModule(require_react());
+    import_react237 = __toModule(require_react());
     init_useTooltip();
     init_react_merge_refs_esm();
     init_MinimalTooltip();
     init_ToolbarSwitchSelectContainer();
-    Container54 = styled_components_browser_esm_default.button`
+    Container56 = styled_components_browser_esm_default.button`
   ${pointerEventsAutoInNormalMode};
   position: relative;
   display: flex;
@@ -46258,10 +46582,10 @@ var init_ToolbarIconButton = __esm({
     background: rgba(40, 43, 47, 0.95);
   }
 `;
-    ToolbarIconButton = import_react233.default.forwardRef((_a2, ref) => {
+    ToolbarIconButton = import_react237.default.forwardRef((_a2, ref) => {
       var _b = _a2, { title } = _b, props = __objRest(_b, ["title"]);
-      const [tooltip, localRef] = useTooltip({ enabled: typeof title === "string" }, () => /* @__PURE__ */ import_react233.default.createElement(MinimalTooltip_default, null, title));
-      return /* @__PURE__ */ import_react233.default.createElement(import_react233.default.Fragment, null, tooltip, /* @__PURE__ */ import_react233.default.createElement(Container54, __spreadValues({
+      const [tooltip, localRef] = useTooltip({ enabled: typeof title === "string" }, () => /* @__PURE__ */ import_react237.default.createElement(MinimalTooltip_default, null, title));
+      return /* @__PURE__ */ import_react237.default.createElement(import_react237.default.Fragment, null, tooltip, /* @__PURE__ */ import_react237.default.createElement(Container56, __spreadValues({
         ref: react_merge_refs_esm_default([localRef, ref])
       }, props)), " ");
     });
@@ -46270,14 +46594,14 @@ var init_ToolbarIconButton = __esm({
 });
 
 // studio/src/toolbars/ExtensionToolbar/tools/IconButton.tsx
-var import_react234, Container55, IconButton, IconButton_default;
+var import_react238, Container57, IconButton, IconButton_default;
 var init_IconButton = __esm({
   "studio/src/toolbars/ExtensionToolbar/tools/IconButton.tsx"() {
-    import_react234 = __toModule(require_react());
+    import_react238 = __toModule(require_react());
     init_ToolbarIconButton();
     init_styled_components_browser_esm();
     init_css();
-    Container55 = styled_components_browser_esm_default(ToolbarIconButton_default)`
+    Container57 = styled_components_browser_esm_default(ToolbarIconButton_default)`
   ${pointerEventsAutoInNormalMode};
   & > svg {
     width: 1em;
@@ -46287,7 +46611,7 @@ var init_IconButton = __esm({
 `;
     IconButton = ({ config }) => {
       var _a2;
-      return /* @__PURE__ */ import_react234.default.createElement(Container55, {
+      return /* @__PURE__ */ import_react238.default.createElement(Container57, {
         onClick: config.onClick,
         title: config.title,
         dangerouslySetInnerHTML: { __html: (_a2 = config["svgSource"]) != null ? _a2 : "" }
@@ -46305,7 +46629,7 @@ function OptionButton({
   onClick,
   isSelected
 }) {
-  return /* @__PURE__ */ import_react235.default.createElement(import_react235.default.Fragment, null, /* @__PURE__ */ import_react235.default.createElement(ToolbarIconButton_default, {
+  return /* @__PURE__ */ import_react239.default.createElement(import_react239.default.Fragment, null, /* @__PURE__ */ import_react239.default.createElement(ToolbarIconButton_default, {
     forwardedAs: Button,
     className: isSelected ? "selected" : void 0,
     "aria-label": label,
@@ -46313,10 +46637,10 @@ function OptionButton({
     title: label
   }, icon));
 }
-var import_react235, ToolbarSwitchSelect, ToolbarSwitchSelect_default;
+var import_react239, ToolbarSwitchSelect, ToolbarSwitchSelect_default;
 var init_ToolbarSwitchSelect = __esm({
   "studio/src/uiComponents/toolbar/ToolbarSwitchSelect.tsx"() {
-    import_react235 = __toModule(require_react());
+    import_react239 = __toModule(require_react());
     init_es2();
     init_ToolbarIconButton();
     init_ToolbarSwitchSelectContainer();
@@ -46325,7 +46649,7 @@ var init_ToolbarSwitchSelect = __esm({
       onChange,
       options: options2
     }) => {
-      return /* @__PURE__ */ import_react235.default.createElement(ToolbarSwitchSelectContainer_default, null, options2.map(({ label, icon, value: optionValue }) => /* @__PURE__ */ import_react235.default.createElement(OptionButton, {
+      return /* @__PURE__ */ import_react239.default.createElement(ToolbarSwitchSelectContainer_default, null, options2.map(({ label, icon, value: optionValue }) => /* @__PURE__ */ import_react239.default.createElement(OptionButton, {
         key: optionValue,
         value: optionValue,
         isSelected: valueOfSwitch === optionValue,
@@ -46339,14 +46663,14 @@ var init_ToolbarSwitchSelect = __esm({
 });
 
 // studio/src/toolbars/ExtensionToolbar/tools/Switch.tsx
-var import_react236, IconContainer2, IconButton2, Switch_default;
+var import_react240, IconContainer3, IconButton2, Switch_default;
 var init_Switch = __esm({
   "studio/src/toolbars/ExtensionToolbar/tools/Switch.tsx"() {
-    import_react236 = __toModule(require_react());
+    import_react240 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_css();
     init_ToolbarSwitchSelect();
-    IconContainer2 = styled_components_browser_esm_default.div`
+    IconContainer3 = styled_components_browser_esm_default.div`
   ${pointerEventsAutoInNormalMode};
   & > svg {
     width: 1em;
@@ -46355,12 +46679,12 @@ var init_Switch = __esm({
   }
 `;
     IconButton2 = ({ config }) => {
-      return /* @__PURE__ */ import_react236.default.createElement(ToolbarSwitchSelect_default, {
+      return /* @__PURE__ */ import_react240.default.createElement(ToolbarSwitchSelect_default, {
         onChange: config.onChange,
         options: config.options.map(({ label, value, svgSource }) => ({
           label,
           value,
-          icon: /* @__PURE__ */ import_react236.default.createElement(IconContainer2, {
+          icon: /* @__PURE__ */ import_react240.default.createElement(IconContainer3, {
             dangerouslySetInnerHTML: { __html: svgSource }
           })
         })),
@@ -46375,17 +46699,17 @@ var init_Switch = __esm({
 function getToolByType(type) {
   return toolByType[type];
 }
-var import_react237, Toolset, toolByType, Tool, Toolset_default;
+var import_react241, Toolset, toolByType, Tool, Toolset_default;
 var init_Toolset = __esm({
   "studio/src/toolbars/ExtensionToolbar/Toolset.tsx"() {
     init_didYouMean();
     init_userReadableTypeOfValue();
-    import_react237 = __toModule(require_react());
+    import_react241 = __toModule(require_react());
     init_IconButton();
     init_Switch();
     Toolset = (props) => {
-      return /* @__PURE__ */ import_react237.default.createElement(import_react237.default.Fragment, null, props.config.map((toolConfig, i3) => {
-        return /* @__PURE__ */ import_react237.default.createElement(Tool, {
+      return /* @__PURE__ */ import_react241.default.createElement(import_react241.default.Fragment, null, props.config.map((toolConfig, i3) => {
+        return /* @__PURE__ */ import_react241.default.createElement(Tool, {
           config: toolConfig,
           key: i3
         });
@@ -46400,7 +46724,7 @@ var init_Toolset = __esm({
       if (!Comp) {
         throw new Error(`No tool with tool.type ${userReadableTypeOfValue_default(config.type)} exists. Did you mean ${didYouMean(config.type, Object.keys(toolByType))}`);
       }
-      return /* @__PURE__ */ import_react237.default.createElement(Comp, {
+      return /* @__PURE__ */ import_react241.default.createElement(Comp, {
         config
       });
     };
@@ -46409,16 +46733,16 @@ var init_Toolset = __esm({
 });
 
 // studio/src/toolbars/ExtensionToolbar/ExtensionToolbar.tsx
-var import_dataverse77, import_react239, Container56, GroupDivider, ExtensionToolsetRender, ExtensionToolbar, ExtensionToolbar_default;
+var import_dataverse77, import_react243, Container58, GroupDivider, ExtensionToolsetRender, ExtensionToolbar, ExtensionToolbar_default;
 var init_ExtensionToolbar = __esm({
   "studio/src/toolbars/ExtensionToolbar/ExtensionToolbar.tsx"() {
     import_dataverse77 = __toModule(require("@theatre/dataverse"));
     init_src();
     init_getStudio();
-    import_react239 = __toModule(require_react());
+    import_react243 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_Toolset();
-    Container56 = styled_components_browser_esm_default.div`
+    Container58 = styled_components_browser_esm_default.div`
   height: 36px;
   /* pointer-events: none; */
 
@@ -46434,15 +46758,15 @@ var init_ExtensionToolbar = __esm({
   opacity: 0.4;
 `;
     ExtensionToolsetRender = ({ extension, toolbarId }) => {
-      const toolsetConfigBox = (0, import_react239.useMemo)(() => new import_dataverse77.Box([]), []);
-      (0, import_react239.useLayoutEffect)(() => {
+      const toolsetConfigBox = (0, import_react243.useMemo)(() => new import_dataverse77.Box([]), []);
+      (0, import_react243.useLayoutEffect)(() => {
         var _a2, _b;
         const detach = (_b = (_a2 = extension.toolbars) == null ? void 0 : _a2[toolbarId]) == null ? void 0 : _b.call(_a2, toolsetConfigBox.set.bind(toolsetConfigBox), getStudio().publicApi);
         if (typeof detach === "function")
           return detach;
       }, [extension, toolbarId]);
       const config = useVal(toolsetConfigBox.derivation);
-      return /* @__PURE__ */ import_react239.default.createElement(Toolset_default, {
+      return /* @__PURE__ */ import_react243.default.createElement(Toolset_default, {
         config
       });
     };
@@ -46454,9 +46778,9 @@ var init_ExtensionToolbar = __esm({
       for (const [, extension] of Object.entries(extensionsById)) {
         if (!extension || !((_a2 = extension.toolbars) == null ? void 0 : _a2[toolbarId]))
           continue;
-        groups.push(/* @__PURE__ */ import_react239.default.createElement(import_react239.default.Fragment, {
+        groups.push(/* @__PURE__ */ import_react243.default.createElement(import_react243.default.Fragment, {
           key: "extensionToolbar-" + extension.id
-        }, isAfterFirstGroup ? /* @__PURE__ */ import_react239.default.createElement(GroupDivider, null) : void 0, /* @__PURE__ */ import_react239.default.createElement(ExtensionToolsetRender, {
+        }, isAfterFirstGroup ? /* @__PURE__ */ import_react243.default.createElement(GroupDivider, null) : void 0, /* @__PURE__ */ import_react243.default.createElement(ExtensionToolsetRender, {
           extension,
           toolbarId
         })));
@@ -46464,33 +46788,33 @@ var init_ExtensionToolbar = __esm({
       }
       if (groups.length === 0)
         return null;
-      return /* @__PURE__ */ import_react239.default.createElement(Container56, null, showLeftDivider ? /* @__PURE__ */ import_react239.default.createElement(GroupDivider, null) : void 0, groups);
+      return /* @__PURE__ */ import_react243.default.createElement(Container58, null, showLeftDivider ? /* @__PURE__ */ import_react243.default.createElement(GroupDivider, null) : void 0, groups);
     };
     ExtensionToolbar_default = ExtensionToolbar;
   }
 });
 
 // studio/src/toolbars/PinButton.tsx
-var import_react240, Container57, PinButton, PinButton_default;
+var import_react244, Container59, PinButton, PinButton_default;
 var init_PinButton = __esm({
   "studio/src/toolbars/PinButton.tsx"() {
     init_styled_components_browser_esm();
-    import_react240 = __toModule(require_react());
+    import_react244 = __toModule(require_react());
     init_ToolbarIconButton();
-    Container57 = styled_components_browser_esm_default(ToolbarIconButton_default)`
+    Container59 = styled_components_browser_esm_default(ToolbarIconButton_default)`
   color: ${({ pinned }) => pinned ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.5)"};
 
 `;
-    PinButton = (0, import_react240.forwardRef)((_a2, ref) => {
+    PinButton = (0, import_react244.forwardRef)((_a2, ref) => {
       var _b = _a2, { children, hint, pinned, icon, pinHintIcon, unpinHintIcon } = _b, props = __objRest(_b, ["children", "hint", "pinned", "icon", "pinHintIcon", "unpinHintIcon"]);
-      const [hovered, setHovered] = (0, import_react240.useState)(false);
+      const [hovered, setHovered] = (0, import_react244.useState)(false);
       const showHint = hovered || hint;
-      return /* @__PURE__ */ import_react240.default.createElement(Container57, __spreadProps(__spreadValues({}, props), {
+      return /* @__PURE__ */ import_react244.default.createElement(Container59, __spreadProps(__spreadValues({}, props), {
         pinned,
         ref,
         onMouseOver: () => setHovered(true),
         onMouseOut: () => setHovered(false)
-      }), /* @__PURE__ */ import_react240.default.createElement("div", {
+      }), /* @__PURE__ */ import_react244.default.createElement("div", {
         style: {
           pointerEvents: "none",
           width: "fit-content",
@@ -46505,59 +46829,59 @@ var init_PinButton = __esm({
 
 // studio/src/uiComponents/icons/DoubleChevronLeft.tsx
 function DoubleChevronLeft(props) {
-  return /* @__PURE__ */ React140.createElement("svg", __spreadValues({
+  return /* @__PURE__ */ React144.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
     viewBox: "0 0 16 16",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React140.createElement("path", {
+  }, props), /* @__PURE__ */ React144.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
     d: "M12.732 4.048l-.792-.792L7.2 8l4.74 4.744.792-.792L8.781 8l3.951-3.952zm-3.932 0l-.792-.792L3.268 8l4.74 4.744.792-.792L4.848 8 8.8 4.048z",
     fill: "currentColor"
   }));
 }
-var React140, DoubleChevronLeft_default;
+var React144, DoubleChevronLeft_default;
 var init_DoubleChevronLeft = __esm({
   "studio/src/uiComponents/icons/DoubleChevronLeft.tsx"() {
-    React140 = __toModule(require_react());
+    React144 = __toModule(require_react());
     DoubleChevronLeft_default = DoubleChevronLeft;
   }
 });
 
 // studio/src/uiComponents/icons/DoubleChevronRight.tsx
 function DoubleChevronRight(props) {
-  return /* @__PURE__ */ React141.createElement("svg", __spreadValues({
+  return /* @__PURE__ */ React145.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
     viewBox: "0 0 16 16",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React141.createElement("path", {
+  }, props), /* @__PURE__ */ React145.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
     d: "M3.694 3.765l.792-.792 4.74 4.744-4.74 4.744-.792-.793 3.951-3.951-3.951-3.952zm3.932 0l.792-.792 4.74 4.744-4.74 4.744-.792-.793 3.952-3.951-3.952-3.952z",
     fill: "currentColor"
   }));
 }
-var React141, DoubleChevronRight_default;
+var React145, DoubleChevronRight_default;
 var init_DoubleChevronRight = __esm({
   "studio/src/uiComponents/icons/DoubleChevronRight.tsx"() {
-    React141 = __toModule(require_react());
+    React145 = __toModule(require_react());
     DoubleChevronRight_default = DoubleChevronRight;
   }
 });
 
 // studio/src/toolbars/MoreMenu/MoreMenu.tsx
-var import_react242, Container58, Item2, Link, VersionContainer, VersionLabel, VersionValueRow, VersionValue, Divider, UpdateDot, version, untaggedVersion, MoreMenu, MoreMenu_default;
+var import_react246, Container60, Item2, Link, VersionContainer, VersionLabel, VersionValueRow, VersionValue, Divider, UpdateDot, version, untaggedVersion, MoreMenu, MoreMenu_default;
 var init_MoreMenu = __esm({
   "studio/src/toolbars/MoreMenu/MoreMenu.tsx"() {
     init_src();
     init_getStudio();
-    import_react242 = __toModule(require_react());
+    import_react246 = __toModule(require_react());
     init_styled_components_browser_esm();
-    Container58 = styled_components_browser_esm_default.div`
+    Container60 = styled_components_browser_esm_default.div`
   width: 138px;
   border-radius: 2px;
   // background-color: rgba(42, 45, 50, 0.9);
@@ -46663,41 +46987,41 @@ var init_MoreMenu = __esm({
 `;
     version = "0.5.1-rc.2";
     untaggedVersion = version.match(/^[^\-]+/)[0];
-    MoreMenu = import_react242.default.forwardRef((props, ref) => {
+    MoreMenu = import_react246.default.forwardRef((props, ref) => {
       const hasUpdates = useVal(getStudio().atomP.ahistoric.updateChecker.result.hasUpdates);
-      return /* @__PURE__ */ import_react242.default.createElement(Container58, {
+      return /* @__PURE__ */ import_react246.default.createElement(Container60, {
         ref
-      }, /* @__PURE__ */ import_react242.default.createElement(Link, {
+      }, /* @__PURE__ */ import_react246.default.createElement(Link, {
         as: "a",
         href: "https://www.theatrejs.com/docs/latest",
         className: "",
         target: "_blank"
-      }, "Docs"), /* @__PURE__ */ import_react242.default.createElement(Link, {
+      }, "Docs"), /* @__PURE__ */ import_react246.default.createElement(Link, {
         as: "a",
         href: `https://www.theatrejs.com/docs/latest/releases`,
         className: "",
         target: "_blank"
-      }, "Changelog"), /* @__PURE__ */ import_react242.default.createElement(Divider, null), /* @__PURE__ */ import_react242.default.createElement(Link, {
+      }, "Changelog"), /* @__PURE__ */ import_react246.default.createElement(Divider, null), /* @__PURE__ */ import_react246.default.createElement(Link, {
         as: "a",
         href: "https://github.com/theatre-js/theatre",
         className: "",
         target: "_blank"
-      }, "Github"), /* @__PURE__ */ import_react242.default.createElement(Link, {
+      }, "Github"), /* @__PURE__ */ import_react246.default.createElement(Link, {
         as: "a",
         href: "https://twitter.com/theatre_js",
         className: "",
         target: "_blank"
-      }, "Twitter"), /* @__PURE__ */ import_react242.default.createElement(Link, {
+      }, "Twitter"), /* @__PURE__ */ import_react246.default.createElement(Link, {
         className: "",
         as: "a",
         href: "https://discord.gg/bm9f8F9Y9N",
         target: "_blank"
-      }, "Discord"), /* @__PURE__ */ import_react242.default.createElement(Divider, null), /* @__PURE__ */ import_react242.default.createElement(VersionContainer, null, /* @__PURE__ */ import_react242.default.createElement(VersionLabel, null, "Version"), /* @__PURE__ */ import_react242.default.createElement(VersionValueRow, null, /* @__PURE__ */ import_react242.default.createElement(VersionValue, null, version, " ", hasUpdates === true ? "(outdated)" : hasUpdates === false ? "(latest)" : ""))), hasUpdates === true && /* @__PURE__ */ import_react242.default.createElement(import_react242.default.Fragment, null, /* @__PURE__ */ import_react242.default.createElement(Divider, null), /* @__PURE__ */ import_react242.default.createElement(Link, {
+      }, "Discord"), /* @__PURE__ */ import_react246.default.createElement(Divider, null), /* @__PURE__ */ import_react246.default.createElement(VersionContainer, null, /* @__PURE__ */ import_react246.default.createElement(VersionLabel, null, "Version"), /* @__PURE__ */ import_react246.default.createElement(VersionValueRow, null, /* @__PURE__ */ import_react246.default.createElement(VersionValue, null, version, " ", hasUpdates === true ? "(outdated)" : hasUpdates === false ? "(latest)" : ""))), hasUpdates === true && /* @__PURE__ */ import_react246.default.createElement(import_react246.default.Fragment, null, /* @__PURE__ */ import_react246.default.createElement(Divider, null), /* @__PURE__ */ import_react246.default.createElement(Link, {
         as: "a",
         href: `https://www.theatrejs.com/docs/latest/releases${encodeURIComponent(untaggedVersion)}`,
         className: "",
         target: "_blank"
-      }, "Update", /* @__PURE__ */ import_react242.default.createElement(UpdateDot, null)), /* @__PURE__ */ import_react242.default.createElement(Link, {
+      }, "Update", /* @__PURE__ */ import_react246.default.createElement(UpdateDot, null)), /* @__PURE__ */ import_react246.default.createElement(Link, {
         as: "a",
         href: `https://www.theatrejs.com/docs/latest/releases#${encodeURIComponent(untaggedVersion)}`,
         className: "",
@@ -46709,11 +47033,11 @@ var init_MoreMenu = __esm({
 });
 
 // ../node_modules/react-hot-toast/headless/index.mjs
-var import_react243, import_react244, x3, p2, E3, X3, I3, m2, v3, b3, M3, g3, f2, S3, T2, U3, O3, w3, l3, a3, k3, C, H3, ie2;
+var import_react247, import_react248, x3, p2, E3, X3, I3, m2, v3, b3, M3, g3, f2, S3, T2, U3, O3, w3, l3, a3, k3, C, H3, ie2;
 var init_headless = __esm({
   "../node_modules/react-hot-toast/headless/index.mjs"() {
-    import_react243 = __toModule(require_react());
-    import_react244 = __toModule(require_react());
+    import_react247 = __toModule(require_react());
+    import_react248 = __toModule(require_react());
     x3 = (e2) => typeof e2 == "function";
     p2 = (e2, t3) => x3(e2) ? e2(t3) : e2;
     E3 = (() => {
@@ -46777,8 +47101,8 @@ var init_headless = __esm({
     };
     U3 = { blank: 4e3, error: 4e3, success: 2e3, loading: 1 / 0, custom: 4e3 };
     O3 = (e2 = {}) => {
-      let [t3, o3] = (0, import_react243.useState)(S3);
-      (0, import_react243.useEffect)(() => (f2.push(o3), () => {
+      let [t3, o3] = (0, import_react247.useState)(S3);
+      (0, import_react247.useEffect)(() => (f2.push(o3), () => {
         let s3 = f2.indexOf(o3);
         s3 > -1 && f2.splice(s3, 1);
       }), [t3]);
@@ -46816,7 +47140,7 @@ var init_headless = __esm({
     };
     H3 = (e2) => {
       let { toasts: t3, pausedAt: o3 } = O3(e2);
-      (0, import_react244.useEffect)(() => {
+      (0, import_react248.useEffect)(() => {
         if (o3)
           return;
         let r3 = Date.now(), c3 = t3.map((i3) => {
@@ -46833,9 +47157,9 @@ var init_headless = __esm({
           c3.forEach((i3) => i3 && clearTimeout(i3));
         };
       }, [t3, o3]);
-      let n3 = (0, import_react244.useCallback)(() => {
+      let n3 = (0, import_react248.useCallback)(() => {
         o3 && T2({ type: 6, time: Date.now() });
-      }, [o3]), s3 = (0, import_react244.useCallback)((r3, c3) => {
+      }, [o3]), s3 = (0, import_react248.useCallback)((r3, c3) => {
         let { reverseOrder: i3 = false, gutter: d3 = 8, defaultPosition: P3 } = c3 || {}, A3 = t3.filter((u3) => (u3.position || P3) === (r3.position || P3) && u3.height), _3 = A3.findIndex((u3) => u3.id === r3.id), D3 = A3.filter((u3, y3) => y3 < _3 && u3.visible).length;
         return A3.filter((u3) => u3.visible).slice(...i3 ? [D3 + 1] : [0, D3]).reduce((u3, y3) => u3 + (y3.height || 0) + d3, 0);
       }, [t3]);
@@ -48839,10 +49163,10 @@ ${content}</tr>
 });
 
 // studio/src/notify.tsx
-var import_react245, hashNotification, notificationUniquenessChecker, notificationTypeChecker, NotificationContainer, NotificationTitle, NotificationMain, NotificationMessage, DismissButton, COLORS, IndicatorDot, createHandler, notify, ButtonContainer, Button3, NotifierContainer, NotificationScroller, EmptyState2, useEmptyNotificationsTooltip, Notifier, useNotifications;
+var import_react249, hashNotification, notificationUniquenessChecker, notificationTypeChecker, NotificationContainer, NotificationTitle, NotificationMain, NotificationMessage, DismissButton, COLORS, IndicatorDot, createHandler, notify, ButtonContainer, Button3, NotifierContainer, NotificationScroller, EmptyState2, useEmptyNotificationsTooltip, Notifier, useNotifications;
 var init_notify = __esm({
   "studio/src/notify.tsx"() {
-    import_react245 = __toModule(require_react());
+    import_react249 = __toModule(require_react());
     init_headless();
     init_styled_components_browser_esm();
     init_css();
@@ -49009,18 +49333,18 @@ var init_notify = __esm({
       if (allowDuplicates || !notificationUniquenessChecker.check({ title, message })) {
         notificationUniquenessChecker.add({ title, message });
         notificationTypeChecker.add(type);
-        ie2.custom((t3) => /* @__PURE__ */ import_react245.default.createElement(NotificationContainer, null, /* @__PURE__ */ import_react245.default.createElement(IndicatorDot, {
+        ie2.custom((t3) => /* @__PURE__ */ import_react249.default.createElement(NotificationContainer, null, /* @__PURE__ */ import_react249.default.createElement(IndicatorDot, {
           type
-        }), /* @__PURE__ */ import_react245.default.createElement(NotificationMain, null, /* @__PURE__ */ import_react245.default.createElement(NotificationTitle, null, title), /* @__PURE__ */ import_react245.default.createElement(NotificationMessage, {
+        }), /* @__PURE__ */ import_react249.default.createElement(NotificationMain, null, /* @__PURE__ */ import_react249.default.createElement(NotificationTitle, null, title), /* @__PURE__ */ import_react249.default.createElement(NotificationMessage, {
           dangerouslySetInnerHTML: {
             __html: marked.parse(message)
           }
-        }), docs.length > 0 && /* @__PURE__ */ import_react245.default.createElement(NotificationMessage, null, /* @__PURE__ */ import_react245.default.createElement("span", null, "Docs:", " ", docs.map((doc, i3) => /* @__PURE__ */ import_react245.default.createElement(import_react245.Fragment, {
+        }), docs.length > 0 && /* @__PURE__ */ import_react249.default.createElement(NotificationMessage, null, /* @__PURE__ */ import_react249.default.createElement("span", null, "Docs:", " ", docs.map((doc, i3) => /* @__PURE__ */ import_react249.default.createElement(import_react249.Fragment, {
           key: i3
-        }, i3 > 0 && ", ", /* @__PURE__ */ import_react245.default.createElement("a", {
+        }, i3 > 0 && ", ", /* @__PURE__ */ import_react249.default.createElement("a", {
           target: "_blank",
           href: doc.url
-        }, doc.title)))))), /* @__PURE__ */ import_react245.default.createElement(DismissButton, {
+        }, doc.title)))))), /* @__PURE__ */ import_react249.default.createElement(DismissButton, {
           onClick: () => {
             ie2.remove(t3.id);
             notificationUniquenessChecker.delete({ title, message });
@@ -49125,23 +49449,24 @@ var init_notify = __esm({
 `;
     useEmptyNotificationsTooltip = () => {
       const { hasNotifications } = useNotifications();
-      return useTooltip({ enabled: !hasNotifications }, () => /* @__PURE__ */ import_react245.default.createElement(MinimalTooltip_default, null, /* @__PURE__ */ import_react245.default.createElement(EmptyState2, null, /* @__PURE__ */ import_react245.default.createElement(NotificationTitle, null, "No notifications"), "Notifications will appear here when you get them.")));
+      return useTooltip({ enabled: !hasNotifications }, () => /* @__PURE__ */ import_react249.default.createElement(MinimalTooltip_default, null, /* @__PURE__ */ import_react249.default.createElement(EmptyState2, null, /* @__PURE__ */ import_react249.default.createElement(NotificationTitle, null, "No notifications"), "Notifications will appear here when you get them.")));
     };
     Notifier = () => {
       var _a2;
       const { toasts, handlers } = H3();
       const { startPause, endPause } = handlers;
       const pinNotifications = (_a2 = useVal(getStudio().atomP.ahistoric.pinNotifications)) != null ? _a2 : false;
-      return /* @__PURE__ */ import_react245.default.createElement(NotifierContainer, null, !pinNotifications ? null : toasts.length > 0 && /* @__PURE__ */ import_react245.default.createElement(NotificationScroller, {
+      return /* @__PURE__ */ import_react249.default.createElement(NotifierContainer, null, !pinNotifications ? null : toasts.length > 0 && /* @__PURE__ */ import_react249.default.createElement(NotificationScroller, {
         onMouseEnter: startPause,
         onMouseLeave: endPause
-      }, /* @__PURE__ */ import_react245.default.createElement("div", null, toasts.map((toast) => {
-        return /* @__PURE__ */ import_react245.default.createElement("div", {
+      }, /* @__PURE__ */ import_react249.default.createElement("div", null, toasts.map((toast) => {
+        return /* @__PURE__ */ import_react249.default.createElement("div", {
           key: toast.id
         }, toast.message(toast));
-      }))), /* @__PURE__ */ import_react245.default.createElement(ButtonContainer, {
+      }))), /* @__PURE__ */ import_react249.default.createElement(ButtonContainer, {
         align: "side"
-      }, pinNotifications && toasts.length > 0 && /* @__PURE__ */ import_react245.default.createElement(Button3, {
+      }, pinNotifications && toasts.length > 0 && /* @__PURE__ */ import_react249.default.createElement(Button3, {
+        style: { background: "black", color: "white" },
         onClick: () => {
           notificationTypeChecker.clear();
           notificationUniquenessChecker.clear();
@@ -49160,12 +49485,12 @@ var init_notify = __esm({
 });
 
 // studio/src/toolbars/GlobalToolbar.tsx
-var import_react248, import_dataverse78, Container59, NumberOfConflictsIndicator, SubContainer, HasUpdatesBadge, GroupDivider2, showedVisualTestingWarning, GlobalToolbar, GlobalToolbar_default;
+var import_react252, import_dataverse78, Container61, NumberOfConflictsIndicator, SubContainer, HasUpdatesBadge, GroupDivider2, showedVisualTestingWarning, GlobalToolbar, GlobalToolbar_default;
 var init_GlobalToolbar = __esm({
   "studio/src/toolbars/GlobalToolbar.tsx"() {
     init_src();
     init_getStudio();
-    import_react248 = __toModule(require_react());
+    import_react252 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_useTooltip();
     init_ErrorTooltip();
@@ -49180,7 +49505,7 @@ var init_GlobalToolbar = __esm({
     init_usePopover();
     init_MoreMenu();
     init_notify();
-    Container59 = styled_components_browser_esm_default.div`
+    Container61 = styled_components_browser_esm_default.div`
   height: 36px;
   pointer-events: none;
 
@@ -49231,7 +49556,7 @@ var init_GlobalToolbar = __esm({
         const ephemeralStateOfAllProjects = (0, import_dataverse78.val)(getStudio().atomP.ephemeral.coreByProject);
         return Object.entries(ephemeralStateOfAllProjects).map(([projectId, state]) => ({ projectId, state })).filter(({ state }) => state.loadingState.type === "browserStateIsNotBasedOnDiskState");
       }, []);
-      const [triggerTooltip, triggerButtonRef] = useTooltip({ enabled: conflicts.length > 0, enterDelay: conflicts.length > 0 ? 0 : 200 }, () => conflicts.length > 0 ? /* @__PURE__ */ import_react248.default.createElement(ErrorTooltip_default, null, conflicts.length === 1 ? `There is a state conflict in project "${conflicts[0].projectId}". Select the project in the outline below in order to fix it.` : `There are ${conflicts.length} projects that have state conflicts. They are highlighted in the outline below. `) : /* @__PURE__ */ import_react248.default.createElement(BasicTooltip_default, null, "Outline"));
+      const [triggerTooltip, triggerButtonRef] = useTooltip({ enabled: conflicts.length > 0, enterDelay: conflicts.length > 0 ? 0 : 200 }, () => conflicts.length > 0 ? /* @__PURE__ */ import_react252.default.createElement(ErrorTooltip_default, null, conflicts.length === 1 ? `There is a state conflict in project "${conflicts[0].projectId}". Select the project in the outline below in order to fix it.` : `There are ${conflicts.length} projects that have state conflicts. They are highlighted in the outline below. `) : /* @__PURE__ */ import_react252.default.createElement(BasicTooltip_default, null, "Outline"));
       const outlinePinned = (_a2 = useVal(getStudio().atomP.ahistoric.pinOutline)) != null ? _a2 : true;
       const detailsPinned = (_b = useVal(getStudio().atomP.ahistoric.pinDetails)) != null ? _b : true;
       const hasUpdates = useVal(getStudio().atomP.ahistoric.updateChecker.result.hasUpdates) === true;
@@ -49248,10 +49573,10 @@ var init_GlobalToolbar = __esm({
           verticalGap: 2
         };
       }, () => {
-        return /* @__PURE__ */ import_react248.default.createElement(MoreMenu_default, null);
+        return /* @__PURE__ */ import_react252.default.createElement(MoreMenu_default, null);
       });
-      const moreMenuTriggerRef = (0, import_react248.useRef)(null);
-      const showUpdatesBadge = (0, import_react248.useMemo)(() => {
+      const moreMenuTriggerRef = (0, import_react252.useRef)(null);
+      const showUpdatesBadge = (0, import_react252.useMemo)(() => {
         if (hasUpdates || window.__IS_VISUAL_REGRESSION_TESTING) {
           if (!showedVisualTestingWarning) {
             showedVisualTestingWarning = true;
@@ -49263,7 +49588,7 @@ var init_GlobalToolbar = __esm({
       }, [hasUpdates]);
       const { hasNotifications } = useNotifications();
       const [notificationsTooltip, notificationsTriggerRef] = useEmptyNotificationsTooltip();
-      return /* @__PURE__ */ import_react248.default.createElement(Container59, null, /* @__PURE__ */ import_react248.default.createElement(SubContainer, null, triggerTooltip, /* @__PURE__ */ import_react248.default.createElement(PinButton_default, {
+      return /* @__PURE__ */ import_react252.default.createElement(Container61, null, /* @__PURE__ */ import_react252.default.createElement(SubContainer, null, triggerTooltip, /* @__PURE__ */ import_react252.default.createElement(PinButton_default, {
         ref: triggerButtonRef,
         "data-testid": "OutlinePanel-TriggerButton",
         onClick: () => {
@@ -49272,14 +49597,14 @@ var init_GlobalToolbar = __esm({
             stateEditors2.studio.ahistoric.setPinOutline(!((_a3 = drafts2.ahistoric.pinOutline) != null ? _a3 : true));
           });
         },
-        icon: /* @__PURE__ */ import_react248.default.createElement(Outline_default, null),
-        pinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronRight_default, null),
-        unpinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronLeft_default, null),
+        icon: /* @__PURE__ */ import_react252.default.createElement(Outline_default, null),
+        pinHintIcon: /* @__PURE__ */ import_react252.default.createElement(DoubleChevronRight_default, null),
+        unpinHintIcon: /* @__PURE__ */ import_react252.default.createElement(DoubleChevronLeft_default, null),
         pinned: outlinePinned
-      }), conflicts.length > 0 ? /* @__PURE__ */ import_react248.default.createElement(NumberOfConflictsIndicator, null, conflicts.length) : null, /* @__PURE__ */ import_react248.default.createElement(ExtensionToolbar_default, {
+      }), conflicts.length > 0 ? /* @__PURE__ */ import_react252.default.createElement(NumberOfConflictsIndicator, null, conflicts.length) : null, /* @__PURE__ */ import_react252.default.createElement(ExtensionToolbar_default, {
         showLeftDivider: true,
         toolbarId: "global"
-      })), /* @__PURE__ */ import_react248.default.createElement(SubContainer, null, notificationsTooltip, /* @__PURE__ */ import_react248.default.createElement(PinButton_default, {
+      })), /* @__PURE__ */ import_react252.default.createElement(SubContainer, null, notificationsTooltip, /* @__PURE__ */ import_react252.default.createElement(PinButton_default, {
         ref: notificationsTriggerRef,
         onClick: () => {
           getStudio().transaction(({ stateEditors: stateEditors2, drafts: drafts2 }) => {
@@ -49287,20 +49612,20 @@ var init_GlobalToolbar = __esm({
             stateEditors2.studio.ahistoric.setPinNotifications(!((_a3 = drafts2.ahistoric.pinNotifications) != null ? _a3 : false));
           });
         },
-        icon: /* @__PURE__ */ import_react248.default.createElement(Bell_default, null),
-        pinHintIcon: /* @__PURE__ */ import_react248.default.createElement(Bell_default, null),
-        unpinHintIcon: /* @__PURE__ */ import_react248.default.createElement(Bell_default, null),
+        icon: /* @__PURE__ */ import_react252.default.createElement(Bell_default, null),
+        pinHintIcon: /* @__PURE__ */ import_react252.default.createElement(Bell_default, null),
+        unpinHintIcon: /* @__PURE__ */ import_react252.default.createElement(Bell_default, null),
         pinned: (_c = useVal(getStudio().atomP.ahistoric.pinNotifications)) != null ? _c : false
-      }, hasNotifications && /* @__PURE__ */ import_react248.default.createElement(HasUpdatesBadge, {
+      }, hasNotifications && /* @__PURE__ */ import_react252.default.createElement(HasUpdatesBadge, {
         type: "warning"
-      })), moreMenu.node, /* @__PURE__ */ import_react248.default.createElement(ToolbarIconButton_default, {
+      })), moreMenu.node, /* @__PURE__ */ import_react252.default.createElement(ToolbarIconButton_default, {
         ref: moreMenuTriggerRef,
         onClick: (e2) => {
           moreMenu.toggle(e2, moreMenuTriggerRef.current);
         }
-      }, /* @__PURE__ */ import_react248.default.createElement(Ellipsis_default, null), showUpdatesBadge && /* @__PURE__ */ import_react248.default.createElement(HasUpdatesBadge, {
+      }, /* @__PURE__ */ import_react252.default.createElement(Ellipsis_default, null), showUpdatesBadge && /* @__PURE__ */ import_react252.default.createElement(HasUpdatesBadge, {
         type: "info"
-      })), /* @__PURE__ */ import_react248.default.createElement(PinButton_default, {
+      })), /* @__PURE__ */ import_react252.default.createElement(PinButton_default, {
         ref: triggerButtonRef,
         onClick: () => {
           getStudio().transaction(({ stateEditors: stateEditors2, drafts: drafts2 }) => {
@@ -49308,9 +49633,9 @@ var init_GlobalToolbar = __esm({
             stateEditors2.studio.ahistoric.setPinDetails(!((_a3 = drafts2.ahistoric.pinDetails) != null ? _a3 : true));
           });
         },
-        icon: /* @__PURE__ */ import_react248.default.createElement(Details_default, null),
-        pinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronLeft_default, null),
-        unpinHintIcon: /* @__PURE__ */ import_react248.default.createElement(DoubleChevronRight_default, null),
+        icon: /* @__PURE__ */ import_react252.default.createElement(Details_default, null),
+        pinHintIcon: /* @__PURE__ */ import_react252.default.createElement(DoubleChevronLeft_default, null),
+        unpinHintIcon: /* @__PURE__ */ import_react252.default.createElement(DoubleChevronRight_default, null),
         pinned: detailsPinned
       })));
     };
@@ -49319,12 +49644,12 @@ var init_GlobalToolbar = __esm({
 });
 
 // studio/src/utils/renderInPortalInContext.tsx
-var import_dataverse79, import_react250, import_react_dom8, theAtom, lastId, getMounter, MountAll, Mount;
+var import_dataverse79, import_react254, import_react_dom8, theAtom, lastId, getMounter, MountAll, Mount;
 var init_renderInPortalInContext = __esm({
   "studio/src/utils/renderInPortalInContext.tsx"() {
     import_dataverse79 = __toModule(require("@theatre/dataverse"));
     init_src();
-    import_react250 = __toModule(require_react());
+    import_react254 = __toModule(require_react());
     import_react_dom8 = __toModule(require_react_dom());
     theAtom = new import_dataverse79.Atom({
       set: {},
@@ -49353,7 +49678,7 @@ var init_renderInPortalInContext = __esm({
     };
     MountAll = () => {
       const ids = Object.keys(useVal(theAtom.pointer.set));
-      return /* @__PURE__ */ import_react250.default.createElement(import_react250.default.Fragment, null, ids.map((id) => /* @__PURE__ */ import_react250.default.createElement(Mount, {
+      return /* @__PURE__ */ import_react254.default.createElement(import_react254.default.Fragment, null, ids.map((id) => /* @__PURE__ */ import_react254.default.createElement(Mount, {
         key: "id-" + id,
         id
       })));
@@ -49361,7 +49686,7 @@ var init_renderInPortalInContext = __esm({
     Mount = ({ id }) => {
       const { comp, portalNode, props } = useVal(theAtom.pointer.byId[id]);
       const Comp = comp;
-      return (0, import_react_dom8.createPortal)(/* @__PURE__ */ import_react250.default.createElement(Comp, __spreadValues({}, props)), portalNode);
+      return (0, import_react_dom8.createPortal)(/* @__PURE__ */ import_react254.default.createElement(Comp, __spreadValues({}, props)), portalNode);
     };
   }
 });
@@ -49379,7 +49704,7 @@ function UIRoot() {
   const logger = uiRootLogger.getLogger().named("Theatre.js UIRoot");
   useKeyboardShortcuts();
   const visiblityState = useVal(studio3.atomP.ahistoric.visibilityState);
-  (0, import_react252.useEffect)(() => {
+  (0, import_react256.useEffect)(() => {
     if (visiblityState === "everythingIsHidden") {
       console.warn(`Theatre.js Studio is hidden. Use the keyboard shortcut 'alt + \\' to restore the studio, or call studio.ui.restore().`);
     }
@@ -49389,27 +49714,27 @@ function UIRoot() {
   const inside = usePrism(() => {
     const visiblityState2 = (0, import_dataverse80.val)(studio3.atomP.ahistoric.visibilityState);
     const initialised = (0, import_dataverse80.val)(studio3.atomP.ephemeral.initialised);
-    return !initialised ? null : /* @__PURE__ */ import_react252.default.createElement(ProvideLogger, {
+    return !initialised ? null : /* @__PURE__ */ import_react256.default.createElement(ProvideLogger, {
       logger
-    }, /* @__PURE__ */ import_react252.default.createElement(TooltipContext_default, null, /* @__PURE__ */ import_react252.default.createElement(ProvidePointerCapturing, null, /* @__PURE__ */ import_react252.default.createElement(MountExtensionComponents, null), /* @__PURE__ */ import_react252.default.createElement(PortalContext.Provider, {
+    }, /* @__PURE__ */ import_react256.default.createElement(TooltipContext_default, null, /* @__PURE__ */ import_react256.default.createElement(ProvidePointerCapturing, null, /* @__PURE__ */ import_react256.default.createElement(MountExtensionComponents, null), /* @__PURE__ */ import_react256.default.createElement(PortalContext.Provider, {
       value: portalLayer
-    }, /* @__PURE__ */ import_react252.default.createElement(ProvideStyles, {
+    }, /* @__PURE__ */ import_react256.default.createElement(ProvideStyles, {
       target: window.__IS_VISUAL_REGRESSION_TESTING === true ? void 0 : getStudio().ui.containerShadow
-    }, /* @__PURE__ */ import_react252.default.createElement(import_react252.default.Fragment, null, /* @__PURE__ */ import_react252.default.createElement(MakeRootHostContainStatic, null), /* @__PURE__ */ import_react252.default.createElement(Container60, {
+    }, /* @__PURE__ */ import_react256.default.createElement(import_react256.default.Fragment, null, /* @__PURE__ */ import_react256.default.createElement(MakeRootHostContainStatic, null), /* @__PURE__ */ import_react256.default.createElement(Container62, {
       className: visiblityState2 === "everythingIsHidden" ? "invisible" : ""
-    }, /* @__PURE__ */ import_react252.default.createElement(PortalLayer, {
+    }, /* @__PURE__ */ import_react256.default.createElement(PortalLayer, {
       ref: portalLayerRef
-    }), /* @__PURE__ */ import_react252.default.createElement(GlobalToolbar_default, null), /* @__PURE__ */ import_react252.default.createElement(PanelsRoot_default, null), /* @__PURE__ */ import_react252.default.createElement(Notifier, null))))))));
+    }), /* @__PURE__ */ import_react256.default.createElement(GlobalToolbar_default, null), /* @__PURE__ */ import_react256.default.createElement(PanelsRoot_default, null), /* @__PURE__ */ import_react256.default.createElement(Notifier, null))))))));
   }, [studio3, portalLayerRef, portalLayer]);
   return inside;
 }
-var import_dataverse80, import_react252, MakeRootHostContainStatic, Container60, _a, INTERNAL_LOGGING, MountExtensionComponents;
+var import_dataverse80, import_react256, MakeRootHostContainStatic, Container62, _a, INTERNAL_LOGGING, MountExtensionComponents;
 var init_UIRoot = __esm({
   "studio/src/UIRoot/UIRoot.tsx"() {
     init_getStudio();
     init_src();
     import_dataverse80 = __toModule(require("@theatre/dataverse"));
-    import_react252 = __toModule(require_react());
+    import_react256 = __toModule(require_react());
     init_styled_components_browser_esm();
     init_PanelsRoot();
     init_GlobalToolbar();
@@ -49429,7 +49754,7 @@ var init_UIRoot = __esm({
     contain: strict;
   }
 ` : {};
-    Container60 = styled_components_browser_esm_default(PointerEventsHandler_default)`
+    Container62 = styled_components_browser_esm_default(PointerEventsHandler_default)`
   z-index: 50;
   position: fixed;
   inset: 0;
@@ -49441,7 +49766,7 @@ var init_UIRoot = __esm({
 `;
     INTERNAL_LOGGING = /Playground.+Theatre\.js/.test((_a = typeof document !== "undefined" ? document == null ? void 0 : document.title : null) != null ? _a : "");
     MountExtensionComponents = () => {
-      return /* @__PURE__ */ import_react252.default.createElement(MountAll, null);
+      return /* @__PURE__ */ import_react256.default.createElement(MountAll, null);
     };
   }
 });
@@ -49451,11 +49776,11 @@ var UI_exports = {};
 __export(UI_exports, {
   default: () => UI
 });
-var import_react253, import_react_dom9, import_dataverse81, UI;
+var import_react257, import_react_dom9, import_dataverse81, UI;
 var init_UI = __esm({
   "studio/src/UI.ts"() {
     init_UIRoot();
-    import_react253 = __toModule(require_react());
+    import_react257 = __toModule(require_react());
     import_react_dom9 = __toModule(require_react_dom());
     import_dataverse81 = __toModule(require("@theatre/dataverse"));
     init_renderInPortalInContext();
@@ -49509,7 +49834,7 @@ var init_UI = __esm({
           this._renderTimeout = void 0;
           this._documentBodyUIIsRenderedIn = document.body;
           this._documentBodyUIIsRenderedIn.appendChild(this.containerEl);
-          import_react_dom9.default.render(import_react253.default.createElement(UIRoot), this.containerShadow);
+          import_react_dom9.default.render(import_react257.default.createElement(UIRoot), this.containerShadow);
         };
         this._renderTimeout = setTimeout(renderCallback, 10);
       }
@@ -52203,11 +52528,11 @@ var StudioBundle = class {
 };
 
 // studio/src/uiComponents/toolbar/ToolbarDropdownSelect.tsx
-var import_react254 = __toModule(require_react());
+var import_react258 = __toModule(require_react());
 init_styled_components_browser_esm();
-var Container61 = styled_components_browser_esm_default.div``;
+var Container63 = styled_components_browser_esm_default.div``;
 var ToolbarDropdownSelect = (props) => {
-  return /* @__PURE__ */ import_react254.default.createElement(Container61, null);
+  return /* @__PURE__ */ import_react258.default.createElement(Container63, null);
 };
 var ToolbarDropdownSelect_default = ToolbarDropdownSelect;
 

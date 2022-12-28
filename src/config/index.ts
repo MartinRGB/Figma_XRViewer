@@ -1,5 +1,5 @@
 // export to LAN SERVER OR WEB SERVER
-export const isLocal = false; 
+export const isLocal = true; 
 
 // load three.js decoder from LAN Sever
 //export const isDecoderFromLoacl = isLocal?true:false; 
@@ -25,3 +25,6 @@ export const nginxAssetFolderPath = nginxDirLink + nginxUploadFolder;
 export const figmaExportScale = 1;
 export const figmaIsContainFrame = false;
 export const figmaIsUseAbsoluteBounds =true;
+
+// if use modified theatre.js
+export const isTextureEditor = true

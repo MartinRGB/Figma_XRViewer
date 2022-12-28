@@ -13,7 +13,7 @@ import { nginxDecoderPath, nginxTestPath } from '@Config';
 import { Select,TransformControls,AdaptiveEvents,AdaptiveDpr, Detailed  } from '@react-three/drei';
 import { TheatreSelectContext } from './TheatreSelectContext';
 import { testNginxServerExist } from '@Utils/nginxTest';
-import {nginxDirLink} from '@Config'
+import {nginxDirLink,isTextureEditor} from '@Config'
 
 // let dracoloader;
 // let ktx2Loader;
@@ -272,6 +272,8 @@ const Screen = (props) =>{
   const [currVis,setCurrVis] = useState(false);
   const {invalidate,scene,gl,camera} = useThree()
 
+  const currMapSrc = useRef({src:'',fileName:''});
+
   const setupTexture = useCallback((tex) =>{
     tex.needsUpdate = true;
     setYScalePerc(tex.image.height / tex.image.width)
@@ -284,34 +286,86 @@ const Screen = (props) =>{
 
   useEffect(()=>{
 
-    if(props.isQuery === true){
-      if(props.hasData){
-        new THREE.TextureLoader().load(props.src, (tex) => {
-          setupTexture(tex)
-        });
-      }
-    }else{
-      if(props.hasData){
-        new THREE.TextureLoader().load(props.src, (tex) => {
-          setupTexture(tex)
-        });
-      }
-      else{
-        new Promise(function(resolve, reject) {
-          resolve(createCanvasGridMaterial('white',1920,1080,9,9,4).image.toDataURL("image/png"))
-        }).then(function(result) { // (**)
-          var tex = new THREE.Texture();
-          var loadedImage = new Image();
-          loadedImage.src = result;
-          var thisImg = loadedImage;
-          tex.image = thisImg;
-          thisImg.onload = function () {
+    // #### query data without theatreJS mapSrc
+    //query data
+    if(!isTextureEditor){
+      if(props.isQuery === true){
+        if(props.hasData){
+          new THREE.TextureLoader().load(props.src, (tex) => {
             setupTexture(tex)
-          };
-        })
+          });
+        }
+      }else{
+        // figma or static data
+        if(props.hasData){
+          new THREE.TextureLoader().load(props.src, (tex) => {
+            setupTexture(tex)
+          });
+        }
+        // empty data
+        else{
+          new Promise(function(resolve, reject) {
+            resolve(createCanvasGridMaterial('white',1920,1080,9,9,4).image.toDataURL("image/png"))
+          }).then(function(result) { // (**)
+            var tex = new THREE.Texture();
+            var loadedImage = new Image();
+            loadedImage.src = result;
+            var thisImg = loadedImage;
+            tex.image = thisImg;
+            thisImg.onload = function () {
+              setupTexture(tex)
+            };
+          })
+        }
       }
     }
+    // #### query data without theatreJS mapSrc
+    //query data
+    if(isTextureEditor){
+      const loadTexfromMapSrc = (url) =>{
+        const img = new Image();
+        img.src = url;
+        img.onload = function() { 
+          setYScalePerc(img.height/img.width)
+        }
+
+        fetch(url)
+        .then(res => {
+            return res.blob()
+          }
+        )
+        .then(
+          result => {
+            var blobUrl = URL.createObjectURL(new Blob([result]));
+            currMapSrc.current = ({src:blobUrl,fileName:`${props.name.split('-')[1]}.png`})
+            setCurrVis(true);
+            invalidate();
+          }
+        ) 
+      }
+
+      if(props.isQuery === true){
+        if(props.hasData){
+          loadTexfromMapSrc(props.src)
+        }
+      }else{
+        // figma or static data
+        if(props.hasData){
+          loadTexfromMapSrc(props.src)
+        }
+        // empty data
+        else{
+          new Promise(function(resolve, reject) {
+            resolve(createCanvasGridMaterial('white',1920,1080,9,9,4).image.toDataURL("image/png"))
+          }).then(function(result) { // (**)
+            loadTexfromMapSrc(result)
+          })
+        }
+      }
+    }
+
   },[props.src,props.hasData]) //props.src,props.hasData
+
 
   useEffect(()=>{ 
     screenSheetObj.current.onValuesChange(newValues => {
@@ -327,6 +381,7 @@ const Screen = (props) =>{
   // on Canvas Select
   useEffect(() => {
     if(active != undefined){
+      console.log(active)
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([screenSheetObj.current])
       props.selectCallback(props.index);
@@ -340,7 +395,8 @@ const Screen = (props) =>{
   // on Studio Select 
   useEffect(() => {
     window.studio.onSelectionChange((newSelection) => {
-      if(window.studio.selection.length !=0 && window.studio.selection[0].address.objectKey ===  props.name){
+      const seletObjKeyName = isTextureEditor?(props.name + ' / geometry'):props.name;
+      if(window.studio.selection.length !=0 && window.studio.selection[0].address.objectKey === seletObjKeyName){
         if(active === undefined){setSelected([screenRef.current])}
       }
       else{
@@ -387,21 +443,6 @@ const Screen = (props) =>{
     scene.remove( boxHelperRef.current );
     boxHelperRef.current = null;
   }
-  // useEffect(() => {
-  //   if(active){
-  //     setIsShowHint(true)
-  //   }
-  //   else{
-  //     if(hovered){
-  //       setIsShowHint(true)
-  //       addBoxHelper()
-  //     }
-  //     else{
-  //       setIsShowHint(false)
-  //       removeBoxHelper()
-  //     }
-  //   }
-  // },[active,hovered])
   
   useEffect(() => {
     if(active){
@@ -452,7 +493,7 @@ const Screen = (props) =>{
       />}
       <Select box onChange={(e)=>{setSelected(e)}}>
         <e.mesh 
-            theatreKey={props.name}
+            theatreKey={ isTextureEditor?(props.name  + ' / geometry'):props.name }
             name={props.name}
             onPointerOver={useCallback((e) => {e.stopPropagation();hover(true)},[])}
             onPointerOut={useCallback((e) => {e.stopPropagation();hover(false)},[])}
@@ -486,17 +527,28 @@ const Screen = (props) =>{
                 :
                 props.baseUnit*yScalePerc, 
             40, 40]} />
-            <meshBasicMaterial 
+            {isTextureEditor?
+                <e.meshStandardMaterial 
+                theatreKey={props.name + ' / material'}
                 ref={screeMaterial}
+                alphaTest ={0.1}
+                mapSrc={currMapSrc.current}
+                toneMapped={false}
+                color={isShowHint ? 'hotpink' : 'white'} />
+                : 
+                <meshBasicMaterial 
+                ref={screeMaterial}
+                side={THREE.DoubleSide}
                 // depthTest={true}
                 // depthWrite={false}
-                side={THREE.DoubleSide}
                 alphaTest ={0.1}
                 transparent={true}
                 map={currMap}
                 toneMapped={false}
                 color={isShowHint ? 'hotpink' : 'white'} //hovered
-                />
+                /> 
+              }
+
         </e.mesh>
       </Select>
     </>
