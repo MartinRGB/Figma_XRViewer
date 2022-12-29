@@ -71,6 +71,7 @@ module.exports = (env, argv) => ({
       "typeof window": JSON.stringify("object"),
       'process.env.name': JSON.stringify('Vishwas'),
       "process.env.PLATFORM": JSON.stringify(`${env.PLATFORM}`),
+      "process.env.mode": JSON.stringify(`${env.MODE}`),
     }),
     //...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:9000})]),
   ].concat(

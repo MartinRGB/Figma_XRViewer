@@ -113,7 +113,8 @@ module.exports = (env, argv) => ({
       "process.env.PLUGIN": JSON.stringify(`${env.PLUGIN}`),
       "process.env.WIDTH": JSON.stringify(`${env.WIDTH}`),
       "process.env.HEIGHT": JSON.stringify(`${env.HEIGHT}`),
-      "process.env.BUILD": JSON.stringify(`${env.BUILD}`)
+      "process.env.BUILD": JSON.stringify(`${env.BUILD}`),
+      "process.env.mode": JSON.stringify(`${env.MODE}`),
     }),
     //...(argv.mode === 'production' ? [] : [new BundleAnalyzerPlugin({analyzerPort:`${env.PLUGIN === 'xrviewer'?9001:env.PLUGIN === 'unity'?9002:9003}`})]),
   ],

@@ -1,5 +1,9 @@
+console.log('process env build is:')
+console.log(process.env.mode)
 // export to LAN SERVER OR WEB SERVER
-export const isLocal = false; 
+export const isLocal = (process.env.mode === 'dev')?true:false; 
+console.log('is local environment ' + isLocal)
+
 // if use modified theatre.js
 export const isTextureEditor = true
 

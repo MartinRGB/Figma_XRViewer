@@ -15,21 +15,25 @@ import { TheatreSelectContext } from './TheatreSelectContext';
 import { testNginxServerExist } from '@Utils/nginxTest';
 import {nginxDirLink,isTextureEditor} from '@Config'
 
+// todo loader should test only once
 // let dracoloader;
 // let ktx2Loader;
-// if(isDecoderFromLoacl){
-//   const Local_Decoder_Path = `${nginxDirLink}/service_1/decoder`
-//   dracoloader = new DRACOLoader().setDecoderPath(`${Local_Decoder_Path}/draco/gltf/`)
-//   ktx2Loader = new KTX2Loader().setTranscoderPath(`${Local_Decoder_Path}/basis/`)
-//   dracoloader.preload()
-// }
-// else{
-//   const Three_Decoder_Path = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
-//   dracoloader = new DRACOLoader().setDecoderPath(`${Three_Decoder_Path}/examples/js/libs/draco/gltf/`)
-//   ktx2Loader = new KTX2Loader().setTranscoderPath(`${Three_Decoder_Path}/examples/js/libs/basis/`)
-//   dracoloader.preload()
-// }
-
+// testNginxServerExist(
+//   ()=>{
+//     const DecoderPath = nginxDecoderPath;
+//     dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+//     ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+//     dracoloader.preload()
+//     console.log('decoderPath is ' + DecoderPath);
+//   },
+//   ()=>{
+//     const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
+//     dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+//     ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+//     dracoloader.preload()
+//     console.log('decoderPath is ' + DecoderPath);
+//   }
+// )
 
 const Model = (props) =>{
   const modelGroupRef = useRef(null)
@@ -43,8 +47,27 @@ const Model = (props) =>{
     console.log('finsihed model loading from:' + props.modelSrc)
     // loader.setDRACOLoader(dracoloader);
     // loader.setKTX2Loader(ktx2Loader);
-    loader.setDRACOLoader(props.dracoloader);
-    loader.setKTX2Loader(props.ktx2Loader);
+    // todo loader should test only once
+    testNginxServerExist(
+      ()=>{
+        const DecoderPath = nginxDecoderPath;
+        const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+        dracoloader.preload()
+        console.log('decoderPath is ' + DecoderPath);
+        loader.setDRACOLoader(dracoloader);
+        loader.setKTX2Loader(ktx2Loader);
+      },
+      ()=>{
+        const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
+        const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+        dracoloader.preload()
+        console.log('decoderPath is ' + DecoderPath);
+        loader.setDRACOLoader(dracoloader);
+        loader.setKTX2Loader(ktx2Loader);
+      }
+    )
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
 
@@ -566,27 +589,6 @@ interface ProperScreenProps {
 
 const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallback}:ProperScreenProps) =>{
 
-  const dracoloaderRef = useRef(null);
-  const ktx2LoaderRef = useRef(null);
-  
-  useEffect(()=>{
-    testNginxServerExist(
-    ()=>{
-      const DecoderPath = nginxDecoderPath;
-      dracoloaderRef.current = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-      ktx2LoaderRef.current = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-      dracoloaderRef.current.preload()
-      console.log('decoderPath is ' + DecoderPath);
-    },
-    ()=>{
-      const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
-      dracoloaderRef.current = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-      ktx2LoaderRef.current = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-      dracoloaderRef.current.preload()
-      console.log('decoderPath is ' + DecoderPath);
-    })
-  },[])
-
   return(
     <>
     <SheetProvider sheet={getProject('XRViewer').sheet('NodeTree','Controller')}>
@@ -595,27 +597,25 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
         { figmaData.map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
           (modelSrc != null)?
           <Model  
-            key={type + '-three-' + index} 
-            src={src}
-            name={`#${index}-`+name.split('/')[name.split('/').length-1].substring(0,24)}
-            x={(index===0)?0:x}
-            y={(index===0)?0:y}
-            index={index}
-            width={width}
-            height={height}
-            // frameWidth={figmaData[0].width}
-            // frameHeight={figmaData[0].height}
-            frameWidth={frameWidth}
-            frameHeight={frameHeight}
-            hasData={true}
-            isFigma={isFigma}
-            isQuery={isQuery}
-            dracoloader={dracoloaderRef.current}
-            ktx2Loader={ktx2LoaderRef.current}
-            baseUnit={baseUnit}
-            modelSrc={modelSrc}
-            orbitRef={orbitRef}
-            selectCallback={(e)=>{selectCallback(e);}}
+          key={type + '-three-' + index} 
+          src={src}
+          name={`#${index}-`+name.split('/')[name.split('/').length-1].substring(0,24)}
+          x={(index===0)?0:x}
+          y={(index===0)?0:y}
+          index={index}
+          width={width}
+          height={height}
+          // frameWidth={figmaData[0].width}
+          // frameHeight={figmaData[0].height}
+          frameWidth={frameWidth}
+          frameHeight={frameHeight}
+          hasData={true}
+          isFigma={isFigma}
+          isQuery={isQuery}
+          baseUnit={baseUnit}
+          modelSrc={modelSrc}
+          orbitRef={orbitRef}
+          selectCallback={(e)=>{selectCallback(e);}}
           />
           :
           <Screen  

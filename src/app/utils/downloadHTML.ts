@@ -50,12 +50,11 @@ async function syncGetModelBlobFromUrl (url,callback){
 export const onDownloadHTML = async(event,isServe,figmaData,layout) =>{
   var frameHTML = document.documentElement.innerHTML;
   var outputData = new Array(figmaData.length)
-  console.log(figmaData)
-  console.log(outputData)
   new Promise((resolve, reject) => {
       if(isServe === true){
         for(var i=0;i<outputData.length;i++){
-          let index = i;
+          // todo
+          let index = i;;
           outputData.splice(index,1,{
             name:figmaData[index].name,
             width:figmaData[index].width,
@@ -79,8 +78,9 @@ export const onDownloadHTML = async(event,isServe,figmaData,layout) =>{
             imageData:null,
             modelSrc:(figmaData[index].modelSrc != null)?`./models/`+`%23${index}-`+figmaData[index].modelSrc.split('/')[figmaData[index].modelSrc.split(`/`).length - 1]:null,
           })
-
+          
           if(index === outputData.length - 1){
+              console.log(outputData)
               const newHtml = frameHTML.replace(/savedFigData = \'\'/g,`savedFigData = ${JSON.stringify(outputData)}`);
               const withOutTheatreHTML = newHtml.replaceAll(`<div id="theatrejs-studio-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 100;"></div>`,'');
               resolve({data:withOutTheatreHTML,isServe:true})
@@ -161,13 +161,14 @@ export const onDownloadHTML = async(event,isServe,figmaData,layout) =>{
               saveZip('my_project',mUrl)
             }
           }
-          //console.log(res.data)
           var bb = new Blob([res.data], { type: 'text/html' });
           var htmlUrl = window.URL.createObjectURL(bb);
           mUrl.push({url:htmlUrl,name:'index',ext:'html'})
 
           for(var a=0;a<figmaData.length;a++){
+            //todo
             let index = a;
+            //let index = figmaData.length - a - 1;
             //let data = outputData[index];
             if(figmaData[index].modelSrc != null){
               syncGetModelBlobFromUrl(
@@ -184,7 +185,7 @@ export const onDownloadHTML = async(event,isServe,figmaData,layout) =>{
                     figmaData[index].modelSrc.includes('.gltf')?'gltf':'glb'
                   )
                   mUrl = URLPush(
-                    layout.children[figmaData.length - 1 - index].src,
+                    layout.children[index].src, // layout.children[figmaData.length - 1 - index].src,
                     `#${index}-` + figmaData[index].modelSrc.split('/')[figmaData[index].modelSrc.split(`/`).length - 1].substring(0,24),
                     'png'
                   )
@@ -196,7 +197,7 @@ export const onDownloadHTML = async(event,isServe,figmaData,layout) =>{
             else{
               //console.log(layout.children[figmaData.length - 1 - index].src)
               mUrl = URLPush(
-                layout.children[figmaData.length - 1 - index].src,
+                layout.children[index].src, //layout.children[figmaData.length - 1 - index].src,
                 `#${index}-` + figmaData[index].name.replaceAll(/\//g,`_`).replaceAll(/\ /g,`_`).substring(0,24),
                 'png')
               URLLoopTillEnd();
