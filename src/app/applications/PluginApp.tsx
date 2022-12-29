@@ -103,7 +103,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             window.open(`${webRootURL}index.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}$rnd=${Math.random()}`, '_blank')
           }
           else if(platform === 'unity'){
-            window.open(`${webRootURL}importer.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}}`, '_blank')
+            window.open(`${webRootURL}importer.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
           }
           
           onCancel();
