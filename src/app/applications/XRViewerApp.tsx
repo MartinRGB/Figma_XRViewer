@@ -42,8 +42,8 @@ const ViewerConfig ={
   savedImageQuality:2,
 }
 
-const lightSheet = getProject('XRViewer').sheet('Node Tree','Light Controller')
-const helperSheet = getProject('XRViewer').sheet('Node Tree','Node Controller')
+const lightSheet = getProject('XRViewer').sheet('Light','Controller')
+const helperSheet = getProject('XRViewer').sheet('Helper','Controller')
 const sceneHelper = helperSheet.object(' - Helper Controller', {
   // cameraHelper:types.boolean(false),
   polarHelper: types.boolean(true),

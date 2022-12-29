@@ -589,7 +589,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
 
   return(
     <>
-    <SheetProvider sheet={getProject('XRViewer').sheet('Node Tree','Asset')}>
+    <SheetProvider sheet={getProject('XRViewer').sheet('NodeTree','Controller')}>
     {(figmaData.length != 0)?
       <>
         { figmaData.map(({ type,index,name,x,y,width,height,frameWidth,frameHeight,src,modelSrc}) => (
