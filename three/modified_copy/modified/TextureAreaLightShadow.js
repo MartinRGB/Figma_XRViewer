@@ -1,6 +1,7 @@
 import { LightShadow } from '../src/lights/LightShadow.js';
 import { Matrix4,Matrix3,Vector2,Vector3,Vector4,Frustum,Quaternion,Euler } from '../src/Three.js';
 import { OrthographicCamera } from '../src/cameras/OrthographicCamera.js';
+import { PerspectiveCamera } from '../src/cameras/PerspectiveCamera.js';
 import * as MathUtils from '../src/math/MathUtils.js';
 
 const _projScreenMatrix = /*@__PURE__*/ new Matrix4();
@@ -18,10 +19,11 @@ class TextureAreaLightShadow {
 	constructor( left,right,top,bottom,near,far ) {
 
 		this.camera = new OrthographicCamera(left,right,top,bottom,near,far);
+		//this.camera = new PerspectiveCamera(170, 1, 0.1, 500);
 
 		this.bias = 0;
 		this.normalBias = 0;
-		this.radius = 1;
+		this.radius = 0.1;
 		this.blurSamples = 8;
 
 		this.mapSize = new Vector2( 512, 512 );
@@ -69,7 +71,7 @@ class TextureAreaLightShadow {
 		shadowCamera.top = -light.height/2;
 		shadowCamera.bottom = light.height/2;
 		shadowCamera.updateProjectionMatrix();
-
+		
 		////////////////
 		// # get world property
 		const position = new Vector3(); // create one and reuse it

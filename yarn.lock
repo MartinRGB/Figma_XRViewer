@@ -6704,7 +6704,7 @@
 
 "stats.js@^0.17.0":
   "integrity" "sha512-hNKz8phvYLPEcRkeG1rsGmV5ChMjKDAWU7/OJJdDErPBNChQXxCo3WZurGpnWc6gZhAzEPFad1aVgyOANH1sMw=="
-  "resolved" "https://registry.npmjs.org/stats.js/-/stats.js-0.17.0.tgz"
+  "resolved" "https://registry.npmmirror.com/stats.js/-/stats.js-0.17.0.tgz"
   "version" "0.17.0"
 
 "statuses@>= 1.4.0 < 2":

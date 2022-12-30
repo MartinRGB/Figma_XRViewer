@@ -439,6 +439,7 @@ const XRViewerApp = () => {
                           }
                         }
                       />
+                       <Stats />
                 </Canvas>
           </CanvasContainer>
         </WebXRContainer>

@@ -36,13 +36,8 @@ class TextureAreaLight extends Light {
 		this.quadraticAttenuation = ( quadraticAttenuation !== undefined ) ? quadraticAttenuation : 0.5;
 		this.lightProxy = ( renderer !== null ) ? new AreaLightProxy( this, renderer ) : null;
 		
-		this.position.copy( Object3D.DefaultUp );
-		this.updateMatrix();
-		
-		this.target = new Object3D();
-		// no work in this constructor
 		this.shadow = new TextureAreaLightShadow(-this.width/2,this.width/2,-this.height/2,this.height/2,0.01,500);
-		
+		this.updateMatrix();
 	}
 
 	dispose() {
@@ -66,7 +61,6 @@ class TextureAreaLight extends Light {
 		this.quadraticAttenuation = source.quadraticAttenuation;
 		this.lightProxy = source.lightProxy;
 
-		this.target = source.target.clone();
 		this.shadow = source.shadow.clone();
 
 		return this;
