@@ -14,6 +14,7 @@ import { Select,TransformControls,AdaptiveEvents,AdaptiveDpr, Detailed  } from '
 import { TheatreSelectContext } from './TheatreSelectContext';
 import { testNginxServerExist } from '@Utils/nginxTest';
 import {nginxDirLink,isTextureEditor} from '@Config'
+import { TextureLoader } from 'three';
 
 // todo loader should test only once
 // let dracoloader;
@@ -57,6 +58,23 @@ const Model = (props) =>{
         console.log('decoderPath is ' + DecoderPath);
         loader.setDRACOLoader(dracoloader);
         loader.setKTX2Loader(ktx2Loader);
+
+        //todo 
+        gltf.scene.traverse( function ( child ) {
+
+          if ( child.material ) {
+    
+              // do something with child.material
+              if(child.material.map){
+                child.material.map.dispose()
+                child.material.dispose()
+              }
+          }
+          if ( child.geometry){
+              child.geometry.dispose()
+          }
+    
+        } );
       },
       ()=>{
         const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
@@ -66,8 +84,26 @@ const Model = (props) =>{
         console.log('decoderPath is ' + DecoderPath);
         loader.setDRACOLoader(dracoloader);
         loader.setKTX2Loader(ktx2Loader);
+
+        //todo
+        gltf.scene.traverse( function ( child ) {
+
+          if ( child.material ) {
+    
+              // do something with child.material
+              if(child.material.map){
+                child.material.map.dispose()
+                child.material.dispose()
+              }
+          }
+          if ( child.geometry){
+              child.geometry.dispose()
+          }
+    
+        } );
       }
     )
+
   })
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
 
@@ -79,6 +115,7 @@ const Model = (props) =>{
       storeHoverOrigColor(modelRef.current);
       setCurrVis(true);
       console.log(`finsihed data setting`)
+      console.log(modelRef.current)
     }
     gltf.animations.forEach(clip => mixerRef.current.clipAction(clip).play())
   },[props.src,props.hasData]) //props.src,props.hasData
@@ -297,6 +334,7 @@ const Screen = (props) =>{
 
   const currMapSrc = useRef({src:'',fileName:''});
 
+
   const setupTexture = useCallback((tex) =>{
     tex.needsUpdate = true;
     setYScalePerc(tex.image.height / tex.image.width)
@@ -304,6 +342,8 @@ const Screen = (props) =>{
     setCurrMap(tex);
     setCurrVis(true);
     tex.dispose()
+    screenGeom.current.dispose();
+    screeMaterial.current.dispose();
     invalidate();
   },[])
 
@@ -337,6 +377,9 @@ const Screen = (props) =>{
             tex.image = thisImg;
             thisImg.onload = function () {
               setupTexture(tex)
+              tex.dispose();
+              screenGeom.current.dispose();
+              screeMaterial.current.dispose();
             };
           })
         }
@@ -346,10 +389,11 @@ const Screen = (props) =>{
     //query data
     if(isTextureEditor){
       const loadTexfromMapSrc = (url) =>{
-        const img = new Image();
+        var img = new Image();
         img.src = url;
         img.onload = function() { 
           setYScalePerc(img.height/img.width)
+          img = null;
         }
 
         fetch(url)
@@ -363,6 +407,7 @@ const Screen = (props) =>{
             currMapSrc.current = ({src:blobUrl,fileName:`${props.name.split('-')[1]}.png`})
             setCurrVis(true);
             invalidate();
+            blobUrl = null;
           }
         ) 
       }
