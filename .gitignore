@@ -4,7 +4,9 @@ settings.json
 
 !@theatre/core/dist
 !@theatre/studio/dist
-
+!@theatre/r3f/dist
+!@theatre/r3f/dist
+!three\modified_copy\@react-three\fiber\dist
 XRViewer_GLTF/*.html
 XRViewer_GLTF/*.js
 XRViewer_GLTF/*.zip

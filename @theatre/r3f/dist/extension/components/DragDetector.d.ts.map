@@ -1,0 +1,1 @@
+{"version":3,"file":"DragDetector.d.ts","sourceRoot":"","sources":["../../../src/extension/components/DragDetector.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,EAAE,EAAE,SAAS,EAAC,MAAM,OAAO,CAAA;AAWxC,UAAU,yBAAyB;IACjC,QAAQ,EAAE,SAAS,CAAA;CACpB;AAED,eAAO,MAAM,oBAAoB,EAAE,EAAE,CAAC,yBAAyB,CAwB9D,CAAA;AAED,eAAO,MAAM,eAAe,eAAwC,CAAA"}
