@@ -22,10 +22,10 @@ import { webRootURL,webClientID,webSecrectID, isTextureEditor} from '@Config';
 import { getProject,ISheetObject,types } from '@theatre/core'
 
 import { editable as e,SheetProvider } from '@theatre/r3f'
-import { AdaptiveDpr, AdaptiveEvents, GizmoHelper, GizmoViewport, Stage, useHelper } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, GizmoHelper, GizmoViewport, Stage, Stats, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
 import GalleryComponent from '../components/GalleryComponent';
-import { searchElementByType } from '@Utils/functions';
+
 
 // todo
 // 2.computer data pass to XR Device 
@@ -147,6 +147,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
               position={[0, 0, 100]}
               intensity={0} 
             />
+
           </SheetProvider>
           <SheetProvider sheet={helperSheet}>
             <CombinedCamera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
@@ -174,8 +175,8 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
             </>
           }
           <AdaptiveDpr pixelated />
+
       </Stage>
-      
     </>
   )
 })
@@ -365,6 +366,8 @@ const XRViewerApp = () => {
     }
   }
 
+  const statsRef = useRef();
+
   //todo error when in XRViewer Plugin,cannot load
   return (
     <>
@@ -418,7 +421,8 @@ const XRViewerApp = () => {
                     debounce: 200,
                   }}
                   gl={{
-                    preserveDrawingBuffer:true,
+                    // preserveDrawingBuffer:true,
+                    autoClear:true,
                     outputEncoding:THREE.sRGBEncoding,
                     antialias: true, 
                     alpha: true,
@@ -439,8 +443,8 @@ const XRViewerApp = () => {
                           }
                         }
                       />
-                       <Stats />
                 </Canvas>
+                <Stats className="stats"/>
           </CanvasContainer>
         </WebXRContainer>
         {isFigma && <DragCorner minWidth={512} minHeight={512}/>}

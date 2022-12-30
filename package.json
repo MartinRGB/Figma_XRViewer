@@ -70,7 +70,6 @@
 		"prettier": "^2.8.0",
 		"react-hot-toast": "^2.4.0",
 		"release-it": "^15.5.0",
-		"stats.js": "^0.17.0",
 		"style-loader": "^3.3.1",
 		"styled-components": "^5.3.6",
 		"three": "^0.146.0",
