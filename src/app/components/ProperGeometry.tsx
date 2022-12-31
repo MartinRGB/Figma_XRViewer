@@ -59,22 +59,6 @@ const Model = (props) =>{
         loader.setDRACOLoader(dracoloader);
         loader.setKTX2Loader(ktx2Loader);
 
-        //todo 
-        gltf.scene.traverse( function ( child ) {
-
-          if ( child.material ) {
-    
-              // do something with child.material
-              if(child.material.map){
-                child.material.map.dispose()
-                child.material.dispose()
-              }
-          }
-          if ( child.geometry){
-              child.geometry.dispose()
-          }
-    
-        } );
       },
       ()=>{
         const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
@@ -85,26 +69,31 @@ const Model = (props) =>{
         loader.setDRACOLoader(dracoloader);
         loader.setKTX2Loader(ktx2Loader);
 
-        //todo
-        gltf.scene.traverse( function ( child ) {
-
-          if ( child.material ) {
-    
-              // do something with child.material
-              if(child.material.map){
-                child.material.map.dispose()
-                child.material.dispose()
-              }
-          }
-          if ( child.geometry){
-              child.geometry.dispose()
-          }
-    
-        } );
       }
     )
 
   })
+
+  useEffect(()=>{
+    if(gltf){
+      gltf.scene.traverse( function ( child ) {
+
+        if ( child.material ) {
+
+            // do something with child.material
+            if(child.material.map){
+              child.material.map.dispose()
+              child.material.dispose()
+            }
+        }
+        if ( child.geometry){
+            child.geometry.dispose()
+        }
+
+      });
+    }
+  },[gltf])
+
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
 
   useEffect(()=>{
