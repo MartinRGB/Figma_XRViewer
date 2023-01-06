@@ -22,9 +22,10 @@ import { webRootURL,webClientID,webSecrectID, isTextureEditor} from '@Config';
 import { getProject,ISheetObject,types } from '@theatre/core'
 
 import { editable as e,SheetProvider } from '@theatre/r3f'
-import { AdaptiveDpr, AdaptiveEvents, GizmoHelper, GizmoViewport, Stage, Stats, useHelper } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, Environment, GizmoHelper, GizmoViewport, Stage, Stats, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
 import GalleryComponent from '../components/GalleryComponent';
+import { isLocal } from '../../config/index';
 
 
 // todo
@@ -50,6 +51,24 @@ const sceneHelper = helperSheet.object(' - Helper Controller', {
   dotHelper:types.boolean(false),
   quality: types.stringLiteral(ViewerConfig.savedImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
   dpr:types.number(1, {nudgeMultiplier: 0.5,range:[0,2]}),
+  preset: types.stringLiteral('rembrandt', {
+    'rembrandt':'rembrandt',
+    'portrait':'portrait',
+    'upfront':'upfront', 
+    'soft':'soft',
+  }),
+  environment: types.stringLiteral('sunset', {
+    "sunset": "sunset",
+    "dawn": "dawn",
+    "night": "night",
+    "warehouse": "warehouse",
+    "forest": "forest",
+    "apartment": "apartment",
+    "studio": "studio",
+    "city": "city",
+    "park": "park",
+    "lobby": "lobby"
+  }),
 })
 
 
@@ -58,12 +77,13 @@ interface RendererProps {
   figmaData:any;
   isQuery:boolean;
   isFigma:boolean;
+  isLocalSever:boolean;
   loadingProgress:string;
   finishedRenderingCallback:()=>void;
   selectCallback:(e:any)=>void;
 }
 
-const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProgress,finishedRenderingCallback,selectCallback}:RendererProps,ref) =>{
+const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,isLocalServer,loadingProgress,finishedRenderingCallback,selectCallback}:RendererProps,ref) =>{
 
   const cameraRef = useRef(null);
   const orbitRef = useRef(null);
@@ -96,6 +116,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
           polarHelper.visible = val.polarHelper
           dotHelper.visible = val.dotHelper
           // console.log(gl)
+          setStageEnv(val.environment)
           gl.setPixelRatio(val.dpr)
           invalidate()
         })
@@ -117,15 +138,17 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
       finishedRenderingCallback();
     }
   },[isQuery,loadingProgress])
+
+  const [stageEnv,setStageEnv] = useState("sunset");
   
   return(
     <> 
-     <Stage shadows={false} preset="rembrandt" intensity={1} environment="sunset" adjustCamera={false}>
-
+     {/* <Stage shadows={false} preset={stagePreset} intensity={1}  adjustCamera={false}> */}
+      {isLocalServer?<Environment files={`https://172.30.9.86:8222/service_1/environment/${stageEnv}.hdr`} />:<></>}
           <SheetProvider sheet={lightSheet}>
             <e.ambientLight 
               theatreKey="Light - Ambient"
-              intensity={0}
+              intensity={1}
             />
             <e.pointLight
               theatreKey="Light - Point" 
@@ -176,7 +199,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,loadingProg
           }
           <AdaptiveDpr pixelated />
 
-      </Stage>
+      {/* </Stage> */}
     </>
   )
 })
@@ -187,12 +210,11 @@ const XRViewerApp = () => {
   const canvasContainerRef = useRef(null);
   const rendererRef = useRef(null);
   const galleryCompRef = useRef();
-  const arBtnRef = useRef();
-  const vrBtnRef = useRef();
 
   const [figData,setFigData] = useState([]);
   const [isFigma, setIsFigma] = useState(false);
   const [isQuery,setIsQuery] = useState(false);
+  const [isLocalServer,setIsLocalServer] = useState(false);
   const [isLoading,setIsLoading] = useState(false);
   const [loadingProgress,setLoadingProgress] = useState(`0`);
   const [isRendered,setIsRendered] = useState(false);
@@ -274,6 +296,7 @@ const XRViewerApp = () => {
       console.log('query - local server')
       console.log(fileKey)
       console.log(nodeId)
+      setIsLocalServer(true)
       asyncFetchQueryLocalServerJSON(
         fileKey,nodeId,
         (str)=>{
@@ -433,6 +456,7 @@ const XRViewerApp = () => {
                         containerRef={canvasContainerRef}
                         isFigma={isFigma}
                         isQuery={isQuery}
+                        isLocalServer={isLocalServer}
                         loadingProgress={loadingProgress}
                         figmaData={figData}
                         finishedRenderingCallback={()=>{setIsRendered(true)}}
