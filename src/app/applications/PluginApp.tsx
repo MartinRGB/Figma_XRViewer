@@ -27,6 +27,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
           let loadingNum = 0;
           const totalLoadingNum = data.length + 1;
 
+
           // ############### upload json data ###############
           console.log(nodeJSON);
           console.log(nodeId)

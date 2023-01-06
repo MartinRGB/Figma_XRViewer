@@ -17,7 +17,7 @@ import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage'
 import {onDownloadHTML} from '@Utils/downloadHTML'
 import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON,sortDataInDescendingOrder}  from '@Utils/queryData'
 import {FigmaApi} from '@Utils/figmaAPI';
-import { webRootURL,webClientID,webSecrectID, isTextureEditor} from '@Config';
+import { webRootURL,webClientID,webSecrectID, isTextureEditor, nginxDirLink} from '@Config';
 
 import { getProject,ISheetObject,types } from '@theatre/core'
 
@@ -144,7 +144,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,isLocalServ
   return(
     <> 
      {/* <Stage shadows={false} preset={stagePreset} intensity={1}  adjustCamera={false}> */}
-      {isLocalServer?<Environment files={`https://172.30.9.86:8222/service_1/environment/${stageEnv}.hdr`} />:<></>}
+      {isLocalServer?<Environment files={`${nginxDirLink}/service_1/environment/${stageEnv}.hdr`} />:<></>}
           <SheetProvider sheet={lightSheet}>
             <e.ambientLight 
               theatreKey="Light - Ambient"
