@@ -53,8 +53,13 @@ const XRContainer = ({cameraSheetObj,children}:XRContainerProps) =>{
 
   return(
     <XR>
-      <Controllers />
-      <Hands />
+      <Controllers
+        /** Optional material props to pass to controllers' ray indicators */
+        rayMaterial={{ color: 'blue' }}
+        /** Whether to hide controllers' rays on blur. Default is `false` */
+        hideRaysOnBlur={false}
+      />
+      {/* <Hands /> */}
       {children}
       {<UseXR />}
     </XR>
