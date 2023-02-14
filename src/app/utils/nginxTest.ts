@@ -21,4 +21,4 @@ export const testNginxServerExist = (successCallback,errorCallback) =>{
       console.log(error)
       errorCallback()
     });
-  }
+}
