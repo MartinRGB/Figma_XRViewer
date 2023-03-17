@@ -10,7 +10,7 @@ export const isTextureEditor = true
 // load three.js decoder from LAN Sever
 //export const isDecoderFromLoacl = isLocal?true:false; 
 
-export const thisLocalServerPhysicIP = `172.30.9.86`;
+export const thisLocalServerPhysicIP = `172.30.9.85`;
 export const serverPhysicIP = `vrtest.xihongxian.cn`; //172.22.0.20
 
 export const webRootURL = isLocal?`https://127.0.0.1:8887/`:`https://www.martinrgb.com/FigmaImporter/v4/`;

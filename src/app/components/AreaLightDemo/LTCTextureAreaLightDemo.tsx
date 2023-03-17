@@ -8,11 +8,11 @@ import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLigh
 import TextureAreaLightScreenEffects from './TextureAreaLightScreenEffects'
 import {nginxDirLink} from '@Config'
 
-const marble_color = '${nginxDirLink}/external/assets/marble/Marble012_1K_Color.jpg'
-const marble_disp = '${nginxDirLink}/external/assets/marble/Marble012_1K_Displacement.jpg'
-const marble_norm = '${nginxDirLink}/external/assets/marble/Marble012_1K_NormalDX.jpg'
-const marble_roughness = '${nginxDirLink}/external/assets/marble/Marble012_1K_Roughness.jpg'
-const testTex = '${nginxDirLink}/external/assets/test_tex.png';
+const marble_color = `${nginxDirLink}/external/assets/marble/Marble012_1K_Color.jpg`
+const marble_disp = `${nginxDirLink}/external/assets/marble/Marble012_1K_Displacement.jpg`
+const marble_norm = `${nginxDirLink}/external/assets/marble/Marble012_1K_NormalDX.jpg`
+const marble_roughness = `${nginxDirLink}/external/assets/marble/Marble012_1K_Roughness.jpg`
+const testTex = `${nginxDirLink}/external/assets/test_tex.png`;
 const screenWidth = 108;
 const screenHeight = 192;
 const halfScreenWidth = 54;
@@ -30,7 +30,8 @@ const Model = (props) => {
     if(scene != null){
       scene.traverse((obj) => {
         if (obj.isMesh) {
-          obj.castShadow = obj.receiveShadow = true
+          obj.castShadow =  true;
+          obj.receiveShadow = false;
         }
       })
     }
@@ -158,10 +159,10 @@ export const LTCTextureAreaLightDemo = ({}) =>{
 
   const { lightColor, lightIntensity, lightRoughnessControllable,lightRoughness,lightWidth,lightHeight,lightTexture,position,rotation,position2,rotation2,ambientIntensity } = useControls({ 
     lightColor:{value:'#ffffff'},
-    lightIntensity:{value:1,step:0.1},
-    lightRoughnessControllable:{value:false},
+    lightIntensity:{value:4,step:0.1},
+    lightRoughnessControllable:{value:true},
     lightRoughness:{value:0.2,step:0.1},
-    lightTexture:{value:'${nginxDirLink}/external/assets/test_222.png',rows: true,
+    lightTexture:{value:`${nginxDirLink}/external/assets/fluid2.mp4`,rows: true,
       onChange: (val) => {
         if(val != ''){
           if(val.includes('.mp4')){
@@ -266,10 +267,10 @@ export const LTCTextureAreaLightDemo = ({}) =>{
           lightRoughnessControllable={lightRoughnessControllable}
           position={position} 
           rotation={rotation}
-          castShadow={true}
+          castShadow={false}
         />
         </PivotControls>
-        <Model ModelSrc={LINK.ShoeSrc} autoRotate={true} scale={[0.0125*halfScreenWidth,0.0125*halfScreenWidth,0.0125*halfScreenWidth]} position={[-2.5,1.,0]} ></Model>
+        <Model ModelSrc={LINK.ShoeSrc} autoRotate={true} scale={[0.0525*halfScreenWidth,0.0525*halfScreenWidth,0.0525*halfScreenWidth]} position={[-2.5,1.,0]} ></Model>
         <Model ModelSrc={LINK.HelmetSrc} autoRotate={true} scale={[0.025*halfScreenWidth,0.025*halfScreenWidth,0.025*halfScreenWidth]} position={[2.5,1.,0]} ></Model>
         <Ground size={[1000,1000]} position={[0, -1.25, 0]} rotation={[-Math.PI / 2, 0, 0]} repeat={[40,40]}/>
 

@@ -51,7 +51,7 @@ module.exports = (env, argv) => ({
   output: {
     publicPath: '',
     filename: "[name].js",
-    path: path.resolve(__dirname, '.' ,'../build'),
+    path: path.resolve(__dirname, '.' ,'../screen'),
   },
   
   optimization: {
