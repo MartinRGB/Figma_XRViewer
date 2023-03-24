@@ -13,7 +13,7 @@ export const isTextureEditor = true
 export const thisLocalServerPhysicIP = `172.30.9.85`;
 export const serverPhysicIP = `vrtest.xihongxian.cn`; //172.22.0.20
 
-export const webRootURL = isLocal?`https://127.0.0.1:8887/`:`https://www.martinrgb.com/FigmaImporter/v4/`;
+export const webRootURL = isLocal?`https://127.0.0.1:8887/`:`https://martinrgb.github.io/FigmaImporter/v4/`;
 export const localWebRootURL =  isLocal?`https://127.0.0.1:8887/`:`https://${serverPhysicIP}/service_1/`;
 //export const localWebRootURL =  `https://${serverPhysicIP}/service_1/`;
 
