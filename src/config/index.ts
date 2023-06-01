@@ -10,7 +10,7 @@ export const isTextureEditor = true
 // load three.js decoder from LAN Sever
 //export const isDecoderFromLoacl = isLocal?true:false; 
 
-export const thisLocalServerPhysicIP = `172.30.9.85`;
+export const thisLocalServerPhysicIP = `vrtest.xihongxian.cn`;
 export const serverPhysicIP = `vrtest.xihongxian.cn`; //172.22.0.20
 
 export const webRootURL = isLocal?`https://127.0.0.1:8887/`:`https://martinrgb.github.io/FigmaImporter/v4/`;
@@ -22,7 +22,7 @@ export const webClientID = isLocal?'6clxS2O4bl9ADNcy1wh5rk':'2beFW69qeg7DvjBp6bK
 export const webSecrectID = isLocal?'3RtOK3Qx3lMUm3svNfZuycyNAeouxq':'013RerD24yjKxvSIrUr4f6dESMYST8';
 
 // nginx Directory & Web & PHPLink & UploadFolder
-export const nginxDirLink = isLocal?`https://${thisLocalServerPhysicIP}:8222`:`https://${serverPhysicIP}`;
+export const nginxDirLink = isLocal?`https://${thisLocalServerPhysicIP}`:`https://${serverPhysicIP}`;
 //export const nginxDirLink = `https://${serverPhysicIP}`;
 
 //test local server is exist
