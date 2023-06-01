@@ -19,7 +19,7 @@ import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON,sortDataInDescen
 import {FigmaApi} from '@Utils/figmaAPI';
 import { webRootURL,webClientID,webSecrectID, isTextureEditor, nginxDirLink} from '@Config';
 
-import { getProject,ISheetObject,types } from '@theatre/core'
+import { getProject,ISheetObject,types,getLocalServerObjectAddress,setLocalServerObjectAddress } from '@theatre/core'
 
 import { editable as e,SheetProvider } from '@theatre/r3f'
 import { AdaptiveDpr, AdaptiveEvents, Environment, GizmoHelper, GizmoViewport, Stage, Stats, useHelper } from '@react-three/drei'
@@ -379,13 +379,17 @@ const XRViewerApp = () => {
 
   const clickXRBtn = (e) =>{
     if(e.target.innerHTML === 'Enter VR' || e.target.innerHTML === 'Enter AR'){
-      document.getElementById('theatrejs-studio-root').style.display='none';
-      document.getElementById('gallery-root').style.display='none';
+      // document.getElementById('theatrejs-studio-root').style.display='none';
+      // document.getElementById('gallery-root').style.display='none';
+      document.getElementById('theatrejs-studio-root').style.zIndex='99999999999';
+      document.getElementById('gallery-root').style.zIndex='99999999999';
     }
 
     if(e.target.innerHTML === 'Exit VR' || e.target.innerHTML === 'Exit AR'){
-      document.getElementById('theatrejs-studio-root').style.display='initial';
-      document.getElementById('gallery-root').style.display='initial';
+      // document.getElementById('theatrejs-studio-root').style.display='block';
+      // document.getElementById('gallery-root').style.display='block';
+      document.getElementById('theatrejs-studio-root').style.zIndex='100';
+      document.getElementById('gallery-root').style.zIndex='100';
     }
   }
 
