@@ -39,7 +39,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             //overwrite files to localWebRootURL's folder
             //isLocal?webRootURL:localWebRootURL
             if(platform === 'local_webxr'){
-              window.open(`${localWebRootURL}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}$rnd=${Math.random()}`, '_blank')
+              window.open(`${localWebRootURL}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}&query_rnd=${Math.random()}`, '_blank')
             }
             else if(platform === 'local_unity'){
               window.open(`${localWebRootURL}importer.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
@@ -101,7 +101,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
           setLoadingProgress(1);
 
           if(platform === 'webxr'){
-            window.open(`${webRootURL}index.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}$rnd=${Math.random()}`, '_blank')
+            window.open(`${webRootURL}index.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}&query_rnd=${Math.random()}`, '_blank')
           }
           else if(platform === 'unity'){
             window.open(`${webRootURL}importer.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')

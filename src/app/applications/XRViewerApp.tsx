@@ -15,18 +15,23 @@ import {
 } from '@Utils/threeHelper'; 
 import {onCreateImage,saveImageFromRenderer} from '@Utils/saveImage'
 import {onDownloadHTML} from '@Utils/downloadHTML'
-import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON,sortDataInDescendingOrder}  from '@Utils/queryData'
+import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON,asyncFetchQueryLocalServerStateJSON,sortDataInDescendingOrder}  from '@Utils/queryData'
 import {FigmaApi} from '@Utils/figmaAPI';
-import { webRootURL,webClientID,webSecrectID, isTextureEditor, nginxDirLink} from '@Config';
+import { webRootURL,webClientID,webSecrectID, isTextureEditor, nginxDirLink, nginxUploadFolder} from '@Config';
 
-import { getProject,ISheetObject,types,getLocalServerObjectAddress,setLocalServerObjectAddress } from '@theatre/core'
+import { getProject,
+        asyncGetProject,
+        ISheetObject,
+        types, } from '@theatre/core'
+
+import studio from '@theatre/studio'
 
 import { editable as e,SheetProvider } from '@theatre/r3f'
 import { AdaptiveDpr, AdaptiveEvents, Environment, GizmoHelper, GizmoViewport, Stage, Stats, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
 import GalleryComponent from '../components/GalleryComponent';
 import { isLocal } from '../../config/index';
-
+import { postData } from '../utils/uploadToServer';
 
 // todo
 // 2.computer data pass to XR Device 
@@ -36,6 +41,24 @@ import { isLocal } from '../../config/index';
 
 // ### Global Variable ###
 // # init R3F Config 
+import projectState from './XRViewer.json'
+
+const url = new URL(window.location.href);
+const key = url.searchParams.get('query_key')
+const node = url.searchParams.get('query_node')
+const state = url.searchParams.get('query_state')
+
+// asyncFetchQueryLocalServerStateJSON(key,node,state,(data)=>{
+//   console.log(data)
+//   project.ready.then(() => console.log('Project loaded!'))
+// })
+
+
+// const project = asyncGetProject('XRViewer', {state:projectState})
+
+const project = getProject('XRViewer', {state:projectState})
+
+
 
 const ViewerConfig ={
   baseUnit:100,
@@ -344,7 +367,8 @@ const XRViewerApp = () => {
     const fileKey = parsedUrl.searchParams.get('query_key');
     const nodeId = parsedUrl.searchParams.get('query_node');
     const token = parsedUrl.searchParams.get('query_token');
-
+   
+   
     console.log('fileKey is: ' + fileKey);
     console.log('nodeId is: ' + nodeId);
     console.log('token is: ' + token);
@@ -477,6 +501,49 @@ const XRViewerApp = () => {
         </WebXRContainer>
         {isFigma && <DragCorner minWidth={512} minHeight={512}/>}
       </Suspense>
+      <button style={{
+        position:'absolute',
+        left:'500px',
+        top:'0px',
+        width:'100px',
+        height:'100px',
+        zIndex:'99999'
+      }}
+      onClick={
+        ()=>{
+          const str = JSON.stringify(
+            studio.createContentOfSaveFile("XRViewer"),
+            null,
+            2,
+          )
+          const file = new File([str], "xrviewer.theatre-project-state.json", {
+            type: 'application/json',
+          })
+          const objUrl = URL.createObjectURL(file)
+
+          // make this an Object
+          const parsedUrl = new URL(window.location.href);
+          const fileKey = parsedUrl.searchParams.get('query_key')
+          const nodeId = parsedUrl.searchParams.get('query_node')
+          var date = new Date();
+          var currentdate = date.getFullYear() + '-' +  date.getMonth() + '-' + date.getDate() +
+          date.getHours() + '-' +  date.getMinutes() + '-' + date.getSeconds()
+          ;
+          console.log(currentdate)
+
+
+          postData(objUrl, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `theatre-state-${currentdate}.json`,()=>{
+            },
+            ()=>{},
+            ()=>{
+              console.log('end')
+            },
+          )
+          const urlParams = new URLSearchParams(window.location.search);
+          urlParams.set('query_state', currentdate);
+          window.location.search = urlParams;
+        }
+      }> GET  JSON </button>
       </>
       }
     </>

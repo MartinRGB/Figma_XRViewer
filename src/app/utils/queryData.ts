@@ -225,3 +225,12 @@ export async function asyncFetchQueryLocalServerJSON (fileKey,nodeId,progressCal
     }
   })
 }
+
+export async function asyncFetchQueryLocalServerStateJSON (fileKey,nodeId,state) {
+  const _apiUrl = `${nginxAssetFolderPath}/${fileKey}/${nodeId.replaceAll(':','%253A')}/theatre-state-${state}.json`
+  console.log(_apiUrl)
+  const data = await fetch(_apiUrl,)
+  const json = await data.json();
+  // finishedCallback(json);
+  return json
+}
