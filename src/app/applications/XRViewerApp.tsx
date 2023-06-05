@@ -43,23 +43,6 @@ import { postData } from '../utils/uploadToServer';
 // # init R3F Config 
 import projectState from './XRViewer.json'
 
-const url = new URL(window.location.href);
-const key = url.searchParams.get('query_key')
-const node = url.searchParams.get('query_node')
-const state = url.searchParams.get('query_state')
-
-// asyncFetchQueryLocalServerStateJSON(key,node,state,(data)=>{
-//   console.log(data)
-//   project.ready.then(() => console.log('Project loaded!'))
-// })
-
-
-// const project = asyncGetProject('XRViewer', {state:projectState})
-
-const project = getProject('XRViewer', {state:projectState})
-
-
-
 const ViewerConfig ={
   baseUnit:100,
   bgColor:'#272730',
@@ -98,6 +81,7 @@ const sceneHelper = helperSheet.object(' - Helper Controller', {
 interface RendererProps {
   containerRef:React.MutableRefObject<any>;
   figmaData:any;
+  stateData?:any
   isQuery:boolean;
   isFigma:boolean;
   isLocalSever:boolean;
@@ -106,7 +90,7 @@ interface RendererProps {
   selectCallback:(e:any)=>void;
 }
 
-const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,isLocalServer,loadingProgress,finishedRenderingCallback,selectCallback}:RendererProps,ref) =>{
+const Renderer = forwardRef(({containerRef,figmaData,stateData,isQuery,isFigma,isLocalServer,loadingProgress,finishedRenderingCallback,selectCallback}:RendererProps,ref) =>{
 
   const cameraRef = useRef(null);
   const orbitRef = useRef(null);
@@ -206,7 +190,7 @@ const Renderer = forwardRef(({containerRef,figmaData,isQuery,isFigma,isLocalServ
             <XRContainer cameraSheetObj={cameraSheetObj}>
               <SheetProvider sheet={helperSheet}>
                 <e.group theatreKey={'- Main Controller'} ref={groupRef} objRef={groupSheetObj}>
-                  <ProperGeometry selectCallback={(e)=>{selectCallback(e)}} figmaData={figmaData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
+                  <ProperGeometry selectCallback={(e)=>{selectCallback(e)}} figmaData={figmaData} stateData={stateData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
                 </e.group> 
               </SheetProvider>
             </XRContainer>
@@ -235,6 +219,7 @@ const XRViewerApp = () => {
   const galleryCompRef = useRef();
 
   const [figData,setFigData] = useState([]);
+  const [stateData,setStateData] = useState(null);
   const [isFigma, setIsFigma] = useState(false);
   const [isQuery,setIsQuery] = useState(false);
   const [isLocalServer,setIsLocalServer] = useState(false);
@@ -242,6 +227,7 @@ const XRViewerApp = () => {
   const [loadingProgress,setLoadingProgress] = useState(`0`);
   const [isRendered,setIsRendered] = useState(false);
   
+
   const CreateImage = useCallback(({event,image,message,name}:CreateImageProps) => {
     onCreateImage(event,image,message,name)
   },[figData]);
@@ -320,15 +306,37 @@ const XRViewerApp = () => {
       console.log(fileKey)
       console.log(nodeId)
       setIsLocalServer(true)
-      asyncFetchQueryLocalServerJSON(
-        fileKey,nodeId,
-        (str)=>{
-          setLoadingProgress(str);
-        },
-        (arr)=>{
-          modifyArrDataNSet(arr);
-        }
-      )
+      const url = new URL(window.location.href);
+      const key = url.searchParams.get('query_key')
+      const node = url.searchParams.get('query_node')
+      const state = url.searchParams.get('query_state')
+      if(state){
+        asyncFetchQueryLocalServerStateJSON(key,node,state,(data)=>{
+          setStateData(data);
+          asyncFetchQueryLocalServerJSON(
+            fileKey,nodeId,
+            (str)=>{
+              setLoadingProgress(str);
+            },
+            (arr)=>{
+              modifyArrDataNSet(arr);
+            }
+          )
+        })
+      }
+      else{
+        asyncFetchQueryLocalServerJSON(
+          fileKey,nodeId,
+          (str)=>{
+            setLoadingProgress(str);
+          },
+          (arr)=>{
+            modifyArrDataNSet(arr);
+          }
+        )
+      }
+
+
     }
     else if(token === 'auth_everytime'){
       console.log('query - need OAuth')
@@ -362,12 +370,12 @@ const XRViewerApp = () => {
     }
   },[])
 
+  
   useEffect(() => {
     const parsedUrl = new URL(window.location.href);
     const fileKey = parsedUrl.searchParams.get('query_key');
     const nodeId = parsedUrl.searchParams.get('query_node');
     const token = parsedUrl.searchParams.get('query_token');
-   
    
     console.log('fileKey is: ' + fileKey);
     console.log('nodeId is: ' + nodeId);
@@ -417,7 +425,38 @@ const XRViewerApp = () => {
     }
   }
 
-  const statsRef = useRef();
+  const updateStateBtn = (e) =>{
+    const str = JSON.stringify(
+      studio.createContentOfSaveFile("XRViewer"),
+      null,
+      2,
+    )
+    const file = new File([str], "xrviewer.theatre-project-state.json", {
+      type: 'application/json',
+    })
+    const objUrl = URL.createObjectURL(file)
+
+    // make this an Object
+    const parsedUrl = new URL(window.location.href);
+    const fileKey = parsedUrl.searchParams.get('query_key')
+    const nodeId = parsedUrl.searchParams.get('query_node')
+    var date = new Date();
+    var currentdate = date.getFullYear() + '-' +  date.getMonth() + '-' + date.getDate() +
+    date.getHours() + '-' +  date.getMinutes() + '-' + date.getSeconds()
+    ;
+    console.log(currentdate)
+
+    postData(objUrl, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `theatre-state-${currentdate}.json`,()=>{
+      },
+      ()=>{},
+      ()=>{
+        console.log('end')
+      },
+    )
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('query_state', currentdate);
+    window.location.search = urlParams;
+  }
 
   //todo error when in XRViewer Plugin,cannot load
   return (
@@ -487,6 +526,7 @@ const XRViewerApp = () => {
                         isLocalServer={isLocalServer}
                         loadingProgress={loadingProgress}
                         figmaData={figData}
+                        stateData={stateData}
                         finishedRenderingCallback={()=>{setIsRendered(true)}}
                         selectCallback={(e)=>{                          
                             if(!isTextureEditor){
@@ -501,49 +541,28 @@ const XRViewerApp = () => {
         </WebXRContainer>
         {isFigma && <DragCorner minWidth={512} minHeight={512}/>}
       </Suspense>
-      <button style={{
-        position:'absolute',
-        left:'500px',
-        top:'0px',
-        width:'100px',
-        height:'100px',
-        zIndex:'99999'
-      }}
-      onClick={
-        ()=>{
-          const str = JSON.stringify(
-            studio.createContentOfSaveFile("XRViewer"),
-            null,
-            2,
-          )
-          const file = new File([str], "xrviewer.theatre-project-state.json", {
-            type: 'application/json',
-          })
-          const objUrl = URL.createObjectURL(file)
+      {isLocalServer?
+            <button className='xr-button' style={{
+              position: 'absolute',
+              left: '100px',
+              width: '32px',
+              height: '32px',
+              top: '4px',
+              zIndex: '999',
+              fontSize: '16px',
+              textAlign: 'center',
+              padding: '0px',
+              border: 'none'
+            }}
+            onClick={
+              (e)=>{
+                updateStateBtn(e);
+              }
+            }> ⇧ </button>
+        :
+        <></>
+      }
 
-          // make this an Object
-          const parsedUrl = new URL(window.location.href);
-          const fileKey = parsedUrl.searchParams.get('query_key')
-          const nodeId = parsedUrl.searchParams.get('query_node')
-          var date = new Date();
-          var currentdate = date.getFullYear() + '-' +  date.getMonth() + '-' + date.getDate() +
-          date.getHours() + '-' +  date.getMinutes() + '-' + date.getSeconds()
-          ;
-          console.log(currentdate)
-
-
-          postData(objUrl, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `theatre-state-${currentdate}.json`,()=>{
-            },
-            ()=>{},
-            ()=>{
-              console.log('end')
-            },
-          )
-          const urlParams = new URLSearchParams(window.location.search);
-          urlParams.set('query_state', currentdate);
-          window.location.search = urlParams;
-        }
-      }> GET  JSON </button>
       </>
       }
     </>

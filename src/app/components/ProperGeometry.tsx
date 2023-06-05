@@ -44,6 +44,8 @@ const Model = (props) =>{
   const [modelScalePerc,setModelScalePer] = useState(1);
   const [currVis,setCurrVis] = useState(false);
   const {invalidate,scene,gl,camera} = useThree()
+  const stateGeoProps = props.stateData?.sheetsById?.NodeTree?.staticOverrides?.byObject[`${props.name}`];
+
   const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
     console.log('finsihed model loading from:' + props.modelSrc)
     // loader.setDRACOLoader(dracoloader);
@@ -95,7 +97,6 @@ const Model = (props) =>{
   },[gltf])
 
   const mixerRef = useRef(new THREE.AnimationMixer(gltf.scene));
-
   useEffect(()=>{
     if(props.hasData && props.index != 0){
       const box = new THREE.Box3().setFromObject( modelRef.current );
@@ -287,11 +288,24 @@ const Model = (props) =>{
         objRef={modelSheetObj}
         visible={currVis}
         // scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]}
-        scale={[1,1,1]}
+        scale={
+          (stateGeoProps && stateGeoProps.scale)?
+          [stateGeoProps.scale.x,stateGeoProps.scale.y,stateGeoProps.scale.z]
+          :
+          [1,1,1]}
         position={
+          (stateGeoProps && stateGeoProps.position)?
+          [stateGeoProps.position.x,stateGeoProps.position.y,stateGeoProps.position.z]
+          :
           [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
           ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
-          props.index*0.0005 * props.baseUnit]}
+          props.index*0.0005 * props.baseUnit]
+        }
+        rotation={
+          (stateGeoProps && stateGeoProps.rotation)?
+          [stateGeoProps.rotation.x,stateGeoProps.rotation.y,stateGeoProps.rotation.z]
+          :
+          [0,0,0]}
         // position={
         //   [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
         //   ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
@@ -315,14 +329,20 @@ const Screen = (props) =>{
   const screenGeom = useRef(null)
   const screenRef = useRef(null)
   const screenSheetObj = useRef(null)
-  const defaultCurve = 0;
+
   const [yScalePerc,setYScalePerc] = useState(1);
   const [currMap,setCurrMap] = useState(null);
   const [currVis,setCurrVis] = useState(false);
   const {invalidate,scene,gl,camera} = useThree()
 
-  const currMapSrc = useRef({src:'',fileName:''});
+  const stateGeoProps = props.stateData?.sheetsById?.NodeTree?.staticOverrides?.byObject[`${props.name + ' / geometry'}`];
+  const stateMatProps = props.stateData?.sheetsById?.NodeTree?.staticOverrides?.byObject[`${props.name + ' / material'}`];
+  const defaultCurve =   (stateGeoProps && stateGeoProps.curve)?stateGeoProps.curve:0;
 
+  // console.log(stateGeoProps)
+  // console.log(stateMatProps)
+
+  const currMapSrc = useRef({src:'',fileName:''});
 
   const setupTexture = useCallback((tex) =>{
     tex.needsUpdate = true;
@@ -422,6 +442,17 @@ const Screen = (props) =>{
     }
 
   },[props.src,props.hasData]) //props.src,props.hasData
+
+
+  //console.log(props.stateData.sheetsById.NodeTree.staticOverrides.byObject['#2-Abstract_Gradient_1_1'])
+  // if(props.stateData){
+  //   for(let i = 0; i < props.stateData.sheetsById.NodeTree.staticOverrides.byObject.length; i++){
+  //     console.log(props.stateData.sheetsById.NodeTree.staticOverrides.byObject[i])
+  //     // if(props.stateData.sheetsById.NodeTree.staticOverrides.byObject[i].objectKey === props.name){
+  //     //   console.log(props.stateData.sheetsById.NodeTree.staticOverrides.byObject[i])
+  //     // }
+  //   }
+  // }
 
 
   useEffect(()=>{ 
@@ -565,11 +596,26 @@ const Screen = (props) =>{
             }} 
             visible={currVis}
             // scale={props.hasData?[1*(props.width/props.frameWidth),yScalePerc*(props.width/props.frameWidth),1]:[1,yScalePerc,1]}
-            scale={[1,1,1]}
-            position={props.hasData?
+            scale={
+              (stateGeoProps && stateGeoProps.scale)?
+              [stateGeoProps.scale.x,stateGeoProps.scale.y,stateGeoProps.scale.z]
+              :
+              [1,1,1]}
+            position={
+              (stateGeoProps && stateGeoProps.position)?
+              [stateGeoProps.position.x,stateGeoProps.position.y,stateGeoProps.position.z]
+              :
+              props.hasData?
               [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
               ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
               props.index*0.0005 * props.baseUnit]
+              :
+              [0,0,0]
+            
+            }
+            rotation={
+              (stateGeoProps && stateGeoProps.rotation)?
+              [stateGeoProps.rotation.x,stateGeoProps.rotation.y,stateGeoProps.rotation.z]
               :
               [0,0,0]}
           >
@@ -614,6 +660,7 @@ const Screen = (props) =>{
 
 interface ProperScreenProps {
   figmaData:any;
+  stateData?:any;
   isQuery:boolean;
   isFigma:boolean;
   baseUnit:number;
@@ -621,8 +668,7 @@ interface ProperScreenProps {
   selectCallback:(e:any) => void;
 }
 
-const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallback}:ProperScreenProps) =>{
-
+const ProperGeometry = ({figmaData,stateData,isFigma,isQuery,baseUnit,orbitRef,selectCallback}:ProperScreenProps) =>{
   return(
     <>
     <SheetProvider sheet={getProject('XRViewer').sheet('NodeTree','Controller')}>
@@ -646,6 +692,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
           hasData={true}
           isFigma={isFigma}
           isQuery={isQuery}
+          stateData={stateData}
           baseUnit={baseUnit}
           modelSrc={modelSrc}
           orbitRef={orbitRef}
@@ -667,6 +714,7 @@ const ProperGeometry = ({figmaData,isFigma,isQuery,baseUnit,orbitRef,selectCallb
             frameHeight={frameHeight}
             hasData={true}
             isQuery={isQuery}
+            stateData={stateData}
             baseUnit={baseUnit}
             orbitRef={orbitRef}
             selectCallback={(e)=>{selectCallback(e);}}

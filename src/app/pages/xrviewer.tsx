@@ -10,7 +10,8 @@ window.studio = studio;
 
 const rootElement = document.getElementById('react-page');
 const root = createRoot(rootElement);
+
+
 root.render(
       <XRViewerApp/>
 );
-
