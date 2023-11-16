@@ -61,7 +61,7 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
         contactShadow={contactShadow}
         shadows
         adjustCamera={false}
-        environment={environment}>
+        environment={null}>
           <CombinedCamera
             fov={50}
             aspect={size[0]/size[1]}

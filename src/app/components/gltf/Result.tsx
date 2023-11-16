@@ -72,10 +72,10 @@ const Result = React.forwardRef((props,ref) =>{
         value: 'rembrandt',
         options: ['rembrandt', 'portrait', 'upfront', 'soft'],
       },
-      environment: {
-        value: 'city',
-        options: ['', 'sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
-      },
+      // environment: {
+      //   value: 'city',
+      //   options: ['', 'sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
+      // },
     },
     { collapsed: true }
   )

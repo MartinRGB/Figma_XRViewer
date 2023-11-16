@@ -31,37 +31,41 @@ if (typeof window !== 'undefined') {
   //   dracoloader.preload()
   // }
 
-  // gltfLoader = new GLTFLoader()
-  //   .setCrossOrigin('anonymous')
-  //   .setDRACOLoader(dracoloader)
-  //   .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
-  //   .setMeshoptDecoder(MeshoptDecoder)
+  dracoloader = new DRACOLoader().setDecoderPath(`./libs/draco/gltf`)
+  ktx2Loader = new KTX2Loader().setTranscoderPath(`./libs/basis/`)
+  dracoloader.preload()
 
-    testNginxServerExist(
-    ()=>{
-      const DecoderPath = nginxDecoderPath;
-      dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-      ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-      dracoloader.preload()
-      console.log('decoderPath is ' + DecoderPath);
-      gltfLoader = new GLTFLoader()
-      .setCrossOrigin('anonymous')
-      .setDRACOLoader(dracoloader)
-      .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
-      .setMeshoptDecoder(MeshoptDecoder)
-    },
-    ()=>{
-      const DecoderPath = `https://unpkg.com/three@0.${REVISION}.x/examples/js/libs`;
-      dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-      ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-      dracoloader.preload()
-      console.log('decoderPath is ' + DecoderPath);
-      gltfLoader = new GLTFLoader()
-      .setCrossOrigin('anonymous')
-      .setDRACOLoader(dracoloader)
-      .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
-      .setMeshoptDecoder(MeshoptDecoder)
-    })
+  gltfLoader = new GLTFLoader()
+    .setCrossOrigin('anonymous')
+    .setDRACOLoader(dracoloader)
+    .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+    .setMeshoptDecoder(MeshoptDecoder)
+
+    // testNginxServerExist(
+    // ()=>{
+    //   const DecoderPath = nginxDecoderPath;
+    //   dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+    //   ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+    //   dracoloader.preload()
+    //   console.log('decoderPath is ' + DecoderPath);
+    //   gltfLoader = new GLTFLoader()
+    //   .setCrossOrigin('anonymous')
+    //   .setDRACOLoader(dracoloader)
+    //   .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+    //   .setMeshoptDecoder(MeshoptDecoder)
+    // },
+    // ()=>{
+    //   const DecoderPath = `https://unpkg.com/three@0.${REVISION}.x/examples/js/libs`;
+    //   dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+    //   ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+    //   dracoloader.preload()
+    //   console.log('decoderPath is ' + DecoderPath);
+    //   gltfLoader = new GLTFLoader()
+    //   .setCrossOrigin('anonymous')
+    //   .setDRACOLoader(dracoloader)
+    //   .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+    //   .setMeshoptDecoder(MeshoptDecoder)
+    // })
 
 }
 

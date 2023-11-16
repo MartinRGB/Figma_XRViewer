@@ -4,7 +4,6 @@
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
-		"dev:screen": "webpack serve --config ./webpack/webpack.screen.js --mode=development --env MODE=dev",
 		"dev:all": "npm-run-all -l -p dev:page_xrviewer dev:page_gltf dev:xrviewer dev:webxr dev:local_webxr dev:unity dev:local_unity dev:gltf",
 		"dev:page_xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer --env MODE=dev",
 		"dev:page_gltf": "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf --env BUILD=page --env WIDTH=640 --env HEIGHT=640 --env MODE=dev",
@@ -14,6 +13,7 @@
 		"dev:local_unity": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=local_unity --env WIDTH=400 --env HEIGHT=300 --env MODE=dev --watch",
 		"dev:unity": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=unity --env WIDTH=400 --env HEIGHT=300 --env MODE=dev --watch",
 		"dev:gltf": "webpack --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf --env WIDTH=640 --env HEIGHT=640 --env MODE=dev --watch",
+		
 		"build:all": "npm-run-all -l -p build:page_xrviewer build:page_gltf build:xrviewer build:webxr build:local_webxr build:unity build:local_unity build:gltf",
 		"build:page_xrviewer": "webpack --config ./webpack/webpack.xrviewer.js --mode=production --env PLUGIN=xrviewer --env MODE=build",
 		"build:page_gltf": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=gltf --env BUILD=page --env WIDTH=640 --env HEIGHT=640 --env MODE=build",
@@ -23,7 +23,7 @@
 		"build:local_unity": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=local_unity  --env WIDTH=400 --env HEIGHT=300 --env MODE=build",
 		"build:unity": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=unity --env WIDTH=400 --env HEIGHT=300 --env MODE=build",
 		"build:gltf": "webpack --config ./webpack/webpack.plugin.js --mode=production --env PLUGIN=gltf --env WIDTH=640 --env HEIGHT=640 --env MODE=build",
-		"build:screen": "webpack --config ./webpack/webpack.screen.js --mode=production --env MODE=build",
+		
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
 		"release-only": "dotenv release-it --ci --github.autoGenerate",
 		"zip:all": "bestzip release/XRViewer.zip XRViewer/* && bestzip release/XRViewer_WebXR.zip XRViewer_WebXR/* && bestzip release/XRViewer_Local_WebXR.zip XRViewer_Local_WebXR/* && bestzip release/XRViewer_Local_Unity.zip XRViewer_Local_Unity/* && bestzip release/XRViewer_Unity.zip XRViewer_Unity/* && bestzip release/XRViewer_GLTF.zip XRViewer_GLTF/* && echo figma plugin zipped && bestzip release/mac_script.zip cli/mac_script/* && echo mac script zipped && bestzip release/win_script.zip cli/win_script/* && echo win script zipped",

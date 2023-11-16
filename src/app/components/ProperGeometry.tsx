@@ -143,8 +143,8 @@ const Model = (props) =>{
       props.selectCallback(props.index)
     }
     else{
-      //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
-      //window.studio.setSelection([])
+      if(props.orbitRef.current) props.orbitRef.current.enabled  = true
+      window.studio.setSelection([])
     }
   },[active])
 
