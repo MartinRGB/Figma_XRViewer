@@ -1,7 +1,7 @@
 import React, { useRef, useState,useEffect,forwardRef,useCallback,useImperativeHandle,Suspense, useLayoutEffect, useContext} from 'react'
 
 import * as THREE from 'three'
-import { Canvas, invalidate,useFrame,useThree } from '@react-three/fiber'
+import { Canvas,useThree } from '@react-three/fiber'
 import { XRButton  } from '@react-three/xr'
 import { CreateImageProps,DownloadImageProps } from '@CustomTypes';
 import {WebXRContainer,XRDivContainer,TopFixedBtn,CanvasContainer,XRViewerGlobalrtyle} from '@Styles/XRViewer'
@@ -19,14 +19,11 @@ import {asyncFetchQueryFigmaJSON,asyncFetchQueryLocalServerJSON,asyncFetchQueryL
 import {FigmaApi} from '@Utils/figmaAPI';
 import { webRootURL,webClientID,webSecrectID, isTextureEditor, nginxDirLink, nginxUploadFolder} from '@Config';
 
-import { getProject,
-        asyncGetProject,
-        ISheetObject,
-        types, } from '@theatre/core'
+import { getProject,types } from '@theatre/core'
 
 import studio from '@theatre/studio'
 import { editable as e,SheetProvider } from '@theatre/r3f'
-import { AdaptiveDpr, AdaptiveEvents, Environment, GizmoHelper, GizmoViewport, Stage, Stats, useHelper } from '@react-three/drei'
+import { AdaptiveDpr, Environment, Stats } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
 import GalleryComponent from '../components/GalleryComponent';
 import { isLocal } from '../../config/index';
@@ -148,7 +145,6 @@ const Renderer = forwardRef(({containerRef,figmaData,stateData,isQuery,isFigma,i
   
   return(
     <> 
-     {/* <Stage shadows={false} preset={stagePreset} intensity={1}  adjustCamera={false}> */}
       {isLocalServer?<Environment files={`${nginxDirLink}/service_1/environment/${stageEnv}.hdr`} />:<></>}
           <SheetProvider sheet={lightSheet}>
             <e.ambientLight 
@@ -409,15 +405,11 @@ const XRViewerApp = () => {
 
   const clickXRBtn = (e) =>{
     if(e.target.innerHTML === 'Enter VR' || e.target.innerHTML === 'Enter AR'){
-      // document.getElementById('theatrejs-studio-root').style.display='none';
-      // document.getElementById('gallery-root').style.display='none';
       document.getElementById('theatrejs-studio-root').style.zIndex='99999999999';
       document.getElementById('gallery-root').style.zIndex='99999999999';
     }
 
     if(e.target.innerHTML === 'Exit VR' || e.target.innerHTML === 'Exit AR'){
-      // document.getElementById('theatrejs-studio-root').style.display='block';
-      // document.getElementById('gallery-root').style.display='block';
       document.getElementById('theatrejs-studio-root').style.zIndex='100';
       document.getElementById('gallery-root').style.zIndex='100';
     }

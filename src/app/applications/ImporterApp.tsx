@@ -42,7 +42,7 @@ const ImporterApp = () => {
     const parsedUrl = new URL(window.location.href);
     // open html with queryKey (from figma)
     if(parsedUrl.searchParams.get('query_key') != null){
-      //TODO smart way of getting token
+      //# TODO smart way of getting token
       if(parsedUrl.searchParams.get('query_token') === 'auth_everytime'){
         figmaApi.getOAuth2Token().then(token => {
           setCurrentToken(token)

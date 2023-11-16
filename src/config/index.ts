@@ -7,25 +7,21 @@ console.log('is local environment ' + isLocal)
 // if use modified theatre.js
 export const isTextureEditor = true
 
-// load three.js decoder from LAN Sever
-//export const isDecoderFromLoacl = isLocal?true:false; 
-
-export const dockerServerPhysicIP = `192.168.0.102`;
-export const realServerPhysicIP = ``; 
-
+// will switch to localhost to serve the html when in dev env.
 export const webRootURL = isLocal?`https://127.0.0.1:8887/`:`https://martinrgb.github.io/FigmaImporter/v4/`;
-export const localWebRootURL =  isLocal?`https://127.0.0.1:8887/`:`https://${realServerPhysicIP}/service_1/`;
-//export const localWebRootURL =  `https://${serverPhysicIP}/service_1/`;
 
-// figma token's para
+// figma token's para - one for local dev,one for product
 export const webClientID = isLocal?'6clxS2O4bl9ADNcy1wh5rk':'2beFW69qeg7DvjBp6bKpm5';
 export const webSecrectID = isLocal?'3RtOK3Qx3lMUm3svNfZuycyNAeouxq':'013RerD24yjKxvSIrUr4f6dESMYST8';
 
-// nginx Directory & Web & PHPLink & UploadFolder
-export const nginxDirLink = isLocal?`https://${dockerServerPhysicIP}`:`https://${realServerPhysicIP}`;
+// nginx Directory & Web & PHPLink & UploadFolder(need self-hosted server)
+export const serverPhysicIP = `192.168.0.102`;
+export const localWebRootURL =  `https://${serverPhysicIP}/service_1/`;
+export const nginxDirLink = `https://${serverPhysicIP}`;
 
 //test local server is exist
 export const nginxTestPath =  nginxDirLink + `/php/isLocalServer.php`;
+
 //localserver decoderPath
 export const nginxDecoderPath = nginxDirLink + `/service_1/decoder`;
 export const nginxUploadPHPPath = nginxDirLink + `/php/upload.php`;

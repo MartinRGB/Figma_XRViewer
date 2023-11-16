@@ -125,12 +125,6 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
     });
   },[])
 
-  // useEffect(()=>{
-  //   realCamera.current = isPerspective?persCam.current:orthCam.current;
-  //   console.log(isPerspective)
-  // },[isPerspective])
-
-
   return (
     <>
     {

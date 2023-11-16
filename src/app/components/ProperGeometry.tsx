@@ -17,24 +17,6 @@ import {nginxDirLink,isTextureEditor} from '@Config'
 import { TextureLoader } from 'three';
 
 // todo loader should test only once
-// let dracoloader;
-// let ktx2Loader;
-// testNginxServerExist(
-//   ()=>{
-//     const DecoderPath = nginxDecoderPath;
-//     dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-//     ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-//     dracoloader.preload()
-//     console.log('decoderPath is ' + DecoderPath);
-//   },
-//   ()=>{
-//     const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
-//     dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-//     ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-//     dracoloader.preload()
-//     console.log('decoderPath is ' + DecoderPath);
-//   }
-// )
 
 const Model = (props) =>{
   const modelGroupRef = useRef(null)
@@ -48,8 +30,6 @@ const Model = (props) =>{
 
   const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
     console.log('finsihed model loading from:' + props.modelSrc)
-    // loader.setDRACOLoader(dracoloader);
-    // loader.setKTX2Loader(ktx2Loader);
     // todo loader should test only once
     testNginxServerExist(
       ()=>{

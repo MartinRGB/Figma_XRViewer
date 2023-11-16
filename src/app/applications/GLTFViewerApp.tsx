@@ -56,10 +56,6 @@ const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild,width,height}:IGLTFVi
     setDragActive(false);
     if(e.dataTransfer.files.length === 1){
       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        // at least one file has been dropped so do something
-        // handleFiles(e.dataTransfer.files);
-
-        //console.log( e.dataTransfer.files[0])
         const file = e.dataTransfer.files[0];
         const reader = new FileReader()
         reader.onabort = () => console.error('file reading was aborted')
@@ -68,7 +64,6 @@ const GLTFViewerApp: React.FC<IGLTFViewerApp> = ({envBuild,width,height}:IGLTFVi
           console.log('loaded');
           const data = reader.result
           useStore.setState({ buffer: data, fileName: file.name })
-          // arrayBufferToString(data, (a) => useStore.setState({ textOriginalFile: a }))
           setFileName(file.name);
         }
         reader.readAsArrayBuffer(file)

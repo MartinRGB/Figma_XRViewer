@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react'
+import React,{useState} from 'react'
 import { useFrame } from '@react-three/fiber'
 import { OrbitControls} from '@react-three/drei'
 
@@ -8,7 +8,6 @@ interface OrbitProps {
 }
 
 const Orbit = ({orbitRef,cameraSheetObj}:OrbitProps) =>{
-  // const orbitRef = useRef(null);
   const [showOribt,setShowOrbit] = useState(true)
   useFrame((state) => {
     if(cameraSheetObj.current.value.control){

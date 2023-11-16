@@ -25,7 +25,6 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
   useEffect(()=>{
     
     if(gltfScene != null){
-      //console.log('traverse')
       gltfScene.traverse((obj) => {
         if (obj.isMesh) {
           obj.castShadow = obj.receiveShadow = shadows
