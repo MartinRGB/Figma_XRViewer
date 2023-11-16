@@ -25,7 +25,6 @@ import { getProject,
         types, } from '@theatre/core'
 
 import studio from '@theatre/studio'
-
 import { editable as e,SheetProvider } from '@theatre/r3f'
 import { AdaptiveDpr, AdaptiveEvents, Environment, GizmoHelper, GizmoViewport, Stage, Stats, useHelper } from '@react-three/drei'
 import DragCorner from '@Components/DragCorner';
@@ -42,6 +41,8 @@ import { postData } from '../utils/uploadToServer';
 // ### Global Variable ###
 // # init R3F Config 
 import projectState from './XRViewer.json'
+
+studio.initialize({usePersistentStorage:false}) 
 
 const ViewerConfig ={
   baseUnit:100,

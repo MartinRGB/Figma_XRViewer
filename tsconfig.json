@@ -24,8 +24,6 @@
       "@Plugins/*": ["src/plugin/*"],
       "@CustomTypes": ["src/app/types"],
       "@Config": ["src/config"],
-      // "three":["src/app/utils/three/src/Three.js"],
-      // "three/*":["src/app/utils/three/"]
     },
     "typeRoots": [
       "./node_modules/@types",
