@@ -40,9 +40,6 @@ import { postData } from '../utils/uploadToServer';
 
 // ### Global Variable ###
 // # init R3F Config 
-import projectState from './XRViewer.json'
-
-studio.initialize({usePersistentStorage:false}) 
 
 const ViewerConfig ={
   baseUnit:100,
@@ -537,7 +534,7 @@ const XRViewerApp = () => {
                         }
                       />
                 </Canvas>
-                <Stats className="stats"/>
+                <Stats className="stats" showPanel={0}/>
           </CanvasContainer>
         </WebXRContainer>
         {isFigma && <DragCorner minWidth={512} minHeight={512}/>}

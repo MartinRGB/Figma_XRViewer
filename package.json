@@ -4,6 +4,7 @@
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
 	"scripts": {
+		
 		"dev:all": "npm-run-all -l -p dev:page_xrviewer dev:page_gltf dev:xrviewer dev:webxr dev:local_webxr dev:unity dev:local_unity dev:gltf",
 		"dev:page_xrviewer": "webpack serve --config ./webpack/webpack.xrviewer.js --mode=development --env PLUGIN=xrviewer --env MODE=dev",
 		"dev:page_gltf": "webpack serve --config ./webpack/webpack.plugin.js --mode=development --env PLUGIN=gltf --env BUILD=page --env WIDTH=640 --env HEIGHT=640 --env MODE=dev",

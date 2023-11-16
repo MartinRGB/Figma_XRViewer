@@ -143,8 +143,8 @@ const Model = (props) =>{
       props.selectCallback(props.index)
     }
     else{
-      if(props.orbitRef.current) props.orbitRef.current.enabled  = true
-      window.studio.setSelection([])
+      //if(props.orbitRef.current) props.orbitRef.current.enabled  = true
+      //window.studio.setSelection([])
     }
   },[active])
 
@@ -268,21 +268,22 @@ const Model = (props) =>{
       if(boxHelperRef.current) boxHelperRef.current.update()
       onSelectTransformControl()}}
     />}
-    <Select box onChange={(e)=>{
-      if(e.length != 0){
-        setSelected([modelGroupRef.current])
-      }
-      else{
-        setSelected(e)
-      }
+
+    <Select box onChangePointerUp={(e)=>{
+        if(e.length != 0){
+          setSelected([modelGroupRef.current])
+        }
+        else{
+          setSelected([])
+        }
       }}>
+
       <e.group 
         // todo chara fix
         theatreKey={props.name}
         name={props.name}
         onPointerOver={useCallback((e) => {e.stopPropagation();hover(true)},[])}
         onPointerOut={useCallback((e) => {e.stopPropagation();hover(false)},[])}
-        onPointerDown = {useCallback((e) => {e.stopPropagation()},[])}
         onContextMenu={(e) => {e.stopPropagation();changeTMode(e);}}
         ref={modelGroupRef}
         objRef={modelSheetObj}
@@ -317,7 +318,8 @@ const Model = (props) =>{
           scale={currVis?[modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth),modelScalePerc*(props.width/props.frameWidth)]:[1,1,1]} 
           object={gltf.scene} />
       </e.group>
-    </Select>
+      
+      </Select>
     </>
   )
 }
@@ -444,17 +446,6 @@ const Screen = (props) =>{
   },[props.src,props.hasData]) //props.src,props.hasData
 
 
-  //console.log(props.stateData.sheetsById.NodeTree.staticOverrides.byObject['#2-Abstract_Gradient_1_1'])
-  // if(props.stateData){
-  //   for(let i = 0; i < props.stateData.sheetsById.NodeTree.staticOverrides.byObject.length; i++){
-  //     console.log(props.stateData.sheetsById.NodeTree.staticOverrides.byObject[i])
-  //     // if(props.stateData.sheetsById.NodeTree.staticOverrides.byObject[i].objectKey === props.name){
-  //     //   console.log(props.stateData.sheetsById.NodeTree.staticOverrides.byObject[i])
-  //     // }
-  //   }
-  // }
-
-
   useEffect(()=>{ 
     screenSheetObj.current.onValuesChange(newValues => {
       createPlaneCurve(screenGeom.current,newValues.curve)
@@ -579,7 +570,16 @@ const Screen = (props) =>{
           if(boxHelperRef.current) boxHelperRef.current.update()
           onSelectTransformControl()}}
       />}
-      <Select box onChange={(e)=>{setSelected(e)}}>
+        <Select box 
+          onChangePointerUp={(e)=>{
+            if(e.length != 0){
+              setSelected([screenRef.current])
+            }
+            else{
+              setSelected([])
+            }
+          }}>
+
         <e.mesh 
             theatreKey={ isTextureEditor?(props.name  + ' / geometry'):props.name }
             name={props.name}
@@ -653,7 +653,7 @@ const Screen = (props) =>{
               }
 
         </e.mesh>
-      </Select>
+        </Select>
     </>
   )
 }
