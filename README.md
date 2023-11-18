@@ -1,5 +1,8 @@
 ***TODO:Reorganization projects***
 
+- run `npm install`
+- Overwrite all files in `modified_framework/@theatre` into `node_moduels/@theatre`
+
 ![1280X1280](https://user-images.githubusercontent.com/7036706/199702605-00b0a06b-9b67-4c55-ac7a-33f2bb840206.PNG)
 ## Introduction
 
