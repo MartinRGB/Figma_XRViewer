@@ -392,7 +392,7 @@ var createFileSrcPropConfig = (key, defaultValue = new FileSrcObject("", "")) =>
     return props[key];
   },
   apply: (value, object) => {
-    const imgExt = ["jpg", "png"];
+    const imgExt = ["jpg", "png", "jpeg"];
     const videoExt = ["mp4", "web"];
     const gltfExt = ["gltf", "glb"];
     if (value.src && value.src != "") {
@@ -401,8 +401,9 @@ var createFileSrcPropConfig = (key, defaultValue = new FileSrcObject("", "")) =>
         if (imgExt.includes(fileExt)) {
           new import_three2.TextureLoader().load(value.src, (tex) => {
             tex.encoding = import_three2.sRGBEncoding;
-            object[key.split("Src")[0]] = tex;
-            object[key.split("Src")[0]].needsUpdate = true;
+            object.needsUpdate = true;
+            object[`${key.split("Src")[0]}`] = tex;
+            tex.dispose();
             (0, import_fiber3.invalidate)();
           });
         }
@@ -416,8 +417,9 @@ var createFileSrcPropConfig = (key, defaultValue = new FileSrcObject("", "")) =>
           videoE.play();
           const vidTex = new import_three2.VideoTexture(videoE);
           vidTex.encoding = import_three2.sRGBEncoding;
+          object.needsUpdate = true;
           object[key.split("Src")[0]] = vidTex;
-          object[key.split("Src")[0]].needsUpdate = true;
+          vidTex.dispose();
           (0, import_fiber3.invalidate)();
         }
       }

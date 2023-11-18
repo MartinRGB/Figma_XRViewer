@@ -2,7 +2,7 @@ import type { ComponentProps, ComponentType, Ref, RefAttributes } from 'react';
 import React from 'react';
 import type { fSrcObject } from './editableFactoryConfigUtils';
 import type { $FixMe } from '../types';
-declare const editable: (<T extends keyof JSX.IntrinsicElements | ComponentType<any>, U extends "fog" | "spotLight" | "line" | "mesh" | "lineSegments" | "lineLoop" | "points" | "group" | "perspectiveCamera" | "orthographicCamera" | "meshStandardMaterial" | "pointLight" | "hemisphereLight" | "directionalLight" | "ambientLight">(Component: T, type: T extends "primitive" ? null : U) => React.ForwardRefExoticComponent<React.PropsWithoutRef<Omit<ComponentProps<T>, "visible"> & {
+declare const editable: (<T extends ComponentType<any> | keyof JSX.IntrinsicElements, U extends "line" | "mesh" | "lineSegments" | "lineLoop" | "points" | "group" | "perspectiveCamera" | "orthographicCamera" | "meshStandardMaterial" | "spotLight" | "pointLight" | "hemisphereLight" | "directionalLight" | "ambientLight" | "fog">(Component: T, type: T extends "primitive" ? null : U) => React.ForwardRefExoticComponent<React.PropsWithoutRef<Omit<ComponentProps<T>, "visible"> & {
     theatreKey: string;
     visible?: boolean | "editor" | undefined;
     additionalProps?: $FixMe;
@@ -10,42 +10,6 @@ declare const editable: (<T extends keyof JSX.IntrinsicElements | ComponentType<
 } & (T extends "primitive" ? {
     editableType: U;
 } : {}) & RefAttributes<JSX.IntrinsicElements[U]>> & RefAttributes<unknown>>) & {
-    fog: React.ForwardRefExoticComponent<Omit<import("@react-three/fiber").FogProps, "visible"> & {
-        theatreKey: string;
-        visible?: boolean | "editor" | undefined;
-        additionalProps?: $FixMe;
-        objRef?: $FixMe;
-        ref?: Ref<unknown> | undefined;
-        mapSrc?: fSrcObject | undefined;
-        alphaMapSrc?: fSrcObject | undefined;
-        aoMapSrc?: fSrcObject | undefined;
-        bumpMapSrc?: fSrcObject | undefined;
-        displacementMapSrc?: fSrcObject | undefined;
-        emissiveMapSrc?: fSrcObject | undefined;
-        envMapSrc?: fSrcObject | undefined;
-        lightMapSrc?: fSrcObject | undefined;
-        metalnessMapSrc?: fSrcObject | undefined;
-        normalMapSrc?: fSrcObject | undefined;
-        roughnessMapSrc?: fSrcObject | undefined;
-    }>;
-    spotLight: React.ForwardRefExoticComponent<Omit<import("@react-three/fiber").SpotLightProps, "visible"> & {
-        theatreKey: string;
-        visible?: boolean | "editor" | undefined;
-        additionalProps?: $FixMe;
-        objRef?: $FixMe;
-        ref?: Ref<unknown> | undefined;
-        mapSrc?: fSrcObject | undefined;
-        alphaMapSrc?: fSrcObject | undefined;
-        aoMapSrc?: fSrcObject | undefined;
-        bumpMapSrc?: fSrcObject | undefined;
-        displacementMapSrc?: fSrcObject | undefined;
-        emissiveMapSrc?: fSrcObject | undefined;
-        envMapSrc?: fSrcObject | undefined;
-        lightMapSrc?: fSrcObject | undefined;
-        metalnessMapSrc?: fSrcObject | undefined;
-        normalMapSrc?: fSrcObject | undefined;
-        roughnessMapSrc?: fSrcObject | undefined;
-    }>;
     line: React.ForwardRefExoticComponent<Omit<React.SVGProps<SVGLineElement>, "visible"> & {
         theatreKey: string;
         visible?: boolean | "editor" | undefined;
@@ -208,6 +172,24 @@ declare const editable: (<T extends keyof JSX.IntrinsicElements | ComponentType<
         normalMapSrc?: fSrcObject | undefined;
         roughnessMapSrc?: fSrcObject | undefined;
     }>;
+    spotLight: React.ForwardRefExoticComponent<Omit<import("@react-three/fiber").SpotLightProps, "visible"> & {
+        theatreKey: string;
+        visible?: boolean | "editor" | undefined;
+        additionalProps?: $FixMe;
+        objRef?: $FixMe;
+        ref?: Ref<unknown> | undefined;
+        mapSrc?: fSrcObject | undefined;
+        alphaMapSrc?: fSrcObject | undefined;
+        aoMapSrc?: fSrcObject | undefined;
+        bumpMapSrc?: fSrcObject | undefined;
+        displacementMapSrc?: fSrcObject | undefined;
+        emissiveMapSrc?: fSrcObject | undefined;
+        envMapSrc?: fSrcObject | undefined;
+        lightMapSrc?: fSrcObject | undefined;
+        metalnessMapSrc?: fSrcObject | undefined;
+        normalMapSrc?: fSrcObject | undefined;
+        roughnessMapSrc?: fSrcObject | undefined;
+    }>;
     pointLight: React.ForwardRefExoticComponent<Omit<import("@react-three/fiber").PointLightProps, "visible"> & {
         theatreKey: string;
         visible?: boolean | "editor" | undefined;
@@ -263,6 +245,24 @@ declare const editable: (<T extends keyof JSX.IntrinsicElements | ComponentType<
         roughnessMapSrc?: fSrcObject | undefined;
     }>;
     ambientLight: React.ForwardRefExoticComponent<Omit<import("@react-three/fiber").AmbientLightProps, "visible"> & {
+        theatreKey: string;
+        visible?: boolean | "editor" | undefined;
+        additionalProps?: $FixMe;
+        objRef?: $FixMe;
+        ref?: Ref<unknown> | undefined;
+        mapSrc?: fSrcObject | undefined;
+        alphaMapSrc?: fSrcObject | undefined;
+        aoMapSrc?: fSrcObject | undefined;
+        bumpMapSrc?: fSrcObject | undefined;
+        displacementMapSrc?: fSrcObject | undefined;
+        emissiveMapSrc?: fSrcObject | undefined;
+        envMapSrc?: fSrcObject | undefined;
+        lightMapSrc?: fSrcObject | undefined;
+        metalnessMapSrc?: fSrcObject | undefined;
+        normalMapSrc?: fSrcObject | undefined;
+        roughnessMapSrc?: fSrcObject | undefined;
+    }>;
+    fog: React.ForwardRefExoticComponent<Omit<import("@react-three/fiber").FogProps, "visible"> & {
         theatreKey: string;
         visible?: boolean | "editor" | undefined;
         additionalProps?: $FixMe;

@@ -5242,11 +5242,22 @@ var validateInstanceId = (name, thingy, shouldThrow = false) => {
 
 // core/src/projects/TheatreProject.ts
 var TheatreProject = class {
+  constructor(id, config = {}) {
+    __publicField(this, "conf");
+    __publicField(this, "idx");
+    this.conf = config;
+    this.idx = id;
+    setPrivateAPI(this, new Project(id, config, this));
+  }
   get type() {
     return "Theatre_Project_PublicAPI";
   }
-  constructor(id, config = {}) {
-    setPrivateAPI(this, new Project(id, config, this));
+  get config() {
+    return this.conf;
+  }
+  setConfig(con) {
+    this.conf = con;
+    setPrivateAPI(this, new Project(this.idx, this.conf, this));
   }
   get ready() {
     return privateAPI(this).ready;
@@ -5273,13 +5284,6 @@ var import_dataverse17 = __toModule(require("@theatre/dataverse"));
 function getProject(id, config = {}) {
   const existingProject = projectsSingleton_default.get(id);
   if (existingProject) {
-    if (process.env.NODE_ENV !== "production") {
-      if (!(0, import_fast_deep_equal2.default)(config, existingProject.config)) {
-        throw new Error(`You seem to have called Theatre.getProject("${id}", config) twice, with different config objects. This is disallowed because changing the config of a project on the fly can lead to hard-to-debug issues.
-
-You can fix this by either calling Theatre.getProject() once per projectId, or calling it multiple times but with the exact same config.`);
-      }
-    }
     return existingProject.publicApi;
   }
   const rootLogger = _coreLogger();

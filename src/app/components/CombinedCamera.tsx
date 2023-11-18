@@ -52,7 +52,7 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
     }
     helperRef.current = new THREE.CameraHelper( cameraRef.current );
     scene.add( helperRef.current );
-    theatreStudioCameraHelperFixed(scene,invalidate);
+    //theatreStudioCameraHelperFixed(scene,invalidate);
     if(isEnableHelper){
       helperRef.current.visible = true;
     }

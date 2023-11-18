@@ -6098,7 +6098,7 @@ var require_react_development = __commonJS({
           }
           return element;
         };
-        function createElement11(type, config, children) {
+        function createElement9(type, config, children) {
           var propName;
           var props = {};
           var key = null;
@@ -7146,7 +7146,7 @@ var require_react_development = __commonJS({
               error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
             }
           }
-          var element = createElement11.apply(this, arguments);
+          var element = createElement9.apply(this, arguments);
           if (element == null) {
             return element;
           }
@@ -8040,11 +8040,11 @@ var require_react_dom_development = __commonJS({
     if (true) {
       (function() {
         "use strict";
-        var React153 = require_react();
+        var React151 = require_react();
         var _assign = require_object_assign();
         var Scheduler = require_scheduler();
         var tracing = require_tracing();
-        var ReactSharedInternals = React153.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React151.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         function warn(format4) {
           {
             for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -8076,7 +8076,7 @@ var require_react_dom_development = __commonJS({
             Function.prototype.apply.call(console[level], console, argsWithFormat);
           }
         }
-        if (!React153) {
+        if (!React151) {
           {
             throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
           }
@@ -9292,7 +9292,7 @@ var require_react_dom_development = __commonJS({
         var didWarnInvalidChild = false;
         function flattenChildren(children) {
           var content = "";
-          React153.Children.forEach(children, function(child) {
+          React151.Children.forEach(children, function(child) {
             if (child == null) {
               return;
             }
@@ -9303,7 +9303,7 @@ var require_react_dom_development = __commonJS({
         function validateProps(element, props) {
           {
             if (typeof props.children === "object" && props.children !== null) {
-              React153.Children.forEach(props.children, function(child) {
+              React151.Children.forEach(props.children, function(child) {
                 if (child == null) {
                   return;
                 }
@@ -14057,7 +14057,7 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function createElement11(type, props, rootContainerElement, parentNamespace) {
+        function createElement9(type, props, rootContainerElement, parentNamespace) {
           var isCustomComponentTag;
           var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
           var domElement;
@@ -14934,7 +14934,7 @@ var require_react_dom_development = __commonJS({
             }
             parentNamespace = hostContextDev.namespace;
           }
-          var domElement = createElement11(type, props, rootContainerInstance, parentNamespace);
+          var domElement = createElement9(type, props, rootContainerInstance, parentNamespace);
           precacheFiberNode(internalInstanceHandle, domElement);
           updateFiberProps(domElement, props);
           return domElement;
@@ -16496,7 +16496,7 @@ var require_react_dom_development = __commonJS({
         }
         var fakeInternalInstance = {};
         var isArray2 = Array.isArray;
-        var emptyRefsObject = new React153.Component().refs;
+        var emptyRefsObject = new React151.Component().refs;
         var didWarnAboutStateAssignmentForComponent;
         var didWarnAboutUninitializedState;
         var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -36621,8 +36621,8 @@ width: 100%;
   width: calc(100% - 2px);
   margin-top: 4px;
   margin-bottom: 4px;
-  // background-color: rgba(127,127,127,1.0);
-  // background-image: linear-gradient(45deg,#b0b0b0 25%,transparent 25%),linear-gradient(-45deg,#b0b0b0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#b0b0b0 75%),linear-gradient(-45deg,transparent 75%,#b0b0b0 75%);
+  background-color: rgba(127,127,127,1.0);
+  background-image: linear-gradient(45deg,#b0b0b0 25%,transparent 25%),linear-gradient(-45deg,#b0b0b0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#b0b0b0 75%),linear-gradient(-45deg,transparent 75%,#b0b0b0 75%);
   background-size: 20px 20px;
   background-position: 0 0,0 10px,10px -10px,-10px 0px;
   overflow: hidden;
@@ -37315,6 +37315,7 @@ var init_DetailCompoundPropEditor = __esm({
     Container23 = styled_components_browser_esm_default.div`
   --step: 15px;
   --left-pad: 15px;
+  padding-bottom: 20px;
   ${pointerEventsAutoInNormalMode};
 `;
     Header = deriver(styled_components_browser_esm_default.div`
@@ -37894,6 +37895,7 @@ var init_ProjectDetails = __esm({
       const slugifiedProjectId = projectId.replace(/[^\w\d'_\-]+/g, " ").trim();
       const suggestedFileName = `${slugifiedProjectId}.theatre-project-state.json`;
       const [downloaded, setDownloaded] = (0, import_react121.useState)(false);
+      const [uploaded, setUploaded] = (0, import_react121.useState)(false);
       const exportProject = (0, import_react121.useCallback)(() => {
         const str = JSON.stringify(getStudio().createContentOfSaveFile(project.address.projectId), null, 2);
         const file = new File([str], suggestedFileName, {
@@ -37925,7 +37927,7 @@ var init_ProjectDetails = __esm({
         onMouseEnter: (e2) => exportTooltip.open(e2, e2.target),
         onClick: !downloaded ? exportProject : void 0,
         disabled: downloaded
-      }, downloaded ? "(Exported)" : `Export ${projectId} to JSON`))));
+      }, downloaded ? "(Exported)" : `Export ${projectId} to JSON`), /* @__PURE__ */ import_react121.default.createElement("br", null))));
     };
     ProjectDetails_default = ProjectDetails;
   }
@@ -38034,8 +38036,8 @@ var init_Details = __esm({
   }
 });
 
-// studio/src/uiComponents/icons/Ellipsis.tsx
-function Ellipsis(props) {
+// studio/src/uiComponents/icons/Package.tsx
+function Package(props) {
   return /* @__PURE__ */ React65.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
@@ -38043,59 +38045,15 @@ function Ellipsis(props) {
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
   }, props), /* @__PURE__ */ React65.createElement("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M.166 7.994a2.26 2.26 0 114.518 0 2.26 2.26 0 01-4.518 0zM2.425 6.91a1.085 1.085 0 100 2.17 1.085 1.085 0 000-2.17zM5.74 7.994a2.26 2.26 0 114.519 0 2.26 2.26 0 01-4.519 0zM8 6.91a1.085 1.085 0 100 2.17 1.085 1.085 0 000-2.17zM13.575 5.735a2.26 2.26 0 100 4.519 2.26 2.26 0 000-4.52zm-1.086 2.26a1.085 1.085 0 112.171 0 1.085 1.085 0 01-2.17 0z",
-    fill: "currentColor"
-  }));
-}
-var React65, Ellipsis_default;
-var init_Ellipsis = __esm({
-  "studio/src/uiComponents/icons/Ellipsis.tsx"() {
-    React65 = __toModule(require_react());
-    Ellipsis_default = Ellipsis;
-  }
-});
-
-// studio/src/uiComponents/icons/Package.tsx
-function Package(props) {
-  return /* @__PURE__ */ React66.createElement("svg", __spreadValues({
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React66.createElement("path", {
     d: "M8.339 4.5l-2.055.644 4.451 1.393v2.748l-2.966.928-2.504-.783V6.738l2.42.758 2.055-.644-4.458-1.395L4 5.858v4.463L7.768 11.5 12 10.175V5.646L8.339 4.5z",
     fill: "currentColor"
   }));
 }
-var React66, Package_default;
+var React65, Package_default;
 var init_Package = __esm({
   "studio/src/uiComponents/icons/Package.tsx"() {
-    React66 = __toModule(require_react());
+    React65 = __toModule(require_react());
     Package_default = Package;
-  }
-});
-
-// studio/src/uiComponents/icons/Bell.tsx
-function Bell(props) {
-  return /* @__PURE__ */ React67.createElement("svg", __spreadValues({
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React67.createElement("path", {
-    d: "M8 1.57c-.416 0-.752.36-.752.804v.482c-1.715.372-3.006 1.994-3.006 3.938v.473c0 1.18-.407 2.32-1.14 3.205l-.173.208a.85.85 0 00-.125.864.75.75 0 00.686.475h9.019a.752.752 0 00.686-.475.845.845 0 00-.125-.864l-.174-.208a5.026 5.026 0 01-1.139-3.205v-.473c0-1.944-1.291-3.566-3.006-3.938v-.482c0-.445-.336-.804-.752-.804zm1.063 12.39c.282-.301.44-.71.44-1.138H6.496c0 .428.158.837.44 1.138.281.302.664.47 1.063.47.4 0 .783-.168 1.064-.47z",
-    fill: "currentColor"
-  }));
-}
-var React67, Bell_default;
-var init_Bell = __esm({
-  "studio/src/uiComponents/icons/Bell.tsx"() {
-    React67 = __toModule(require_react());
-    Bell_default = Bell;
   }
 });
 
@@ -38105,9 +38063,7 @@ var init_icons = __esm({
     init_Outline();
     init_ChevronDown();
     init_Details();
-    init_Ellipsis();
     init_Package();
-    init_Bell();
   }
 });
 
@@ -39911,7 +39867,7 @@ var init_useKeyboardShortcuts = __esm({
 var SnapCursor_default;
 var init_SnapCursor = __esm({
   "studio/src/panels/SequenceEditorPanel/RightOverlay/SnapCursor.svg"() {
-    SnapCursor_default = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMSA3VjFINyIgc3Ryb2tlPSIjNzRGRkRFIiBzdHJva2Utd2lkdGg9IjAuMjUiIC8+CiAgPHBhdGggZD0iTTcgMzNIMUwxIDI3IiBzdHJva2U9IiM3NEZGREUiIHN0cm9rZS13aWR0aD0iMC4yNSIgLz4KICA8cGF0aCBkPSJNMzMgMjdWMzNIMjciIHN0cm9rZT0iIzc0RkZERSIgc3Ryb2tlLXdpZHRoPSIwLjI1IiAvPgogIDxwYXRoIGQ9Ik0yNyAxTDMzIDFWNyIgc3Ryb2tlPSIjNzRGRkRFIiBzdHJva2Utd2lkdGg9IjAuMjUiIC8+Cjwvc3ZnPg==";
+    SnapCursor_default = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgPHBhdGggZD0iTTEgN1YxSDciIHN0cm9rZT0iIzc0RkZERSIgc3Ryb2tlLXdpZHRoPSIwLjI1IiAvPg0KICA8cGF0aCBkPSJNNyAzM0gxTDEgMjciIHN0cm9rZT0iIzc0RkZERSIgc3Ryb2tlLXdpZHRoPSIwLjI1IiAvPg0KICA8cGF0aCBkPSJNMzMgMjdWMzNIMjciIHN0cm9rZT0iIzc0RkZERSIgc3Ryb2tlLXdpZHRoPSIwLjI1IiAvPg0KICA8cGF0aCBkPSJNMjcgMUwzMyAxVjciIHN0cm9rZT0iIzc0RkZERSIgc3Ryb2tlLXdpZHRoPSIwLjI1IiAvPg0KPC9zdmc+";
   }
 });
 
@@ -46050,7 +46006,7 @@ var require_react_error_boundary_umd = __commonJS({
   "../node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports2, module2) {
     (function(global2, factory) {
       typeof exports2 === "object" && typeof module2 !== "undefined" ? factory(exports2, require_react()) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
-    })(exports2, function(exports3, React153) {
+    })(exports2, function(exports3, React151) {
       "use strict";
       function _interopNamespace(e2) {
         if (e2 && e2.__esModule)
@@ -46072,7 +46028,7 @@ var require_react_error_boundary_umd = __commonJS({
         n3["default"] = e2;
         return Object.freeze(n3);
       }
-      var React__namespace = /* @__PURE__ */ _interopNamespace(React153);
+      var React__namespace = /* @__PURE__ */ _interopNamespace(React151);
       function _setPrototypeOf2(o3, p3) {
         _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf3(o4, p4) {
           o4.__proto__ = p4;
@@ -46829,46 +46785,46 @@ var init_PinButton = __esm({
 
 // studio/src/uiComponents/icons/DoubleChevronLeft.tsx
 function DoubleChevronLeft(props) {
-  return /* @__PURE__ */ React144.createElement("svg", __spreadValues({
+  return /* @__PURE__ */ React142.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
     viewBox: "0 0 16 16",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React144.createElement("path", {
+  }, props), /* @__PURE__ */ React142.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
     d: "M12.732 4.048l-.792-.792L7.2 8l4.74 4.744.792-.792L8.781 8l3.951-3.952zm-3.932 0l-.792-.792L3.268 8l4.74 4.744.792-.792L4.848 8 8.8 4.048z",
     fill: "currentColor"
   }));
 }
-var React144, DoubleChevronLeft_default;
+var React142, DoubleChevronLeft_default;
 var init_DoubleChevronLeft = __esm({
   "studio/src/uiComponents/icons/DoubleChevronLeft.tsx"() {
-    React144 = __toModule(require_react());
+    React142 = __toModule(require_react());
     DoubleChevronLeft_default = DoubleChevronLeft;
   }
 });
 
 // studio/src/uiComponents/icons/DoubleChevronRight.tsx
 function DoubleChevronRight(props) {
-  return /* @__PURE__ */ React145.createElement("svg", __spreadValues({
+  return /* @__PURE__ */ React143.createElement("svg", __spreadValues({
     width: 16,
     height: 16,
     viewBox: "0 0 16 16",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), /* @__PURE__ */ React145.createElement("path", {
+  }, props), /* @__PURE__ */ React143.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
     d: "M3.694 3.765l.792-.792 4.74 4.744-4.74 4.744-.792-.793 3.951-3.951-3.951-3.952zm3.932 0l.792-.792 4.74 4.744-4.74 4.744-.792-.793 3.952-3.951-3.952-3.952z",
     fill: "currentColor"
   }));
 }
-var React145, DoubleChevronRight_default;
+var React143, DoubleChevronRight_default;
 var init_DoubleChevronRight = __esm({
   "studio/src/uiComponents/icons/DoubleChevronRight.tsx"() {
-    React145 = __toModule(require_react());
+    React143 = __toModule(require_react());
     DoubleChevronRight_default = DoubleChevronRight;
   }
 });
@@ -49501,7 +49457,6 @@ var init_GlobalToolbar = __esm({
     init_icons();
     init_DoubleChevronLeft();
     init_DoubleChevronRight();
-    init_ToolbarIconButton();
     init_usePopover();
     init_MoreMenu();
     init_notify();
@@ -49551,7 +49506,7 @@ var init_GlobalToolbar = __esm({
 `;
     showedVisualTestingWarning = false;
     GlobalToolbar = () => {
-      var _a2, _b, _c;
+      var _a2, _b;
       const conflicts = usePrism(() => {
         const ephemeralStateOfAllProjects = (0, import_dataverse78.val)(getStudio().atomP.ephemeral.coreByProject);
         return Object.entries(ephemeralStateOfAllProjects).map(([projectId, state]) => ({ projectId, state })).filter(({ state }) => state.loadingState.type === "browserStateIsNotBasedOnDiskState");
@@ -49604,28 +49559,7 @@ var init_GlobalToolbar = __esm({
       }), conflicts.length > 0 ? /* @__PURE__ */ import_react252.default.createElement(NumberOfConflictsIndicator, null, conflicts.length) : null, /* @__PURE__ */ import_react252.default.createElement(ExtensionToolbar_default, {
         showLeftDivider: true,
         toolbarId: "global"
-      })), /* @__PURE__ */ import_react252.default.createElement(SubContainer, null, notificationsTooltip, /* @__PURE__ */ import_react252.default.createElement(PinButton_default, {
-        ref: notificationsTriggerRef,
-        onClick: () => {
-          getStudio().transaction(({ stateEditors: stateEditors2, drafts: drafts2 }) => {
-            var _a3;
-            stateEditors2.studio.ahistoric.setPinNotifications(!((_a3 = drafts2.ahistoric.pinNotifications) != null ? _a3 : false));
-          });
-        },
-        icon: /* @__PURE__ */ import_react252.default.createElement(Bell_default, null),
-        pinHintIcon: /* @__PURE__ */ import_react252.default.createElement(Bell_default, null),
-        unpinHintIcon: /* @__PURE__ */ import_react252.default.createElement(Bell_default, null),
-        pinned: (_c = useVal(getStudio().atomP.ahistoric.pinNotifications)) != null ? _c : false
-      }, hasNotifications && /* @__PURE__ */ import_react252.default.createElement(HasUpdatesBadge, {
-        type: "warning"
-      })), moreMenu.node, /* @__PURE__ */ import_react252.default.createElement(ToolbarIconButton_default, {
-        ref: moreMenuTriggerRef,
-        onClick: (e2) => {
-          moreMenu.toggle(e2, moreMenuTriggerRef.current);
-        }
-      }, /* @__PURE__ */ import_react252.default.createElement(Ellipsis_default, null), showUpdatesBadge && /* @__PURE__ */ import_react252.default.createElement(HasUpdatesBadge, {
-        type: "info"
-      })), /* @__PURE__ */ import_react252.default.createElement(PinButton_default, {
+      })), /* @__PURE__ */ import_react252.default.createElement(SubContainer, null, notificationsTooltip, moreMenu.node, /* @__PURE__ */ import_react252.default.createElement(PinButton_default, {
         ref: triggerButtonRef,
         onClick: () => {
           getStudio().transaction(({ stateEditors: stateEditors2, drafts: drafts2 }) => {

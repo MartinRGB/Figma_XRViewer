@@ -471,7 +471,7 @@ const XRViewerApp = () => {
                         message:'save-canvas-image',
                         name:figData[0].name
                       })}
-                    }>SaveToFigma</TopFixedBtn>
+                    }>Screenshot</TopFixedBtn>
                     <TopFixedBtn onClick={(e)=>{DownloadHTML({
                       event:e,
                       isServe:true,
@@ -534,21 +534,23 @@ const XRViewerApp = () => {
       {isLocalServer?
             <button className='xr-button' style={{
               position: 'absolute',
-              left: '100px',
-              width: '32px',
+              left: '44px',
+              width: '50px',
               height: '32px',
               top: '4px',
               zIndex: '999',
-              fontSize: '16px',
+              fontSize: '12px',
               textAlign: 'center',
               padding: '0px',
-              border: 'none'
+              border: 'none',
+              color:'rgba(255,255,255,0.9)'
+
             }}
             onClick={
               (e)=>{
                 updateStateBtn(e);
               }
-            }> ⇧ </button>
+            }>Save</button>
         :
         <></>
       }

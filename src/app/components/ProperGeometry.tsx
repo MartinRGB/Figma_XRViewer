@@ -15,7 +15,7 @@ import { TheatreSelectContext } from './TheatreSelectContext';
 import { testNginxServerExist } from '@Utils/nginxTest';
 import {nginxDirLink,isTextureEditor} from '@Config'
 import { TextureLoader } from 'three';
-
+import { REVISION } from 'three'
 // todo loader should test only once
 
 const Model = (props) =>{
@@ -53,6 +53,29 @@ const Model = (props) =>{
 
       }
     )
+
+    testNginxServerExist(
+      ()=>{
+        const DecoderPath = `${nginxDirLink}/service_1/decoder`
+        const dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
+        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
+        dracoloader.preload()
+        dracoloader.preload()
+        console.log('decoderPath is ' + DecoderPath);
+        loader.setDRACOLoader(dracoloader);
+        loader.setKTX2Loader(ktx2Loader);
+      },
+      ()=>{
+        const DecoderPath = `https://unpkg.com/three@0.${REVISION}.x/examples/js/libs`;
+        const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+        dracoloader.preload()
+        console.log('decoderPath is ' + DecoderPath);
+        loader.setDRACOLoader(dracoloader);
+        loader.setKTX2Loader(ktx2Loader);
+      }
+    )
+
 
   })
 
