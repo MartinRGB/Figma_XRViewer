@@ -1,4 +1,5 @@
-{
+{ 
+
   "compilerOptions": {
     "target": "es6",
     "outDir": "dist",
@@ -16,14 +17,14 @@
     "baseUrl": "./",
     "paths":{
       "*.ts":["*"],
-      "@Applications/*": ["src/app/applications/*"],
-      "@Components/*": ["src/app/components/*"],
-      "@Assets/*": ["src/app/assets/*"],
-      "@Styles/*": ["src/app/styles/*"],
-      "@Utils/*": ["src/app/utils/*"],
-      "@Plugins/*": ["src/plugin/*"],
-      "@CustomTypes": ["src/app/types"],
-      "@Config": ["src/config"],
+      "@Applications/*": ["./src/app/applications/*"],
+      "@Components/*": ["./src/app/components/*"],
+      "@Assets/*": ["./src/app/assets/*"],
+      "@Styles/*": ["./src/app/styles/*"],
+      "@Utils/*": ["./src/app/utils/*"],
+      "@Plugins/*": ["./src/plugin/*"],
+      "@CustomTypes": ["./src/app/types"],
+      "@Config": ["./src/config"],
     },
     "typeRoots": [
       "./node_modules/@types",

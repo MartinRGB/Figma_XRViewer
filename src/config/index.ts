@@ -15,7 +15,7 @@ export const webClientID = isLocal?'6clxS2O4bl9ADNcy1wh5rk':'2beFW69qeg7DvjBp6bK
 export const webSecrectID = isLocal?'3RtOK3Qx3lMUm3svNfZuycyNAeouxq':'013RerD24yjKxvSIrUr4f6dESMYST8';
 
 // nginx Directory & Web & PHPLink & UploadFolder(need self-hosted server)
-export const serverPhysicIP = `192.168.0.102`;
+export const serverPhysicIP = `172.17.0.1:8222`;
 export const localWebRootURL =  `https://${serverPhysicIP}/service_1/`;
 export const nginxDirLink = `https://${serverPhysicIP}`;
 
