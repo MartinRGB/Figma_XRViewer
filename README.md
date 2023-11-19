@@ -14,16 +14,16 @@ Required runtime environments/libraries
 - Win:Choco
 - Preview required: Node.js, ADB, kill-port, serve
 
-### Download (important)
+### Download
 [Release](https://github.com/MartinRGB/XRViewer/releases "Release")
-### Installation (Important)
+
+### Installation
 - Unzip the plugin file
 - Right click>Plugins>Development>Import plugin from manifest
 - Select manifest.json in the unpacked folder
 
 ![1280X1280 (1)](https://user-images.githubusercontent.com/7036706/199702758-3ad8b547-ac8e-4a60-aac8-0376c48368af.PNG)
 ![1280X1280 (2)](https://user-images.githubusercontent.com/7036706/199702774-11421e50-2158-4dd4-9141-57bea768d702.PNG)
-
 
 After selecting Frame, click XRViewer to launch it.
 
