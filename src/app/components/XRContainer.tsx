@@ -1,20 +1,23 @@
-import React,{useEffect} from 'react'
-import { useThree } from '@react-three/fiber'
+import React,{useEffect,useRef} from 'react'
+import { useThree, } from '@react-three/fiber'
 import { XR, Controllers, Hands, useXR } from '@react-three/xr'
 import { searchElementByType } from '@Utils/functions'; 
 
 interface XRContainerProps {
   cameraSheetObj:React.MutableRefObject<any>;
   children?: React.ReactNode;
+  orbitRef?:React.ForwardedRef<any>;
 }
 
-const XRContainer = ({cameraSheetObj,children}:XRContainerProps) =>{
+const XRContainer = ({cameraSheetObj,children,orbitRef}:XRContainerProps) =>{
   const {invalidate,scene,gl,camera} = useThree()
+  const isXRUsedOnce = useRef(false);
   const UseXR = () => {
     const {player,isPresenting,session} = useXR()
     useEffect(()=>{
       const mArr = scene.children;
       if(isPresenting){
+        isXRUsedOnce.current = true;
         player.visible = false;
         const mHelper =  searchElementByType(mArr,'type','CameraHelper')
         mHelper.visible = false;
@@ -37,9 +40,14 @@ const XRContainer = ({cameraSheetObj,children}:XRContainerProps) =>{
         player.rotation.y = rY
         player.rotation.z = rZ
         player.children[0].position.y = 0;
+        console.log(player);
         setTimeout(()=>{player.visible = true;invalidate();},1);
       }
       else{
+        if(orbitRef.current && isXRUsedOnce.current){
+            console.log(player.visible)
+            player.visible = false;
+        }
       }
     },[isPresenting])
     

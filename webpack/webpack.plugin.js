@@ -75,19 +75,19 @@ module.exports = (env, argv) => ({
       (env.PLUGIN === 'webxr')?
         'XRViewer_WebXR'
         :
-        (env.PLUGIN === 'unity')?
-          'XRViewer_Unity'
+        // (env.PLUGIN === 'unity')?
+        //   'XRViewer_Unity'
+        //   :
+        (env.PLUGIN === 'local_webxr')?
+          'XRViewer_Local_WebXR'
           :
-          (env.PLUGIN === 'local_webxr')?
-            'XRViewer_Local_WebXR'
+          // (env.PLUGIN === 'local_unity')?
+          //   'XRViewer_Local_Unity'
+          //   :
+          (env.BUILD === 'page')?
+            'build'
             :
-            (env.PLUGIN === 'local_unity')?
-              'XRViewer_Local_Unity'
-              :
-              (env.BUILD === 'page')?
-                'build'
-                :
-                'XRViewer_GLTF'
+            'XRViewer_GLTF'
     }`), // Compile into a folder called "dist"
   },
 

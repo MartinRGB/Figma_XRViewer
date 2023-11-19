@@ -10,6 +10,7 @@ interface OrbitProps {
 const Orbit = ({orbitRef,cameraSheetObj}:OrbitProps) =>{
   const [showOribt,setShowOrbit] = useState(true)
   useFrame((state) => {
+ 
     if(cameraSheetObj.current.value.control){
       setShowOrbit(true)
     }
@@ -18,7 +19,7 @@ const Orbit = ({orbitRef,cameraSheetObj}:OrbitProps) =>{
     }
   },)
   return(
-    <>{(showOribt)?<OrbitControls makeDefault ref={orbitRef}/>:<></>}</>
+    <>{(showOribt)?<OrbitControls makeDefault target={[0,0,-100]} ref={orbitRef}/>:<></>}</>
   )
 }
 export default Orbit;

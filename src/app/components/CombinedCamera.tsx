@@ -29,7 +29,6 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
     function updateSize() {
       setAspect(window.innerWidth/window.innerHeight)
       window.studio.transaction(({ set }) => {
-        console.log('set cam')
         set(cameraSheetObj.current.props.aspect, window.innerWidth/window.innerHeight) // New value is {x: 10, y: 0}
       })
     }
@@ -137,7 +136,8 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
         fov={60} 
         zoom={1} 
         aspect={mAspect} 
-        position={[0,0,baseUnit]}/>
+        // position={[0,0,baseUnit]}/>
+        position={[0,0,0]}/>
       :
       <OrthographicCamera
         ref={realCamera}
@@ -145,7 +145,8 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
         near={0.01}
         zoom={1} 
         far={10000} 
-        position={[0,0,baseUnit]}/>
+        // position={[0,0,baseUnit]}/>
+        position={[0,0,0]}/>
       
     }
 
@@ -165,7 +166,8 @@ const CombinedCamera = ({cameraRef,cameraSheetObj,baseUnit,aspect}:CameraProps) 
           range:[0,100]
         }),
       }} 
-      position={[0,0,baseUnit]}>
+      // position={[0,0,baseUnit]}>
+      position={[0,0,0]}>
         {isPerspective?<PerspectiveCamera ref={cameraRef}/>:<OrthographicCamera ref={cameraRef} />}
     </e.group>
     </>

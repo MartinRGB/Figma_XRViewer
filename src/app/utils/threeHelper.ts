@@ -79,7 +79,7 @@ export const helperSetting = (scene,sheetObj,yScalePerc,baseUnit,callback) =>{
   //radius angles radius
   const polarGridHelper = new THREE.PolarGridHelper(baseUnit*4, 8, 4, 64, 0xffffff, 0xffffff);
   polarGridHelper.position.y = -yScalePerc/2*baseUnit;
-  polarGridHelper.position.z = baseUnit;
+  polarGridHelper.position.z = 0; //baseUnit
   polarGridHelper.visible = sheetObj.current.value.polarHelper;
   scene.add(polarGridHelper);
 
@@ -89,7 +89,7 @@ export const helperSetting = (scene,sheetObj,yScalePerc,baseUnit,callback) =>{
   (dotGrid.map = createCanvasDotMaterial('#ffffff', baseUnit*8)), (dotGrid.size = 1*0.00825);
   const dotGridHelper = new THREE.Points(ground, dotGrid);
   dotGridHelper.position.y =  -yScalePerc/2*baseUnit;
-  dotGridHelper.position.z = baseUnit;
+  dotGridHelper.position.z = 0; //baseUnit
   dotGridHelper.visible = sheetObj.current.value.dotHelper;
   scene.add(dotGridHelper);
   

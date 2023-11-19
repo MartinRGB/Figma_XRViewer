@@ -17,7 +17,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
   
       if(type == 'finished_msg'){
 
-        if(platform === 'local_webxr' || platform === 'local_unity'){
+        if(platform === 'local_webxr'){ // || platform === 'local_unity'
           const fileKey = value[0]
           const fileName = value[1]
           const nodeId = value[2];
@@ -41,11 +41,10 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             if(platform === 'local_webxr'){
               window.open(`${localWebRootURL}index.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}&query_rnd=${Math.random()}`, '_blank')
             }
-            else if(platform === 'local_unity'){
-              window.open(`${localWebRootURL}importer.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
-            }
+            // else if(platform === 'local_unity'){
+            //   window.open(`${localWebRootURL}importer.html?query_token=local_server&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+            // }
             onCancel();
-            //parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
           },1000);setLoadingText('Finished!');}
           
           // ############### upload json data ###############
@@ -103,12 +102,11 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
           if(platform === 'webxr'){
             window.open(`${webRootURL}index.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}&query_rnd=${Math.random()}`, '_blank')
           }
-          else if(platform === 'unity'){
-            window.open(`${webRootURL}importer.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
-          }
+          // else if(platform === 'unity'){
+          //   window.open(`${webRootURL}importer.html?query_token=auth_everytime&query_key=${fileKey}&query_node=${nodeId}&query_platform=${platform}`, '_blank')
+          // }
           
           onCancel();
-          //parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
         }
 
       }

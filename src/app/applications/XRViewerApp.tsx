@@ -89,9 +89,9 @@ const Renderer = forwardRef(({containerRef,figmaData,stateData,isQuery,isFigma,i
 
   const cameraRef = useRef(null);
   const orbitRef = useRef(null);
+  const groupRef= useRef(null);
   const cameraSheetObj = useRef(null);
   const helperSheetObj = useRef(sceneHelper)
-  const groupRef= useRef(null);
   const groupSheetObj = useRef(null);
 
   const {invalidate,scene,gl,camera} = useThree()
@@ -176,12 +176,11 @@ const Renderer = forwardRef(({containerRef,figmaData,stateData,isQuery,isFigma,i
           <SheetProvider sheet={helperSheet}>
             <CombinedCamera cameraRef={cameraRef} cameraSheetObj={cameraSheetObj} baseUnit={ViewerConfig.baseUnit} aspect={window.innerWidth/window.innerHeight}/>
           </SheetProvider>
-          {/* <color attach="background" args={[ViewerConfig.bgColor]} />  */}
           
           <Orbit orbitRef={orbitRef} cameraSheetObj={cameraSheetObj}></Orbit>
           {(isFigma === false)?
             // is not in Figma
-            <XRContainer cameraSheetObj={cameraSheetObj}>
+            <XRContainer cameraSheetObj={cameraSheetObj} orbitRef={orbitRef}>
               <SheetProvider sheet={helperSheet}>
                 <e.group theatreKey={'- Main Controller'} ref={groupRef} objRef={groupSheetObj}>
                   <ProperGeometry selectCallback={(e)=>{selectCallback(e)}} figmaData={figmaData} stateData={stateData} isFigma={isFigma} isQuery={isQuery} baseUnit={ViewerConfig.baseUnit} orbitRef={orbitRef}></ProperGeometry>
@@ -370,7 +369,6 @@ const XRViewerApp = () => {
     const fileKey = parsedUrl.searchParams.get('query_key');
     const nodeId = parsedUrl.searchParams.get('query_node');
     const token = parsedUrl.searchParams.get('query_token');
-   
     console.log('fileKey is: ' + fileKey);
     console.log('nodeId is: ' + nodeId);
     console.log('token is: ' + token);
@@ -456,7 +454,7 @@ const XRViewerApp = () => {
       <Spinner loadingProgress={`${loadingProgress}`} hintText={` of total nodes is loaded`}></Spinner>
       :
       <>
-      {isRendered?<></>:<Spinner hintText={`init the renderer`}></Spinner>}
+      {isRendered?<></>:<Spinner hintText={`loading`}></Spinner>}
       <Suspense fallback={<></>}>
         <WebXRContainer>
           <CanvasContainer ref={canvasContainerRef}>

@@ -303,17 +303,13 @@ const Model = (props) =>{
           :
           [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
           ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
-          props.index*0.0005 * props.baseUnit]
+          props.index*0.0005 * props.baseUnit - 100]
         }
         rotation={
           (stateGeoProps && stateGeoProps.rotation)?
           [stateGeoProps.rotation.x,stateGeoProps.rotation.y,stateGeoProps.rotation.z]
           :
           [0,0,0]}
-        // position={
-        //   [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
-        //   ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
-        //   props.index*0.0005 * props.baseUnit]}
       >
         <primitive 
           ref={modelRef} 
@@ -463,7 +459,7 @@ const Screen = (props) =>{
   // on Canvas Select
   useEffect(() => {
     if(active != undefined){
-      console.log(active)
+      //console.log(active)
       //if(props.orbitRef.current) props.orbitRef.current.enabled  = false
       window.studio.setSelection([screenSheetObj.current])
       props.selectCallback(props.index);
@@ -611,9 +607,9 @@ const Screen = (props) =>{
               props.hasData?
               [((props.x + props.width/2) - props.frameWidth/2)/(props.frameWidth)*props.baseUnit,
               ((props.frameHeight/2 -(props.y + props.height/2))/(props.frameHeight))*(props.frameHeight/props.frameWidth)*props.baseUnit,
-              props.index*0.0005 * props.baseUnit]
+              props.index*0.0005 * props.baseUnit - 100]
               :
-              [0,0,0]
+              [0,0,-100]
             
             }
             rotation={

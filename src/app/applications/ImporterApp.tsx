@@ -61,9 +61,9 @@ const ImporterApp = () => {
           setApiUrl(_apiUrl)
           setWebUrl(_rendererUrl)
   
-          if(parsedUrl.searchParams.get('query_platform') === 'unity' ){
-            onSendToUnity(token,queryKey,queryNode);
-          }
+          // if(parsedUrl.searchParams.get('query_platform') === 'unity' ){
+          //   onSendToUnity(token,queryKey,queryNode);
+          // }
   
           if(parsedUrl.searchParams.get('query_platform') === 'webxr' ){
             window.location.href =`${_rendererUrl}`;
@@ -88,9 +88,9 @@ const ImporterApp = () => {
         setWebUrl(_rendererUrl)
         setApiUrl(_apiUrl)
 
-        if(parsedUrl.searchParams.get('query_platform') === 'local_unity' ){
-          onSendToUnity(queryToken,queryKey,queryNode);
-        }
+        // if(parsedUrl.searchParams.get('query_platform') === 'local_unity' ){
+        //   onSendToUnity(queryToken,queryKey,queryNode);
+        // }
 
         // if(parsedUrl.searchParams.get('query_platform') === 'local_webxr' ){
 
@@ -317,7 +317,7 @@ const ImporterApp = () => {
                           <StrongText>{webUrl}</StrongText>
                       </MarginTopSix>
                       <MarginTopSix>
-                          <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
+                          {/* <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br> */}
                           <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
                           <GreenBtn onClick={()=>{onGoOrigSite(webRootURL)}}>Go Origin Site</GreenBtn> <br></br>
                           <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>
@@ -344,7 +344,7 @@ const ImporterApp = () => {
                         </MarginTopSix>
 
                         <MarginTopSix>
-                          <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br>
+                          {/* <GreenBtn onClick={()=>{onSendToUnity(token,key,node)}}>Send To Unity</GreenBtn><br></br> */}
                           <GreenBtn onClick={()=>{onOpenWebXR(webUrl)}}>Go WebXR Site</GreenBtn> <br></br>
                           <GreenBtn onClick={()=>{onGoOrigSite(webRootURL)}}>Go Origin Site</GreenBtn> <br></br>
                           <GreenBtn onClick={()=>{onGetJSON(apiUrl,token)}}>Get JSON Data</GreenBtn><br></br>

@@ -4,16 +4,16 @@ import styled,{ ThemeProvider,keyframes }  from 'styled-components'
 const themes = {
   light: {
     colors: {
-      bg: "#e7edfe",
-      fg: "#010818",
-      stroke: "##cfdcfc",
+      bg: "#000",
+      fg: "#eee",
+      stroke: "#fff",
     }
   },
   dark: {
     colors: {
-      bg: "#010818",
-      fg: "#e7edfe",
-      stroke: "#041749",
+      bg: "#000",
+      fg: "#eee",
+      stroke: "#fff",
     }
   }
 };
@@ -103,6 +103,7 @@ const Spinner = (props) => {
     <ThemeProvider theme={themes[theme]}>
       <SpinnerContainer>
         <LoadingDiv id="loading">
+        
           <IpSVG viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
@@ -118,7 +119,12 @@ const Spinner = (props) => {
                 <stop offset="100%" stopColor="#5ebd3e" />
               </linearGradient>
             </defs>
-            <g fill="none" strokeLinecap="round" strokeWidth="16">
+            <g fill="none" strokeLinecap="round" strokeWidth="12" 
+                style={{
+                  transform:'scale(0.6)',
+                  transformOrigin:'center'
+                }}
+              >
               <IpTrackG stroke="#ddd">
                 <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
                 <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
@@ -131,7 +137,10 @@ const Spinner = (props) => {
           </IpSVG>
         </LoadingDiv>
         <LoadingTextDiv>
-          <p>{props.loadingProgress?<StrongText>{props.loadingProgress}</StrongText>:<></>}{props.hintText?props.hintText:''}</p>
+          <p style={{
+            fontWeight:'600',
+            fontSize:'12px'
+          }}>{props.loadingProgress?<StrongText>{props.loadingProgress}</StrongText>:<></>}{props.hintText?props.hintText:''}</p>
         </LoadingTextDiv>
       </SpinnerContainer>
     </ThemeProvider>
