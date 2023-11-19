@@ -1,8 +1,10 @@
 ![1280X1280](https://user-images.githubusercontent.com/7036706/199702605-00b0a06b-9b67-4c55-ac7a-33f2bb840206.PNG)
-### Introduction
+## Introduction
 
 - Import designs from Figma to 3D web pages for preview.
 - After building a local LAN server, you can also preview the design in real time on your XR device. [Docker for XRViewer Template](https://github.com/MartinRGB/Docker-For-XRViewer-Template)
+
+## Simple Guide
 
 ### Environment
 First, the XR device needs to be in developer mode and on the same LAN as the computer (PC previews only can ignore this).
@@ -22,12 +24,12 @@ Required runtime environments/libraries
 - Right click>Plugins>Development>Import plugin from manifest
 - Select manifest.json in the unpacked folder
 
-![1280X1280 (1)](https://user-images.githubusercontent.com/7036706/199702758-3ad8b547-ac8e-4a60-aac8-0376c48368af.PNG)
-![1280X1280 (2)](https://user-images.githubusercontent.com/7036706/199702774-11421e50-2158-4dd4-9141-57bea768d702.PNG)
+<img src="https://user-images.githubusercontent.com/7036706/199702758-3ad8b547-ac8e-4a60-aac8-0376c48368af.PNG" width="50%" height="50%"/>
+<img src="https://user-images.githubusercontent.com/7036706/199702774-11421e50-2158-4dd4-9141-57bea768d702.PNG" width="50%" height="50%"/>
 
 After selecting Frame, click XRViewer to launch it.
 
-### Script function introduction (Important)
+### Script function introduction
 
 scripts exist in `cli` folder
 
@@ -44,6 +46,9 @@ There are three types of scripts: env/serve/run
      
 - run `npm install`
 - Overwrite all files in `modified_framework/@theatre` into `node_moduels/@theatre`
+- run `npm run dev:<select a project>`
+
+To be continued...
   
 ## Known issues
 
