@@ -63,7 +63,7 @@ const PluginApp: React.FC<IPluginApp> = ({platform}:IPluginApp) => {
             const bb = new Blob([data[i].imageData]);
             const blob = URL.createObjectURL(bb);
             // # plain img data
-            if(!data[index].name.includes('.gltf') && !data[index].name.includes('https://')){
+            if(!data[index].name.includes('.gltf') && !data[index].name.includes('.gltf') && !data[index].name.includes('https://')){
               postData(blob, `${nginxUploadFolder}/${fileKey}/${nodeId}/`, `${data[index].name}.png`,()=>{
                   fetchNum++;setLoadingProgress(((loadingNum+fetchNum)/2/totalLoadingNum));
                 },
