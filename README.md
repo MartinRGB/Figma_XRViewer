@@ -1,4 +1,5 @@
 ![1280X1280](https://user-images.githubusercontent.com/7036706/199702605-00b0a06b-9b67-4c55-ac7a-33f2bb840206.PNG)
+
 ## Introduction
 
 - Import designs from Figma to 3D web pages for preview.
@@ -18,7 +19,8 @@ Required runtime environments/libraries
 - Preview required: Node.js, ADB, kill-port, serve
 
 ### Download
-[Release](https://github.com/MartinRGB/XRViewer/releases "Release")
+
+W.I.P
 
 ### Installation
 - Unzip the plugin file
@@ -50,6 +52,15 @@ There are three types of scripts: env/serve/run
 - run `npm run dev:<select a project>`
 
 To be continued...
+
+### How To use local server version:
+
+- build self-hosted server via [Docker-For-XRViewer-Template](https://github.com/MartinRGB/Docker-For-XRViewer-Template)
+- run `npm run build:page_xrview`
+- copy the files in `/build` to the corresponding file path in `<IP address>/service_1` on the server(you can refer my template's folder structure)
+- modifiy  `src/config/index.ts`,change `serverPhyiscIP`'s parameter
+- rebuild the plugin
+- then you can use 'XRViewer_Local_WebXR'
   
 ## Known issues
 
@@ -68,6 +79,6 @@ Just leave a issue report in [issue](https://github.com/MartinRGB/XRViewer/issue
 - Refreshing the page after changing parameters will not save the parameter cache
 - There is a baseUnit fixed unit, the current panel width is fixed 1m, and then according to the height to width ratio to isometric scaling height, resulting in a shorter panel position (1.7m about height, corresponding to 1m width, 1m distance, before is 1.7m height, corresponding to 40m width degree, 40m distance)
 - Some times, the save is not successful, you need to repeatedly save in Figma, and then refresh the page
-- The first time you run the plug-in, it may not work, you need to try again
+- The first time you run the plugin, it may not work, you need to try again
 - Figma's sandbox environment can't use Node, so you need to export and click the executable to build the server, which requires some research.
 - At the moment, you can't preview XR devices by mapping methods other than adb reverse, so you need to open developer mode, which requires some research.
