@@ -6,6 +6,7 @@ declare module '*.obj' {/* empty */}
 declare module '*.mtl' {/* empty */}
 declare module '*.glb' {/* empty */}
 declare module '*.mp4' {/* empty */}
+declare module '*.hdr' {/* empty */}
 
 export interface CreateImageProps {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>;

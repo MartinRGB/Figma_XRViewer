@@ -16,6 +16,8 @@ import { testNginxServerExist } from '@Utils/nginxTest';
 import {nginxDirLink,isTextureEditor} from '@Config'
 import { TextureLoader } from 'three';
 import { REVISION } from 'three'
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
+import { WebGLRenderer } from 'three'
 // todo loader should test only once
 
 const Model = (props) =>{
@@ -29,57 +31,56 @@ const Model = (props) =>{
   const stateGeoProps = props.stateData?.sheetsById?.NodeTree?.staticOverrides?.byObject[`${props.name}`];
 
   const gltf = useLoader(GLTFLoader, `${props.modelSrc}`,(loader) => {
+
+
+    console.log(REVISION)
+    // TODO
+    // testNginxServerExist(
+    //   ()=>{
+    //   const DecoderPath = `${nginxDirLink}/service_1/decoder`
+    //   const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+    //   const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+    //   dracoloader.preload()
+    //     console.log('decoderPath is ' + DecoderPath);
+    //     loader
+    //     .setCrossOrigin('anonymous')
+    //     .setDRACOLoader(dracoloader)
+    //     .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+    //     .setMeshoptDecoder(MeshoptDecoder)
+    //   },
+    //   ()=>{
+    //     const DecoderPath = `https://cdn.jsdelivr.net/npm/three@0.${REVISION}.x/examples/js/libs`;
+    //     const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+    //     const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+    //     dracoloader.preload()
+    //     console.log('decoderPath is ' + DecoderPath);
+    //     loader
+    //     .setCrossOrigin('anonymous')
+    //     .setDRACOLoader(dracoloader)
+    //     .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+    //     .setMeshoptDecoder(MeshoptDecoder)
+    //   })
+
+    const DecoderPath = `https://cdn.jsdelivr.net/npm/three@0.${REVISION}.x/examples/js/libs`;
+    const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
+    const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
+    dracoloader.preload()
+    console.log('decoderPath is ' + DecoderPath);
+    loader
+    .setCrossOrigin('anonymous')
+    .setDRACOLoader(dracoloader)
+    .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
+    .setMeshoptDecoder(MeshoptDecoder)
+    
     console.log('finsihed model loading from:' + props.modelSrc)
-    // todo loader should test only once
-    testNginxServerExist(
-      ()=>{
-        const DecoderPath = nginxDecoderPath;
-        const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-        dracoloader.preload()
-        console.log('decoderPath is ' + DecoderPath);
-        loader.setDRACOLoader(dracoloader);
-        loader.setKTX2Loader(ktx2Loader);
-
-      },
-      ()=>{
-        const DecoderPath = `https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs`;
-        const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-        dracoloader.preload()
-        console.log('decoderPath is ' + DecoderPath);
-        loader.setDRACOLoader(dracoloader);
-        loader.setKTX2Loader(ktx2Loader);
-
-      }
-    )
-
-    testNginxServerExist(
-      ()=>{
-        const DecoderPath = `${nginxDirLink}/service_1/decoder`
-        const dracoloader = new DRACOLoader().setDecoderPath(`${decoderPath}/draco/gltf/`)
-        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${decoderPath}/basis/`)
-        dracoloader.preload()
-        dracoloader.preload()
-        console.log('decoderPath is ' + DecoderPath);
-        loader.setDRACOLoader(dracoloader);
-        loader.setKTX2Loader(ktx2Loader);
-      },
-      ()=>{
-        const DecoderPath = `https://unpkg.com/three@0.${REVISION}.x/examples/js/libs`;
-        const dracoloader = new DRACOLoader().setDecoderPath(`${DecoderPath}/draco/gltf/`)
-        const ktx2Loader = new KTX2Loader().setTranscoderPath(`${DecoderPath}/basis/`)
-        dracoloader.preload()
-        console.log('decoderPath is ' + DecoderPath);
-        loader.setDRACOLoader(dracoloader);
-        loader.setKTX2Loader(ktx2Loader);
-      }
-    )
 
 
   })
 
+  const [isGLTFLoaded,setIsGLTFLoaded] = useState(false);
+
   useEffect(()=>{
+    console.log(gltf)
     if(gltf){
       gltf.scene.traverse( function ( child ) {
 
@@ -96,6 +97,8 @@ const Model = (props) =>{
         }
 
       });
+
+      setIsGLTFLoaded(true);
     }
   },[gltf])
 
@@ -196,11 +199,11 @@ const Model = (props) =>{
   const [isShowHint,setIsShowHint] = useState(false);
   const boxHelperRef = useRef(null);
   const showHint = () =>{
-    modelRef.current.traverse(function (child) {
-      if(child.hasOwnProperty('material')){
-        child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
-      }
-    });
+    // modelRef.current.traverse(function (child) {
+    //   if(child.hasOwnProperty('material')){
+    //     child.material.color = {isColor: true, r: 1, g: 0.1412632911304446, b: 0.45641102317066595}; //hotpink
+    //   }
+    // });
   }
   const hideHint = () =>{
     if(modelRef.current){

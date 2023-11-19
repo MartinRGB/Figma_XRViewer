@@ -51,7 +51,7 @@ const sceneHelper = helperSheet.object(' - Helper Controller', {
   polarHelper: types.boolean(true),
   dotHelper:types.boolean(false),
   quality: types.stringLiteral(ViewerConfig.savedImageQuality, {1: 'x1', 2: 'x2',3:'x3'}),
-  dpr:types.number(1, {nudgeMultiplier: 0.5,range:[0,2]}),
+  dpr:types.number(2, {nudgeMultiplier: 0.5,range:[0,2]}),
   preset: types.stringLiteral('rembrandt', {
     'rembrandt':'rembrandt',
     'portrait':'portrait',
@@ -145,7 +145,8 @@ const Renderer = forwardRef(({containerRef,figmaData,stateData,isQuery,isFigma,i
   
   return(
     <> 
-      {isLocalServer?<Environment files={`${nginxDirLink}/service_1/environment/${stageEnv}.hdr`} />:<></>}
+      {isLocalServer?<Environment files={`${nginxDirLink}/service_1/environment/${stageEnv}.hdr`} background />:<></>}
+      
           <SheetProvider sheet={lightSheet}>
             <e.ambientLight 
               theatreKey="Light - Ambient"
@@ -403,13 +404,17 @@ const XRViewerApp = () => {
 
   const clickXRBtn = (e) =>{
     if(e.target.innerHTML === 'Enter VR' || e.target.innerHTML === 'Enter AR'){
-      document.getElementById('theatrejs-studio-root').style.zIndex='99999999999';
-      document.getElementById('gallery-root').style.zIndex='99999999999';
+      document.getElementById('theatrejs-studio-root').style.zIndex='-1';
+      document.getElementById('gallery-root').style.zIndex='-1';
+      document.getElementById('gallery-root').style.display='none';
+      document.getElementById('theatrejs-studio-root').style.display='none';
     }
 
     if(e.target.innerHTML === 'Exit VR' || e.target.innerHTML === 'Exit AR'){
       document.getElementById('theatrejs-studio-root').style.zIndex='100';
       document.getElementById('gallery-root').style.zIndex='100';
+      document.getElementById('gallery-root').style.display='initial';
+      document.getElementById('theatrejs-studio-root').style.display='initial';
     }
   }
 
