@@ -2,7 +2,8 @@
 ## Introduction
 
 - Import designs from Figma to 3D web pages for preview.
-- After building a local LAN server, you can also preview the design in real time on your XR device. [Docker for XRViewer Template](https://github.com/MartinRGB/Docker-For-XRViewer-Template)
+- After building a local LAN server, you can also preview the design in real time on your XR device.
+  - [Docker for XRViewer Template](https://github.com/MartinRGB/Docker-For-XRViewer-Template)
 
 ## Simple Guide
 
