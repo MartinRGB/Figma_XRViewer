@@ -1,8 +1,3 @@
-***TODO:Reorganization projects***
-
-- run `npm install`
-- Overwrite all files in `modified_framework/@theatre` into `node_moduels/@theatre`
-
 ![1280X1280](https://user-images.githubusercontent.com/7036706/199702605-00b0a06b-9b67-4c55-ac7a-33f2bb840206.PNG)
 ## Introduction
 
@@ -83,7 +78,12 @@ There are three types of scripts: env/serve/run
   1. If the zip is not an executable file after unpacking, open a terminal and type:
   `chomd +x <drag and drop the file into Terminal here>` to convert the file to an executable.
   2. If a security prompt appears, right click to open the file
+
+### Development
      
+- run `npm install`
+- Overwrite all files in `modified_framework/@theatre` into `node_moduels/@theatre`
+  
 ## Known issues
 
 ### Feedback
