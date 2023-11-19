@@ -68,7 +68,7 @@ const Viewer = ({ shadows, contactShadow, autoRotate, environment, preset, inten
             far={10000}
             zoom={1}
             dpr={dpr}
-            position={[0, 0, 50]}
+            position={[0, 0, 10]}
             isPespective={perspectiveCamera}
           />
         <ambientLight intensity={0.25} />
