@@ -14,12 +14,6 @@ Required runtime environments/libraries
 - Win:Choco
 - Preview required: Node.js, ADB, kill-port, serve
 
-### Script download (important)
-
-[Release](https://github.com/MartinRGB/XRViewer/releases "Release")
-
-## Plugin usage
-
 ### Download (important)
 [Release](https://github.com/MartinRGB/XRViewer/releases "Release")
 ### Installation (Important)
@@ -34,6 +28,8 @@ Required runtime environments/libraries
 After selecting Frame, click XRViewer to launch it.
 
 ### Script function introduction (Important)
+
+scripts exist in `cli` folder
 
 There are three types of scripts: env/serve/run
 - env: installing the initial environment above, you need to install it once for the first time.
