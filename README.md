@@ -52,6 +52,10 @@ There are three types of scripts: env/serve/run
 - run `npm install`
 - Overwrite all files in `modified_framework/@theatre` into `node_moduels/@theatre`
 - run `npm run dev:<select a project>`
+  - xrviewer: Figma Plugin
+  - xrviewer_local_webxr: preview XR design in local https site(which can use in XR Device's browser)
+  - xrviewer_gltf: import GLTF to Local server
+  - xrviewer_webxr: preview XR design in my gh page
 
 To be continued...
 
